@@ -1,0 +1,866 @@
+<!DOCTYPE html><html lang="th"><head>
+<meta charset="UTF-8">
+<title>สมุดเช็คลิสต์ติดตามความคืบหน้าการอ่านและประเมินความมั่นใจ (บทที่ 5–8)</title>
+<style>
+    @page { margin: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { background-color: #ffffff; }
+    @media (prefers-color-scheme: dark) {
+        html { background-color: #1f1f1f; }
+    }
+    body {
+        padding: 24px 0;
+        margin: 0 auto;
+        max-width: 900px !important;
+        border: none !important;
+        background: transparent !important;
+        font-family: 'Sarabun', 'TH Sarabun New', 'Tahoma', 'Segoe UI', sans-serif;
+        color: #1e293b;
+    }
+    .page {
+    min-height: 297mm;
+    height: auto;
+    margin: 0 auto 12px auto;
+    padding: 18mm 18mm 12mm 18mm;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: visible;
+}
+    @media screen and (max-width: 600px) {
+        body {
+            padding: 16px 0;
+        }
+        .page {
+            margin: 0 auto 8px auto;
+            border: none;
+            padding: 12px 20px;
+        }
+    }
+    .page-content {
+    flex: 1 0 auto;
+    min-height: 0;
+    overflow: visible;
+}
+    .page-content > * + * {
+        margin-top: 20px;
+    }
+    .page.compact, body.compact .page {
+        font-size: 9.5pt;
+        line-height: 1.35;
+    }
+    .page.compact .page-content > * + *, body.compact .page-content > * + * {
+        margin-top: 12px;
+    }
+    .page-content > :is(h1, h2, h3, h4) + * {
+        margin-top: 8px;
+    }
+    .page-footer {
+        flex-shrink: 0;
+        margin-top: auto;
+        padding-top: 4mm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 8.5pt;
+        color: #64748b;
+        border-top: 1px solid #cbd5e1;
+    }
+    @media print {
+        *, *::before, *::after {
+            box-shadow: none !important;
+            text-shadow: none !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        body { padding: 0; background: none; }
+        .page {
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        overflow: visible;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .page-content {
+        overflow: visible;
+    }
+
+    .page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+    }
+    [contenteditable]:focus { outline: none; }
+
+    /* Workbook Typography & Styling */
+    h1, h2, h3, h4, p, ul, ol, table, figure { margin: 0; }
+    h1 { font-size: 16.5pt; font-weight: 700; color: #0f172a; line-height: 1.25; }
+    h2 { font-size: 12pt; font-weight: 700; color: #1e3a8a; border-bottom: 1.5px solid #1e3a8a; padding-bottom: 3px; }
+    h3 { font-size: 10pt; font-weight: 700; color: #0f172a; }
+    p, li { font-size: 9pt; line-height: 1.35; text-align: justify; }
+
+    .masthead {
+        background-color: #0f172a;
+        color: #ffffff;
+        padding: 10px 14px;
+        border-left: 6px solid #38bdf8;
+    }
+    .masthead .course-tag {
+        font-size: 8pt;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        color: #7dd3fc;
+        font-weight: 700;
+    }
+    .masthead h1 {
+        color: #ffffff;
+        font-size: 15pt;
+        margin-top: 2px;
+    }
+    .masthead .sub {
+        font-size: 8.5pt;
+        color: #e2e8f0;
+        margin-top: 2px;
+    }
+
+    .student-profile {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr 1fr 1fr;
+        gap: 8px;
+        background-color: #f8fafc;
+        border: 1px solid #cbd5e1;
+        padding: 7px 10px;
+        font-size: 8.5pt;
+    }
+    .student-profile div {
+        border-bottom: 1px dashed #94a3b8;
+        padding-bottom: 2px;
+    }
+    .student-profile strong {
+        color: #1e3a8a;
+    }
+
+    .rubric-box {
+        background-color: #f0f9ff;
+        border: 1px solid #bae6fd;
+        border-left: 4px solid #0284c7;
+        padding: 6px 10px;
+        font-size: 8.5pt;
+    }
+    .rubric-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+        margin-top: 4px;
+    }
+
+    table.checklist-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 8.5pt;
+    }
+    table.checklist-table th {
+        background-color: #1e293b;
+        color: #ffffff;
+        font-weight: 700;
+        text-align: left;
+        padding: 4px 5px;
+        border: 1px solid #1e293b;
+    }
+    table.checklist-table td {
+        padding: 3.5px 5px;
+        border: 1px solid #cbd5e1;
+        vertical-align: middle;
+        overflow-wrap: break-word;
+    }
+    table.checklist-table tr:nth-child(even) td {
+        background-color: #f8fafc;
+    }
+
+    .ch-banner-5 th { background-color: #7f1d1d !important; border-color: #7f1d1d !important; }
+    .ch-banner-6 th { background-color: #1e3a8a !important; border-color: #1e3a8a !important; }
+    .ch-banner-7 th { background-color: #065f46 !important; border-color: #065f46 !important; }
+    .ch-banner-8 th { background-color: #7c2d12 !important; border-color: #7c2d12 !important; }
+
+    .chk {
+        font-family: 'Segoe UI Symbol', 'Arial Unicode MS', sans-serif;
+        font-size: 9pt;
+        white-space: nowrap;
+        color: #334155;
+    }
+    .math {
+        font-family: 'Cambria Math', 'Times New Roman', serif;
+        font-style: italic;
+    }
+    .badge-slide {
+        display: inline-block;
+        background-color: #e2e8f0;
+        color: #0f172a;
+        font-weight: 700;
+        font-size: 7.5pt;
+        padding: 0px 4px;
+        border-radius: 2px;
+    }
+    .summary-card {
+        background-color: #fffbeb;
+        border: 1px solid #fde68a;
+        border-left: 4px solid #d97706;
+        padding: 6px 10px;
+        font-size: 8.5pt;
+    }
+</style>
+<style data-bard-injected="true">
+@media screen {
+    html {
+        background-color: #ffffff;
+    }
+    body {
+        padding: 8px 0 24px 0;
+    }
+}
+@media screen and (prefers-color-scheme: dark) {
+    html {
+        background-color: #1f1f1f;
+    }
+}
+@media screen and (max-width: 600px) {
+    body {
+        padding: 4px 0 16px 0;
+        margin: 0 auto;
+    }
+}
+</style></head>
+<body class="compact">
+<div contenteditable="true">
+
+<!-- page 1 budget (Compact): masthead 42 + profile box 48 + rubric box 95 + h2 11 + Table Ch5 (12 rows = 216) + summary card 58 + 5 gaps 40 = 510 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="masthead">
+      <div class="course-tag">SELF-STUDY PROGRESS &amp; METACOGNITIVE CONFIDENCE WORKBOOK | TRANSPORT PHENOMENA I (ปีการศึกษา 2569)</div>
+      <h1>สมุดเช็คลิสต์ติดตามความคืบหน้าการอ่าน ประเมินความเข้าใจ และความมั่นใจ (บทที่ 5–8)</h1>
+      <div class="sub">ครอบคลุมทุกหัวข้อย่อย สมการที่ (1)–(45) ตารางและกราฟสำคัญ พร้อมเกณฑ์ประเมินตนเองสำหรับการเตรียมสอบอย่างสมบูรณ์</div>
+    </div>
+
+    <div class="student-profile">
+      <div><strong>ชื่อ-สกุลผู้เรียน:</strong> [ระบุชื่อ-สกุล]</div>
+      <div><strong>รหัสนักศึกษา:</strong> [ระบุรหัส]</div>
+      <div><strong>วันที่เริ่มอ่าน:</strong> [วว/ดด/ปปปป]</div>
+      <div><strong>วันที่เป้าหมายอ่านจบ:</strong> [วว/ดด/ปปปป]</div>
+    </div>
+
+    <div class="rubric-box">
+      <strong>คำแนะนำการใช้สมุดเช็คลิสต์เพื่อการเรียนรู้ด้วยตนเอง (Metacognitive Self-Assessment Rubric):</strong>
+      <div class="rubric-grid">
+        <div>
+          <strong>1. ความคืบหน้าการอ่าน (Reading Progress):</strong><br>
+          ☐ <strong>รอบ 1:</strong> อ่านผ่านและทำความเข้าใจโครงสร้าง<br>
+          ☐ <strong>รอบ 2:</strong> จดโน้ตสรุปและพิสูจน์สมการตามได้<br>
+          ☐ <strong>ทำโจทย์:</strong> ลองทำตัวอย่าง/แบบฝึกหัดโดยปิดเฉลย
+        </div>
+        <div>
+          <strong>2. ระดับความเข้าใจเนื้อหา (Understanding 1–4):</strong><br>
+          • <strong>[1]</strong> ยังสับสน / ต้องอ่านทบทวนพื้นฐานใหม่<br>
+          • <strong>[2]</strong> เข้าใจนิยาม แต่ยังเชื่อมโยงที่มาสมการไม่ได้<br>
+          • <strong>[3]</strong> เข้าใจกลไกทางกายภาพและเงื่อนไขการใช้ชัดเจน<br>
+          • <strong>[4]</strong> เข้าใจลึกซึ้ง สามารถอธิบายสอนผู้อื่นได้
+        </div>
+        <div>
+          <strong>3. ระดับความมั่นใจในการทำข้อสอบ (Confidence):</strong><br>
+          • <strong>ต่ำ (Low):</strong> ยังเลือกสูตรไม่ถูกเมื่อเห็นโจทย์<br>
+          • <strong>ปานกลาง (Med):</strong> ทำได้แต่ยังต้องเปิดดูแนวทาง<br>
+          • <strong>สูง (High):</strong> มั่นใจมาก คำนวณและตรวจหน่วยได้แม่นยำโดยไม่ต้องเปิดโพย
+        </div>
+      </div>
+    </div>
+
+    <h2>ส่วนที่ 1: เช็คลิสต์บทที่ 5 — บทนำสู่การพาความร้อน (Chapter 5: Introduction to Convection)</h2>
+    <table class="checklist-table ch-banner-5">
+      <thead>
+        <tr>
+          <th scope="col" style="width:9%;">รหัส / สไลด์</th>
+          <th scope="col" style="width:27%;">หัวข้อการอ่านและสมการสำคัญ</th>
+          <th scope="col" style="width:31%;">เกณฑ์วัดความเข้าใจที่ต้องทำได้จริง (Mastery Target)</th>
+          <th scope="col" style="width:13%;">ความคืบหน้าการอ่าน</th>
+          <th scope="col" style="width:10%;">ความเข้าใจ</th>
+          <th scope="col" style="width:10%;">ความมั่นใจ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>พื้นฐาน 5.0</strong><br><span class="badge-slide">หน้า 1–2</span></td>
+          <td>สมดุลพลังงานที่พื้นผิวควบคุม:<br><span class="math">E<sub>in</sub> = E<sub>out</sub> ⇒ q&#39;&#39;<sub>cond</sub> = q&#39;&#39;<sub>conv</sub> + q&#39;&#39;<sub>rad</sub></span></td>
+          <td>วาดพื้นผิวควบคุมไร้ปริมาตรที่รอยต่อของแข็ง-ของไหล และตั้งสมการสมดุลฟลักซ์ความร้อนได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>กลไกการพา</strong><br><span class="badge-slide">หน้า 3–6</span></td>
+          <td>กลไก Diffusion vs. Bulk fluid motion และการจำแนก Forced vs. Free convection</td>
+          <td>อธิบายได้ว่าทำไม Bulk motion จึงมีบทบาทหลัก และแยกต้นกำเนิดการไหลจากพัดลมเทียบกับแรงลอยตัวได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 5.1</strong><br><span class="badge-slide">หน้า 9–11</span></td>
+          <td>ปัญหาการพาความร้อนบนพื้นผิวรูปร่างใด ๆ:<br><span class="math">q&#39;&#39; = h(T<sub>s</sub> − T<sub>∞</sub>)</span> และ <span class="math">h̄ = (1/A<sub>s</sub>)∫h dA<sub>s</sub></span></td>
+          <td>เข้าใจว่าทำไม <span class="math">h</span> จึงแปรผันตามตำแหน่ง และเข้าใจการดึง <span class="math">(T<sub>s</sub> − T<sub>∞</sub>)</span> คงที่ออกนอกอินทิกรัล</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 5.1</strong><br><span class="badge-slide">หน้า 12–14</span></td>
+          <td>กรณีแผ่นราบและกฎการเย็นตัวของนิวตัน:<br><span class="math">h̄ = (1/L)∫<sub>0</sub><sup>L</sup> h dx</span> , <span class="math">q = h̄A<sub>s</sub>(T<sub>s</sub> − T<sub>∞</sub>)</span></td>
+          <td>อินทิเกรตหา <span class="math">h̄</span> เมื่อโจทย์กำหนดฟังก์ชัน <span class="math">h(x) = Cx<sup>−n</sup></span> มาให้ได้ด้วยตนเอง (เช่นพิสูจน์ <span class="math">h̄ = 2h<sub>L</sub></span>)</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 5.2.1</strong><br><span class="badge-slide">หน้า 15–18</span></td>
+          <td>ชั้นชิดผิวความเร็ว (Velocity BL, Fig. 5.2):<br><span class="math">τ<sub>s</sub> = μ(∂u/∂y)|<sub>y=0</sub></span> และความหนา <span class="math">δ</span> (<span class="math">u=0.99u<sub>∞</sub></span>)</td>
+          <td>อธิบายเงื่อนไขไม่ลื่นไถล (<span class="math">u=0</span> ที่ <span class="math">y=0</span>) การหน่วงความเร็วระหว่างชั้นของไหล และคำนวณ <span class="math">τ<sub>s</sub></span> ได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 5.2.2</strong><br><span class="badge-slide">หน้า 19–22</span></td>
+          <td>ชั้นชิดผิวความร้อน (Thermal BL, Fig. 5.3):<br><span class="math">h = [−k<sub>f</sub> (∂T/∂y)|<sub>y=0</sub>] / (T<sub>s</sub> − T<sub>∞</sub>)</span></td>
+          <td>อธิบายได้ว่าทำไมที่ <span class="math">y = 0</span> จึงเกิดเฉพาะการนำความร้อนในของไหล และพิสูจน์สมการหา <span class="math">h</span> ได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 5.2.3</strong><br><span class="badge-slide">หน้า 23–24</span></td>
+          <td>ความสำคัญทางวิศวกรรมของชั้นชิดผิว:<br>สัมประสิทธิ์ความเสียดทาน <span class="math">C<sub>f</sub> ≡ τ<sub>s</sub> / (ρu<sub>∞</sub><sup>2</sup>/2)</span></td>
+          <td>เชื่อมโยงความหนาชั้นชิดผิวกับค่า <span class="math">C<sub>f</sub></span> และ <span class="math">h</span> ได้ และแทนหน่วยความดันพลวัตได้ถูกต้อง</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 5.3</strong><br><span class="badge-slide">หน้า 25–28</span></td>
+          <td>การไหลแบบราบเรียบและปั่นป่วน (Fig. 5.4):<br>Laminar sublayer, Buffer layer, Turbulent zone</td>
+          <td>เปรียบเทียบโปรไฟล์ความเร็วและค่า <span class="math">τ<sub>s</sub>, h</span> ระหว่างจุดที่ 1 (ราบเรียบ) กับจุดที่ 2 (ปั่นป่วน) บนสไลด์หน้า 28 ได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 5.3</strong><br><span class="badge-slide">หน้า 29–30</span></td>
+          <td>ตัวเลขเรย์โนลด์สและเกณฑ์การเปลี่ยนผ่าน:<br><span class="math">Re<sub>x</sub> = ρu<sub>∞</sub>x / μ = u<sub>∞</sub>x / ν</span> , <span class="math">Re<sub>x,c</sub> ≈ 10<sup>5</sup>–5×10<sup>5</sup></span></td>
+          <td>คำนวณระยะเปลี่ยนผ่าน <span class="math">x<sub>c</sub></span> ได้ และทราบความแตกต่างของค่าตัวแทน <span class="math">10<sup>5</sup></span> (บทที่ 5) กับ <span class="math">5×10<sup>5</sup></span> (บทที่ 6)</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 5.4</strong><br><span class="badge-slide">หน้า 31–32</span></td>
+          <td>ตารางที่ 5.1: กลุ่มตัวแปรไร้มิติทั้ง 15 กลุ่ม<br>(<span class="math">Bi, Bo, C<sub>f</sub>, Ec, Fo, f, Gr, j<sub>H</sub>, Ja, Nu, Pe, Pr, Re, St, We</span>)</td>
+          <td>จำสูตรนิยามและบอกความหมายเชิงกายภาพ (อัตราส่วนของแรงหรือการขนส่ง) ของตัวแปรใน Table 5.1 ได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 5.4</strong><br><span class="badge-slide">หน้า 33</span></td>
+          <td>การเปรียบเทียบเชิงลึก: <span class="math">Re</span> vs <span class="math">Gr</span>, บทบาทของ <span class="math">Pr = ν/α</span>, และความแตกต่าง <span class="math">Nu</span> vs <span class="math">Bi</span></td>
+          <td>แยกแยะชัดเจนว่า <span class="math">Nu = hL/k<sub>f</sub></span> ใช้สภาพนำความร้อนของไหล แต่ <span class="math">Bi = hL/k<sub>s</sub></span> ใช้ของของแข็ง</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="summary-card">
+      <strong>สรุปผลการประเมินตนเอง บทที่ 5:</strong> อ่านครบแล้ว [____ / 11] หัวข้อ | คะแนนความเข้าใจเฉลี่ย: [____ / 4.0] | จุดที่ต้องทบทวนซ้ำก่อนสอบ: ____________________________________________________
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>สมุดเช็คลิสต์ติดตามความคืบหน้าการอ่านและประเมินความมั่นใจ — รายวิชา Transport Phenomena I</span>
+    <span>หน้า 1 จาก 4</span>
+  </footer>
+</section>
+
+<!-- page 2 budget (Compact): h2 11 + Table Ch6 (14 rows = 252) + summary card 58 + 3 gaps 24 = 345 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>ส่วนที่ 2: เช็คลิสต์บทที่ 6 — การไหลภายนอก (Chapter 6: External Flow)</h2>
+    <table class="checklist-table ch-banner-6">
+      <thead>
+        <tr>
+          <th scope="col" style="width:9%;">รหัส / สไลด์</th>
+          <th scope="col" style="width:27%;">หัวข้อการอ่านและสมการสำคัญ (สมการ 1–21)</th>
+          <th scope="col" style="width:31%;">เกณฑ์วัดความเข้าใจที่ต้องทำได้จริง (Mastery Target)</th>
+          <th scope="col" style="width:13%;">ความคืบหน้าการอ่าน</th>
+          <th scope="col" style="width:10%;">ความเข้าใจ</th>
+          <th scope="col" style="width:10%;">ความมั่นใจ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>หัวข้อ 6.0</strong><br><span class="badge-slide">หน้า 34–40</span></td>
+          <td>ธรรมชาติของการไหลภายนอกและรูปฟังก์ชัน:<br><span class="math">Nu<sub>x</sub> = f(x, Re<sub>x</sub>, Pr)</span> , <span class="math">Nū<sub>x</sub> = C Re<sub>x</sub><sup>m</sup> Pr<sup>n</sup></span></td>
+          <td>เข้าใจความแตกต่างของการพัฒนาชั้นชิดผิวอิสระเทียบกับการไหลในท่อ และเกณฑ์ <span class="math">Gr<sub>L</sub>/Re<sub>L</sub><sup>2</sup> ≈ 1</span></td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 6.1</strong><br><span class="badge-slide">หน้า 41–45</span></td>
+          <td>วิธีเชิงประจักษ์ (Fig. 6.1–6.2) และอุณหภูมิฟิล์ม:<br><span class="math">q = I·E = h̄<sub>L</sub>A<sub>s</sub>(T<sub>s</sub> − T<sub>∞</sub>)</span> , <span class="math">T<sub>f</sub> ≡ (T<sub>s</sub> + T<sub>∞</sub>)/2</span></td>
+          <td>อธิบายวิธีจัดกลุ่มข้อมูลการทดลองบนกราฟ Log-Log และคำนวณ <span class="math">T<sub>f</sub></span> เพื่อเปิดตารางสมบัติสารได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 6.2.1</strong><br><span class="badge-slide">หน้า 46–48</span></td>
+          <td>แผ่นราบ — การไหลแบบราบเรียบ (<span class="math">Pr ≥ 0.6</span>):<br>สมการที่ (1) <span class="math">Nu<sub>x</sub> = 0.332…</span> และสมการที่ (2) <span class="math">Nū<sub>L</sub> = 0.664…</span></td>
+          <td>คำนวณค่าเฉพาะจุดและค่าเฉลี่ยของแผ่นราบราบเรียบได้ พร้อมทั้งหา <span class="math">C̄<sub>f,x</sub> = 1.328 Re<sub>x</sub><sup>−1/2</sup></span> และ <span class="math">δ/δ<sub>t</sub> ≈ Pr<sup>1/3</sup></span></td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 6.2.1</strong><br><span class="badge-slide">หน้า 49–50</span></td>
+          <td>แผ่นราบ — โลหะเหลวและสมการทุกค่า <span class="math">Pr</span>:<br>สมการที่ (3) <span class="math">0.565 Pe<sub>x</sub><sup>1/2</sup></span> และสมการที่ (4)–(5)</td>
+          <td>เลือกใช้สมการที่ (3) เมื่อ <span class="math">Pr ≤ 0.05</span> (โลหะเหลว) และใช้สมการ Churchill-Ozoe (4)–(5) ได้ถูกต้อง</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 6.2.2</strong><br><span class="badge-slide">หน้า 51–54</span></td>
+          <td>แผ่นราบ — การไหลแบบปั่นป่วน (<span class="math">Re<sub>x</sub> ≤ 10<sup>7</sup></span>):<br><span class="math">C<sub>f,x</sub>, δ</span>, สมการที่ (6) <span class="math">Nu<sub>x</sub></span> และสมการที่ (7) <span class="math">Nū<sub>L</sub></span></td>
+          <td>คำนวณความหนาชั้นชิดผิวและ <span class="math">Nu</span> ในเขตปั่นป่วนได้ และเข้าใจว่าทำไมเลขชี้กำลังของ <span class="math">Re</span> จึงเพิ่มจาก <span class="math">1/2</span> เป็น <span class="math">4/5</span></td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 6.2.3</strong><br><span class="badge-slide">หน้า 55–59</span></td>
+          <td>แผ่นราบ — สภาวะชั้นชิดผิวแบบผสม (Mixed BL):<br>สมการที่ (8) <span class="math">Nū<sub>L</sub> = (0.037 Re<sub>L</sub><sup>4/5</sup> − 871)Pr<sup>1/3</sup></span> และ (9)</td>
+          <td>ตรวจสอบเงื่อนไข <span class="math">(x<sub>c</sub>/L) ≤ 0.95</span> พิสูจน์ที่มาของค่าคงที่ <span class="math">A = 871</span> (ที่ <span class="math">Re<sub>x,c</sub> = 5×10<sup>5</sup></span>) และหา <span class="math">C̄<sub>f,L</sub></span> ได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 6.2.4</strong><br><span class="badge-slide">หน้า 60–65</span></td>
+          <td>แผ่นราบที่มีช่วงเริ่มต้นไม่ให้ความร้อน (<span class="math">0 ≤ x ≤ ξ</span>):<br>สมการที่ (10)–(11) ค่าเฉพาะจุด และสมการที่ (12)–(13) ค่าเฉลี่ย</td>
+          <td>ระวังการวัดระยะ <span class="math">x</span> จากขอบนำแผ่นเสมอ (<span class="math">x = 0</span>) และแทนค่า <span class="math">p = 2</span> (ราบเรียบ) หรือ <span class="math">p = 8</span> (ปั่นป่วน) ได้แม่นยำ</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 6.2.5</strong><br><span class="badge-slide">หน้า 66</span></td>
+          <td>แผ่นราบภายใต้ฟลักซ์ความร้อนคงที่ (<span class="math">q&#39;&#39;<sub>s</sub> = const</span>):<br>สมการที่ (14) <span class="math">0.453…</span>, สมการ (15) <span class="math">0.0308…</span>, สมการ (16) <span class="math">0.68…</span></td>
+          <td>แยกแยะการใช้สมการเมื่อโจทย์กำหนดกำลังฮีตเตอร์ต่อพื้นที่คงที่ (<span class="math">q&#39;&#39;<sub>s</sub></span> คงที่) แทนอุณหภูมิผิวคงที่</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 6.3</strong><br><span class="badge-slide">หน้า 67–77</span></td>
+          <td>ระเบียบวิธีคำนวณ 5 ขั้นตอน และ <strong>Example 6.1</strong>:<br>การปรับแก้ความหนืดจลน์ตามความดัน <span class="math">ν<sub>2</sub> = ν<sub>1</sub>(p<sub>1</sub>/p<sub>2</sub>)</span></td>
+          <td>ทำโจทย์ Example 6.1 ด้วยตนเองโดยปิดเฉลยได้ (ตั้งแต่การทำ Interpolation ตารางอากาศ จนถึงการหา <span class="math">q&#39; = 570.6 W/m</span>)</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 6.4.1</strong><br><span class="badge-slide">หน้า 78–83</span></td>
+          <td>กลศาสตร์การไหลขวางทรงกระบอก (Fig. 6.5–6.7):<br>Stagnation point, <span class="math">dp/dx</span>, Separation point, Wake</td>
+          <td>อธิบายสาเหตุการเกิดจุดหลุดลอกเมื่อ <span class="math">dp/dx &gt; 0</span> และอธิบายว่าทำไมความปั่นป่วน (<span class="math">Re<sub>D</sub> ≥ 2×10<sup>5</sup></span>) จึงช่วยเลื่อนจุดหลุดลอกออกไป</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 6.4.2</strong><br><span class="badge-slide">หน้า 84–87</span></td>
+          <td>สหสัมพันธ์ทรงกระบอกในการไหลขวาง:<br>สมการ (17) Hilpert (Table 6.1–6.2), (18) Zhukauskas, (19) Churchill</td>
+          <td>ระวังอุณหภูมิอ้างอิง: สมการ (17) และ (19) ใช้ <span class="math">T<sub>f</sub></span> แต่สมการ (18) ของ Zhukauskas ใช้ <span class="math">T<sub>∞</sub></span> (และ <span class="math">Pr<sub>s</sub></span> ที่ <span class="math">T<sub>s</sub></span>)</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 6.5</strong><br><span class="badge-slide">หน้า 88–89</span></td>
+          <td>สหสัมพันธ์ทรงกลมในการไหลขวาง (The Sphere):<br>สมการ (20) Whitaker และสมการ (21) Ranz-Marshall</td>
+          <td>ใช้สมการ (20) โดยเปิดสมบัติที่ <span class="math">T<sub>∞</sub></span> (<span class="math">μ<sub>s</sub></span> ที่ <span class="math">T<sub>s</sub></span>) และพิสูจน์ขีดจำกัดการนำความร้อนบริสุทธิ์ <span class="math">Nū<sub>D</sub> = 2</span> เมื่อ <span class="math">Re<sub>D</sub> → 0</span> ได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>โจทย์อาจารย์</strong><br><span class="badge-slide">หน้า 90–91, 180</span></td>
+          <td><strong>แบบฝึกหัดข้อ (13)</strong> แผ่นราบติดแถบฮีตเตอร์ย่อย 50 mm และ <strong>ข้อ (14)</strong> น้ำไหลขวางทรงกลม</td>
+          <td>แสดงวิธีทำข้อ (13) (หาจุดเปลี่ยนผ่านและกำลังไฟของแต่ละฮีตเตอร์) และข้อ (14) (ทรงกลมในน้ำ) ได้ครบทุกบรรทัด</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="summary-card">
+      <strong>สรุปผลการประเมินตนเอง บทที่ 6:</strong> อ่านครบแล้ว [____ / 13] หัวข้อ | คะแนนความเข้าใจเฉลี่ย: [____ / 4.0] | จุดที่ต้องทบทวนซ้ำก่อนสอบ: ____________________________________________________
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>สมุดเช็คลิสต์ติดตามความคืบหน้าการอ่านและประเมินความมั่นใจ — รายวิชา Transport Phenomena I</span>
+    <span>หน้า 2 จาก 4</span>
+  </footer>
+</section>
+
+<!-- page 3 budget (Compact): h2 11 + Table Ch7 (12 rows = 216) + summary card 58 + 3 gaps 24 = 309 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>ส่วนที่ 3: เช็คลิสต์บทที่ 7 — การไหลภายใน (Chapter 7: Internal Flow)</h2>
+    <table class="checklist-table ch-banner-7">
+      <thead>
+        <tr>
+          <th scope="col" style="width:9%;">รหัส / สไลด์</th>
+          <th scope="col" style="width:27%;">หัวข้อการอ่านและสมการสำคัญ (สมการ 22–33)</th>
+          <th scope="col" style="width:31%;">เกณฑ์วัดความเข้าใจที่ต้องทำได้จริง (Mastery Target)</th>
+          <th scope="col" style="width:13%;">ความคืบหน้าการอ่าน</th>
+          <th scope="col" style="width:10%;">ความเข้าใจ</th>
+          <th scope="col" style="width:10%;">ความมั่นใจ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>หัวข้อ 7.1</strong><br><span class="badge-slide">ไฟล์ 2 หน้า 1–8</span></td>
+          <td>การพัฒนาชั้นชิดผิวในท่อ (Fig. 7.1) และช่วงทางเข้า:<br><span class="math">Re<sub>D,c</sub> ≈ 2,300</span> , <span class="math">(x<sub>fd,h</sub>/D)<sub>lam</sub> ≈ 0.05 Re<sub>D</sub></span> , <span class="math">(x<sub>fd,h</sub>/D)<sub>turb</sub> ≈ 10</span></td>
+          <td>อธิบายการบรรจบกันของชั้นชิดผิวที่แกนกลางท่อ คำนวณระยะ <span class="math">x<sub>fd,h</sub></span> และตัดสินว่าพัฒนาเต็มที่หรือยังได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 7.1.1</strong><br><span class="badge-slide">หน้า 9–10</span></td>
+          <td>ความเร็วเฉลี่ย (<span class="math">u<sub>m</sub></span>) และเรย์โนลด์สในท่อกลม:<br><span class="math">ṁ = ρ u<sub>m</sub> A<sub>c</sub></span> , <span class="math">Re<sub>D</sub> = ρu<sub>m</sub>D / μ = 4ṁ / (πDμ)</span></td>
+          <td>แปลงระหว่างอัตราการไหลเชิงมวล <span class="math">ṁ</span> กับความเร็วเฉลี่ย <span class="math">u<sub>m</sub></span> และใช้สูตรลดรูป <span class="math">Re<sub>D</sub> = 4ṁ/(πDμ)</span> ได้คล่องแคล่ว</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 7.1.2</strong><br><span class="badge-slide">หน้า 11–18</span></td>
+          <td>ตัวประกอบความเสียดทาน (<span class="math">f</span>) แผนภูมิมูดดี และกำลังปั๊ม:<br><span class="math">f = 64/Re<sub>D</sub></span> (ราบเรียบ), <span class="math">Δp = f(L/D)(ρu<sub>m</sub><sup>2</sup>/2)</span>, <span class="math">P = Δp·∀̇</span></td>
+          <td>ไม่สับสนระหว่าง <span class="math">f</span> (Moody/Darcy) กับ <span class="math">C<sub>f</sub> = f/4</span> (Fanning), อ่านกราฟ Figure 7.2 และใช้สมการ Petukhov หา <span class="math">f</span> ได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 7.2</strong><br><span class="badge-slide">หน้า 19–21</span></td>
+          <td>ชั้นชิดผิวความร้อนในท่อ (Fig. 7.3) และช่วงทางเข้าความร้อน:<br><span class="math">(x<sub>fd,t</sub>/D)<sub>lam</sub> ≈ 0.05 Re<sub>D</sub> Pr</span> , <span class="math">(x<sub>fd,t</sub>/D)<sub>turb</sub> ≈ 10</span></td>
+          <td>เปรียบเทียบ <span class="math">x<sub>fd,h</sub></span> กับ <span class="math">x<sub>fd,t</sub></span> ตามค่า <span class="math">Pr</span> (<span class="math">Pr &gt; 1</span> vs <span class="math">Pr &lt; 1</span>) ได้อย่างถูกต้อง</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>สมดุลพลังงาน</strong><br><span class="badge-slide">หน้า 33–36</span></td>
+          <td>อุณหภูมิเฉลี่ยเชิงมวล (<span class="math">T<sub>m</sub></span>) และสมดุลพลังงานในท่อ:<br><span class="math">q = ṁ c<sub>p</sub> (T<sub>m,L</sub> − T<sub>m,0</sub>)</span> , <span class="math">T̄<sub>m</sub> = (T<sub>m,0</sub> + T<sub>m,L</sub>)/2</span></td>
+          <td>เข้าใจนิยาม <span class="math">T<sub>m</sub></span> ตั้งสมการสมดุลพลังงานทั้งท่อ และเขียนวงจรความต้านทานความร้อนระหว่างในท่อกับนอกท่อได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 7.3.1</strong><br><span class="badge-slide">หน้า 22</span></td>
+          <td>ท่อกลม — การไหลแบบราบเรียบพัฒนาเต็มที่:<br>สมการที่ (22) <span class="math">Nu<sub>D</sub> = 4.36</span> (<span class="math">q&#39;&#39;<sub>s</sub></span> คงที่), สมการ (23) <span class="math">Nu<sub>D</sub> = 3.66</span> (<span class="math">T<sub>s</sub></span> คงที่)</td>
+          <td>อธิบายได้ว่าทำไม <span class="math">Nu<sub>D</sub></span> ในเขตพัฒนาเต็มที่จึงคงที่ และเลือกใช้ 4.36 หรือ 3.66 ตามเงื่อนไขขอบเขตได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 7.3.2</strong><br><span class="badge-slide">หน้า 23–25</span></td>
+          <td>ท่อกลม — เขตทางเข้าแบบราบเรียบ (Fig. 7.4):<br><span class="math">Gz<sub>D</sub> = (D/x)Re<sub>D</sub>Pr</span>, สมการ (24) Hausen, สมการ (25) Sieder-Tate</td>
+          <td>คำนวณตัวเลขเกรตซ์ <span class="math">Gz<sub>D</sub></span> และระวังสมการ (25) ที่สไลด์พิมพ์เครื่องหมาย <span class="math">+</span> เกินหลังเลข 1.86 (ที่ถูกคือคูณกัน)</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 7.4</strong><br><span class="badge-slide">หน้า 26–29</span></td>
+          <td>ท่อกลม — การไหลแบบปั่นป่วน (ของไหลทั่วไป):<br>สมการ (26) Dittus-Boelter, (27) Sieder-Tate, (28) Petukhov, (29) Gnielinski</td>
+          <td>เลือก <span class="math">n = 0.4</span> (Heating) หรือ <span class="math">0.3</span> (Cooling) ในสมการ (26) ได้ถูก และใช้สมการ (28)–(29) ร่วมกับค่า <span class="math">f</span> ได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 7.4</strong><br><span class="badge-slide">หน้า 30</span></td>
+          <td>ท่อกลม — การไหลแบบปั่นป่วนของโลหะเหลว (<span class="math">Pr ≪ 1</span>):<br>สมการ (30) <span class="math">q&#39;&#39;<sub>s</sub></span> คงที่ และสมการ (31) <span class="math">T<sub>s</sub></span> คงที่ (ฟังก์ชันของ <span class="math">Pe<sub>D</sub></span>)</td>
+          <td>คำนวณ <span class="math">Pe<sub>D</sub> = Re<sub>D</sub>Pr</span> สำหรับโลหะเหลว และเลือกใช้สมการ (30) หรือ (31) ตามเงื่อนไขผิวท่อได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>Example 7.1</strong><br><span class="badge-slide">หน้า 31–36</span></td>
+          <td><strong>Example 7.1:</strong> การสูญเสียความร้อนจากท่อลมร้อน (<span class="math">q = −1,313 W</span>) และการหา <span class="math">q&#39;&#39;<sub>s</sub>(L) = 304.5 W/m<sup>2</sup>, T<sub>s,L</sub> = 50.8°C</span></td>
+          <td>ทำโจทย์ Example 7.1 ได้ครบทั้งข้อ (a) และข้อ (b) โดยเข้าใจการแยกประเมินสมบัติที่ <span class="math">T̄<sub>m</sub></span> (363 K) และ <span class="math">T<sub>m,L</sub></span> (350 K)</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 7.5</strong><br><span class="badge-slide">หน้า 37–43</span></td>
+          <td>ท่อที่ไม่ใช่หน้าตัดกลม (Noncircular Tubes):<br>เส้นผ่านศูนย์กลางไฮดรอลิก <span class="math">D<sub>h</sub> ≡ 4A<sub>c</sub> / P</span> และ <strong>Table 7.1</strong></td>
+          <td>พิสูจน์ <span class="math">D<sub>h</sub></span> ของท่อสี่เหลี่ยมจัตุรัส (<span class="math">a</span>) และผืนผ้า (<span class="math">2ab/(a+b)</span>) ได้ และเปิดค่า <span class="math">Nu<sub>D</sub>, f·Re<sub>D<sub>h</sub></sub></span> จาก Table 7.1 ได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 7.6</strong><br><span class="badge-slide">หน้า 44–48</span></td>
+          <td>ช่องว่างวงแหวนท่อร่วมศูนย์ (Concentric Tube Annulus):<br><span class="math">D<sub>h</sub> = D<sub>o</sub> − D<sub>i</sub></span>, <strong>Table 7.2</strong>, และสมการ (32)–(33) คู่กับ <strong>Table 7.3</strong></td>
+          <td>พิสูจน์ <span class="math">D<sub>h</sub> = D<sub>o</sub> − D<sub>i</sub></span> ได้ และคำนวณ <span class="math">Nu<sub>i</sub>, Nu<sub>o</sub></span> โดยใช้สัมประสิทธิ์อิทธิพล <span class="math">θ<sub>i</sub><sup>*</sup>, θ<sub>o</sub><sup>*</sup></span> จาก Table 7.3 ได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="summary-card">
+      <strong>สรุปผลการประเมินตนเอง บทที่ 7:</strong> อ่านครบแล้ว [____ / 12] หัวข้อ | คะแนนความเข้าใจเฉลี่ย: [____ / 4.0] | จุดที่ต้องทบทวนซ้ำก่อนสอบ: ____________________________________________________
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>สมุดเช็คลิสต์ติดตามความคืบหน้าการอ่านและประเมินความมั่นใจ — รายวิชา Transport Phenomena I</span>
+    <span>หน้า 3 จาก 4</span>
+  </footer>
+</section>
+
+<!-- page 4 budget (Compact): h2 11 + Table Ch8 (11 rows = 198) + summary card 58 + h2 11 + Final Readiness Table (5 rows = 95) + 4 gaps 32 = 405 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>ส่วนที่ 4: เช็คลิสต์บทที่ 8 — การพาความร้อนแบบอิสระ (Chapter 8: Free Convection)</h2>
+    <table class="checklist-table ch-banner-8">
+      <thead>
+        <tr>
+          <th scope="col" style="width:9%;">รหัส / สไลด์</th>
+          <th scope="col" style="width:27%;">หัวข้อการอ่านและสมการสำคัญ (สมการ 34–45)</th>
+          <th scope="col" style="width:31%;">เกณฑ์วัดความเข้าใจที่ต้องทำได้จริง (Mastery Target)</th>
+          <th scope="col" style="width:13%;">ความคืบหน้าการอ่าน</th>
+          <th scope="col" style="width:10%;">ความเข้าใจ</th>
+          <th scope="col" style="width:10%;">ความมั่นใจ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>หัวข้อ 8.0–8.1</strong><br><span class="badge-slide">หน้า 49–57</span></td>
+          <td>แรงลอยตัว เสถียรภาพของชั้นของไหล (Fig. 8.1), พลูม (Fig. 8.2), และชั้นชิดผิวแผ่นแนวตั้ง (Fig. 8.3)</td>
+          <td>แยกแยะกรณี Unstable (ล่างร้อน-เกิดการพา) กับ Stable (บนร้อน-เกิดเฉพาะการนำ) และวาดโปรไฟล์ <span class="math">u(y)</span> ได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 8.2</strong><br><span class="badge-slide">หน้า 58–59</span></td>
+          <td>สัมประสิทธิ์การขยายตัวเชิงปริมาตรด้วยความร้อน:<br><span class="math">β = −(1/ρ)(∂ρ/∂T)<sub>p</sub></span> และแก๊สอุดมคติ <span class="math">β = 1 / T</span></td>
+          <td>พิสูจน์ <span class="math">β = 1/T</span> จาก <span class="math">ρ = p/RT</span> ได้ และจำขึ้นใจว่าต้องแทน <span class="math">T<sub>f</sub></span> ในหน่วย <strong>เคลวิน (K)</strong> เสมอ!</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 8.3</strong><br><span class="badge-slide">หน้า 60–62</span></td>
+          <td>ตัวเลขกราชอฟ (<span class="math">Gr<sub>L</sub></span>) และเกณฑ์ตัดสินโหมดการพา:<br><span class="math">Gr<sub>L</sub> = gβ(T<sub>s</sub> − T<sub>∞</sub>)L<sup>3</sup> / ν<sup>2</sup></span> และอัตราส่วน <span class="math">Gr<sub>L</sub> / Re<sub>L</sub><sup>2</sup></span></td>
+          <td>คำนวณ <span class="math">Gr<sub>L</sub></span> ได้แม่นยำ และใช้เกณฑ์ <span class="math">Gr<sub>L</sub>/Re<sub>L</sub><sup>2</sup></span> (≪1, ≫1, ≈1) ตัดสินโหมดการพาความร้อนได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 8.4–8.5</strong><br><span class="badge-slide">หน้า 63–65</span></td>
+          <td>ผลเฉลยแผ่นแนวตั้งราบเรียบ สมการ (34)–(35) (<span class="math">Nū<sub>L</sub> = <span class="frac"><span>4</span><span>3</span></span>Nu<sub>L</sub></span>) และตัวเลขเรย์ลีย์วิกฤต <span class="math">Ra<sub>x,c</sub> = Gr<sub>x,c</sub>Pr ≈ 10<sup>9</sup></span></td>
+          <td>คำนวณฟังก์ชัน <span class="math">g(Pr)</span> ได้ และทราบว่าเกณฑ์เปลี่ยนผ่านสู่ความปั่นป่วนคือ <span class="math">Ra<sub>x,c</sub> ≈ 10<sup>9</sup></span> (ไม่ใช่ 10°)</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 8.6.1</strong><br><span class="badge-slide">หน้า 66–69, 81</span></td>
+          <td>สหสัมพันธ์แผ่นแนวตั้งและแผ่นเอียง (Fig. 8.5):<br>สมการ (36) <span class="math">C Ra<sub>L</sub><sup>n</sup></span>, สมการ (37) ทุกช่วง <span class="math">Ra<sub>L</sub></span>, และสมการ (38)</td>
+          <td>ใช้สมการ (37) และ (38) ของ Churchill-Chu ได้ และปรับ <span class="math">g → g cos θ</span> สำหรับแผ่นเอียง (<span class="math">0 ≤ θ ≤ 60°</span>) ได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>Example 8.1</strong><br><span class="badge-slide">หน้า 70–73</span></td>
+          <td><strong>Example 8.1:</strong> การพาความร้อนอิสระจากประตูกระจกเตาผิง (<span class="math">Ra<sub>L</sub> = 1.813×10<sup>9</sup>, Nū<sub>L</sub> = 147, q = 1,060 W</span>)</td>
+          <td>ทำโจทย์ Example 8.1 โดยปิดเฉลยได้ถูกต้องทุกขั้นตอน และกดเครื่องคิดเลขเลขยกกำลังเศษส่วนในสมการ (37) ไม่ผิด</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 8.6.2</strong><br><span class="badge-slide">หน้า 74–77, 82</span></td>
+          <td>สหสัมพันธ์แผ่นราบแนวนอน (Fig. 8.6a–d):<br>นิยาม <span class="math">L ≡ A<sub>s</sub> / P</span>, สมการ (39)–(40) (ร้อนบน/เย็นล่าง), สมการ (41)</td>
+          <td>จำนิยาม <span class="math">L = A<sub>s</sub>/P</span> ของแผ่นแนวนอนได้แม่นยำ และเลือกสมการตามทิศทางผิวร้อนหงาย/คว่ำ หรือผิวเย็นหงาย/คว่ำได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 8.6.3–4</strong><br><span class="badge-slide">หน้า 78–80, 83</span></td>
+          <td>สหสัมพันธ์ทรงกระบอกแนวนอนและทรงกลม (Fig. 8.7):<br>สมการ (42) (Table 8.1), สมการ (43) ทรงกระบอก, สมการ (44) ทรงกลม</td>
+          <td>ใช้เส้นผ่านศูนย์กลาง <span class="math">D</span> คำนวณ <span class="math">Ra<sub>D</sub></span> และแทนค่าในสมการ (43) ของทรงกระบอกแนวนอนและสมการ (44) ของทรงกลมได้</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>หัวข้อ 8.7</strong><br><span class="badge-slide">หน้า 84</span></td>
+          <td>การพาความร้อนแบบผสม (Combined Free &amp; Forced):<br>สมการที่ (45) <span class="math">Nu = Nu<sub>F</sub> ± Nu<sub>N</sub></span> (และรูปยกกำลัง <span class="math">n</span>)</td>
+          <td>เลือกเครื่องหมาย <span class="math">+</span> (การไหลเสริมกัน Assisting/ขวาง) หรือ <span class="math">−</span> (การไหลต้านกัน Opposing) ได้อย่างมีเหตุผล</td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>Example 8.2</strong><br><span class="badge-slide">หน้า 85–88</span></td>
+          <td><strong>Example 8.2:</strong> การสูญเสียความร้อนหลายโหมดจากท่อไอน้ำ<br><span class="math">q&#39; = q&#39;<sub>conv</sub> + q&#39;<sub>rad</sub> = 325.3 + 441.5 = 766.8 W/m</span></td>
+          <td>ทำโจทย์ Example 8.2 ได้คล่องแคล่ว โดยไม่ลืมแปลงอุณหภูมิ <span class="math">T<sub>s</sub>, T<sub>sur</sub></span> เป็นเคลวิน (K) ในพจน์การแผ่รังสี <span class="math">εσ(T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup>)</span></td>
+          <td class="chk">☐ รอบ1 ☐ รอบ2<br>☐ ทำโจทย์</td>
+          <td class="chk">☐1 ☐2<br>☐3 ☐4</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง<br>☐ สูง</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="summary-card">
+      <strong>สรุปผลการประเมินตนเอง บทที่ 8:</strong> อ่านครบแล้ว [____ / 10] หัวข้อ | คะแนนความเข้าใจเฉลี่ย: [____ / 4.0] | จุดที่ต้องทบทวนซ้ำก่อนสอบ: ____________________________________________________
+    </div>
+
+    <h2>ส่วนที่ 5: ตารางสรุปความพร้อมรวมทั้งรายวิชา (Overall Exam Readiness Dashboard)</h2>
+    <table class="checklist-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:24%;">บทเรียน (Chapter)</th>
+          <th scope="col" style="width:16%;">จำนวนหัวข้อที่อ่านจบ</th>
+          <th scope="col" style="width:20%;">สถานะการทำโจทย์ในสไลด์อาจารย์</th>
+          <th scope="col" style="width:20%;">สถานะแบบฝึกหัด 5 ระดับในตำรา</th>
+          <th scope="col" style="width:20%;">ความมั่นใจรวมประจำบท</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>บทที่ 5: Introduction to Convection</strong></td>
+          <td>[____ / 11] หัวข้อ</td>
+          <td>☐ ทบทวน Table 5.1 ครบ 15 ตัว</td>
+          <td>☐ 5.1 ☐ 5.2 ☐ 5.3 ☐ 5.4 ☐ 5.5</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง ☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>บทที่ 6: External Flow (สมการ 1–21)</strong></td>
+          <td>[____ / 13] หัวข้อ</td>
+          <td>☐ Ex 6.1 ☐ ข้อ (13) ☐ ข้อ (14)</td>
+          <td>☐ ทบทวนครบทุกกรณีรูปทรง</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง ☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>บทที่ 7: Internal Flow (สมการ 22–33)</strong></td>
+          <td>[____ / 12] หัวข้อ</td>
+          <td>☐ Ex 7.1 (a) ☐ Ex 7.1 (b) ☐ พิสูจน์ <span class="math">D<sub>h</sub></span></td>
+          <td>☐ 7.1 ☐ 7.2 ☐ 7.3 ☐ 7.4 ☐ 7.5</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง ☐ สูง</td>
+        </tr>
+        <tr>
+          <td><strong>บทที่ 8: Free Convection (สมการ 34–45)</strong></td>
+          <td>[____ / 10] หัวข้อ</td>
+          <td>☐ Ex 8.1 (เตาผิง) ☐ Ex 8.2 (ท่อไอน้ำ)</td>
+          <td>☐ 8.1 ☐ 8.2 ☐ 8.3 ☐ 8.4 ☐ 8.5</td>
+          <td class="chk">☐ ต่ำ ☐ กลาง ☐ สูง</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>สมุดเช็คลิสต์ติดตามความคืบหน้าการอ่านและประเมินความมั่นใจ — รายวิชา Transport Phenomena I</span>
+    <span>หน้า 4 จาก 4</span>
+  </footer>
+</section>
+
+</div>
+<script data-bard-injected="true">
+(function() {
+  async function fetchFifeImageBlobUsingAlr(urlString) {
+    if (urlString.startsWith('blob:') || urlString.startsWith('data:')) {
+      throw new Error('Input URL is already a blob or data URL.');
+    }
+    var url = new URL(urlString, window.location.href);
+    url.searchParams.set('alr', 'yes');
+    for (var i = 0; i < 5; i++) {
+      var response = await fetch(url.toString(), {credentials: 'include'});
+      if (!response.ok) {
+        throw new Error('Fetch received not OK response: ' + response.status);
+      }
+      var contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.startsWith('text/plain')) {
+        var blob = await response.blob();
+        if (blob.size > 0 && blob.type.startsWith('image/')) {
+          return blob;
+        }
+        throw new Error('Fetched blob is not a valid image.');
+      }
+      url = new URL(await response.text());
+    }
+    throw new Error('Exceeded maximum number of redirects.');
+  }
+
+  async function updateImageSourcesUsingAlr() {
+    var imgs = Array.from(document.querySelectorAll('img'));
+    await Promise.all(imgs.map(async function(img) {
+      if (img.src && img.src.includes('googleusercontent')) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(img.src);
+          img.src = URL.createObjectURL(blob);
+        } catch (e) {}
+      }
+    }));
+
+    var elements = document.querySelectorAll('[style*="googleusercontent"]');
+    var urlRegex = /url\((['"]?)(https?:\/\/.*?googleusercontent.*?)\1\)/;
+    await Promise.all(Array.from(elements).map(async function(el) {
+      var bg = el.style.backgroundImage;
+      var match = bg ? bg.match(urlRegex) : null;
+      if (match && match[2]) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(match[2]);
+          var blobUrl = URL.createObjectURL(blob);
+          el.style.backgroundImage = bg.replace(match[2], blobUrl);
+        } catch (e) {}
+      }
+    }));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateImageSourcesUsingAlr);
+  } else {
+    updateImageSourcesUsingAlr();
+  }
+})();
+</script></body></html>

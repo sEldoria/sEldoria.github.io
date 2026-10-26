@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="th"><head>
+<meta charset="UTF-8">
+<title>บทที่ 5: บทนำสู่การพาความร้อน (Introduction to Convection)</title>
+<style>
+    @page { margin: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { background-color: #ffffff; }
+    @media (prefers-color-scheme: dark) {
+        html { background-color: #1f1f1f; }
+    }
+    body {
+        padding: 24px 0;
+        margin: 0 auto;
+        max-width: 900px !important;
+        border: none !important;
+        background: transparent !important;
+        font-family: 'Sarabun', 'TH Sarabun New', 'Tahoma', 'Segoe UI', sans-serif;
+        color: #1e293b;
+    }
+    .page {
+    min-height: 297mm;
+    height: auto;
+    margin: 0 auto 12px auto;
+    padding: 18mm 18mm 12mm 18mm;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: visible;
+}
+    @media screen and (max-width: 600px) {
+        body {
+            padding: 16px 0;
+        }
+        .page {
+            margin: 0 auto 8px auto;
+            border: none;
+            padding: 12px 20px;
+        }
+    }
+    .page-content {
+    flex: 1 0 auto;
+    min-height: 0;
+    overflow: visible;
+}
+    .page-content > * + * {
+        margin-top: 20px;
+    }
+    .page.compact, body.compact .page {
+        font-size: 9.5pt;
+        line-height: 1.35;
+    }
+    .page.compact .page-content > * + *, body.compact .page-content > * + * {
+        margin-top: 12px;
+    }
+    .page-content > :is(h1, h2, h3, h4) + * {
+        margin-top: 8px;
+    }
+    .page-footer {
+        flex-shrink: 0;
+        margin-top: auto;
+        padding-top: 4mm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 8.5pt;
+        color: #64748b;
+        border-top: 1px solid #cbd5e1;
+    }
+    @media print {
+        *, *::before, *::after {
+            box-shadow: none !important;
+            text-shadow: none !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        body { padding: 0; background: none; }
+        .page {
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        overflow: visible;
+        break-after: page;
+        page-break-after: always;
+    }.page-content {
+        overflow: visible;
+    }
+        .page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+}
+    [contenteditable]:focus { outline: none; }
+
+    /* Academic Textbook Typography & Palette */
+    h1, h2, h3, h4, p, ul, ol, table, figure { margin: 0; }
+    h1 { font-size: 18pt; font-weight: 700; color: #7f1d1d; line-height: 1.25; }
+    h2 { font-size: 13pt; font-weight: 700; color: #991b1b; border-bottom: 1.5px solid #991b1b; padding-bottom: 3px; }
+    h3 { font-size: 10.5pt; font-weight: 700; color: #0f172a; }
+    p, li { font-size: 9.5pt; line-height: 1.35; text-align: justify; }
+    ul, ol { padding-left: 18px; }
+    li + li { margin-top: 3px; }
+
+    .masthead {
+        background-color: #7f1d1d;
+        color: #ffffff;
+        padding: 10px 14px;
+        border-left: 6px solid #f59e0b;
+    }
+    .masthead .course-tag {
+        font-size: 8.5pt;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #fde68a;
+        font-weight: 600;
+    }
+    .masthead h1 {
+        color: #ffffff;
+        font-size: 16pt;
+        margin-top: 2px;
+    }
+    .masthead .sub {
+        font-size: 9pt;
+        color: #f1f5f9;
+        margin-top: 2px;
+    }
+
+    .tag-slide {
+        display: inline-block;
+        background-color: #fee2e2;
+        color: #991b1b;
+        font-weight: 700;
+        font-size: 8pt;
+        padding: 1px 5px;
+        border: 1px solid #f87171;
+        border-radius: 3px;
+    }
+    .tag-supp {
+        display: inline-block;
+        background-color: #e0f2fe;
+        color: #075985;
+        font-weight: 700;
+        font-size: 8pt;
+        padding: 1px 5px;
+        border: 1px solid #38bdf8;
+        border-radius: 3px;
+    }
+    .tag-note {
+        display: inline-block;
+        background-color: #fef3c7;
+        color: #92400e;
+        font-weight: 700;
+        font-size: 8pt;
+        padding: 1px 5px;
+        border: 1px solid #fbbf24;
+        border-radius: 3px;
+    }
+
+    .callout {
+        background-color: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-left: 4px solid #0284c7;
+        padding: 8px 10px;
+    }
+    .callout.warn {
+        background-color: #fffbeb;
+        border-color: #fde68a;
+        border-left: 4px solid #d97706;
+    }
+    .callout.eq-box {
+        background-color: #fef2f2;
+        border-color: #fecaca;
+        border-left: 4px solid #991b1b;
+        text-align: center;
+        padding: 6px 10px;
+    }
+    .callout-title {
+        font-weight: 700;
+        font-size: 9.5pt;
+        color: #0f172a;
+        margin-bottom: 3px;
+    }
+
+    .math-display {
+        font-family: 'Cambria Math', 'Times New Roman', serif;
+        font-size: 10.5pt;
+        font-weight: 700;
+        color: #7f1d1d;
+    }
+    .math {
+        font-family: 'Cambria Math', 'Times New Roman', serif;
+        font-style: italic;
+    }
+    .frac {
+        display: inline-flex;
+        flex-direction: column;
+        vertical-align: middle;
+        text-align: center;
+        padding: 0 3px;
+        font-size: 90%;
+    }
+    .frac > span:first-child {
+        border-bottom: 1px solid currentColor;
+        padding: 0 2px 1px 2px;
+    }
+    .frac > span:last-child {
+        padding: 1px 2px 0 2px;
+    }
+
+    table.data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 8.5pt;
+    }
+    table.data-table th {
+        background-color: #1e293b;
+        color: #ffffff;
+        font-weight: 700;
+        text-align: left;
+        padding: 4px 6px;
+        border: 1px solid #1e293b;
+    }
+    table.data-table td {
+        padding: 3.5px 6px;
+        border: 1px solid #cbd5e1;
+        vertical-align: top;
+        overflow-wrap: break-word;
+    }
+    table.data-table tr:nth-child(even) td {
+        background-color: #f8fafc;
+    }
+
+    figure.diagram-fig {
+        border: 1px solid #cbd5e1;
+        background-color: #ffffff;
+        padding: 6px 8px;
+        text-align: center;
+    }
+    figure.diagram-fig figcaption {
+        font-size: 8.5pt;
+        color: #334155;
+        margin-top: 4px;
+        text-align: left;
+    }
+    .cite {
+        color: #991b1b;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    li:target {
+        background-color: #fef3c7;
+    }
+</style>
+<style data-bard-injected="true">
+@media screen {
+    html {
+        background-color: #ffffff;
+    }
+    body {
+        padding: 8px 0 24px 0;
+    }
+}
+@media screen and (prefers-color-scheme: dark) {
+    html {
+        background-color: #1f1f1f;
+    }
+}
+@media screen and (max-width: 600px) {
+    body {
+        padding: 4px 0 16px 0;
+        margin: 0 auto;
+    }
+}
+</style></head>
+<body class="compact">
+<div contenteditable="true">
+
+<!-- page 1 budget (Compact): masthead 45 + callout 55 + h2 11 + table 16 rows 272 + 4 gaps 32 = 415 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="masthead">
+      <div class="course-tag">ตำราเรียนวิชาการฉบับสมบูรณ์ | TRANSPORT PHENOMENA I (ปีการศึกษา 2569)</div>
+      <h1>บทที่ 5: บทนำสู่การพาความร้อน (Chapter 5: Introduction to Convection)</h1>
+      <div class="sub">เรียบเรียงจากเอกสารการสอนของอาจารย์ (สไลด์หน้า 1–33) พร้อมเนื้อหาปูพื้นฐาน การพิสูจน์สมการ และแบบฝึกหัด 5 ระดับสำหรับศึกษาด้วยตนเอง</div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">กฎเกณฑ์การแยกแยะประเภทเนื้อหาในตำราเรียน (Content Classification Legend)</div>
+      <p>เพื่อให้ผู้อ่านสามารถศึกษาด้วยตนเองได้อย่างสมบูรณ์และตรวจสอบความสอดคล้องกับเอกสารของอาจารย์ได้ทุกบรรทัด ตำราเล่มนี้ใช้ป้ายกำกับดังนี้:
+      <span class="tag-slide">[สไลด์หน้า X]</span> คือเนื้อหา สมการ รูปภาพ และตารางที่ปรากฏในสไลด์ต้นฉบับของอาจารย์,
+      <span class="tag-supp">[เสริมพื้นฐาน]</span> คือความรู้ปูพื้นฐานและขั้นตอนการพิสูจน์ที่เติมเพื่อให้อ่านเข้าใจได้ตั้งแต่เริ่มต้น, และ
+      <span class="tag-note">[ข้อสังเกตต้นฉบับ]</span> คือการชี้แจงจุดที่สไลด์พิมพ์คลาดเคลื่อนหรือละไว้ในฐานที่เข้าใจเทียบกับตำรามาตรฐาน <a class="cite" href="#ref-incropera" contenteditable="false">Incropera et al. (2007)</a></p>
+    </div>
+
+    <h2>รายการสัญลักษณ์หลักและหน่วยวัดประจำบทที่ 5 (Nomenclature)</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:14%;">สัญลักษณ์</th>
+          <th scope="col" style="width:38%;">ความหมายทางกายภาพ (ภาษาไทย)</th>
+          <th scope="col" style="width:30%;">ความหมายภาษาอังกฤษ (ตามสไลด์)</th>
+          <th scope="col" style="width:18%;">หน่วยในระบบ SI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="math">A<sub>s</sub>, dA<sub>s</sub></span></td><td>พื้นที่ผิวทั้งหมด และพื้นที่ผิวส่วนย่อย</td><td>Surface area, Differential area [หน้า 9–10]</td><td>m<sup>2</sup></td></tr>
+        <tr><td><span class="math">c<sub>p</sub></span></td><td>ความจุความร้อนจำเพาะที่ความดันคงที่</td><td>Specific heat at constant pressure [หน้า 31]</td><td>J/(kg·K)</td></tr>
+        <tr><td><span class="math">C<sub>f</sub></span></td><td>สัมประสิทธิ์ความเสียดทานเฉพาะจุดที่พื้นผิว</td><td>Coefficient of friction [หน้า 24, 31]</td><td>ไร้มิติ (–)</td></tr>
+        <tr><td><span class="math">f</span></td><td>ตัวประกอบความเสียดทานของการไหลในท่อ</td><td>Friction factor [หน้า 31]</td><td>ไร้มิติ (–)</td></tr>
+        <tr><td><span class="math">g</span></td><td>ความเร่งเนื่องจากแรงโน้มถ่วงของโลก</td><td>Gravitational acceleration [หน้า 31–32]</td><td>m/s<sup>2</sup> (≈ 9.8 m/s<sup>2</sup>)</td></tr>
+        <tr><td><span class="math">h, h̄</span></td><td>สัมประสิทธิ์การพาความร้อนเฉพาะจุด และค่าเฉลี่ย</td><td>Local and average convection coeff. [หน้า 10–11]</td><td>W/(m<sup>2</sup>·K)</td></tr>
+        <tr><td><span class="math">k, k<sub>f</sub>, k<sub>s</sub></span></td><td>สภาพนำความร้อน (ของไหล <span class="math">k<sub>f</sub></span>, ของแข็ง <span class="math">k<sub>s</sub></span>)</td><td>Thermal conductivity [หน้า 21, 31–33]</td><td>W/(m·K)</td></tr>
+        <tr><td><span class="math">L, x, x<sub>c</sub></span></td><td>ความยาวแผ่น, ระยะจากขอบนำ, และตำแหน่งเปลี่ยนผ่าน</td><td>Characteristic length, Critical location [หน้า 12, 29]</td><td>m</td></tr>
+        <tr><td><span class="math">q, q'</span></td><td>อัตราการถ่ายโอนความร้อนรวม และต่อหน่วยความกว้าง</td><td>Total heat rate, Rate per unit width [หน้า 10, 70]</td><td>W, W/m</td></tr>
+        <tr><td><span class="math">q''</span></td><td>ฟลักซ์ความร้อน (อัตราความร้อนต่อหนึ่งหน่วยพื้นที่)</td><td>Heat flux [หน้า 2, 10]</td><td>W/m<sup>2</sup></td></tr>
+        <tr><td><span class="math">T, T<sub>s</sub>, T<sub>∞</sub></span></td><td>อุณหภูมิของไหล, อุณหภูมิพื้นผิว, อุณหภูมิกระแสอิสระ</td><td>Fluid, surface, free stream temp. [หน้า 2–3, 20]</td><td>K หรือ °C</td></tr>
+        <tr><td><span class="math">u, v, u<sub>∞</sub></span></td><td>ความเร็วแกน <span class="math">x</span>, แกน <span class="math">y</span>, และความเร็วกระแสอิสระ</td><td>Velocity components &amp; free stream [หน้า 16, 25–26]</td><td>m/s</td></tr>
+        <tr><td><span class="math">α, β</span></td><td>สภาพแพร่ความร้อน (<span class="math">k/ρc<sub>p</sub></span>) และสัมประสิทธิ์การขยายตัว</td><td>Thermal diffusivity, Expansion coeff. [หน้า 31–32]</td><td>m<sup>2</sup>/s, K<sup>−1</sup></td></tr>
+        <tr><td><span class="math">δ, δ<sub>t</sub></span></td><td>ความหนาชั้นชิดผิวความเร็ว และชั้นชิดผิวความร้อน</td><td>Velocity &amp; thermal boundary layer thickness [หน้า 17, 20]</td><td>m</td></tr>
+        <tr><td><span class="math">μ, ν, ρ</span></td><td>ความหนืดพลวัต, ความหนืดจลน์ (<span class="math">μ/ρ</span>), ความหนาแน่น</td><td>Dynamic &amp; kinematic viscosity, Density [หน้า 16, 29]</td><td>kg/(s·m), m<sup>2</sup>/s, kg/m<sup>3</sup></td></tr>
+        <tr><td><span class="math">τ, τ<sub>s</sub>, σ</span></td><td>ความเค้นเฉือน, ความเค้นเฉือนที่ผิว, และแรงตึงผิว</td><td>Shear stress, Surface tension [หน้า 16, 31]</td><td>N/m<sup>2</sup> (Pa), N/m</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 5: บทนำสู่การพาความร้อน</span>
+    <span>หน้า 1</span>
+  </footer>
+</section>
+
+<!-- page 2 budget (Compact): h2 11 + prose 185 + figure (32mm = 77 + 24 + 14 = 115) + h2 11 + prose 140 + callout 45 + 6 gaps 48 = 555 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>5.0 ความรู้พื้นฐานก่อนเรียน และบทนำสู่การพาความร้อน (Introduction to Convection)</h2>
+    <p><span class="tag-supp">[เสริมพื้นฐาน]</span> <strong>ทำไมต้องเข้าใจกลไกความร้อนทั้ง 3 รูปแบบก่อนเริ่มเรียนบทที่ 5?</strong> ในสไลด์หน้าแรกของบทเรียนนี้ อาจารย์เริ่มต้นด้วยการเชื่อมโยงความรู้เรื่องการนำความร้อน (Conduction) การพาความร้อน (Convection) และการแผ่รังสีความร้อน (Radiation) เข้าด้วยกันทันทีผ่านสมการสมดุลพลังงานที่พื้นผิว สำหรับผู้ที่ไม่เคยเรียนมาก่อน ให้ทำความเข้าใจแนวคิดรากฐานดังนี้:</p>
+    <ul>
+      <li><strong>อัตราการถ่ายโอนความร้อน (<span class="math">q</span>, หน่วยวัตต์ W = J/s) เทียบกับ ฟลักซ์ความร้อน (<span class="math">q''</span>, หน่วย W/m<sup>2</sup>):</strong> ความร้อนจะไหลจากที่อุณหภูมิสูงไปยังที่อุณหภูมิต่ำเสมอ ปริมาณความร้อนทั้งหมดที่ไหลผ่านพื้นที่หนึ่งต่อหน่วยเวลาเรียกว่า <span class="math">q</span> ส่วนอัตราความร้อนที่ไหลตั้งฉากผ่านพื้นที่ขนาด 1 ตารางเมตร เรียกว่า <em>ฟลักซ์ความร้อน (<span class="math">q'' = q / A<sub>s</sub></span>)</em></li>
+      <li><strong>การนำความร้อน (Conduction) และกฎของฟูริเยร์ (Fourier's Law):</strong> คือการส่งต่อพลังงานจลน์ระดับอะตอมและโมเลกุลผ่านการชนหรือการสั่นของโครงผลึกโดยตัวกลางไม่เคลื่อนที่ไปเป็นกลุ่มก้อน ฟลักซ์การนำความร้อนแปรผันตรงกับความชันของอุณหภูมิ: <span class="math">q''<sub>cond</sub> = −k (dT/dx)</span> โดย <span class="math">k</span> คือสภาพนำความร้อนของวัสดุ (W/m·K) และเครื่องหมายลบระบุว่าความร้อนไหลไปในทิศทางที่อุณหภูมิลดลง</li>
+      <li><strong>การแผ่รังสีความร้อน (Radiation):</strong> คือการปล่อยคลื่นแม่เหล็กไฟฟ้าจากพื้นผิวที่มีอุณหภูมิสูงกว่าศูนย์สัมบูรณ์ ตามกฎของสเตฟาน-โบลต์ซมันน์: <span class="math">q''<sub>rad</sub> = εσ(T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup>)</span> (ซึ่งจะได้ใช้คำนวณร่วมกับการพาความร้อนในบทที่ 8)</li>
+    </ul>
+
+    <figure class="diagram-fig">
+      <svg role="img" style="width:100%; height:32mm;" viewBox="0 0 680 120">
+        <title>สมดุลพลังงานที่พื้นผิวควบคุมระหว่างผนังของแข็งและของไหลที่กำลังเคลื่อนที่ (อ้างอิงสไลด์หน้า 2)</title>
+        <!-- Solid wall region -->
+        <rect x="60" y="10" width="160" height="95" fill="#fee2e2" stroke="#991b1b" stroke-width="1.5"></rect>
+        <text x="140" y="25" font-size="10" font-weight="bold" fill="#7f1d1d" text-anchor="middle">ผนังของแข็ง (Solid)</text>
+        <!-- Control surface dashed lines -->
+        <line x1="212" y1="8" x2="212" y2="108" stroke="#475569" stroke-width="1.2" stroke-dasharray="4,3"></line>
+        <line x1="228" y1="8" x2="228" y2="108" stroke="#475569" stroke-width="1.2" stroke-dasharray="4,3"></line>
+        <text x="220" y="117" font-size="9" fill="#334155" text-anchor="middle">Control surfaces (พื้นผิวควบคุม)</text>
+        <!-- Temperature profile -->
+        <circle cx="60" cy="35" r="3" fill="#991b1b"></circle>
+        <text x="48" y="39" font-size="11" font-weight="bold" fill="#991b1b" text-anchor="end">T₁</text>
+        <line x1="60" y1="35" x2="220" y2="72" stroke="#b91c1c" stroke-width="2.5"></line>
+        <circle cx="220" cy="72" r="3" fill="#991b1b"></circle>
+        <text x="234" y="74" font-size="11" font-weight="bold" fill="#991b1b">T₂ (หรือ Tₛ)</text>
+        <path d="M 220 72 Q 245 96 295 96 L 350 96" fill="none" stroke="#b91c1c" stroke-width="2.5"></path>
+        <text x="358" y="99" font-size="11" font-weight="bold" fill="#991b1b">T_∞</text>
+        <!-- Heat flux arrows -->
+        <line x1="150" y1="45" x2="205" y2="45" stroke="#991b1b" stroke-width="1.8" marker-end="url(#arr1)"></line>
+        <text x="145" y="49" font-size="10" font-weight="bold" fill="#991b1b" text-anchor="end">q''_cond</text>
+        <line x1="235" y1="35" x2="310" y2="22" stroke="#991b1b" stroke-width="1.8" marker-end="url(#arr1)"></line>
+        <text x="316" y="25" font-size="10" font-weight="bold" fill="#991b1b">q''_rad → สิ่งแวดล้อม (T_sur)</text>
+        <line x1="235" y1="55" x2="310" y2="65" stroke="#991b1b" stroke-width="1.8" marker-end="url(#arr1)"></line>
+        <text x="316" y="69" font-size="10" font-weight="bold" fill="#991b1b">q''_conv → ของไหล (Fluid)</text>
+        <!-- Moving fluid arrows -->
+        <line x1="480" y1="20" x2="480" y2="65" stroke="#0284c7" stroke-width="1.8" marker-end="url(#arr2)"></line>
+        <line x1="500" y1="20" x2="500" y2="65" stroke="#0284c7" stroke-width="1.8" marker-end="url(#arr2)"></line>
+        <text x="515" y="45" font-size="10" font-weight="bold" fill="#0369a1">ของไหลกำลังเคลื่อนที่</text>
+        <text x="515" y="58" font-size="10" fill="#0369a1">ความเร็ว U_∞, อุณหภูมิ T_∞</text>
+        <defs>
+          <marker id="arr1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#991b1b"></path>
+          </marker>
+          <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7"></path>
+          </marker>
+        </defs>
+      </svg>
+      <figcaption><strong>รูปที่ 5.0 (อ้างอิงสไลด์หน้า 2):</strong> การใช้สมดุลพลังงานที่พื้นผิวควบคุม (<span class="math">E<sub>in</sub> = E<sub>out</sub></span>) โดยการพาความร้อนทำหน้าที่เป็นเงื่อนไขขอบเขตของปัญหาการนำความร้อน</figcaption>
+    </figure>
+
+    <h2>5.0.1 สมดุลพลังงานที่พื้นผิว และกลไกของการพาความร้อน <span class="tag-slide">[สไลด์หน้า 2–8]</span></h2>
+    <p>ในบทเรียนก่อนหน้านี้ เราได้มุ่งเน้นศึกษาการถ่ายโอนความร้อนด้วยการนำความร้อน (Conduction) และพิจารณาการพาความร้อนเพียงในฐานะที่เป็น <strong>เงื่อนไขขอบเขตที่เป็นไปได้รูปแบบหนึ่งสำหรับปัญหาการนำความร้อน</strong> ดังแสดงในรูปที่ 5.0 หากเราสร้างพื้นผิวควบคุม (Control surface) ซึ่งไม่มีมวลและไม่มีปริมาตรครอบทับรอยต่อระหว่างผิวของแข็งที่มีอุณหภูมิ <span class="math">T<sub>2</sub></span> กับของไหลที่มีอุณหภูมิ <span class="math">T<sub>∞</sub></span> จากหลักอนุรักษ์พลังงาน (<span class="math">E<sub>in</sub> = E<sub>out</sub></span>) ฟลักซ์ความร้อนที่นำมาถึงผิวจึงต้องเท่ากับผลรวมของฟลักซ์การพาความร้อนและฟลักซ์การแผ่รังสีที่ออกจากผิว:</p>
+    <div class="callout eq-box">
+      <span class="math-display">E<sub>in</sub> = E<sub>out</sub> &nbsp;&nbsp;⇒&nbsp;&nbsp; q''<sub>cond</sub> = q''<sub>conv</sub> + q''<sub>rad</sub></span> &nbsp;&nbsp;(สมการที่ 5.0) <span class="tag-slide">[สไลด์หน้า 2]</span>
+    </div>
+    <p><strong>สองกลไกย่อยของการพาความร้อน <span class="tag-slide">[สไลด์หน้า 3–4]</span>:</strong> เราใช้คำว่า <strong>การพาความร้อน (Convection)</strong> เพื่ออธิบายการถ่ายโอนพลังงานระหว่างพื้นผิวของแข็งกับของไหลที่กำลังเคลื่อนที่ผ่านพื้นผิวนั้น (เช่นเมื่อ <span class="math">T<sub>s</sub> &gt; T<sub>∞</sub></span> ความร้อนจะถ่ายโอนจากผิวเข้าสู่ของไหล) โดยกระบวนการนี้ประกอบด้วย 2 กลไกย่อยที่ทำงานร่วมกัน ได้แก่ (1) <strong>การแพร่ (Diffusion)</strong> หรือการเคลื่อนที่แบบสุ่มและการชนกันของโมเลกุลของไหล และ (2) <strong>การเคลื่อนที่ของกลุ่มก้อนของไหล (Bulk or gross motion of fluid particles / Advection)</strong> ซึ่งโดยทั่วไปแล้ว <em>การเคลื่อนที่ของกลุ่มก้อนของไหลเป็นส่วนสนับสนุนหลัก (Dominant contribution)</em> ที่ทำให้อัตราการถ่ายโอนความร้อนสูงกว่าการนำความร้อนในของไหลนิ่งอย่างมหาศาล</p>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 5: บทนำสู่การพาความร้อน</span>
+    <span>หน้า 2</span>
+  </footer>
+</section>
+
+<!-- page 3 budget (Compact): h2 11 + figure (32mm = 77 + 24 + 14 = 115) + prose 150 + h2 11 + prose 190 + callout 45 + 6 gaps 48 = 570 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>5.0.2 การจำแนกประเภทของการพาความร้อน และวัตถุประสงค์ของการศึกษา <span class="tag-slide">[สไลด์หน้า 4–8]</span></h2>
+    <figure class="diagram-fig">
+      <svg role="img" style="width:100%; height:32mm;" viewBox="0 0 680 120">
+        <title>เปรียบเทียบการพาความร้อนแบบบังคับ (Forced Convection) และการพาความร้อนแบบอิสระหรือธรรมชาติ (Free/Natural Convection) อ้างอิงสไลด์หน้า 4-6</title>
+        <!-- (a) Forced Convection -->
+        <rect x="15" y="5" width="315" height="110" fill="#f8fafc" stroke="#cbd5e1"></rect>
+        <text x="25" y="20" font-size="10" font-weight="bold" fill="#0f172a">(a) การพาความร้อนแบบบังคับ (Forced Convection)</text>
+        <!-- Fan -->
+        <ellipse cx="75" cy="65" rx="12" ry="28" fill="#bae6fd" stroke="#0284c7" stroke-width="1.5"></ellipse>
+        <circle cx="75" cy="65" r="5" fill="#0369a1"></circle>
+        <text x="75" y="106" font-size="9" font-weight="bold" fill="#0369a1" text-anchor="middle">พัดลม (Fan) → Air</text>
+        <line x1="92" y1="48" x2="135" y2="48" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr2)"></line>
+        <line x1="92" y1="65" x2="135" y2="65" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr2)"></line>
+        <line x1="92" y1="82" x2="135" y2="82" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr2)"></line>
+        <!-- PCB Boards Horizontal/Vertical stack -->
+        <line x1="150" y1="30" x2="150" y2="100" stroke="#334155" stroke-width="2"></line>
+        <rect x="150" y="38" width="12" height="10" fill="#fca5a5" stroke="#991b1b"></rect>
+        <rect x="150" y="58" width="12" height="10" fill="#fca5a5" stroke="#991b1b"></rect>
+        <rect x="150" y="78" width="12" height="10" fill="#fca5a5" stroke="#991b1b"></rect>
+        <line x1="190" y1="30" x2="190" y2="100" stroke="#334155" stroke-width="2"></line>
+        <rect x="190" y="38" width="12" height="10" fill="#fca5a5" stroke="#991b1b"></rect>
+        <rect x="190" y="58" width="12" height="10" fill="#fca5a5" stroke="#991b1b"></rect>
+        <rect x="190" y="78" width="12" height="10" fill="#fca5a5" stroke="#991b1b"></rect>
+        <text x="215" y="55" font-size="9" fill="#991b1b" font-weight="bold">ชิ้นส่วนอิเล็กทรอนิกส์ร้อน</text>
+        <text x="215" y="68" font-size="9" fill="#334155">บนแผงวงจรพิมพ์ (PCBs)</text>
+        <text x="215" y="82" font-size="9" fill="#991b1b" font-weight="bold">ปล่อยความร้อน q''</text>
+
+        <!-- (b) Natural Convection -->
+        <rect x="350" y="5" width="315" height="110" fill="#f8fafc" stroke="#cbd5e1"></rect>
+        <text x="360" y="20" font-size="10" font-weight="bold" fill="#0f172a">(b) การพาความร้อนแบบอิสระ/ธรรมชาติ (Free Convection)</text>
+        <line x1="430" y1="32" x2="430" y2="95" stroke="#334155" stroke-width="2"></line>
+        <rect x="430" y="40" width="12" height="10" fill="#fca5a5" stroke="#991b1b"></rect>
+        <rect x="430" y="60" width="12" height="10" fill="#fca5a5" stroke="#991b1b"></rect>
+        <rect x="430" y="80" width="12" height="10" fill="#fca5a5" stroke="#991b1b"></rect>
+        <line x1="470" y1="32" x2="470" y2="95" stroke="#334155" stroke-width="2"></line>
+        <rect x="470" y="40" width="12" height="10" fill="#fca5a5" stroke="#991b1b"></rect>
+        <rect x="470" y="60" width="12" height="10" fill="#fca5a5" stroke="#991b1b"></rect>
+        <rect x="470" y="80" width="12" height="10" fill="#fca5a5" stroke="#991b1b"></rect>
+        <!-- Buoyancy arrows -->
+        <line x1="452" y1="108" x2="452" y2="92" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr2)"></line>
+        <line x1="452" y1="38" x2="452" y2="22" stroke="#991b1b" stroke-width="1.5" marker-end="url(#arr1)"></line>
+        <text x="500" y="45" font-size="9" font-weight="bold" fill="#991b1b">Buoyancy-driven flow ↑</text>
+        <text x="500" y="58" font-size="9" fill="#334155">(อากาศร้อนความหนาแน่นต่ำ</text>
+        <text x="500" y="70" font-size="9" fill="#334155">ลอยตัวขึ้นเองในอากาศนิ่ง)</text>
+        <text x="500" y="86" font-size="9" fill="#0369a1" font-weight="bold">↑ อากาศเย็นด้านล่างไหลแทนที่</text>
+      </svg>
+      <figcaption><strong>รูปที่ 5.0.2 (อ้างอิงสไลด์หน้า 4–6):</strong> กระบวนการพาความร้อน (a) แบบบังคับโดยใช้พัดลมเป่าแผงวงจร และ (b) แบบอิสระที่ขับเคลื่อนด้วยแรงลอยตัว</figcaption>
+    </figure>
+    <p>กระบวนการพาความร้อนสามารถจำแนกออกเป็น 2 ประเภทตามธรรมชาติของการเกิดการไหล <span class="tag-slide">[สไลด์หน้า 4–6]</span>:</p>
+    <ul>
+      <li><strong>(a) การพาความร้อนแบบบังคับ (Forced Convection):</strong> เกิดขึ้นเมื่อการไหลถูกขับเคลื่อนโดยปัจจัยภายนอก (External means) เช่น พัดลม (Fan) หรือปั๊ม (Pump) ตัวอย่างเช่น การใช้พัดลมเป่าอากาศระบายความร้อนให้ชิ้นส่วนอิเล็กทรอนิกส์ที่ร้อนบนชั้นของแผงวงจรพิมพ์ (Printed circuit boards) <span class="tag-slide">[สไลด์หน้า 5]</span></li>
+      <li><strong>(b) การพาความร้อนแบบอิสระ หรือแบบธรรมชาติ (Free or Natural Convection):</strong> การไหลถูกชักนำโดย <strong>แรงลอยตัว (Buoyancy forces)</strong> ซึ่งเกิดจากความแตกต่างของความหนาแน่น (Density differences) อันเนื่องมาจากการเปลี่ยนแปลงอุณหภูมิภายในของไหลเอง ตัวอย่างเช่น การระบายความร้อนจากแผงวงจรแนวตั้งที่วางอยู่ในอากาศนิ่ง (Still air) โดยอากาศที่สัมผัสชิ้นส่วนร้อนจะขยายตัว มีความหนาแน่นลดลง และลอยตัวสูงขึ้นด้วยแรงลอยตัว <span class="tag-slide">[สไลด์หน้า 6]</span></li>
+    </ul>
+    <p><strong>วัตถุประสงค์หลักและโครงสร้างของบทถัดไป <span class="tag-slide">[สไลด์หน้า 7–8]</span>:</strong> การศึกษาของเรามีวัตถุประสงค์หลัก 2 ประการ คือ (1) ทำความเข้าใจกลไกทางกายภาพของการพาความร้อนควบคู่กับการพัฒนาวิธีการคำนวณอัตราการพาความร้อน และ (2) ศึกษาต้นกำเนิดทางกายภาพและพัฒนา <em>กลุ่มตัวแปรไร้มิติ (Dimensionless parameters)</em> ที่เกี่ยวข้อง โดยเมื่อปูพื้นฐานในบทที่ 5 แล้ว <strong>บทที่ 6 และ 7</strong> จะนำเสนอวิธีคำนวณสัมประสิทธิ์ของการพาความร้อนแบบบังคับสำหรับการไหลภายนอก (External flow) และการไหลภายใน (Internal flow) ตามลำดับ ส่วน <strong>บทที่ 8</strong> จะอธิบายการหาสัมประสิทธิ์สำหรับการพาความร้อนแบบอิสระ <span class="tag-slide">[สไลด์หน้า 8]</span></p>
+
+    <h2>5.1 ปัญหาของการถ่ายโอนด้วยการพาความร้อน (The Convection Transfer Problem) <span class="tag-slide">[สไลด์หน้า 9–14]</span></h2>
+    <p>พิจารณาของไหลที่มีความเร็ว <span class="math">V</span> (หรือ <span class="math">u<sub>∞</sub></span>) และอุณหภูมิ <span class="math">T<sub>∞</sub></span> ไหลผ่านพื้นผิวรูปร่างใด ๆ (Surface of arbitrary shape, รูปที่ 5.1a) หรือไหลขนานผ่านแผ่นราบความยาว <span class="math">L</span> (Flat plate, รูปที่ 5.1b) ซึ่งมีพื้นที่ผิวทั้งหมด <span class="math">A<sub>s</sub></span> และมีอุณหภูมิพื้นผิวสม่ำเสมอเท่ากับ <span class="math">T<sub>s</sub></span> หาก <span class="math">T<sub>s</sub> ≠ T<sub>∞</sub></span> จะเกิดการพาความร้อนขึ้น โดย <strong>ฟลักซ์ความร้อนเฉพาะจุด (Local heat flux, <span class="math">q''</span>)</strong> ที่พื้นที่ส่วนย่อย <span class="math">dA<sub>s</sub></span> แสดงได้เป็น <span class="tag-slide">[สไลด์หน้า 9–10]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">q'' = h (T<sub>s</sub> − T<sub>∞</sub>)</span> &nbsp;&nbsp;(สมการที่ 5.1a: ฟลักซ์การพาความร้อนเฉพาะจุด) <span class="tag-slide">[สไลด์หน้า 10]</span>
+    </div>
+    <p>โดยที่ <span class="math">h</span> คือ <strong>สัมประสิทธิ์การพาความร้อนเฉพาะจุด (Local convection coefficient, W/m<sup>2</sup>·K)</strong> เนื่องจากสภาวะการไหลแปรผันจากจุดหนึ่งไปยังอีกจุดหนึ่งบนพื้นผิว ทั้งค่า <span class="math">q''</span> และ <span class="math">h</span> จึงแปรผันไปตามพื้นผิวด้วย ดังนั้น <strong>อัตราการถ่ายโอนความร้อนทั้งหมด (<span class="math">q</span>, หน่วย W)</strong> จึงหาได้จากการอินทิเกรตฟลักซ์เฉพาะจุดเหนือพื้นที่ผิวทั้งหมด <span class="math">A<sub>s</sub></span> (และเมื่อ <span class="math">T<sub>s</sub>, T<sub>∞</sub></span> คงที่ จึงดึงออกนอกอินทิกรัลได้) <span class="tag-slide">[สไลด์หน้า 10–13]</span>:</p>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 5: บทนำสู่การพาความร้อน</span>
+    <span>หน้า 3</span>
+  </footer>
+</section>
+
+<!-- page 4 budget (Compact): figure (30mm = 72 + 24 + 14 = 110) + callout eq 55 + prose 150 + callout example 195 + 4 gaps 32 = 542 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <figure class="diagram-fig">
+      <svg role="img" style="width:100%; height:30mm;" viewBox="0 0 680 112">
+        <title>การถ่ายโอนความร้อนด้วยการพาความร้อนเฉพาะจุดและทั้งหมด (a) พื้นผิวรูปร่างใด ๆ และ (b) แผ่นราบ (อ้างอิง Figure 5.1 สไลด์หน้า 9-12)</title>
+        <!-- (a) Arbitrary surface -->
+        <text x="15" y="16" font-size="10" font-weight="bold" fill="#0f172a">(a) พื้นผิวรูปร่างใด ๆ (Surface of Arbitrary Shape)</text>
+        <line x1="20" y1="45" x2="75" y2="45" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr2)"></line>
+        <line x1="20" y1="65" x2="75" y2="65" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr2)"></line>
+        <text x="45" y="38" font-size="10" font-weight="bold" fill="#0369a1" text-anchor="middle">V, T_∞</text>
+        <path d="M 105 45 C 95 25, 160 25, 210 50 C 250 70, 285 95, 275 102 C 260 108, 220 75, 165 68 C 120 62, 112 58, 105 45 Z" fill="#ffe4e6" stroke="#991b1b" stroke-width="1.5"></path>
+        <line x1="195" y1="42" x2="185" y2="55" stroke="#334155" stroke-width="1.2"></line>
+        <line x1="212" y1="51" x2="202" y2="64" stroke="#334155" stroke-width="1.2"></line>
+        <line x1="203" y1="46" x2="230" y2="15" stroke="#b91c1c" stroke-width="1.8" marker-end="url(#arr1)"></line>
+        <text x="236" y="18" font-size="10" font-weight="bold" fill="#b91c1c">q''</text>
+        <text x="235" y="48" font-size="10" fill="#334155">พื้นที่ย่อย dAₛ</text>
+        <text x="145" y="92" font-size="10" font-weight="bold" fill="#7f1d1d">Aₛ, Tₛ (Tₛ &gt; T_∞)</text>
+
+        <!-- (b) Flat plate -->
+        <text x="355" y="16" font-size="10" font-weight="bold" fill="#0f172a">(b) แผ่นราบ (Flat Plate)</text>
+        <line x1="360" y1="38" x2="405" y2="38" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr2)"></line>
+        <line x1="360" y1="53" x2="405" y2="53" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr2)"></line>
+        <line x1="360" y1="68" x2="405" y2="68" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr2)"></line>
+        <text x="382" y="31" font-size="10" font-weight="bold" fill="#0369a1" text-anchor="middle">u_∞, T_∞</text>
+        <polygon points="425,65 645,65 645,78 440,78" fill="#ffe4e6" stroke="#991b1b" stroke-width="1.5"></polygon>
+        <line x1="520" y1="60" x2="520" y2="82" stroke="#334155" stroke-width="1.2"></line>
+        <line x1="540" y1="60" x2="540" y2="82" stroke="#334155" stroke-width="1.2"></line>
+        <line x1="530" y1="65" x2="530" y2="30" stroke="#b91c1c" stroke-width="1.8" marker-end="url(#arr1)"></line>
+        <text x="536" y="34" font-size="10" font-weight="bold" fill="#b91c1c">q''</text>
+        <text x="605" y="58" font-size="10" font-weight="bold" fill="#7f1d1d">Aₛ, Tₛ</text>
+        <!-- Dimension lines -->
+        <line x1="425" y1="84" x2="425" y2="104" stroke="#475569" stroke-width="1"></line>
+        <line x1="425" y1="95" x2="520" y2="95" stroke="#475569" stroke-width="1" marker-end="url(#arr1)"></line>
+        <text x="472" y="92" font-size="9.5" fill="#0f172a" text-anchor="middle">x</text>
+        <text x="530" y="96" font-size="9.5" fill="#0f172a" text-anchor="middle">dx</text>
+        <text x="645" y="96" font-size="10" font-weight="bold" fill="#0f172a" text-anchor="middle">x = L</text>
+      </svg>
+      <figcaption><strong>รูปที่ 5.1 (อ้างอิง Figure 5.1 สไลด์หน้า 9–12):</strong> การถ่ายโอนความร้อนด้วยการพาความร้อนเฉพาะจุดและทั้งหมดบน (a) พื้นผิวรูปร่างใด ๆ และ (b) แผ่นราบ</figcaption>
+    </figure>
+
+    <div class="callout eq-box">
+      <span class="math-display">q = ∫<sub>A<sub>s</sub></sub> q'' dA<sub>s</sub> = (T<sub>s</sub> − T<sub>∞</sub>) ∫<sub>A<sub>s</sub></sub> h dA<sub>s</sub> &nbsp;&nbsp;⇒&nbsp;&nbsp; q = h̄ A<sub>s</sub> (T<sub>s</sub> − T<sub>∞</sub>)</span> &nbsp;(กฎการเย็นตัวของนิวตัน) <span class="tag-slide">[สไลด์หน้า 10–13]</span><br>
+      โดยที่นิยามค่าเฉลี่ยทั่วพื้นผิวใด ๆ คือ: <span class="math-display">h̄ = <span class="frac"><span>1</span><span>A<sub>s</sub></span></span> ∫<sub>A<sub>s</sub></sub> h dA<sub>s</sub></span> &nbsp;&nbsp;และสำหรับแผ่นราบความยาว <span class="math">L</span> คือ: <span class="math-display">h̄ = <span class="frac"><span>1</span><span>L</span></span> ∫<sub>0</sub><sup>L</sup> h dx</span> &nbsp;(สมการที่ 5.1b–f)
+    </div>
+
+    <p><span class="tag-supp">[เสริมพื้นฐาน]</span> <strong>ทำไมสมการของแผ่นราบจึงลดรูปเหลือเพียงการอินทิเกรตเทียบกับ <span class="math">x</span>?</strong> สำหรับแผ่นราบที่มีความกว้าง <span class="math">w</span> และความยาว <span class="math">L</span> พื้นที่ผิวทั้งหมดคือ <span class="math">A<sub>s</sub> = w·L</span> และพื้นที่แถบเล็ก ๆ ที่ระยะ <span class="math">x</span> คือ <span class="math">dA<sub>s</sub> = w·dx</span> เมื่อแทนลงในสมการ <span class="math">h̄ = (1/A<sub>s</sub>)∫h dA<sub>s</sub></span> ความกว้าง <span class="math">w</span> ที่คงที่จะตัดกันทั้งเศษและส่วน เหลือเพียง <span class="math">h̄ = (1/L)∫<sub>0</sub><sup>L</sup> h dx</span> <span class="tag-note">[ข้อสังเกตต้นฉบับ: ในสไลด์หน้า 12 ข้อความบรรยายพิมพ์ขีดบนตัวอักษร <span class="math">h̄</span> เกินมาในประโยค "h̄ varies with the distance x" ซึ่งที่ถูกต้องคือค่าเฉพาะจุด <span class="math">h</span> แปรผันตามระยะ <span class="math">x</span> ส่วน <span class="math">h̄</span> คือค่าเฉลี่ยตลอดแผ่น L]</span></p>
+    <p><strong>เหตุใดการหาค่า <span class="math">h</span> จึงเป็น "ปัญหาหลักของการพาความร้อน"? <span class="tag-slide">[สไลด์หน้า 13–14]</span></strong> เพราะอัตราความร้อนขึ้นตรงกับค่า <span class="math">h</span> และ <span class="math">h̄</span> แต่ค่าสัมประสิทธิ์นี้ไม่ได้เป็นค่าคงที่ตายตัว โดยนอกจากจะขึ้นอยู่กับสมบัติของของไหลหลายชนิด ได้แก่ ความหนาแน่น (<span class="math">ρ</span>), ความหนืด (<span class="math">μ</span>), สภาพนำความร้อน (<span class="math">k</span>), และความจุความร้อนจำเพาะ (<span class="math">c<sub>p</sub></span>) แล้ว ยังขึ้นอยู่กับรูปร่างเรขาคณิตของพื้นผิวและสภาวะการไหลอีกด้วย</p>
+
+    <div class="callout">
+      <div class="callout-title"><span class="tag-supp">[เสริมพื้นฐาน]</span> ตัวอย่างที่ 5.1: การอินทิเกรตหาสัมประสิทธิ์การพาความร้อนเฉลี่ย (h̄) และอัตราความร้อนรวม (q)</div>
+      <p><strong>โจทย์:</strong> ของไหลมีอุณหภูมิ <span class="math">T<sub>∞</sub> = 20°C</span> ไหลขนานผ่านแผ่นราบขนาดความยาว <span class="math">L = 1.0 m</span> และความกว้าง <span class="math">w = 0.5 m</span> ซึ่งมีอุณหภูมิผิวคงที่ <span class="math">T<sub>s</sub> = 70°C</span> หากสัมประสิทธิ์การพาความร้อนเฉพาะจุดแปรผันตามระยะ <span class="math">x</span> จากขอบนำตามสมการ <span class="math">h(x) = 12 x<sup>−1/2</sup></span> W/(m<sup>2</sup>·K) (เมื่อ <span class="math">x</span> มีหน่วยเป็น m) จงหา (ก) ความสัมพันธ์ระหว่าง <span class="math">h̄</span> กับค่าเฉพาะจุดที่ปลายแผ่น <span class="math">h(L)</span>, (ข) ค่าตัวเลขของ <span class="math">h(L)</span> และ <span class="math">h̄</span>, และ (ค) อัตราการถ่ายโอนความร้อนรวม <span class="math">q</span></p>
+      <p><strong>วิธีทำละเอียด:</strong><br>
+      <strong>1. พิสูจน์ความสัมพันธ์ทั่วไป (กรณี <span class="math">h(x) = C x<sup>−1/2</sup></span>):</strong> จากสมการแผ่นราบ <span class="math">h̄ = <span class="frac"><span>1</span><span>L</span></span> ∫<sub>0</sub><sup>L</sup> C x<sup>−1/2</sup> dx = <span class="frac"><span>C</span><span>L</span></span> [ <span class="frac"><span>x<sup>1/2</sup></span><span>1/2</span></span> ]<sub>0</sub><sup>L</sup> = <span class="frac"><span>C</span><span>L</span></span> (2 L<sup>1/2</sup>) = 2 (C L<sup>−1/2</sup>) = 2 h(L)</span> (พิสูจน์ได้ว่าสำหรับการไหลแบบราบเรียบบนแผ่นราบ ค่าเฉลี่ย <span class="math">h̄</span> จะมีค่าเป็น <strong>2 เท่า</strong> ของค่าเฉพาะจุดที่ปลายแผ่นเสมอ!)<br>
+      <strong>2. คำนวณค่า <span class="math">h(L)</span> และ <span class="math">h̄</span>:</strong> ที่ปลายแผ่น <span class="math">x = L = 1.0 m</span> จะได้ <span class="math">h(1.0) = 12(1.0)<sup>−1/2</sup> = 12.0 W/(m<sup>2</sup>·K)</span> และจากข้อ (1) จะได้สัมประสิทธิ์การพาความร้อนเฉลี่ย <span class="math">h̄ = 2 × 12.0 = 24.0 W/(m<sup>2</sup>·K)</span><br>
+      <strong>3. คำนวณอัตราการถ่ายโอนความร้อนรวม (<span class="math">q</span>):</strong> พื้นที่ผิว <span class="math">A<sub>s</sub> = w × L = 0.5 × 1.0 = 0.5 m<sup>2</sup></span> จากกฎการเย็นตัวของนิวตัน:<br>
+      <span class="math">q = h̄ A<sub>s</sub> (T<sub>s</sub> − T<sub>∞</sub>) = (24.0 W/m<sup>2</sup>·K)(0.5 m<sup>2</sup>)(70 − 20 K) = 12.0 × 50 = <strong>600 W</strong></span></p>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 5: บทนำสู่การพาความร้อน</span>
+    <span>หน้า 4</span>
+  </footer>
+</section>
+
+<!-- page 5 budget (Compact): h2 11 + prose 180 + figure (34mm = 82 + 24 + 14 = 120) + callout eq 60 + prose 130 + 4 gaps 32 = 533 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>5.2 ชั้นชิดผิวของการพาความร้อน (The Convection Boundary Layers) <span class="tag-slide">[สไลด์หน้า 15–24]</span></h2>
+    <h3>5.2.1 ชั้นชิดผิวของความเร็ว (The Velocity Boundary Layer) <span class="tag-slide">[สไลด์หน้า 15–18]</span></h3>
+    <p>เพื่อทำความเข้าใจแนวคิดของชั้นชิดผิว ให้พิจารณาการไหลผ่านแผ่นราบใน <strong>รูปที่ 5.2(ก)</strong> เมื่ออนุภาคของของไหลเคลื่อนที่เข้าสัมผัสกับพื้นผิวของแข็งที่ <span class="math">y = 0</span> อนุภาคเหล่านั้นจะมีความเร็วเป็นศูนย์ทันที (<strong>เงื่อนไขการไม่ลื่นไถล, No-slip condition: <span class="math">u = 0</span> ที่ <span class="math">y = 0</span></strong>) อนุภาคที่หยุดนิ่งชั้นนี้จะทำหน้าที่หน่วงเหนี่ยว (Retard) การเคลื่อนที่ของอนุภาคในชั้นของไหลที่อยู่ติดกันถัดขึ้นไป และชั้นถัดไปก็หน่วงชั้นต่อไปเรื่อย ๆ จนกระทั่งที่ระยะห่าง <span class="math">y = δ</span> จากพื้นผิว ผลการหน่วงนี้จะมีค่าน้อยมากจนตัดทิ้งได้ <span class="tag-slide">[สไลด์หน้า 16]</span></p>
+    <p>การหน่วงความเร็วของของไหลนี้เกี่ยวข้องกับ <strong>ความเค้นเฉือน (Shear stresses, <span class="math">τ</span>)</strong> ที่กระทำในระนาบขนานกับความเร็วของไหล สำหรับของไหลนิวโทเนียน (Newtonian fluid) ความเค้นเฉือนที่พื้นผิว (<span class="math">τ<sub>s</sub></span>) คำนวณได้จากเกรเดียนต์ความเร็วที่พื้นผิว <span class="tag-slide">[สไลด์หน้า 16]</span> และเมื่อระยะ <span class="math">y</span> เพิ่มขึ้น ความเร็วตามแนวแกน <span class="math">x</span> (<span class="math">u</span>) จะเพิ่มขึ้นจนเข้าใกล้ความเร็วกระแสอิสระ <span class="math">u<sub>∞</sub></span> โดยเรานิยาม <strong>ความหนาของชั้นชิดผิว (Boundary layer thickness, <span class="math">δ</span>)</strong> เป็นค่าของ <span class="math">y</span> ที่ซึ่ง <span class="math">u = 0.99 u<sub>∞</sub></span> <span class="tag-slide">[สไลด์หน้า 17]</span> ส่งผลให้การไหลแบ่งออกเป็น 2 เขตที่ชัดเจน คือ (1) ชั้นของไหลบาง ๆ (ชั้นชิดผิว) ที่เกรเดียนต์ความเร็วและความเค้นเฉือนมีค่าสูง และ (2) เขตภายนอกชั้นชิดผิวที่เกรเดียนต์ความเร็วและความเค้นเฉือนมีค่าน้อยมากจนตัดทิ้งได้ <span class="tag-slide">[สไลด์หน้า 18]</span></p>
+
+    <figure class="diagram-fig">
+      <svg role="img" style="width:100%; height:34mm;" viewBox="0 0 680 128">
+        <title>การพัฒนาชั้นชิดผิวของความเร็ว (Figure 5.2) และชั้นชิดผิวความร้อน (Figure 5.3) บนแผ่นราบ (อ้างอิงสไลด์หน้า 15-20)</title>
+        <!-- Left: Velocity Boundary Layer (Fig 5.2) -->
+        <text x="10" y="15" font-size="10" font-weight="bold" fill="#0f172a">(ก) ชั้นชิดผิวความเร็ว (Velocity Boundary Layer, Fig. 5.2)</text>
+        <line x1="20" y1="100" x2="20" y2="35" stroke="#334155" stroke-width="1.2" marker-end="url(#arr1)"></line>
+        <text x="12" y="42" font-size="9.5" font-weight="bold" fill="#334155">y</text>
+        <!-- Upstream uniform velocity -->
+        <line x1="25" y1="50" x2="55" y2="50" stroke="#0284c7" stroke-width="1.4" marker-end="url(#arr2)"></line>
+        <line x1="25" y1="65" x2="55" y2="65" stroke="#0284c7" stroke-width="1.4" marker-end="url(#arr2)"></line>
+        <line x1="25" y1="80" x2="55" y2="80" stroke="#0284c7" stroke-width="1.4" marker-end="url(#arr2)"></line>
+        <line x1="25" y1="95" x2="55" y2="95" stroke="#0284c7" stroke-width="1.4" marker-end="url(#arr2)"></line>
+        <line x1="57" y1="48" x2="57" y2="100" stroke="#b91c1c" stroke-width="2"></line>
+        <text x="40" y="44" font-size="9.5" font-weight="bold" fill="#0369a1" text-anchor="middle">u_∞</text>
+        <!-- Plate -->
+        <polygon points="57,100 320,100 320,110 67,110" fill="#e2e8f0" stroke="#334155" stroke-width="1.5"></polygon>
+        <!-- Boundary layer curve delta(x) -->
+        <path d="M 57 100 Q 140 50 315 35" fill="none" stroke="#0f172a" stroke-width="2.2"></path>
+        <text x="318" y="38" font-size="10" font-weight="bold" fill="#0f172a">δ(x)</text>
+        <text x="235" y="28" font-size="9.5" fill="#0369a1" font-weight="bold">Free stream (u_∞)</text>
+        <!-- Velocity profile at x -->
+        <line x1="175" y1="100" x2="175" y2="32" stroke="#0f172a" stroke-width="1.2"></line>
+        <path d="M 175 100 Q 202 72 208 32" fill="none" stroke="#b91c1c" stroke-width="2"></path>
+        <line x1="175" y1="35" x2="206" y2="35" stroke="#0284c7" stroke-width="1.3" marker-end="url(#arr2)"></line>
+        <line x1="175" y1="52" x2="204" y2="52" stroke="#0284c7" stroke-width="1.3" marker-end="url(#arr2)"></line>
+        <line x1="175" y1="68" x2="198" y2="68" stroke="#0284c7" stroke-width="1.3" marker-end="url(#arr2)"></line>
+        <line x1="175" y1="84" x2="188" y2="84" stroke="#0284c7" stroke-width="1.3" marker-end="url(#arr2)"></line>
+        <text x="190" y="64" font-size="9" font-weight="bold" fill="#0f172a">u(y)</text>
+        <!-- Thickness delta -->
+        <line x1="150" y1="55" x2="150" y2="100" stroke="#475569" stroke-width="1"></line>
+        <text x="142" y="80" font-size="10" font-weight="bold" fill="#0f172a">δ</text>
+        <text x="255" y="75" font-size="9" fill="#991b1b" font-weight="bold">τ ⇄ ความเค้นเฉือน</text>
+        <text x="255" y="90" font-size="9" fill="#334155">ที่ y = δ: u = 0.99 u_∞</text>
+
+        <!-- Right: Thermal Boundary Layer (Fig 5.3) -->
+        <text x="355" y="15" font-size="10" font-weight="bold" fill="#0f172a">(ข) ชั้นชิดผิวความร้อน (Thermal Boundary Layer, Fig. 5.3)</text>
+        <polygon points="390,100 660,100 660,110 400,110" fill="#ffe4e6" stroke="#991b1b" stroke-width="1.5"></polygon>
+        <text x="530" y="122" font-size="9.5" font-weight="bold" fill="#991b1b" text-anchor="middle">แผ่นราบอุณหภูมิคงที่ Tₛ (กรณี Tₛ &gt; T_∞)</text>
+        <!-- Thermal BL curve delta_t(x) -->
+        <path d="M 390 100 Q 475 50 650 35" fill="none" stroke="#991b1b" stroke-width="2.2"></path>
+        <text x="653" y="38" font-size="10" font-weight="bold" fill="#991b1b">δ_t(x)</text>
+        <!-- Temperature profile at x -->
+        <line x1="505" y1="100" x2="505" y2="32" stroke="#0f172a" stroke-width="1.2"></line>
+        <path d="M 555 100 Q 525 75 518 32" fill="none" stroke="#b91c1c" stroke-width="2"></path>
+        <line x1="505" y1="35" x2="517" y2="35" stroke="#b91c1c" stroke-width="1.3" marker-end="url(#arr1)"></line>
+        <line x1="505" y1="55" x2="520" y2="55" stroke="#b91c1c" stroke-width="1.3" marker-end="url(#arr1)"></line>
+        <line x1="505" y1="75" x2="530" y2="75" stroke="#b91c1c" stroke-width="1.3" marker-end="url(#arr1)"></line>
+        <line x1="505" y1="95" x2="548" y2="95" stroke="#b91c1c" stroke-width="1.3" marker-end="url(#arr1)"></line>
+        <text x="520" y="28" font-size="9.5" font-weight="bold" fill="#0369a1">T_∞</text>
+        <text x="562" y="97" font-size="9.5" font-weight="bold" fill="#991b1b">Tₛ</text>
+        <line x1="480" y1="55" x2="480" y2="100" stroke="#475569" stroke-width="1"></line>
+        <text x="470" y="80" font-size="10" font-weight="bold" fill="#991b1b">δ_t</text>
+        <text x="595" y="75" font-size="9" fill="#334155" text-anchor="middle">ที่ y = δ_t:</text>
+        <text x="595" y="88" font-size="9" font-weight="bold" fill="#991b1b" text-anchor="middle">(Tₛ−T)/(Tₛ−T_∞) = 0.99</text>
+      </svg>
+      <figcaption><strong>รูปที่ 5.2 และ 5.3 (อ้างอิงสไลด์หน้า 15–20):</strong> การพัฒนา (ก) ชั้นชิดผิวความเร็ว <span class="math">δ(x)</span> และ (ข) ชั้นชิดผิวความร้อน <span class="math">δ<sub>t</sub>(x)</span> บนแผ่นราบอุณหภูมิคงที่</figcaption>
+    </figure>
+
+    <h3>5.2.2 ชั้นชิดผิวความร้อน (The Thermal Boundary Layer) และความสำคัญทางวิศวกรรม <span class="tag-slide">[สไลด์หน้า 19–24]</span></h3>
+    <p>ในทำนองเดียวกัน ชั้นชิดผิวความร้อนจะพัฒนาขึ้นหากอุณหภูมิกระแสอิสระและอุณหภูมิพื้นผิวแตกต่างกัน (<span class="math">T<sub>s</sub> ≠ T<sub>∞</sub></span>, รูปที่ 5.3) ที่ขอบนำ (<span class="math">x = 0</span>) อุณหภูมิของไหลสม่ำเสมอเท่ากับ <span class="math">T(y) = T<sub>∞</sub></span> แต่อนุภาคของไหลที่สัมผัสแผ่นราบที่ <span class="math">y = 0</span> จะเข้าสู่สมดุลความร้อนที่อุณหภูมิผิว <span class="math">T<sub>s</sub></span> และถ่ายโอนพลังงานให้ชั้นถัดไปจนเกิดเกรเดียนต์อุณหภูมิ โดยความหนา <span class="math">δ<sub>t</sub></span> นิยามเป็นค่า <span class="math">y</span> ที่ซึ่งอัตราส่วน <span class="math">[(T<sub>s</sub> − T)/(T<sub>s</sub> − T<sub>∞</sub>)] = 0.99</span> <span class="tag-slide">[สไลด์หน้า 20]</span></p>
+    <p><strong>การเชื่อมโยงกฎของฟูริเยร์ที่ผนัง (<span class="math">y = 0</span>) เข้ากับค่า <span class="math">h</span> <span class="tag-slide">[สไลด์หน้า 21–22]</span>:</strong> เนื่องจากที่พื้นผิว (<span class="math">y = 0</span>) ของไหลหยุดนิ่งสนิท (ไม่มีการเคลื่อนที่ของของไหล) การถ่ายโอนพลังงานที่ตำแหน่ง <span class="math">y = 0</span> จึงเกิดขึ้นโดย <strong>การนำความร้อนเพียงอย่างเดียว</strong> เมื่อประยุกต์กฎของฟูริเยร์กับเนื้อของไหลที่ <span class="math">y = 0</span> คู่กับกฎการเย็นตัวของนิวตัน และรวมเข้ากับนิยามสัมประสิทธิ์ความเสียดทานพื้นผิว (<span class="math">C<sub>f</sub></span>) <span class="tag-slide">[สไลด์หน้า 24]</span> จะได้ชุดสมการพื้นฐานของชั้นชิดผิวดังนี้:</p>
+
+    <div class="callout eq-box">
+      <span class="math-display">τ<sub>s</sub> = μ <span class="frac"><span>∂u</span><span>∂y</span></span>|<sub>y=0</sub> &nbsp;&nbsp;,&nbsp;&nbsp; C<sub>f</sub> ≡ <span class="frac"><span>τ<sub>s</sub></span><span>ρu<sub>∞</sub><sup>2</sup> / 2</span></span> &nbsp;&nbsp;,&nbsp;&nbsp; q''<sub>s</sub> = −k<sub>f</sub> <span class="frac"><span>∂T</span><span>∂y</span></span>|<sub>y=0</sub> = h(T<sub>s</sub> − T<sub>∞</sub>) &nbsp;&nbsp;⇒&nbsp;&nbsp; h = <span class="frac"><span>−k<sub>f</sub> ∂T/∂y|<sub>y=0</sub></span><span>T<sub>s</sub> − T<sub>∞</sub></span></span></span> &nbsp;&nbsp;(สมการที่ 5.2a–d)
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 5: บทนำสู่การพาความร้อน</span>
+    <span>หน้า 5</span>
+  </footer>
+</section>
+
+<!-- page 6 budget (Compact): h2 11 + prose 185 + figure (35mm = 84 + 24 + 14 = 122) + prose 130 + callout eq 55 + 4 gaps 32 = 535 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>5.3 การไหลแบบราบเรียบและการไหลแบบปั่นป่วน (Laminar and Turbulent Flow) <span class="tag-slide">[สไลด์หน้า 25–30]</span></h2>
+    <p>ขั้นตอนแรกที่สำคัญที่สุดในการแก้ปัญหาการพาความร้อนทุกชนิด คือการพิจารณาว่าชั้นชิดผิวเป็น <strong>การไหลแบบราบเรียบ (Laminar flow)</strong> หรือ <strong>การไหลแบบปั่นป่วน (Turbulent flow)</strong> เพราะทั้งความเสียดทานที่พื้นผิว (<span class="math">C<sub>f</sub></span>) และอัตราการพาความร้อน (<span class="math">h</span>) ขึ้นอยู่กับสภาวะการไหลทั้งสองนี้อย่างมาก <span class="tag-slide">[สไลด์หน้า 25]</span></p>
+
+    <figure class="diagram-fig">
+      <svg role="img" style="width:100%; height:35mm;" viewBox="0 0 680 132">
+        <title>การพัฒนาชั้นชิดผิวความเร็วบนแผ่นราบ แสดงเขตราบเรียบ เขตเปลี่ยนผ่าน และเขตปั่นป่วนพร้อม 3 ชั้นย่อย (อ้างอิง Figure 5.4 สไลด์หน้า 25-30)</title>
+        <!-- Plate -->
+        <polygon points="45,98 600,98 600,108 55,108" fill="#e2e8f0" stroke="#334155" stroke-width="1.5"></polygon>
+        <!-- Laminar BL curve -->
+        <path d="M 45 98 Q 130 68 250 58" fill="none" stroke="#0f172a" stroke-width="2"></path>
+        <!-- Transition & Turbulent BL curve -->
+        <path d="M 250 58 C 285 52, 315 35, 360 28 C 420 18, 510 14, 585 12" fill="none" stroke="#0f172a" stroke-width="2"></path>
+        <!-- Streamline velocity vector decomposition -->
+        <text x="155" y="16" font-size="9.5" font-weight="bold" fill="#0369a1">Streamline: มีทั้งความเร็ว u (แกน x) และ v (แกน y)</text>
+        <line x1="150" y1="35" x2="205" y2="35" stroke="#0f172a" stroke-width="1.2" marker-end="url(#arr1)"></line>
+        <line x1="150" y1="35" x2="150" y2="18" stroke="#0f172a" stroke-width="1.2" marker-end="url(#arr1)"></line>
+        <line x1="150" y1="35" x2="202" y2="21" stroke="#b91c1c" stroke-width="1.5" marker-end="url(#arr1)"></line>
+        <text x="210" y="38" font-size="9" font-weight="bold">u</text>
+        <text x="142" y="23" font-size="9" font-weight="bold">v</text>
+
+        <!-- Laminar Velocity Profile -->
+        <line x1="185" y1="98" x2="185" y2="52" stroke="#334155" stroke-width="1.2"></line>
+        <path d="M 185 98 Q 212 80 218 52" fill="none" stroke="#b91c1c" stroke-width="2"></path>
+        <line x1="185" y1="60" x2="216" y2="60" stroke="#0284c7" stroke-width="1.2" marker-end="url(#arr2)"></line>
+        <line x1="185" y1="78" x2="206" y2="78" stroke="#0284c7" stroke-width="1.2" marker-end="url(#arr2)"></line>
+        <!-- Red Point 1 (Slide 28) -->
+        <circle cx="125" cy="94" r="5" fill="#dc2626" stroke="#000" stroke-width="1"></circle>
+        <text x="125" y="85" font-size="10" font-weight="bold" fill="#dc2626" text-anchor="middle">จุดที่ 1</text>
+
+        <!-- Turbulent eddies -->
+        <path d="M 330 55 A 8 8 0 1 1 342 62" fill="none" stroke="#475569" stroke-width="1.3" marker-end="url(#arr1)"></path>
+        <path d="M 375 42 A 9 9 0 1 1 388 50" fill="none" stroke="#475569" stroke-width="1.3" marker-end="url(#arr1)"></path>
+        <path d="M 415 65 A 8 8 0 1 1 428 72" fill="none" stroke="#475569" stroke-width="1.3" marker-end="url(#arr1)"></path>
+        <path d="M 450 35 A 10 10 0 1 1 464 44" fill="none" stroke="#475569" stroke-width="1.3" marker-end="url(#arr1)"></path>
+        <!-- Red Point 2 (Slide 28) -->
+        <circle cx="400" cy="94" r="5" fill="#dc2626" stroke="#000" stroke-width="1"></circle>
+        <text x="400" y="85" font-size="10" font-weight="bold" fill="#dc2626" text-anchor="middle">จุดที่ 2</text>
+
+        <!-- Turbulent Velocity Profile (Flatter) -->
+        <line x1="510" y1="98" x2="510" y2="12" stroke="#334155" stroke-width="1.2"></line>
+        <path d="M 510 98 L 542 90 Q 558 82 560 65 L 562 12" fill="none" stroke="#b91c1c" stroke-width="2.2"></path>
+        <line x1="510" y1="22" x2="560" y2="22" stroke="#0284c7" stroke-width="1.2" marker-end="url(#arr2)"></line>
+        <line x1="510" y1="42" x2="560" y2="42" stroke="#0284c7" stroke-width="1.2" marker-end="url(#arr2)"></line>
+        <line x1="510" y1="62" x2="559" y2="62" stroke="#0284c7" stroke-width="1.2" marker-end="url(#arr2)"></line>
+        <line x1="510" y1="82" x2="552" y2="82" stroke="#0284c7" stroke-width="1.2" marker-end="url(#arr2)"></line>
+
+        <!-- 3 Turbulent Sub-regions -->
+        <text x="572" y="45" font-size="9.5" font-weight="bold" fill="#0f172a">} Turbulent region (เขตปั่นป่วน)</text>
+        <text x="572" y="80" font-size="9.5" font-weight="bold" fill="#0369a1">} Buffer layer (ชั้นกันชน)</text>
+        <text x="572" y="95" font-size="9.5" font-weight="bold" fill="#991b1b">} Laminar sublayer (ชั้นย่อยราบเรียบ)</text>
+
+        <!-- Bottom labels -->
+        <line x1="45" y1="115" x2="250" y2="115" stroke="#0f172a" stroke-width="1.2"></line>
+        <text x="147" y="126" font-size="9.5" font-weight="bold" fill="#0f172a" text-anchor="middle">Laminar (x &lt; x_c)</text>
+        <line x1="250" y1="115" x2="325" y2="115" stroke="#d97706" stroke-width="1.2"></line>
+        <text x="287" y="126" font-size="9.5" font-weight="bold" fill="#b45309" text-anchor="middle">Transition</text>
+        <line x1="325" y1="115" x2="585" y2="115" stroke="#991b1b" stroke-width="1.2"></line>
+        <text x="455" y="126" font-size="9.5" font-weight="bold" fill="#991b1b" text-anchor="middle">Turbulent (ปั่นป่วน)</text>
+      </svg>
+      <figcaption><strong>รูปที่ 5.4 (อ้างอิง Figure 5.4 สไลด์หน้า 25–30):</strong> การพัฒนาชั้นชิดผิวความเร็วบนแผ่นราบ แสดงความแตกต่างระหว่างเขตราบเรียบ (จุดที่ 1) และเขตปั่นป่วน (จุดที่ 2) พร้อมการแบ่ง 3 ชั้นย่อยในเขตปั่นป่วน</figcaption>
+    </figure>
+
+    <h3>5.3.1 ความแตกต่างเชิงกายภาพระหว่างชั้นชิดผิวแบบราบเรียบและแบบปั่นป่วน <span class="tag-slide">[สไลด์หน้า 26–28]</span></h3>
+    <ul>
+      <li><strong>เขตราบเรียบ (Laminar boundary layer, บริเวณจุดที่ 1 ในสไลด์หน้า 28):</strong> ในช่วงเริ่มต้นจากขอบนำ (<span class="math">0 ≤ x ≤ x<sub>c</sub></span>) การเคลื่อนที่ของของไหลมีความเป็นระเบียบสูงมาก (Highly ordered) จนเราสามารถระบุ <strong>เส้นกระแส (Streamlines)</strong> ที่อนุภาคเคลื่อนที่ไปตามนั้นได้ชัดเจน การเคลื่อนที่ตามเส้นกระแสมีองค์ประกอบความเร็วทั้งในแนวแกน <span class="math">x</span> (<span class="math">u</span>) และแนวแกน <span class="math">y</span> (<span class="math">v</span>) โดยความเร็ว <span class="math">v</span> ในแนวตั้งฉากกับพื้นผิวเกิดขึ้นเนื่องจากชั้นชิดผิวมีการขยายความหนาเพิ่มขึ้นตามระยะ <span class="math">x</span> และช่วยพาโมเมนตัมและพลังงานข้ามชั้นชิดผิว <span class="tag-slide">[สไลด์หน้า 26]</span></li>
+      <li><strong>เขตเปลี่ยนผ่าน (Transition region) และเขตปั่นป่วน (Turbulent region, บริเวณจุดที่ 2 ในสไลด์หน้า 28):</strong> เมื่อห่างจากขอบนำถึงระยะ <span class="math">x<sub>c</sub></span> สิ่งรบกวนเล็ก ๆ ในการไหลจะถูกขยายขนาดขึ้นและเริ่มเปลี่ยนผ่านสู่การไหลแบบปั่นป่วน ในเขตปั่นป่วนเต็มที่ การเคลื่อนที่ของของไหลจะไร้ระเบียบอย่างยิ่ง (Highly irregular) และเป็นแบบ 3 มิติที่มี <strong>ความแปรปรวนของความเร็ว (Velocity fluctuations / Eddies)</strong> การปั่นป่วนและผสมกันอย่างรุนแรงนี้ช่วยเร่งการถ่ายโอนโมเมนตัมและพลังงาน ทำให้ <strong>ความหนาชั้นชิดผิว (<span class="math">δ</span>) ใหญ่กว่า โปรไฟล์ความเร็วและอุณหภูมิมีความแบนราบ (Flatter) ในช่วงกลางมากกว่า แต่มีความชันที่ติดผนังสูงกว่า</strong> ส่งผลให้ที่จุดที่ 2 มีทั้งความเสียดทานที่พื้นผิว (<span class="math">τ<sub>s</sub>, C<sub>f</sub></span>) และอัตราการพาความร้อน (<span class="math">h, q''</span>) สูงกว่าจุดที่ 1 อย่างมาก! <span class="tag-slide">[สไลด์หน้า 27–28]</span></li>
+      <li><strong>โครงสร้าง 3 ชั้นย่อยในชั้นชิดผิวแบบปั่นป่วน <span class="tag-slide">[สไลด์หน้า 28]</span>:</strong> (1) <strong>ชั้นย่อยราบเรียบ (Laminar sublayer)</strong> อยู่ติดผนังที่สุด การขนส่งถูกครอบงำด้วยการแพร่ระดับโมเลกุล (Diffusion) และโปรไฟล์ความเร็วเกือบเป็นเส้นตรง, (2) <strong>ชั้นกันชน (Buffer layer)</strong> อยู่ถัดออกมา การแพร่และการผสมแบบปั่นป่วนมีขนาดพอ ๆ กัน, และ (3) <strong>เขตปั่นป่วน (Turbulent zone)</strong> การขนส่งถูกครอบงำด้วยการผสมแบบปั่นป่วน (Turbulent mixing)</li>
+    </ul>
+
+    <h3>5.3.2 ตัวเลขเรย์โนลด์ส (Reynolds Number) และเกณฑ์การเปลี่ยนผ่าน <span class="tag-slide">[สไลด์หน้า 29–30]</span></h3>
+    <p>ในการคำนวณพฤติกรรมของชั้นชิดผิว ตำแหน่ง <span class="math">x<sub>c</sub></span> ที่เริ่มเกิดการเปลี่ยนผ่านจากแบบราบเรียบเป็นแบบปั่นป่วน ถูกกำหนดโดยกลุ่มตัวแปรไร้มิติที่เรียกว่า <strong>ตัวเลขเรย์โนลด์ส (Reynolds number, <span class="math">Re<sub>x</sub></span>)</strong> ซึ่งสำหรับแผ่นราบมีระยะ <span class="math">x</span> จากขอบนำเป็นความยาวลักษณะเฉพาะ โดยค่าตัวเลขเรย์โนลด์สวิกฤต (<span class="math">Re<sub>x,c</sub></span>) ของแผ่นราบในทางปฏิบัติแปรผันได้ตั้งแต่ประมาณ <span class="math">10<sup>5</sup></span> ถึง <span class="math">3 × 10<sup>6</sup></span> ขึ้นอยู่กับความขรุขระของพื้นผิวและระดับความปั่นป่วนของกระแสอิสระ <span class="tag-slide">[สไลด์หน้า 29–30]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Re<sub>x</sub> ≡ <span class="frac"><span>ρ u<sub>∞</sub> x</span><span>μ</span></span> = <span class="frac"><span>u<sub>∞</sub> x</span><span>ν</span></span> &nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp; Re<sub>x,c</sub> ≡ <span class="frac"><span>ρ u<sub>∞</sub> x<sub>c</sub></span><span>μ</span></span> = <span class="frac"><span>u<sub>∞</sub> x<sub>c</sub></span><span>ν</span></span> = 10<sup>5</sup> &nbsp;(หรือ 5 × 10<sup>5</sup> ในบทที่ 6)</span> &nbsp;&nbsp;(สมการที่ 5.3a–b)
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 5: บทนำสู่การพาความร้อน</span>
+    <span>หน้า 6</span>
+  </footer>
+</section>
+
+<!-- page 7 budget (Compact): callout warn 60 + callout example 155 + h2 11 + table 9 rows 165 + 4 gaps 32 = 423 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="callout warn">
+      <div class="callout-title"><span class="tag-note">[ข้อสังเกตต้นฉบับที่สำคัญมาก]</span> ค่าตัวแทนของตัวเลขเรย์โนลด์สวิกฤต (Re<sub>x,c</sub>): 10<sup>5</sup> เทียบกับ 5 × 10<sup>5</sup></div>
+      <p>ใน <strong>สไลด์หน้า 30 (บทที่ 5)</strong> อาจารย์แสดงสมการค่าตัวแทนเป็น <span class="math">Re<sub>x,c</sub> = 10<sup>5</sup></span> แต่ใน <strong>สไลด์หน้า 58 (บทที่ 6 สมการที่ 8)</strong> อาจารย์ระบุค่าตัวแทนมาตรฐานเป็น <span class="math">Re<sub>x,c</sub> = 5 × 10<sup>5</sup></span> (ซึ่งเป็นค่ามาตรฐานในตำรา <a class="cite" href="#ref-incropera" contenteditable="false">Incropera et al. (2007)</a> ที่ทำให้ได้ค่าคงที่ <span class="math">A = 871</span>) <strong>แนวทางปฏิบัติสำหรับนักศึกษา:</strong> หากโจทย์ไม่ได้กำหนดค่า <span class="math">Re<sub>x,c</sub></span> มาให้เป็นอื่น ในการคำนวณสมการสหสัมพันธ์บทที่ 6 ให้ใช้ค่ามาตรฐาน <span class="math">Re<sub>x,c</sub> = 5 × 10<sup>5</sup></span> เป็นหลัก แต่หากเป็นคำถามทฤษฎีบทที่ 5 ให้ระบุช่วง <span class="math">10<sup>5</sup></span> ถึง <span class="math">3 × 10<sup>6</sup></span> (โดยเรามักแสดงวิธีทำเทียบให้เห็นทั้งสองค่าเพื่อความสมบูรณ์)</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title"><span class="tag-supp">[เสริมพื้นฐาน]</span> ตัวอย่างที่ 5.2: การคำนวณหาระยะวิกฤต (x<sub>c</sub>) ที่เริ่มเกิดการไหลแบบปั่นป่วนบนแผ่นราบ</div>
+      <p><strong>โจทย์:</strong> อากาศที่อุณหภูมิเฉลี่ยมีความหนาแน่น <span class="math">ρ = 1.16 kg/m<sup>3</sup></span> และความหนืดพลวัต <span class="math">μ = 1.85 × 10<sup>−5</sup> kg/(s·m)</span> ไหลขนานผ่านแผ่นราบด้วยความเร็วกระแสอิสระ <span class="math">u<sub>∞</sub> = 8.0 m/s</span> จงหา (ก) ความหนืดจลน์ <span class="math">ν</span> ของอากาศ และ (ข) ตำแหน่งระยะวิกฤต <span class="math">x<sub>c</sub></span> จากขอบนำที่เริ่มเกิดการเปลี่ยนผ่านสู่การไหลปั่นป่วน ทั้งกรณีที่ใช้เกณฑ์ <span class="math">Re<sub>x,c</sub> = 10<sup>5</sup></span> (ตามสไลด์หน้า 30) และกรณีที่ใช้เกณฑ์มาตรฐาน <span class="math">Re<sub>x,c</sub> = 5 × 10<sup>5</sup></span> (ตามสไลด์หน้า 58)</p>
+      <p><strong>วิธีทำละเอียด:</strong><br>
+      <strong>(ก) คำนวณความหนืดจลน์ (<span class="math">ν</span>):</strong> จากนิยาม <span class="math">ν = μ / ρ = (1.85 × 10<sup>−5</sup> kg/s·m) / (1.16 kg/m<sup>3</sup>) = <strong>1.595 × 10<sup>−5</sup> m<sup>2</sup>/s</strong></span><br>
+      <strong>(ข) คำนวณระยะวิกฤต (<span class="math">x<sub>c</sub></span>):</strong> จัดรูปสมการที่ (5.3b) จะได้ <span class="math">x<sub>c</sub> = (Re<sub>x,c</sub> · ν) / u<sub>∞</sub></span><br>
+      • กรณีใช้เกณฑ์ <span class="math">Re<sub>x,c</sub> = 10<sup>5</sup></span>: <span class="math">x<sub>c</sub> = (10<sup>5</sup> × 1.595 × 10<sup>−5</sup> m<sup>2</sup>/s) / (8.0 m/s) = 1.595 / 8.0 = <strong>0.199 m (หรือ 19.9 cm)</strong></span><br>
+      • กรณีใช้เกณฑ์ <span class="math">Re<sub>x,c</sub> = 5 × 10<sup>5</sup></span>: <span class="math">x<sub>c</sub> = (5 × 10<sup>5</sup> × 1.595 × 10<sup>−5</sup> m<sup>2</sup>/s) / (8.0 m/s) = 7.975 / 8.0 = <strong>0.997 m (หรือ 99.7 cm)</strong></span></p>
+    </div>
+
+    <h2>5.4 ความหมายทางกายภาพของกลุ่มตัวแปรไร้มิติ (Physical Significance of the Dimensionless Parameters) <span class="tag-slide">[สไลด์หน้า 31–33]</span></h2>
+    <p>ในวิชาปรากฏการณ์การขนส่งและการถ่ายโอนความร้อน ตัวแปรทางกายภาพจำนวนมากถูกจัดกลุ่มให้อยู่ในรูป <strong>กลุ่มตัวแปรไร้มิติ (Dimensionless groups)</strong> เพื่อลดจำนวนตัวแปรต้นในการทดลองและแสดงอัตราส่วนของแรงหรือกลไกการขนส่งที่แข่งขันกัน <strong>ตารางที่ 5.1 (Table 5.1 ในสไลด์หน้า 31–32)</strong> รวบรวมกลุ่มตัวแปรไร้มิติที่สำคัญทั้ง 15 กลุ่มไว้ดังนี้:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:22%;">กลุ่มตัวแปรไร้มิติ (Group)</th>
+          <th scope="col" style="width:20%;">นิยาม (Definition)</th>
+          <th scope="col" style="width:58%;">การตีความหมายทางกายภาพและบทบาททางวิศวกรรม (Interpretation)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Biot number (<span class="math">Bi</span>)</strong><br>ตัวเลขไบออต</td>
+          <td><span class="math"><span class="frac"><span>h L</span><span>k<sub>s</sub></span></span></span></td>
+          <td>อัตราส่วนของความต้านทานความร้อนภายในเนื้อของแข็ง (<span class="math">L/k<sub>s</sub></span>) ต่อความต้านทานความร้อนที่ชั้นชิดผิวของของไหล (<span class="math">1/h</span>) <em>(สังเกตว่าใช้ <span class="math">k<sub>s</sub></span> ของของแข็ง!)</em> [หน้า 31, 33]</td>
+        </tr>
+        <tr>
+          <td><strong>2. Bond number (<span class="math">Bo</span>)</strong><br>ตัวเลขบอนด์</td>
+          <td><span class="math"><span class="frac"><span>g(ρ<sub>l</sub> − ρ<sub>v</sub>)L<sup>2</sup></span><span>σ</span></span></span></td>
+          <td>อัตราส่วนระหว่างแรงโน้มถ่วง (แรงลอยตัวของฟองไอในของเหลว) ต่อแรงตึงผิว (<span class="math">σ</span>) ใช้ในกระบวนการเดือดและการควบแน่น (Boiling &amp; Condensation) [หน้า 31]</td>
+        </tr>
+        <tr>
+          <td><strong>3. Coefficient of friction (<span class="math">C<sub>f</sub></span>)</strong></td>
+          <td><span class="math"><span class="frac"><span>τ<sub>s</sub></span><span>ρV<sup>2</sup> / 2</span></span></span></td>
+          <td>ความเค้นเฉือนที่พื้นผิวในรูปไร้มิติ (Dimensionless surface shear stress) สำหรับการไหลภายนอก [หน้า 24, 31]</td>
+        </tr>
+        <tr>
+          <td><strong>4. Eckert number (<span class="math">Ec</span>)</strong><br>ตัวเลขเอ็กเคิร์ต</td>
+          <td><span class="math"><span class="frac"><span>V<sup>2</sup></span><span>c<sub>p</sub>(T<sub>s</sub> − T<sub>∞</sub>)</span></span></span></td>
+          <td>พลังงานจลน์ของการไหลเปรียบเทียบกับผลต่างเอนทาลปีของชั้นชิดผิว ใช้ประเมินความร้อนจากการเสียดทานของความหนืด (Viscous dissipation) ในการไหลความเร็วสูง [หน้า 31]</td>
+        </tr>
+        <tr>
+          <td><strong>5. Fourier number (<span class="math">Fo</span>)</strong><br>ตัวเลขฟูริเยร์</td>
+          <td><span class="math"><span class="frac"><span>α t</span><span>L<sup>2</sup></span></span></span></td>
+          <td>อัตราส่วนของอัตราการนำความร้อนต่ออัตราการสะสมพลังงานความร้อนในของแข็ง หรือเรียกว่า <em>เวลาไร้มิติ (Dimensionless time)</em> ในการนำความร้อนแบบไม่คงตัว [หน้า 31]</td>
+        </tr>
+        <tr>
+          <td><strong>6. Friction factor (<span class="math">f</span>)</strong><br>ตัวประกอบความเสียดทาน</td>
+          <td><span class="math"><span class="frac"><span>Δp</span><span>(L/D)(ρu<sub>m</sub><sup>2</sup>/2)</span></span></span></td>
+          <td>ความดันลดไร้มิติสำหรับการไหลภายในท่อ (Dimensionless pressure drop for internal flow) ใช้คำนวณกำลังปั๊มและพัดลมในบทที่ 7 [หน้า 31, 102]</td>
+        </tr>
+        <tr>
+          <td><strong>7. Grashof number (<span class="math">Gr<sub>L</sub></span>)</strong><br>ตัวเลขกราชอฟ</td>
+          <td><span class="math"><span class="frac"><span>g β (T<sub>s</sub> − T<sub>∞</sub>) L<sup>3</sup></span><span>ν<sup>2</sup></span></span></span></td>
+          <td>อัตราส่วนของแรงลอยตัวต่อแรงหนืด (Ratio of buoyancy to viscous forces) มีบทบาทในการพาความร้อนแบบอิสระเหมือนกับที่ <span class="math">Re</span> มีในการพาความร้อนแบบบังคับ [หน้า 32–33]</td>
+        </tr>
+        <tr>
+          <td><strong>8. Colburn <span class="math">j</span> factor (<span class="math">j<sub>H</sub></span>)</strong></td>
+          <td><span class="math">St · Pr<sup>2/3</sup></span></td>
+          <td>สัมประสิทธิ์การถ่ายโอนความร้อนในรูปไร้มิติ (Dimensionless heat transfer coefficient) โดยจากอุปมาของชิลตัน-โคลเบิร์น จะได้ <span class="math">j<sub>H</sub> = C<sub>f</sub> / 2</span> [หน้า 32]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 5: บทนำสู่การพาความร้อน</span>
+    <span>หน้า 7</span>
+  </footer>
+</section>
+
+<!-- page 8 budget (Compact): table 8 rows 155 + h3 11 + prose 240 + callout 95 + 4 gaps 32 = 533 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:22%;">กลุ่มตัวแปรไร้มิติ (ต่อ)</th>
+          <th scope="col" style="width:20%;">นิยาม (Definition)</th>
+          <th scope="col" style="width:58%;">การตีความหมายทางกายภาพและบทบาททางวิศวกรรม (Interpretation)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>9. Jakob number (<span class="math">Ja</span>)</strong><br>ตัวเลขจาคอบ</td>
+          <td><span class="math"><span class="frac"><span>c<sub>p</sub>(T<sub>s</sub> − T<sub>sat</sub>)</span><span>h<sub>fg</sub></span></span></span></td>
+          <td>อัตราส่วนของพลังงานความร้อนสัมผัส (Sensible energy) ต่อพลังงานความร้อนแฝง (Latent energy, <span class="math">h<sub>fg</sub></span>) ที่ถูกดูดกลืนหรือคายออกระหว่างการเปลี่ยนสถานะของเหลว-ไอ [หน้า 32]</td>
+        </tr>
+        <tr>
+          <td><strong>10. Nusselt number (<span class="math">Nu<sub>L</sub></span>)</strong><br>ตัวเลขนัสเซลต์</td>
+          <td><span class="math"><span class="frac"><span>h L</span><span>k<sub>f</sub></span></span></span></td>
+          <td>เกรเดียนต์ของอุณหภูมิไร้มิติที่พื้นผิว (Dimensionless temperature gradient at the surface) หรืออัตราส่วนการพาความร้อนต่อการนำความร้อนในชั้นของไหล <em>(ใช้ <span class="math">k<sub>f</sub></span> ของของไหล!)</em> [หน้า 32–33]</td>
+        </tr>
+        <tr>
+          <td><strong>11. Peclet number (<span class="math">Pe<sub>L</sub></span>)</strong><br>ตัวเลขเพเคลต์</td>
+          <td><span class="math"><span class="frac"><span>V L</span><span>α</span></span> = Re<sub>L</sub> Pr</span></td>
+          <td>พารามิเตอร์อิสระไร้มิติของการถ่ายโอนความร้อน (อัตราส่วนการพาความร้อนด้วยกระแสการไหล Advection ต่อการนำความร้อนระดับโมเลกุล) สำคัญมากในโลหะเหลว [หน้า 32, 49]</td>
+        </tr>
+        <tr>
+          <td><strong>12. Prandtl number (<span class="math">Pr</span>)</strong><br>ตัวเลขพรานด์เทิล</td>
+          <td><span class="math"><span class="frac"><span>c<sub>p</sub> μ</span><span>k</span></span> = <span class="frac"><span>ν</span><span>α</span></span></span></td>
+          <td>อัตราส่วนของสภาพแพร่โมเมนตัม (<span class="math">ν</span>) ต่อสภาพแพร่ความร้อน (<span class="math">α</span>) บอกประสิทธิผลสัมพัทธ์ของการแพร่โมเมนตัมเทียบกับความร้อนในชั้นชิดผิวทั้งสอง [หน้า 32–33]</td>
+        </tr>
+        <tr>
+          <td><strong>13. Reynolds number (<span class="math">Re<sub>L</sub></span>)</strong><br>ตัวเลขเรย์โนลด์ส</td>
+          <td><span class="math"><span class="frac"><span>V L</span><span>ν</span></span> = <span class="frac"><span>ρ V L</span><span>μ</span></span></span></td>
+          <td>อัตราส่วนของแรงเฉื่อยต่อแรงหนืด (Ratio of inertia and viscous forces) ใช้ตัดสินว่าการไหลเป็นแบบราบเรียบหรือแบบปั่นป่วน [หน้า 32–33]</td>
+        </tr>
+        <tr>
+          <td><strong>14. Stanton number (<span class="math">St</span>)</strong><br>ตัวเลขสแตนตัน</td>
+          <td><span class="math"><span class="frac"><span>h</span><span>ρ V c<sub>p</sub></span></span> = <span class="frac"><span>Nu<sub>L</sub></span><span>Re<sub>L</sub> Pr</span></span></span></td>
+          <td>ตัวเลขนัสเซลต์ดัดแปลง (Modified Nusselt number) แสดงอัตราส่วนของฟลักซ์ความร้อนที่ถ่ายโอนที่ผนังต่อความจุความร้อนที่ของไหลพัดพาไปตามกระแสการไหล [หน้า 32, 52]</td>
+        </tr>
+        <tr>
+          <td><strong>15. Weber number (<span class="math">We</span>)</strong><br>ตัวเลขเวเบอร์</td>
+          <td><span class="math"><span class="frac"><span>ρ V<sup>2</sup> L</span><span>σ</span></span></span></td>
+          <td>อัตราส่วนของแรงเฉื่อยต่อแรงตึงผิว (Ratio of inertia to surface tension forces) ใช้ในการวิเคราะห์การแตกตัวของหยดของเหลวและสเปรย์ [หน้า 32]</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>5.4.1 การวิเคราะห์เจาะลึก 5 ตัวแปรหลักที่อาจารย์เน้นย้ำเป็นพิเศษ <span class="tag-slide">[สไลด์หน้า 33]</span></h3>
+    <ol>
+      <li><strong>Reynolds number (<span class="math">Re</span>) กับการตัดสินระบอบการไหล:</strong> <span class="math">Re</span> คืออัตราส่วนของแรงเฉื่อย (<span class="math">ρV<sup>2</sup>/L</span>) ต่อแรงหนืด (<span class="math">μV/L<sup>2</sup></span>) หาก <span class="math">Re</span> มีค่าน้อย แรงหนืดจะสามารถระงับสิ่งรบกวนไว้ได้ การไหลจึงเป็นแบบราบเรียบ (Laminar) แต่หาก <span class="math">Re</span> สูงเกินค่าวิกฤต แรงเฉื่อยจะเอาชนะแรงหนืด ทำให้ความปั่นป่วนขยายตัวกลายเป็น Turbulent flow <span class="tag-slide">[สไลด์หน้า 33]</span></li>
+      <li><strong>Prandtl number (<span class="math">Pr = ν / α</span>) กับความหนาสัมพัทธ์ของชั้นชิดผิว:</strong> <span class="math">Pr</span> เป็นสมบัติของของไหลล้วน ๆ ที่วัดว่าโมเมนตัมแพร่กระจายได้เร็วกว่าความร้อนกี่เท่า (โดยสำหรับชั้นชิดผิวแบบราบเรียบบนแผ่นราบ <span class="math">δ / δ<sub>t</sub> ≈ Pr<sup>1/3</sup></span> <span class="tag-slide">[สไลด์หน้า 47]</span>):
+        <ul>
+          <li><em>ของไหลประเภทโลหะเหลว (Liquid metals, เช่น ปรอท โซเดียมเหลว):</em> มีค่า <span class="math">Pr ≪ 1</span> (ประมาณ 0.003–0.03) ความร้อนแพร่เร็วกว่าโมเมนตัมมาก ทำให้ชั้นชิดผิวความร้อนหนากว่าชั้นชิดผิวความเร็วมาก (<span class="math">δ<sub>t</sub> ≫ δ</span>)</li>
+          <li><em>แก๊สทั่วไป (เช่น อากาศ):</em> มีค่า <span class="math">Pr ≈ 0.7</span> โมเมนตัมและความร้อนแพร่ด้วยอัตราใกล้เคียงกัน ทำให้ <span class="math">δ ≈ δ<sub>t</sub></span></li>
+          <li><em>น้ำมันเครื่องและของเหลวหนืด (Oils):</em> มีค่า <span class="math">Pr ≫ 1</span> (เช่น 100–10,000) โมเมนตัมแพร่ได้เร็วกว่าความร้อนมาก ทำให้ <span class="math">δ ≫ δ<sub>t</sub></span></li>
+        </ul>
+      </li>
+      <li><strong>Grashof number (<span class="math">Gr</span>) ในการพาความร้อนแบบอิสระ:</strong> วัดอัตราส่วนของแรงลอยตัวต่อแรงหนืดในชั้นชิดผิวความเร็ว จึงทำหน้าที่ในการพาความร้อนแบบอิสระ (บทที่ 8) เหมือนกับที่ <span class="math">Re</span> ทำในการพาความร้อนแบบบังคับ (บทที่ 6–7) <span class="tag-slide">[สไลด์หน้า 33]</span></li>
+      <li><strong>ความแตกต่างที่สำคัญยิ่งระหว่าง Nusselt number (<span class="math">Nu</span>) และ Biot number (<span class="math">Bi</span>):</strong> แม้ว่าสมการของทั้งคู่จะเขียนคล้ายกันมากคือ <span class="math">hL/k</span> แต่ <strong>ทั้งนิยามและการตีความหมายแตกต่างกันโดยสิ้นเชิง!</strong> <span class="tag-slide">[สไลด์หน้า 33]</span> กล่าวคือ <span class="math">Nu = hL / k<sub>f</sub></span> นิยามด้วย <strong>สภาพนำความร้อนของของไหล (<span class="math">k<sub>f</sub></span>)</strong> เพื่อใช้วัดเกรเดียนต์อุณหภูมิไร้มิติในของไหลและใช้หาค่า <span class="math">h</span> ในขณะที่ <span class="math">Bi = hL / k<sub>s</sub></span> นิยามด้วย <strong>สภาพนำความร้อนของของแข็ง (<span class="math">k<sub>s</sub></span>)</strong> เพื่อเปรียบเทียบความต้านทานการนำความร้อนในของแข็งกับความต้านทานการพาความร้อนที่ผิวนอก</li>
+    </ol>
+
+    <div class="callout warn">
+      <div class="callout-title">5.5 ข้อผิดพลาดและความเข้าใจผิดที่พบบ่อย (Common Pitfalls &amp; Misconceptions)</div>
+      <p><strong>1. การแทนค่า <span class="math">k</span> ผิดตัวในสมการ <span class="math">Nu = hL/k<sub>f</sub></span>:</strong> นักศึกษามักเผลอหยิบค่า <span class="math">k<sub>s</sub></span> ของแผ่นโลหะ (เช่น ทองแดง หรือเหล็ก) ไปแทนในสูตร <span class="math">Nu</span> เพื่อหาค่า <span class="math">h</span> ซึ่งผิดอย่างร้ายแรง! จำไว้เสมอว่าในการคำนวณการพาความร้อน ตัวแปรใน <span class="math">Re, Pr, Gr, Nu</span> ต้องใช้สมบัติของ <strong>ของไหล (Fluid)</strong> ทั้งสิ้น<br>
+      <strong>2. การใช้ค่าเฉพาะจุด <span class="math">h<sub>L</sub></span> แทนค่าเฉลี่ย <span class="math">h̄</span> ในกฎการเย็นตัวของนิวตัน:</strong> เมื่อต้องการหาความร้อนรวมทั้งแผ่น <span class="math">q = h̄A<sub>s</sub>(T<sub>s</sub> − T<sub>∞</sub>)</span> ต้องใช้ค่าเฉลี่ย <span class="math">h̄</span> เสมอ ห้ามนำค่าเฉพาะจุดที่ปลายแผ่น <span class="math">h(L)</span> มาคูณพื้นที่ทั้งหมดโดยยังไม่ได้อินทิเกรต<br>
+      <strong>3. การเข้าใจผิดว่าในชั้นชิดผิวแบบปั่นป่วนไม่มีการนำความร้อน:</strong> แม้ในเขตปั่นป่วนจะมีการผสมกันของก้อนของไหลอย่างรุนแรง แต่ที่ผิวผนังพอดี (<span class="math">y = 0</span>) ความเร็วของไหลยังคงเป็นศูนย์ (Laminar sublayer) ดังนั้นความร้อนที่ก้าวข้ามผนังเข้าสู่ของไหลชั้นแรกสุดยังคงต้องผ่านกลไกการนำความร้อน <span class="math">q''<sub>s</sub> = −k<sub>f</sub>(∂T/∂y)|<sub>y=0</sub></span> เสมอ</p>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 5: บทนำสู่การพาความร้อน</span>
+    <span>หน้า 8</span>
+  </footer>
+</section>
+
+<!-- page 9 budget (Compact): h2 11 + callout summary 95 + h2 11 + review questions 110 + h2 11 + exercises 285 + 5 gaps 40 = 563 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>5.6 สรุปสาระสำคัญประจำบทที่ 5 (Chapter Summary — สิ่งที่ต้องเข้าใจอย่างแท้จริง)</h2>
+    <div class="callout">
+      <ul>
+        <li><strong>กลไกและการจำแนกประเภท:</strong> การพาความร้อนเกิดจากการทำงานร่วมกันของการแพร่ระดับโมเลกุล (Diffusion) และการเคลื่อนที่ของกลุ่มก้อนของไหล (Bulk motion) หากขับเคลื่อนด้วยพัดลมหรือปั๊มเรียกว่า <em>Forced convection</em> (ควบคุมโดย <span class="math">Re</span>) หากขับเคลื่อนด้วยแรงลอยตัวจากผลต่างความหนาแน่นเมื่ออุณหภูมิเปลี่ยนเรียกว่า <em>Free/Natural convection</em> (ควบคุมโดย <span class="math">Gr</span> และ <span class="math">Ra</span>)</li>
+        <li><strong>กฎการเย็นตัวของนิวตันและการอินทิเกรต:</strong> ฟลักซ์เฉพาะจุดคือ <span class="math">q'' = h(T<sub>s</sub> − T<sub>∞</sub>)</span> และอัตราความร้อนรวมสำหรับพื้นผิวอุณหภูมิคงที่คือ <span class="math">q = h̄A<sub>s</sub>(T<sub>s</sub> − T<sub>∞</sub>)</span> โดยค่าเฉลี่ยทั่วแผ่นราบหาจาก <span class="math">h̄ = (1/L)∫<sub>0</sub><sup>L</sup> h dx</span></li>
+        <li><strong>ทฤษฎีชั้นชิดผิวและระบอบการไหล:</strong> ชั้นชิดผิวความเร็ว (<span class="math">δ</span>, ที่ <span class="math">u = 0.99u<sub>∞</sub></span>) ก่อให้เกิดความเค้นเฉือนที่ผิว <span class="math">τ<sub>s</sub> = μ(∂u/∂y)|<sub>y=0</sub></span> และ <span class="math">C<sub>f</sub> = τ<sub>s</sub>/(½ρu<sub>∞</sub><sup>2</sup>)</span> ส่วนชั้นชิดผิวความร้อน (<span class="math">δ<sub>t</sub></span>, ที่ <span class="math">(T<sub>s</sub>−T)/(T<sub>s</sub>−T<sub>∞</sub>) = 0.99</span>) กำหนดค่า <span class="math">h = −k<sub>f</sub>(∂T/∂y)|<sub>y=0</sub> / (T<sub>s</sub> − T<sub>∞</sub>)</span> การเปลี่ยนผ่านจากเขตราบเรียบสู่เขตปั่นป่วนเกิดที่ <span class="math">Re<sub>x,c</sub> = u<sub>∞</sub>x<sub>c</sub>/ν ≈ 10<sup>5</sup></span> ถึง <span class="math">5 × 10<sup>5</sup></span> โดยเขตปั่นป่วนช่วยให้ทั้ง <span class="math">C<sub>f</sub></span> และ <span class="math">h</span> สูงขึ้นอย่างมาก</li>
+      </ul>
+    </div>
+
+    <h2>5.7 คำถามทบทวนความเข้าใจเชิงแนวคิด (Review Questions)</h2>
+    <ol>
+      <li>เหตุใดที่ตำแหน่งผิวผนัง (<span class="math">y = 0</span>) การถ่ายโอนความร้อนจากแผ่นของแข็งเข้าสู่ของไหลที่กำลังไหลอยู่ จึงเกิดขึ้นได้โดยกลไกการนำความร้อน (<span class="math">q''<sub>s</sub> = −k<sub>f</sub> ∂T/∂y|<sub>y=0</sub></span>) เพียงอย่างเดียวเท่านั้น?</li>
+      <li>จงเปรียบเทียบโปรไฟล์ความเร็วของชั้นชิดผิวแบบราบเรียบ (จุดที่ 1 ในรูปที่ 5.4) กับชั้นชิดผิวแบบปั่นป่วน (จุดที่ 2) เหตุใดโปรไฟล์ที่แบนราบกว่าในช่วงกลางของการไหลแบบปั่นป่วน จึงทำให้เกิดความเค้นเฉือนที่ผนัง <span class="math">τ<sub>s</sub></span> และค่า <span class="math">h</span> สูงกว่าแบบราบเรียบ?</li>
+      <li>จงอธิบายความแตกต่างทั้งในแง่สูตรคำนวณและความหมายทางกายภาพระหว่างตัวเลขนัสเซลต์ (<span class="math">Nu</span>) และตัวเลขไบออต (<span class="math">Bi</span>)</li>
+    </ol>
+
+    <h2>5.8 แบบฝึกหัดประจำบทที่ 5 (Exercises — แบ่งตามระดับความลึก 5 ระดับ)</h2>
+    <p><em>คำแนะนำ: ให้ผู้เรียนทดลองเขียนแสดงวิธีทำด้วยตนเองก่อนตรวจสอบกับส่วนเฉลยละเอียดในหน้าถัดไป</em></p>
+    <ul>
+      <li><strong>[ระดับที่ 1: ตรวจสอบความเข้าใจพื้นฐาน] ข้อ 5.1:</strong> ผนังเตาอบมีอุณหภูมิผิวด้านใน <span class="math">T<sub>1</sub> = 220°C</span> และผิวด้านนอก <span class="math">T<sub>2</sub> = 80°C</span> ผนังมีความหนา <span class="math">L<sub>w</sub> = 0.10 m</span> และมีสภาพนำความร้อนของผนัง <span class="math">k<sub>s</sub> = 0.70 W/(m·K)</span> ผิวด้านนอกสัมผัสกับอากาศที่มีอุณหภูมิ <span class="math">T<sub>∞</sub> = 25°C</span> และแลกเปลี่ยนรังสีกับผนังห้องที่มีอุณหภูมิเท่ากัน โดยฟลักซ์การแผ่รังสีที่ผิวนอกวัดได้ <span class="math">q''<sub>rad</sub> = 310 W/m<sup>2</sup></span> จงใช้สมการสมดุลพลังงานที่พื้นผิวควบคุม (สมการที่ 5.0 ในสไลด์หน้า 2) คำนวณหา (ก) ฟลักซ์การนำความร้อนที่ไหลมาถึงผิวนอก <span class="math">q''<sub>cond</sub></span>, (ข) ฟลักซ์การพาความร้อน <span class="math">q''<sub>conv</sub></span>, และ (ค) สัมประสิทธิ์การพาความร้อน <span class="math">h</span> ของอากาศที่ผิวนอก</li>
+      <li><strong>[ระดับที่ 2: อธิบายหลักการและเหตุผลเชิงปริมาณ] ข้อ 5.2:</strong> ของไหล 3 ชนิด ได้แก่ (1) โลหะปรอทเหลว (<span class="math">ν = 1.15 × 10<sup>−7</sup> m<sup>2</sup>/s, α = 4.30 × 10<sup>−6</sup> m<sup>2</sup>/s</span>), (2) อากาศที่ความดันบรรยากาศ (<span class="math">ν = 15.89 × 10<sup>−6</sup> m<sup>2</sup>/s, α = 22.5 × 10<sup>−6</sup> m<sup>2</sup>/s</span>), และ (3) น้ำมันเครื่อง (<span class="math">ν = 5.50 × 10<sup>−4</sup> m<sup>2</sup>/s, α = 7.20 × 10<sup>−8</sup> m<sup>2</sup>/s</span>) ไหลแบบราบเรียบผ่านแผ่นราบ จงคำนวณหาตัวเลขพรานด์เทิล (<span class="math">Pr</span>) และประมาณค่าอัตราส่วนความหนาของชั้นชิดผิวความเร็วต่อชั้นชิดผิวความร้อน (<span class="math">δ / δ<sub>t</sub> ≈ Pr<sup>1/3</sup></span>) ของของไหลแต่ละชนิด พร้อมอธิบายความหมายทางกายภาพของผลลัพธ์ที่ได้</li>
+      <li><strong>[ระดับที่ 3: การคำนวณและประยุกต์ใช้แคลคูลัส] ข้อ 5.3:</strong> ในเขตการไหลแบบปั่นป่วนตลอดทั้งแผ่นราบความยาว <span class="math">L = 2.0 m</span> พบว่าสัมประสิทธิ์การพาความร้อนเฉพาะจุดแปรผันตามระยะ <span class="math">x</span> จากขอบนำตามสมการ <span class="math">h(x) = B x<sup>−1/5</sup></span> (เมื่อ <span class="math">B</span> เป็นค่าคงที่) (ก) จงอินทิเกรตหาอัตราส่วน <span class="math">h̄ / h(L)</span> สำหรับการไหลแบบปั่นป่วนนี้ และเปรียบเทียบกับกรณีการไหลแบบราบเรียบ (ข) หากที่ปลายแผ่น <span class="math">x = L = 2.0 m</span> วัดค่าเฉพาะจุดได้ <span class="math">h(L) = 48.0 W/(m<sup>2</sup>·K)</span> จงหาค่าคงที่ <span class="math">B</span> และสัมประสิทธิ์การพาความร้อนเฉลี่ย <span class="math">h̄</span></li>
+      <li><strong>[ระดับที่ 4: การวิเคราะห์โปรไฟล์ชั้นชิดผิว] ข้อ 5.4:</strong> น้ำที่อุณหภูมิกระแสอิสระ <span class="math">T<sub>∞</sub> = 20°C</span> (<span class="math">ρ = 998 kg/m<sup>3</sup>, μ = 1.00 × 10<sup>−3</sup> N·s/m<sup>2</sup>, k<sub>f</sub> = 0.60 W/m·K</span>) ไหลด้วยความเร็ว <span class="math">u<sub>∞</sub> = 1.5 m/s</span> ผ่านแผ่นราบที่มีอุณหภูมิผิวคงที่ <span class="math">T<sub>s</sub> = 60°C</span> ที่ตำแหน่ง <span class="math">x = 0.40 m</span> จากขอบนำ ความหนาชั้นชิดผิวความเร็วมีค่า <span class="math">δ = 2.8 mm</span> และความหนาชั้นชิดผิวความร้อนมีค่า <span class="math">δ<sub>t</sub> = 1.5 mm</span> หากโปรไฟล์ความเร็วและอุณหภูมิในชั้นชิดผิวสามารถประมาณด้วยพหุนามกำลังสามของพรานด์เทิล-บลasius คือ <span class="math">u(y)/u<sub>∞</sub> = <span class="frac"><span>3</span><span>2</span></span>(y/δ) − <span class="frac"><span>1</span><span>2</span></span>(y/δ)<sup>3</sup></span> และ <span class="math">(T − T<sub>s</sub>)/(T<sub>∞</sub> − T<sub>s</sub>) = <span class="frac"><span>3</span><span>2</span></span>(y/δ<sub>t</sub>) − <span class="frac"><span>1</span><span>2</span></span>(y/δ<sub>t</sub>)<sup>3</sup></span> จงคำนวณหา (ก) <span class="math">τ<sub>s</sub></span> และ <span class="math">C<sub>f</sub></span>, และ (ข) <span class="math">q''<sub>s</sub></span>, <span class="math">h</span>, และตัวเลขนัสเซลต์เฉพาะจุด <span class="math">Nu<sub>x</sub> = hx/k<sub>f</sub></span></li>
+      <li><strong>[ระดับที่ 5: โจทย์บูรณาการระดับมหาวิทยาลัย] ข้อ 5.5:</strong> แผ่นทำความร้อนรูปสี่เหลี่ยมผืนผ้ายาว <span class="math">L = 1.2 m</span> กว้าง <span class="math">w = 0.8 m</span> มีอุณหภูมิผิวคงที่ <span class="math">T<sub>s</sub> = 110°C</span> มีอากาศที่ <span class="math">T<sub>∞</sub> = 30°C</span> (<span class="math">ν = 2.00 × 10<sup>−5</sup> m<sup>2</sup>/s, k<sub>f</sub> = 0.0295 W/m·K</span>) ไหลขนานผ่านด้วยความเร็ว <span class="math">u<sub>∞</sub> = 10 m/s</span> กำหนดให้การเปลี่ยนผ่านจากเขตราบเรียบสู่เขตปั่นป่วนเกิดแบบทันทีทันใดที่ <span class="math">Re<sub>x,c</sub> = 5 × 10<sup>5</sup></span> โดยในเขตราบเรียบ (<span class="math">0 ≤ x ≤ x<sub>c</sub></span>) สัมประสิทธิ์เฉพาะจุดคือ <span class="math">h<sub>lam</sub>(x) = 10.5 x<sup>−1/2</sup></span> W/(m<sup>2</sup>·K) และในเขตปั่นป่วน (<span class="math">x<sub>c</sub> &lt; x ≤ L</span>) คือ <span class="math">h<sub>turb</sub>(x) = 42.0 x<sup>−1/5</sup></span> W/(m<sup>2</sup>·K) จงคำนวณหา (ก) ระยะเปลี่ยนผ่าน <span class="math">x<sub>c</sub></span>, (ข) สัมประสิทธิ์การพาความร้อนเฉลี่ยทั่วทั้งแผ่น <span class="math">h̄<sub>L</sub></span>, และ (ค) อัตราการถ่ายโอนความร้อนทั้งหมด <span class="math">q</span></li>
+    </ul>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 5: บทนำสู่การพาความร้อน</span>
+    <span>หน้า 9</span>
+  </footer>
+</section>
+
+<!-- page 10 budget (Compact): h2 11 + solutions 5.1 to 5.5 465 + h2 11 + references 45 + 4 gaps 32 = 564 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>5.9 เฉลยคำถามทบทวนและวิธีทำแบบฝึกหัดอย่างละเอียด (Detailed Solutions)</h2>
+    <p><strong>แนวตอบคำถามทบทวน:</strong> <strong>(1)</strong> เพราะเงื่อนไขการไม่ลื่นไถล (No-slip condition) บังคับให้อนุภาคของไหลที่สัมผัสผนังที่ <span class="math">y = 0</span> มีความเร็วเป็นศูนย์ (<span class="math">u = v = 0</span>) จึงไม่มีการพัดพาด้วยกลุ่มก้อนของไหลที่ตำแหน่งติดผนังพอดี <strong>(2)</strong> ในเขตปั่นป่วน การผสมของ Eddies นำของไหลความเร็วสูงและเย็นจากกระแสอิสระเข้ามาใกล้ผนังมาก ทำให้แม้ช่วงกลางจะแบนราบ แต่ที่ระยะประชิดผนัง (<span class="math">y → 0</span>) ความเร็วและอุณหภูมิต้องเปลี่ยนค่าอย่างก้าวกระโดดภายในชั้น Laminar sublayer ที่บางมาก ความชัน <span class="math">|∂u/∂y|<sub>y=0</sub></span> และ <span class="math">|∂T/∂y|<sub>y=0</sub></span> จึงสูงกว่าแบบราบเรียบมาก <strong>(3)</strong> <span class="math">Nu = hL/k<sub>f</sub></span> ใช้สภาพนำความร้อนของของไหล (<span class="math">k<sub>f</sub></span>) เพื่อวัดการพาความร้อนเทียบกับการนำความร้อนในของไหล ส่วน <span class="math">Bi = hL/k<sub>s</sub></span> ใช้สภาพนำความร้อนของของแข็ง (<span class="math">k<sub>s</sub></span>) เพื่อเปรียบเทียบความต้านทานความร้อนภายในของแข็งกับที่ผิวของไหล</p>
+
+    <div class="callout">
+      <div class="callout-title">เฉลยละเอียด ข้อ 5.1 (ระดับที่ 1) และ ข้อ 5.2 (ระดับที่ 2)</div>
+      <p><strong>วิธีทำ ข้อ 5.1:</strong><br>
+      • <strong>(ก) หาฟลักซ์การนำความร้อนผ่านผนัง (<span class="math">q''<sub>cond</sub></span>):</strong> จากกฎของฟูริเยร์ <span class="math">q''<sub>cond</sub> = k<sub>s</sub> <span class="frac"><span>T<sub>1</sub> − T<sub>2</sub></span><span>L<sub>w</sub></span></span> = (0.70 W/m·K) <span class="frac"><span>(220 − 80) K</span><span>0.10 m</span></span> = 0.70 × 1,400 = <strong>980 W/m<sup>2</sup></strong></span><br>
+      • <strong>(ข) หาฟลักซ์การพาความร้อน (<span class="math">q''<sub>conv</sub></span>):</strong> จากสมการที่ (5.0) ที่พื้นผิวควบคุม <span class="math">q''<sub>cond</sub> = q''<sub>conv</sub> + q''<sub>rad</sub> ⇒ q''<sub>conv</sub> = 980 − 310 = <strong>670 W/m<sup>2</sup></strong></span><br>
+      • <strong>(ค) หาสัมประสิทธิ์การพาความร้อน (<span class="math">h</span>):</strong> จาก <span class="math">q''<sub>conv</sub> = h(T<sub>2</sub> − T<sub>∞</sub>) ⇒ h = <span class="frac"><span>670 W/m<sup>2</sup></span><span>(80 − 25) K</span></span> = <span class="frac"><span>670</span><span>55</span></span> = <strong>12.18 W/(m<sup>2</sup>·K)</strong></span></p>
+      <p style="margin-top:4px;"><strong>วิธีทำ ข้อ 5.2:</strong> จากนิยามในตารางที่ 5.1 <span class="math">Pr = ν / α</span> และความสัมพันธ์ความหนาชั้นชิดผิว <span class="math">δ / δ<sub>t</sub> ≈ Pr<sup>1/3</sup></span>:<br>
+      1. <strong>ปรอทเหลว (Liquid metal):</strong> <span class="math">Pr = (1.15 × 10<sup>−7</sup>)/(4.30 × 10<sup>−6</sup>) = <strong>0.0267</strong></span> ⇒ <span class="math">δ / δ<sub>t</sub> ≈ (0.0267)<sup>1/3</sup> = <strong>0.299</strong></span> (ชั้นชิดผิวความร้อนหนากว่าความเร็วกว่า 3.3 เท่า)<br>
+      2. <strong>อากาศ (Gas):</strong> <span class="math">Pr = (15.89 × 10<sup>−6</sup>)/(22.5 × 10<sup>−6</sup>) = <strong>0.706</strong></span> ⇒ <span class="math">δ / δ<sub>t</sub> ≈ (0.706)<sup>1/3</sup> = <strong>0.890</strong></span> (ชั้นชิดผิวทั้งสองมีความหนาใกล้เคียงกันมาก)<br>
+      3. <strong>น้ำมันเครื่อง (Viscous oil):</strong> <span class="math">Pr = (5.50 × 10<sup>−4</sup>)/(7.20 × 10<sup>−8</sup>) = <strong>7,639</strong></span> ⇒ <span class="math">δ / δ<sub>t</sub> ≈ (7,639)<sup>1/3</sup> = <strong>19.70</strong></span> (ชั้นชิดผิวความเร็วหนากว่าความร้อนเกือบ 20 เท่า)</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">เฉลยละเอียด ข้อ 5.3 (ระดับที่ 3) และ ข้อ 5.4 (ระดับที่ 4)</div>
+      <p><strong>วิธีทำ ข้อ 5.3:</strong><br>
+      • <strong>(ก) อินทิเกรตหา <span class="math">h̄</span>:</strong> <span class="math">h̄ = <span class="frac"><span>1</span><span>L</span></span> ∫<sub>0</sub><sup>L</sup> B x<sup>−1/5</sup> dx = <span class="frac"><span>B</span><span>L</span></span> [ <span class="frac"><span>x<sup>4/5</sup></span><span>4/5</span></span> ]<sub>0</sub><sup>L</sup> = <span class="frac"><span>5</span><span>4</span></span> B L<sup>−1/5</sup> = <strong>1.25 h(L)</strong></span> (ในเขตปั่นป่วน ค่าเฉลี่ยเป็น 1.25 เท่าของค่าปลายแผ่น ซึ่งน้อยกว่าเขตราบเรียบที่เป็น 2 เท่า เพราะ <span class="math">x<sup>−1/5</sup></span> ลดลงช้ากว่า <span class="math">x<sup>−1/2</sup></span>)<br>
+      • <strong>(ข) คำนวณตัวเลข:</strong> ที่ <span class="math">L = 2.0 m</span> มี <span class="math">h(L) = 48.0 W/(m<sup>2</sup>·K)</span> ดังนั้น <span class="math">B = 48.0 × (2.0)<sup>1/5</sup> = 48.0 × 1.1487 = <strong>55.14 W/(m<sup>1.8</sup>·K)</strong></span> และ <span class="math">h̄ = 1.25 × 48.0 = <strong>60.0 W/(m<sup>2</sup>·K)</strong></span></p>
+      <p style="margin-top:4px;"><strong>วิธีทำ ข้อ 5.4:</strong><br>
+      • <strong>(ก) หา <span class="math">τ<sub>s</sub></span> และ <span class="math">C<sub>f</sub></span>:</strong> จาก <span class="math">u(y) = u<sub>∞</sub>[ <span class="frac"><span>3y</span><span>2δ</span></span> − <span class="frac"><span>y<sup>3</sup></span><span>2δ<sup>3</sup></span></span> ]</span> ดิฟเทียบกับ <span class="math">y</span> แล้วแทน <span class="math">y = 0</span> จะได้ <span class="math"><span class="frac"><span>∂u</span><span>∂y</span></span>|<sub>y=0</sub> = <span class="frac"><span>3 u<sub>∞</sub></span><span>2 δ</span></span> = <span class="frac"><span>3 × 1.5 m/s</span><span>2 × 0.0028 m</span></span> = 803.6 s<sup>−1</sup></span> ดังนั้น <span class="math">τ<sub>s</sub> = μ(803.6) = (1.00 × 10<sup>−3</sup>)(803.6) = <strong>0.804 N/m<sup>2</sup></strong></span> และ <span class="math">C<sub>f</sub> = <span class="frac"><span>0.804</span><span>0.5 × 998 × (1.5)<sup>2</sup></span></span> = <span class="frac"><span>0.804</span><span>1,122.75</span></span> = <strong>7.16 × 10<sup>−4</sup></strong></span><br>
+      • <strong>(ข) หา <span class="math">q''<sub>s</sub>, h, Nu<sub>x</sub></span>:</strong> จากสมการโปรไฟล์อุณหภูมิ ดิฟเทียบกับ <span class="math">y</span> ที่ <span class="math">y = 0</span> ได้ <span class="math"><span class="frac"><span>∂T</span><span>∂y</span></span>|<sub>y=0</sub> = −<span class="frac"><span>3(T<sub>s</sub> − T<sub>∞</sub>)</span><span>2 δ<sub>t</sub></span></span> = −<span class="frac"><span>3(60 − 20) K</span><span>2 × 0.0015 m</span></span> = −40,000 K/m</span> ดังนั้น <span class="math">q''<sub>s</sub> = −k<sub>f</sub>(−40,000) = 0.60 × 40,000 = <strong>24,000 W/m<sup>2</sup> (24 kW/m<sup>2</sup>)</strong></span>, ค่าสัมประสิทธิ์ <span class="math">h = <span class="frac"><span>24,000</span><span>60 − 20</span></span> = <strong>600 W/(m<sup>2</sup>·K)</strong></span>, และตัวเลขนัสเซลต์เฉพาะจุด <span class="math">Nu<sub>x</sub> = <span class="frac"><span>h x</span><span>k<sub>f</sub></span></span> = <span class="frac"><span>600 × 0.40</span><span>0.60</span></span> = <strong>400</strong></span></p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">เฉลยละเอียด ข้อ 5.5 (ระดับที่ 5: โจทย์บูรณาการชั้นชิดผิวแบบผสม)</div>
+      <p><strong>(ก) หาระยะเปลี่ยนผ่าน (<span class="math">x<sub>c</sub></span>):</strong> จาก <span class="math">Re<sub>x,c</sub> = u<sub>∞</sub>x<sub>c</sub> / ν = 5 × 10<sup>5</sup> ⇒ x<sub>c</sub> = <span class="frac"><span>(5 × 10<sup>5</sup>)(2.00 × 10<sup>−5</sup> m<sup>2</sup>/s)</span><span>10 m/s</span></span> = <strong>1.00 m</strong></span> (เนื่องจากแผ่นยาว <span class="math">L = 1.2 m &gt; 1.0 m</span> จึงเกิดทั้งเขตราบเรียบในช่วง <span class="math">0 ≤ x ≤ 1.0 m</span> และเขตปั่นป่วนในช่วง <span class="math">1.0 &lt; x ≤ 1.2 m</span>)<br>
+      <strong>(ข) อินทิเกรตแยกสองช่วงเพื่อหา <span class="math">h̄<sub>L</sub></span>:</strong> จากนิยามค่าเฉลี่ย <span class="math">h̄<sub>L</sub> = <span class="frac"><span>1</span><span>L</span></span> [ ∫<sub>0</sub><sup>x<sub>c</sub></sup> h<sub>lam</sub>(x) dx + ∫<sub>x<sub>c</sub></sub><sup>L</sup> h<sub>turb</sub>(x) dx ]</span><br>
+      • ช่วงราบเรียบ: <span class="math">∫<sub>0</sub><sup>1.0</sup> 10.5 x<sup>−1/2</sup> dx = 10.5 [ 2 x<sup>1/2</sup> ]<sub>0</sub><sup>1.0</sup> = 21.0 × (1.0 − 0) = 21.0 W/(m·K)</span><br>
+      • ช่วงปั่นป่วน: <span class="math">∫<sub>1.0</sub><sup>1.2</sup> 42.0 x<sup>−1/5</sup> dx = 42.0 × <span class="frac"><span>5</span><span>4</span></span> [ x<sup>4/5</sup> ]<sub>1.0</sub><sup>1.2</sup> = 52.5 × (1.2<sup>0.8</sup> − 1.0<sup>0.8</sup>) = 52.5 × (1.1571 − 1.0) = 8.25 W/(m·K)</span><br>
+      • ดังนั้น สัมประสิทธิ์การพาความร้อนเฉลี่ยทั่วทั้งแผ่นคือ: <span class="math">h̄<sub>L</sub> = <span class="frac"><span>21.0 + 8.25</span><span>1.2 m</span></span> = <span class="frac"><span>29.25</span><span>1.2</span></span> = <strong>24.38 W/(m<sup>2</sup>·K)</strong></span><br>
+      <strong>(ค) อัตราการถ่ายโอนความร้อนทั้งหมด (<span class="math">q</span>):</strong> พื้นที่ผิว <span class="math">A<sub>s</sub> = w × L = 0.8 × 1.2 = 0.96 m<sup>2</sup></span> ดังนั้น <span class="math">q = h̄<sub>L</sub> A<sub>s</sub> (T<sub>s</sub> − T<sub>∞</sub>) = 24.38 × 0.96 × (110 − 30) = <strong>1,872 W (หรือ 1.872 kW)</strong></span></p>
+    </div>
+
+    <h2>5.10 เอกสารอ้างอิงประจำบท (References)</h2>
+    <ol style="font-size:8.5pt;">
+      <li id="ref-slides">เอกสารประกอบการสอนรายวิชา <em>Transport Phenomena I: Chapter 5 Introduction to Convection (หน้า 1–33)</em>, ปีการศึกษา 2569.</li>
+      <li id="ref-incropera">Incropera, F. P., DeWitt, D. P., Bergman, T. L., &amp; Lavine, A. S. (2007). <em>Fundamentals of Heat and Mass Transfer</em> (6th ed., Chapter 6: Introduction to Convection, pp. 346–399). John Wiley &amp; Sons.</li>
+    </ol>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 5: บทนำสู่การพาความร้อน</span>
+    <span>หน้า 10</span>
+  </footer>
+</section>
+
+</div>
+
+<script data-bard-injected="true">
+(function() {
+  async function fetchFifeImageBlobUsingAlr(urlString) {
+    if (urlString.startsWith('blob:') || urlString.startsWith('data:')) {
+      throw new Error('Input URL is already a blob or data URL.');
+    }
+    var url = new URL(urlString, window.location.href);
+    url.searchParams.set('alr', 'yes');
+    for (var i = 0; i < 5; i++) {
+      var response = await fetch(url.toString(), {credentials: 'include'});
+      if (!response.ok) {
+        throw new Error('Fetch received not OK response: ' + response.status);
+      }
+      var contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.startsWith('text/plain')) {
+        var blob = await response.blob();
+        if (blob.size > 0 && blob.type.startsWith('image/')) {
+          return blob;
+        }
+        throw new Error('Fetched blob is not a valid image.');
+      }
+      url = new URL(await response.text());
+    }
+    throw new Error('Exceeded maximum number of redirects.');
+  }
+
+  async function updateImageSourcesUsingAlr() {
+    var imgs = Array.from(document.querySelectorAll('img'));
+    await Promise.all(imgs.map(async function(img) {
+      if (img.src && img.src.includes('googleusercontent')) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(img.src);
+          img.src = URL.createObjectURL(blob);
+        } catch (e) {}
+      }
+    }));
+
+    var elements = document.querySelectorAll('[style*="googleusercontent"]');
+    var urlRegex = /url\((['"]?)(https?:\/\/.*?googleusercontent.*?)\1\)/;
+    await Promise.all(Array.from(elements).map(async function(el) {
+      var bg = el.style.backgroundImage;
+      var match = bg ? bg.match(urlRegex) : null;
+      if (match && match[2]) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(match[2]);
+          var blobUrl = URL.createObjectURL(blob);
+          el.style.backgroundImage = bg.replace(match[2], blobUrl);
+        } catch (e) {}
+      }
+    }));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateImageSourcesUsingAlr);
+  } else {
+    updateImageSourcesUsingAlr();
+  }
+})();
+</script></body></html>

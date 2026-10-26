@@ -1,0 +1,621 @@
+<!DOCTYPE html><html lang="th"><head>
+<meta charset="UTF-8">
+<title>บทที่ 8: การพาความร้อนแบบอิสระ และภาคผนวกสรุปรายวิชา (Free Convection &amp; Master Appendix)</title>
+<style>
+    @page { margin: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { background-color: #ffffff; }
+    @media (prefers-color-scheme: dark) {
+        html { background-color: #1f1f1f; }
+    }
+    body {
+        padding: 24px 0;
+        margin: 0 auto;
+        max-width: 900px !important;
+        border: none !important;
+        background: transparent !important;
+        font-family: 'Sarabun', 'TH Sarabun New', 'Tahoma', 'Segoe UI', sans-serif;
+        color: #1e293b;
+    }
+    .page {
+    min-height: 297mm;
+    height: auto;
+    margin: 0 auto 12px auto;
+    padding: 18mm 18mm 12mm 18mm;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: visible;
+}
+    @media screen and (max-width: 600px) {
+        body { padding: 16px 0; }
+        .page { margin: 0 auto 8px auto; border: none; padding: 12px 20px; }
+    }
+    .page-content {
+    flex: 1 0 auto;
+    min-height: 0;
+    overflow: visible;
+}
+    .page-content > * + * { margin-top: 20px; }
+    .page.compact, body.compact .page { font-size: 9.5pt; line-height: 1.35; }
+    .page.compact .page-content > * + *, body.compact .page-content > * + * { margin-top: 12px; }
+    .page-content > :is(h1, h2, h3, h4) + * { margin-top: 8px; }
+    .page-footer {
+        flex-shrink: 0; margin-top: auto; padding-top: 4mm;
+        display: flex; justify-content: space-between; align-items: center;
+        font-size: 8.5pt; color: #64748b; border-top: 1px solid #cbd5e1;
+    }
+    @media print {
+        *, *::before, *::after { box-shadow: none !important; text-shadow: none !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        body { padding: 0; background: none; }
+        .page {
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        overflow: visible;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .page-content {
+        overflow: visible;
+    }
+
+    .page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+    }
+    [contenteditable]:focus { outline: none; }
+
+    h1, h2, h3, h4, p, ul, ol, table, figure { margin: 0; }
+    h1 { font-size: 18pt; font-weight: 700; color: #7c2d12; line-height: 1.25; }
+    h2 { font-size: 13pt; font-weight: 700; color: #9a3412; border-bottom: 1.5px solid #9a3412; padding-bottom: 3px; }
+    h3 { font-size: 10.5pt; font-weight: 700; color: #0f172a; }
+    p, li { font-size: 9.5pt; line-height: 1.35; text-align: justify; }
+    ul, ol { padding-left: 18px; }
+    li + li { margin-top: 3px; }
+
+    .masthead { background-color: #7c2d12; color: #ffffff; padding: 10px 14px; border-left: 6px solid #f59e0b; }
+    .masthead .course-tag { font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.5px; color: #fde68a; font-weight: 600; }
+    .masthead h1 { color: #ffffff; font-size: 16pt; margin-top: 2px; }
+    .masthead .sub { font-size: 9pt; color: #ffedd5; margin-top: 2px; }
+
+    .tag-slide { display: inline-block; background-color: #ffedd5; color: #9a3412; font-weight: 700; font-size: 8pt; padding: 1px 5px; border: 1px solid #fb923c; border-radius: 3px; }
+    .tag-supp { display: inline-block; background-color: #e0f2fe; color: #075985; font-weight: 700; font-size: 8pt; padding: 1px 5px; border: 1px solid #38bdf8; border-radius: 3px; }
+    .tag-note { display: inline-block; background-color: #fef3c7; color: #92400e; font-weight: 700; font-size: 8pt; padding: 1px 5px; border: 1px solid #fbbf24; border-radius: 3px; }
+
+    .callout { background-color: #f8fafc; border: 1px solid #cbd5e1; border-left: 4px solid #0284c7; padding: 8px 10px; }
+    .callout.warn { background-color: #fffbeb; border-color: #fde68a; border-left: 4px solid #d97706; }
+    .callout.eq-box { background-color: #fff7ed; border-color: #fed7aa; border-left: 4px solid #c2410c; text-align: center; padding: 6px 10px; }
+    .callout-title { font-weight: 700; font-size: 9.5pt; color: #0f172a; margin-bottom: 3px; }
+
+    .math-display { font-family: 'Cambria Math', 'Times New Roman', serif; font-size: 10.5pt; font-weight: 700; color: #7c2d12; }
+    .math { font-family: 'Cambria Math', 'Times New Roman', serif; font-style: italic; }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; padding: 0 3px; font-size: 90%; }
+    .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 2px 1px 2px; }
+    .frac > span:last-child { padding: 1px 2px 0 2px; }
+
+    table.data-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+    table.data-table th { background-color: #7c2d12; color: #ffffff; font-weight: 700; text-align: left; padding: 3.5px 6px; border: 1px solid #7c2d12; }
+    table.data-table td { padding: 2.8px 6px; border: 1px solid #cbd5e1; vertical-align: top; overflow-wrap: break-word; }
+    table.data-table tr:nth-child(even) td { background-color: #f8fafc; }
+
+    figure.diagram-fig { border: 1px solid #cbd5e1; background-color: #ffffff; padding: 6px 8px; text-align: center; }
+    figure.diagram-fig figcaption { font-size: 8.5pt; color: #334155; margin-top: 4px; text-align: left; }
+    .cite { color: #9a3412; text-decoration: none; font-weight: 600; }
+    li:target { background-color: #fef3c7; }
+</style>
+<style data-bard-injected="true">
+@media screen {
+    html {
+        background-color: #ffffff;
+    }
+    body {
+        padding: 8px 0 24px 0;
+    }
+}
+@media screen and (prefers-color-scheme: dark) {
+    html {
+        background-color: #1f1f1f;
+    }
+}
+@media screen and (max-width: 600px) {
+    body {
+        padding: 4px 0 16px 0;
+        margin: 0 auto;
+    }
+}
+</style></head>
+<body class="compact">
+<div contenteditable="true">
+
+<!-- page 1 budget (Compact): masthead 45 + h2 11 + prose 150 + h2 11 + table 13 rows 221 + figure 8.1/8.3 (28mm = 67 + 24 + 14 = 105) + 4 gaps 32 = 575 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="masthead">
+      <div class="course-tag">ตำราเรียนวิชาการฉบับสมบูรณ์ | TRANSPORT PHENOMENA I (ปีการศึกษา 2569)</div>
+      <h1>บทที่ 8: การพาความร้อนแบบอิสระ (Chapter 8: Free Convection)</h1>
+      <div class="sub">เรียบเรียงจากเอกสารการสอนของอาจารย์ (ไฟล์ที่ 2 สไลด์หน้า 49–88) พร้อมภาคผนวกสรุปสมการทั้งรายวิชา (สมการที่ 1–45) และ Master Reading Checklist</div>
+    </div>
+
+    <h2>8.0 บทนำ และ 8.1 การพิจารณาทางกายภาพ (Physical Considerations) <span class="tag-slide">[สไลด์หน้า 49–57]</span></h2>
+    <p>ในบทที่ 6–7 เราศึกษาการพาความร้อนที่เกิดจากแรงผลักดันภายนอก (พัดลมหรือปั๊ม) แต่ในบทที่ 8 นี้ เราพิจารณา <strong>การพาความร้อนแบบอิสระ หรือแบบธรรมชาติ (Free or Natural Convection)</strong> ซึ่งไม่มีความเร็วบังคับจากภายนอก (<span class="math">u<sub>∞</sub> = 0</span>) แต่กระแสการไหลเกิดขึ้นเมื่อมี <strong>แรงกระทำต่อมวล (Body force, เช่น แรงโน้มถ่วง <span class="math">g</span>)</strong> กระทำต่อของไหลที่มี <strong>เกรเดียนต์ความหนาแน่น (Density gradient)</strong> จากการเปลี่ยนแปลงอุณหภูมิ ก่อให้เกิด <strong>แรงลอยตัว (Buoyancy force)</strong> ขับเคลื่อนการไหล <span class="tag-slide">[สไลด์หน้า 50–51]</span> แม้ว่าความเร็วและค่า <span class="math">h</span> จะต่ำกว่าแบบบังคับ แต่มักเป็นตัวต้านทานความร้อนที่ใหญ่ที่สุดในระบบหลายโหมด และเป็นที่นิยมเมื่อต้องการลดค่าใช้จ่ายในการเดินเครื่อง <span class="tag-slide">[สไลด์หน้า 51–52]</span></p>
+
+    <h2>รายการสัญลักษณ์หลักและหน่วยวัดประจำบทที่ 8 (Nomenclature)</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:18%;">สัญลักษณ์</th>
+          <th scope="col" style="width:38%;">ความหมายทางกายภาพ (ภาษาไทย)</th>
+          <th scope="col" style="width:28%;">ความหมายภาษาอังกฤษ (ตามสไลด์)</th>
+          <th scope="col" style="width:16%;">หน่วยในระบบ SI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="math">g</span></td><td>ความเร่งเนื่องจากแรงโน้มถ่วงของโลก</td><td>Gravitational acceleration [หน้า 60]</td><td>m/s<sup>2</sup> (≈ 9.8 m/s<sup>2</sup>)</td></tr>
+        <tr><td><span class="math">Gr<sub>L</sub>, Gr<sub>x</sub></span></td><td>ตัวเลขกราชอฟ (<span class="math">gβ(T<sub>s</sub> − T<sub>∞</sub>)L<sup>3</sup> / ν<sup>2</sup></span>)</td><td>Grashof number [หน้า 60, 63]</td><td>ไร้มิติ</td></tr>
+        <tr><td><span class="math">g(Pr)</span></td><td>ฟังก์ชันของตัวเลขพรานด์เทิลในผลเฉลยแผ่นแนวตั้ง</td><td>Prandtl number function [หน้า 63]</td><td>ไร้มิติ</td></tr>
+        <tr><td><span class="math">L, D</span></td><td>ความยาวลักษณะเฉพาะ (ความสูงแผ่น, <span class="math">A<sub>s</sub>/P</span>, หรือเส้นผ่านศูนย์กลาง)</td><td>Characteristic length, Diameter [หน้า 67, 78]</td><td>m</td></tr>
+        <tr><td><span class="math">Nu, Nu<sub>F</sub>, Nu<sub>N</sub></span></td><td>ตัวเลขนัสเซลต์รวม, แบบบังคับ, และแบบธรรมชาติ</td><td>Combined, forced, natural Nusselt no. [หน้า 84]</td><td>ไร้มิติ</td></tr>
+        <tr><td><span class="math">q&#39;, q&#39;<sub>conv</sub>, q&#39;<sub>rad</sub></span></td><td>อัตราความร้อนรวม, การพา, และการแผ่รังสีต่อหน่วยความยาวท่อ</td><td>Heat rate per unit length [หน้า 85–86]</td><td>W/m</td></tr>
+        <tr><td><span class="math">Ra<sub>L</sub>, Ra<sub>D</sub></span></td><td>ตัวเลขเรย์ลีย์ (<span class="math">Ra ≡ Gr · Pr = gβ(T<sub>s</sub> − T<sub>∞</sub>)L<sup>3</sup> / (να)</span>)</td><td>Rayleigh number [หน้า 64–67, 78]</td><td>ไร้มิติ</td></tr>
+        <tr><td><span class="math">Ra<sub>x,c</sub></span></td><td>ตัวเลขเรย์ลีย์วิกฤตที่เริ่มเกิดการไหลปั่นป่วน (<span class="math">≈ 10<sup>9</sup></span>)</td><td>Critical Rayleigh number [หน้า 63–65]</td><td>ไร้มิติ</td></tr>
+        <tr><td><span class="math">T<sub>f</sub>, T<sub>sur</sub></span></td><td>อุณหภูมิฟิล์ม (<span class="math">(T<sub>s</sub> + T<sub>∞</sub>)/2</span>) และอุณหภูมิผนังห้องล้อมรอบ</td><td>Film temperature, Surroundings temp. [หน้า 67, 85]</td><td>K หรือ °C</td></tr>
+        <tr><td><span class="math">β</span></td><td>สัมประสิทธิ์การขยายตัวเชิงปริมาตรด้วยความร้อน (<span class="math">−(1/ρ)(∂ρ/∂T)<sub>p</sub></span>)</td><td>Volumetric thermal expansion coeff. [หน้า 58]</td><td>K<sup>−1</sup> (แก๊สอุดมคติ <span class="math">= 1/T<sub>f</sub></span>)</td></tr>
+        <tr><td><span class="math">ε, σ</span></td><td>สภาพเปล่งรังสีของผิว และค่าคงที่สเตฟาน-โบลต์ซมันน์</td><td>Surface emissivity, Stefan-Boltzmann const. [หน้า 85–86]</td><td>ไร้มิติ, 5.67×10<sup>−8</sup> W/m<sup>2</sup>·K<sup>4</sup></td></tr>
+        <tr><td><span class="math">θ</span></td><td>มุมเอียงของแผ่นจากแนวดิ่ง หรือมุมรอบทรงกระบอกแนวนอน</td><td>Inclination or circumferential angle [หน้า 79, 81]</td><td>องศา หรือ เรเดียน</td></tr>
+      </tbody>
+    </table>
+
+    <figure class="diagram-fig">
+      <svg role="img" style="width:100%; height:27mm;" viewBox="0 0 680 102">
+        <title>เสถียรภาพของชั้นของไหลระหว่างแผ่นขนาน (Figure 8.1), พลูมความร้อน (Figure 8.2), และชั้นชิดผิวบนแผ่นแนวตั้ง (Figure 8.3) อ้างอิงสไลด์หน้า 53-57</title>
+        <!-- (a) Unstable vs Stable (Fig 8.1) -->
+        <text x="10" y="13" font-size="9" font-weight="bold" fill="#7c2d12">(ก) เสถียรภาพระหว่างแผ่นแนวนอน (Fig. 8.1)</text>
+        <rect x="15" y="20" width="95" height="62" fill="#fff7ed" stroke="#9a3412" stroke-width="1.2"></rect>
+        <text x="62" y="31" font-size="8" fill="#0369a1" font-weight="bold" text-anchor="middle">บนเย็น T₁ (ρ₁ มาก)</text>
+        <path d="M 45 48 A 14 10 0 1 1 78 48 A 14 10 0 1 1 45 48" fill="none" stroke="#c2410c" stroke-width="1.3"></path>
+        <text x="62" y="51" font-size="7.5" font-weight="bold" fill="#9a3412" text-anchor="middle">Unstable (พา)</text>
+        <text x="62" y="78" font-size="8" fill="#b91c1c" font-weight="bold" text-anchor="middle">ล่างร้อน T₂ &gt; T₁</text>
+        <text x="62" y="94" font-size="8" fill="#1e293b" text-anchor="middle">(a) dT/dx&gt;0, dρ/dx&lt;0</text>
+
+        <rect x="120" y="20" width="95" height="62" fill="#f8fafc" stroke="#334155" stroke-width="1.2"></rect>
+        <text x="167" y="31" font-size="8" fill="#b91c1c" font-weight="bold" text-anchor="middle">บนร้อน T₁ &gt; T₂ (ρ₁ น้อย)</text>
+        <text x="167" y="54" font-size="8" font-weight="bold" fill="#047857" text-anchor="middle">Stable (นำความร้อน)</text>
+        <text x="167" y="78" font-size="8" fill="#0369a1" font-weight="bold" text-anchor="middle">ล่างเย็น T₂ (ρ₂ มาก)</text>
+        <text x="167" y="94" font-size="8" fill="#1e293b" text-anchor="middle">(b) ไม่มีการไหล (No flow)</text>
+
+        <!-- (b) Plume (Fig 8.2) -->
+        <text x="235" y="13" font-size="9" font-weight="bold" fill="#7c2d12">(ข) พลูมความร้อน (Fig. 8.2a)</text>
+        <circle cx="295" cy="85" r="4" fill="#b91c1c"></circle>
+        <path d="M 291 85 Q 275 50 265 18" fill="none" stroke="#475569" stroke-width="1.2"></path>
+        <path d="M 299 85 Q 315 50 325 18" fill="none" stroke="#475569" stroke-width="1.2"></path>
+        <path d="M 270 48 Q 295 20 320 48" fill="none" stroke="#b91c1c" stroke-width="1.8"></path>
+        <line x1="295" y1="48" x2="295" y2="30" stroke="#b91c1c" stroke-width="1.3"></line>
+        <text x="295" y="97" font-size="8" fill="#1e293b" text-anchor="middle">ลวดร้อน (ρ &lt; ρ_∞ ลอยขึ้น)</text>
+
+        <!-- (c) Vertical Plate BL (Fig 8.3) -->
+        <text x="380" y="13" font-size="9" font-weight="bold" fill="#7c2d12">(ค) ชั้นชิดผิวบนแผ่นแนวตั้งร้อน (Fig. 8.3)</text>
+        <rect x="405" y="18" width="6" height="72" fill="#fed7aa" stroke="#9a3412" stroke-width="1.2"></rect>
+        <path d="M 411 90 Q 455 65 485 18" fill="none" stroke="#0f172a" stroke-width="1.6"></path>
+        <line x1="411" y1="50" x2="472" y2="50" stroke="#475569" stroke-width="1" stroke-dasharray="2,2"></line>
+        <!-- Velocity profile u(y): zero at wall and zero at outer edge -->
+        <path d="M 411 50 Q 432 15 472 50" fill="none" stroke="#b91c1c" stroke-width="2"></path>
+        <line x1="425" y1="50" x2="425" y2="33" stroke="#c2410c" stroke-width="1.2"></line>
+        <line x1="440" y1="50" x2="440" y2="36" stroke="#c2410c" stroke-width="1.2"></line>
+        <text x="455" y="28" font-size="8.5" font-weight="bold" fill="#b91c1c">u(y)</text>
+        <text x="565" y="42" font-size="8.5" font-weight="bold" fill="#0f172a">Quiescent fluid (ของไหลนิ่ง)</text>
+        <text x="565" y="55" font-size="8" fill="#334155">u_∞ = 0, T_∞, ρ_∞ (g ชี้ลง ↓)</text>
+        <text x="565" y="70" font-size="8" fill="#9a3412" font-weight="bold">สังเกต: u = 0 ทั้งที่ y = 0 และ y → δ</text>
+      </svg>
+      <figcaption><strong>รูปที่ 8.1, 8.2 และ 8.3 (อ้างอิงสไลด์หน้า 53–57):</strong> (ก) เสถียรภาพของของไหลระหว่างแผ่นขนาน, (ข) พลูมความร้อนเหนือลวดร้อน, และ (ค) โปรไฟล์ความเร็ว <span class="math">u(y)</span> บนแผ่นแนวตั้ง</figcaption>
+    </figure>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 8: การพาความร้อนแบบอิสระ</span>
+    <span>หน้า 1</span>
+  </footer>
+</section>
+
+<!-- page 2 budget (Compact): h2 11 + prose & eq 145 + h2 11 + prose & eq 140 + h2 11 + prose & eq 34-38 190 + figure 8.5 (25mm = 60+24+14=98) = 595 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>8.2 สมการควบคุม และสัมประสิทธิ์การขยายตัวเชิงปริมาตร (β) <span class="tag-slide">[สไลด์หน้า 58–59]</span></h2>
+    <p>หากความแปรผันของความหนาแน่นเกิดจากการเปลี่ยนแปลงอุณหภูมิเพียงอย่างเดียว เราสามารถเชื่อมโยงผลต่างความหนาแน่น <span class="math">(ρ<sub>∞</sub> − ρ)</span> เข้ากับผลต่างอุณหภูมิผ่านสมบัติทางอุณหพลศาสตร์ที่เรียกว่า <strong>สัมประสิทธิ์การขยายตัวเชิงปริมาตรด้วยความร้อน (Volumetric thermal expansion coefficient, <span class="math">β</span>)</strong> โดยสำหรับของเหลวและแก๊สจริงให้เปิดค่า <span class="math">β</span> จากตารางสมบัติสาร แต่สำหรับ <strong>แก๊สอุดมคติ (<span class="math">ρ = p / RT</span>)</strong> พิสูจน์ได้ว่า <span class="math">β = 1 / T</span> (โดย <span class="math">T</span> คืออุณหภูมิสัมบูรณ์หน่วยเคลวิน K เท่านั้น!) <span class="tag-slide">[สไลด์หน้า 58–59]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">β ≡ −<span class="frac"><span>1</span><span>ρ</span></span> (<span class="frac"><span>∂ρ</span><span>∂T</span></span>)<sub>p</sub> ≈ −<span class="frac"><span>1</span><span>ρ</span></span> <span class="frac"><span>ρ<sub>∞</sub> − ρ</span><span>T<sub>∞</sub> − T</span></span>  ⇒  (ρ<sub>∞</sub> − ρ) ≈ ρ β (T − T<sub>∞</sub>)   |   แก๊สอุดมคติ: β = −<span class="frac"><span>1</span><span>ρ</span></span> (<span class="frac"><span>∂(p/RT)</span><span>∂T</span></span>)<sub>p</sub> = <span class="frac"><span>1</span><span>T</span></span>  (หน่วย K<sup>−1</sup>)</span>
+    </div>
+
+    <h2>8.3 การพิจารณาความคล้ายคลึง และตัวเลขกราชอฟ (Gr<sub>L</sub>) <span class="tag-slide">[สไลด์หน้า 60–62]</span></h2>
+    <p>กลุ่มตัวแปรไร้มิติหลักของการพาความร้อนแบบอิสระคือ <strong>ตัวเลขกราชอฟ (Grashof number, <span class="math">Gr<sub>L</sub></span>)</strong> ซึ่งทำหน้าที่เหมือนตัวเลขเรย์โนลด์สในการพาความร้อนแบบบังคับ โดยวัด <em>อัตราส่วนของแรงลอยตัวต่อแรงหนืด</em> และเมื่อเปรียบเทียบกับ <span class="math">Re<sub>L</sub><sup>2</sup></span> จะใช้เป็นเกณฑ์ตัดสินโหมดการพาความร้อนได้ดังนี้ <span class="tag-slide">[สไลด์หน้า 60–62]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Gr<sub>L</sub> ≡ <span class="frac"><span>g β (T<sub>s</sub> − T<sub>∞</sub>) L<sup>3</sup></span><span>ν<sup>2</sup></span></span>    |    เกณฑ์ตัดสิน:  <span class="frac"><span>Gr<sub>L</sub></span><span>Re<sub>L</sub><sup>2</sup></span></span> ≪ 1 (บังคับล้วน)  ,  <span class="frac"><span>Gr<sub>L</sub></span><span>Re<sub>L</sub><sup>2</sup></span></span> ≫ 1 (อิสระล้วน)  ,  <span class="frac"><span>Gr<sub>L</sub></span><span>Re<sub>L</sub><sup>2</sup></span></span> ≈ 1 (ผสม)</span>
+    </div>
+
+    <h2>8.4 แผ่นแนวตั้งแบบราบเรียบ, 8.5 ความปั่นป่วน (Ra<sub>x,c</sub>), และ 8.6.1 สหสัมพันธ์แผ่นแนวตั้ง <span class="tag-slide">[สไลด์หน้า 63–69]</span></h2>
+    <p>สำหรับการพาความร้อนแบบอิสระเชิงราบเรียบบนแผ่นแนวตั้ง (<span class="math">0 ≤ Pr ≤ ∞</span>) ผลเฉลยความคล้ายคลึงให้ค่า <span class="math">Nu<sub>x</sub></span> และค่าเฉลี่ย <span class="math">Nū<sub>L</sub></span> ดังสมการที่ (34)–(35) <span class="tag-slide">[สไลด์หน้า 63]</span> ส่วนการเปลี่ยนผ่านสู่ความปั่นป่วนกำหนดด้วย <strong>ตัวเลขเรย์ลีย์วิกฤต (<span class="math">Ra<sub>x,c</sub> = Gr<sub>x,c</sub>Pr ≈ 10<sup>9</sup></span>)</strong> <span class="tag-note">[ข้อสังเกตต้นฉบับ: สไลด์หน้า 64–65 พิมพ์ 10<sup>9</sup> เป็น 10° แต่ในรูปที่ 8.4 หน้า 63 และกราฟหน้า 68 แสดงค่าที่ถูกต้องคือ 10<sup>9</sup>]</span> โดยสหสัมพันธ์เชิงประจักษ์ของแผ่นแนวตั้งใช้รูปทั่วไปสมการที่ (36) หรือสมการของ Churchill &amp; Chu สมการที่ (37)–(38) (ประเมินสมบัติที่ <span class="math">T<sub>f</sub> = (T<sub>s</sub> + T<sub>∞</sub>)/2</span>) <span class="tag-slide">[สไลด์หน้า 66–69]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">ผลเฉลยราบเรียบ: Nu<sub>x</sub> = (<span class="frac"><span>Gr<sub>x</sub></span><span>4</span></span>)<sup>1/4</sup> g(Pr)  โดย g(Pr) = <span class="frac"><span>0.75 Pr<sup>1/2</sup></span><span>(0.609 + 1.221 Pr<sup>1/2</sup> + 1.238 Pr)<sup>1/4</sup></span></span>  …(34)  ,  Nū<sub>L</sub> = <span class="frac"><span>4</span><span>3</span></span> Nu<sub>L</sub>  …(สมการที่ 35)</span><br>
+      <span class="math-display">สหสัมพันธ์รูปทั่วไป: Nū<sub>L</sub> = <span class="frac"><span>h̄ L</span><span>k</span></span> = C Ra<sub>L</sub><sup>n</sup>  …(สมการที่ 36)   โดยที่  Ra<sub>L</sub> = Gr<sub>L</sub> Pr = <span class="frac"><span>g β (T<sub>s</sub> − T<sub>∞</sub>) L<sup>3</sup></span><span>ν α</span></span></span><br>
+      <span class="math-display">แผ่นแนวตั้ง (ทุกช่วง Ra<sub>L</sub>): Nū<sub>L</sub> = { 0.825 + <span class="frac"><span>0.387 Ra<sub>L</sub><sup>1/6</sup></span><span>[1 + (0.492 / Pr)<sup>9/16</sup>]<sup>8/27</sup></span></span> }<sup>2</sup>  …(สมการที่ 37)  |  (เมื่อ Ra<sub>L</sub> ≤ 10<sup>9</sup>): Nū<sub>L</sub> = 0.68 + <span class="frac"><span>0.670 Ra<sub>L</sub><sup>1/4</sup></span><span>[1 + (0.492 / Pr)<sup>9/16</sup>]<sup>4/9</sup></span></span>  …(38)</span>
+    </div>
+
+    <figure class="diagram-fig">
+      <svg role="img" style="width:100%; height:25mm;" viewBox="0 0 680 94">
+        <title>การเปลี่ยนผ่านชั้นชิดผิวบนแผ่นแนวตั้ง (Figure 8.4) และกราฟสหสัมพันธ์แผ่นแนวตั้ง (Figure 8.5) อ้างอิงสไลด์หน้า 63 และ 68</title>
+        <!-- Left: Fig 8.4 Vertical Plate Transition -->
+        <text x="10" y="13" font-size="9" font-weight="bold" fill="#7c2d12">(ก) การเปลี่ยนผ่านสู่ความปั่นป่วนบนแผ่นแนวตั้ง (Fig. 8.4)</text>
+        <rect x="25" y="22" width="190" height="6" fill="#fed7aa" stroke="#9a3412"></rect>
+        <text x="120" y="38" font-size="8" font-weight="bold" fill="#9a3412" text-anchor="middle">แผ่นแนวตั้ง (วางในแนวตั้ง: แกน x ชี้ขึ้น ↑, g ชี้ลง ↓)</text>
+        <path d="M 25 22 Q 75 45 120 50 C 145 55, 175 75, 215 82" fill="none" stroke="#0f172a" stroke-width="1.6"></path>
+        <line x1="120" y1="22" x2="120" y2="85" stroke="#b91c1c" stroke-width="1" stroke-dasharray="3,2"></line>
+        <text x="70" y="65" font-size="8.5" font-weight="bold" fill="#047857">Laminar (n = 1/4)</text>
+        <text x="120" y="91" font-size="8" font-weight="bold" fill="#b91c1c" text-anchor="middle">x_c (Ra_x,c ≈ 10⁹)</text>
+        <text x="172" y="65" font-size="8.5" font-weight="bold" fill="#9a3412">Turbulent (n = 1/3)</text>
+
+        <!-- Right: Fig 8.5 Log-Log Plot -->
+        <text x="275" y="13" font-size="9" font-weight="bold" fill="#7c2d12">(ข) กราฟ Log₁₀ Nū_L เทียบกับ Log₁₀ Ra_L (Fig. 8.5 สไลด์หน้า 68)</text>
+        <rect x="295" y="18" width="365" height="62" fill="#f8fafc" stroke="#334155" stroke-width="1.2"></rect>
+        <path d="M 310 74 Q 360 65 480 42 L 640 20" fill="none" stroke="#b91c1c" stroke-width="2.2"></path>
+        <line x1="480" y1="18" x2="480" y2="80" stroke="#475569" stroke-width="1" stroke-dasharray="3,3"></line>
+        <text x="395" y="34" font-size="8.5" font-weight="bold" fill="#0f172a">Laminar (10⁴ ≤ Ra_L ≤ 10⁹):</text>
+        <text x="395" y="46" font-size="8.5" font-weight="bold" fill="#b91c1c">C = 0.59, n = 1/4</text>
+        <text x="555" y="48" font-size="8.5" font-weight="bold" fill="#0f172a">Turbulent (10⁹ ≤ Ra_L ≤ 10¹³):</text>
+        <text x="555" y="60" font-size="8.5" font-weight="bold" fill="#b91c1c">C = 0.10, n = 1/3</text>
+        <text x="480" y="91" font-size="8" font-weight="bold" fill="#334155" text-anchor="middle">จุดแบ่งเขต Ra_L = Gr_L Pr = 10⁹ (Log₁₀ Ra_L = 9)</text>
+      </svg>
+      <figcaption><strong>รูปที่ 8.4 และ 8.5 (อ้างอิงสไลด์หน้า 63, 68):</strong> การเปลี่ยนผ่านจากเขตราบเรียบสู่เขตปั่นป่วนที่ <span class="math">Ra<sub>x,c</sub> ≈ 10<sup>9</sup></span> และค่าคงที่ในสมการที่ (36)</figcaption>
+    </figure>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 8: การพาความร้อนแบบอิสระ</span>
+    <span>หน้า 2</span>
+  </footer>
+</section>
+
+<!-- page 3 budget (Compact): callout Example 8.1 215 + h2 11 + figure 8.6/8.7 (29mm = 70+24+14=108) + prose & eq 39-44 205 + 4 gaps 32 = 571 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="callout">
+      <div class="callout-title"><span class="tag-slide">[สไลด์หน้า 70–73]</span> Example 8.1: การพาความร้อนแบบอิสระจากประตูกระจกกันไฟของเตาผิง (พร้อมเติมคำตอบทุกช่องว่าง)</div>
+      <p><strong>โจทย์ <span class="tag-slide">[สไลด์หน้า 70]</span>:</strong> ประตูกระจกกันไฟของเตาผิงมีความสูง <span class="math">L = 0.71 m</span> และความกว้าง <span class="math">w = 1.02 m</span> มีอุณหภูมิพื้นผิวกระจกถึง <span class="math">T<sub>s</sub> = 232°C</span> หากอุณหภูมิอากาศภายในห้อง जोอยู่นิ่งสนิทมีค่า <span class="math">T<sub>∞</sub> = 23°C</span> จงประมาณอัตราการถ่ายโอนความร้อนด้วยการพาความร้อน (<span class="math">q</span>, หน่วย W) จากเตาผิงเข้าสู่ห้อง</p>
+      <p style="margin-top:3px;"><strong>วิธีทำอย่างละเอียด (เติมตัวเลขในช่องว่างหลังเครื่องหมาย = ของสไลด์หน้า 71–73):</strong><br>
+      <strong>1. ประเมินสมบัติของอากาศที่อุณหภูมิฟิล์ม (<span class="math">T<sub>f</sub></span>) <span class="tag-slide">[สไลด์หน้า 71]</span>:</strong><br>
+      <span class="math">T<sub>f</sub> = <span class="frac"><span>T<sub>s</sub> + T<sub>∞</sub></span><span>2</span></span> = <span class="frac"><span>232 + 23</span><span>2</span></span> = 127.5°C = 127.5 + 273.15 = <strong>400.65 K ≈ 400 K</strong></span><br>
+      เปิดตารางอากาศที่ <span class="math">T<sub>f</sub> = 400 K</span> (สไลด์หน้า 71) อ่านค่าได้ตรงแถวพอดี: <span class="math">k = 33.8 × 10<sup>−3</sup> W/(m·K), ν = 26.41 × 10<sup>−6</sup> ≈ 26.4 × 10<sup>−6</sup> m<sup>2</sup>/s, α = 38.3 × 10<sup>−6</sup> m<sup>2</sup>/s, Pr = 0.690</span> และเนื่องจากอากาศเป็นแก๊สอุดมคติ จึงได้ <span class="math">β = <span class="frac"><span>1</span><span>T<sub>f</sub></span></span> = <span class="frac"><span>1</span><span>400 K</span></span> = <strong>0.0025 K<sup>−1</sup></strong></span><br>
+      <strong>2. คำนวณตัวเลขเรย์ลีย์ (<span class="math">Ra<sub>L</sub></span>) และตัวเลขนัสเซลต์เฉลี่ย (<span class="math">Nū<sub>L</sub></span>) <span class="tag-slide">[สไลด์หน้า 72]</span>:</strong><br>
+      <span class="math">Ra<sub>L</sub> = <span class="frac"><span>g β (T<sub>s</sub> − T<sub>∞</sub>) L<sup>3</sup></span><span>α ν</span></span> = <span class="frac"><span>(9.8 m/s<sup>2</sup>)(1 / 400 K<sup>−1</sup>)(232 − 23)°C (0.71 m)<sup>3</sup></span><span>(38.3 × 10<sup>−6</sup> m<sup>2</sup>/s)(26.4 × 10<sup>−6</sup> m<sup>2</sup>/s)</span></span> = <span class="frac"><span>5.12025 × 0.35791</span><span>1.01112 × 10<sup>−9</sup></span></span> = <strong>1.813 × 10<sup>9</sup></strong></span> (เกิดการเปลี่ยนผ่านสู่เขตปั่นป่วน)<br>
+      แทนค่าลงในสมการที่ (37) ของ Churchill &amp; Chu สำหรับแผ่นแนวตั้ง:<br>
+      <span class="math">Nū<sub>L</sub> = { 0.825 + <span class="frac"><span>0.387 (1.813 × 10<sup>9</sup>)<sup>1/6</sup></span><span>[1 + (0.492 / 0.690)<sup>9/16</sup>]<sup>8/27</sup></span></span> }<sup>2</sup> = { 0.825 + <span class="frac"><span>0.387 × 34.904</span><span>[1 + 0.8266]<sup>8/27</sup></span></span> }<sup>2</sup> = { 0.825 + <span class="frac"><span>13.508</span><span>1.1955</span></span> }<sup>2</sup> = (12.124)<sup>2</sup> = <strong>147</strong></span><br>
+      <strong>3. คำนวณสัมประสิทธิ์การพาความร้อนเฉลี่ย (<span class="math">h̄</span>) และอัตราการถ่ายโอนความร้อน (<span class="math">q</span>) <span class="tag-slide">[สไลด์หน้า 73]</span>:</strong><br>
+      <span class="math">h̄ = <span class="frac"><span>Nū<sub>L</sub> k</span><span>L</span></span> = <span class="frac"><span>147 × 33.8 × 10<sup>−3</sup> W/(m·K)</span><span>0.71 m</span></span> = <strong>7.00 W/(m<sup>2</sup>·K)</strong></span><br>
+      <span class="math">q = h̄ A<sub>s</sub> (T<sub>s</sub> − T<sub>∞</sub>) = (7.0 W/m<sup>2</sup>·K)(1.02 × 0.71 m<sup>2</sup>)(232 − 23)°C = 7.0 × 0.7242 × 209 = <strong>1,060 W (หรือ 1.06 kW)</strong></span></p>
+    </div>
+
+    <h2>8.6.2 แผ่นราบแนวนอน, 8.6.3 ทรงกระบอกแนวนอน, และ 8.6.4 ทรงกลม <span class="tag-slide">[สไลด์หน้า 74–83]</span></h2>
+    <figure class="diagram-fig">
+      <svg role="img" style="width:100%; height:28mm;" viewBox="0 0 680 106">
+        <title>รูปแบบการไหลบนแผ่นแนวนอนทั้ง 4 กรณี (Figure 8.6) และการพัฒนาชั้นชิดผิวบนทรงกระบอกแนวนอน (Figure 8.7) อ้างอิงสไลด์หน้า 74-79</title>
+        <!-- Group 1: Hot up (c) / Cold down (b) -->
+        <rect x="10" y="6" width="215" height="94" fill="#fff7ed" stroke="#c2410c"></rect>
+        <text x="117" y="19" font-size="8.5" font-weight="bold" fill="#7c2d12" text-anchor="middle">กลุ่มที่ 1: ผิวร้อนหงายขึ้น (c) หรือ ผิวเย็นคว่ำลง (b)</text>
+        <rect x="45" y="55" width="145" height="6" fill="#fca5a5" stroke="#991b1b"></rect>
+        <path d="M 65 53 Q 55 38 65 25" fill="none" stroke="#b91c1c" stroke-width="1.3"></path>
+        <path d="M 115 53 Q 105 38 115 25" fill="none" stroke="#b91c1c" stroke-width="1.3"></path>
+        <path d="M 165 53 Q 155 38 165 25" fill="none" stroke="#b91c1c" stroke-width="1.3"></path>
+        <text x="117" y="75" font-size="8" font-weight="bold" fill="#991b1b" text-anchor="middle">ลอยตัวเป็นเซลล์อิสระ (ถ่ายโอนความร้อนดีมาก)</text>
+        <text x="117" y="88" font-size="8" fill="#0f172a" text-anchor="middle">ใช้สมการที่ (39) และ (40) [หน้า 76]</text>
+
+        <!-- Group 2: Hot down (d) / Cold up (a) -->
+        <rect x="235" y="6" width="215" height="94" fill="#f8fafc" stroke="#334155"></rect>
+        <text x="342" y="19" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">กลุ่มที่ 2: ผิวร้อนคว่ำลง (d) หรือ ผิวเย็นหงายขึ้น (a)</text>
+        <rect x="270" y="38" width="145" height="6" fill="#cbd5e1" stroke="#334155"></rect>
+        <path d="M 335 78 L 335 50 L 260 50 L 260 28" fill="none" stroke="#0284c7" stroke-width="1.3"></path>
+        <path d="M 350 78 L 350 50 L 425 50 L 425 28" fill="none" stroke="#0284c7" stroke-width="1.3"></path>
+        <text x="342" y="90" font-size="8" font-weight="bold" fill="#334155" text-anchor="middle">แผ่นขวางการลอยตัว ต้องไหลอ้อมขอบ: สมการ (41)</text>
+
+        <!-- Cylinder in Free Convection (Fig 8.7) -->
+        <rect x="460" y="6" width="210" height="94" fill="#fff7ed" stroke="#9a3412"></rect>
+        <text x="565" y="19" font-size="8.5" font-weight="bold" fill="#7c2d12" text-anchor="middle">ทรงกระบอกแนวนอนร้อน (Fig. 8.7 หน้า 79)</text>
+        <circle cx="535" cy="64" r="22" fill="#fed7aa" stroke="#9a3412" stroke-width="1.5"></circle>
+        <path d="M 535 90 A 28 28 0 0 1 527 32 L 527 22" fill="none" stroke="#b91c1c" stroke-width="1.4"></path>
+        <path d="M 535 90 A 28 28 0 0 0 543 32 L 543 22" fill="none" stroke="#b91c1c" stroke-width="1.4"></path>
+        <text x="615" y="42" font-size="8" font-weight="bold" fill="#b91c1c" text-anchor="middle">↑ Plume ด้านบน</text>
+        <text x="615" y="58" font-size="8" fill="#1e293b" text-anchor="middle">ชั้นชิดผิวเริ่มที่ θ = 0</text>
+        <text x="615" y="72" font-size="8" fill="#1e293b" text-anchor="middle">(ด้านล่างสุด)</text>
+        <text x="615" y="88" font-size="8" font-weight="bold" fill="#0f172a" text-anchor="middle">สมการ (42) และ (43)</text>
+      </svg>
+      <figcaption><strong>รูปที่ 8.6 และ 8.7 (อ้างอิงสไลด์หน้า 74–79):</strong> รูปแบบการไหลบนแผ่นแนวนอน และการเกิดชั้นชิดผิวและพลูมบนทรงกระบอกแนวนอน</figcaption>
+    </figure>
+
+    <p><span class="tag-supp">[เสริมพื้นฐานสำคัญมากสำหรับแผ่นแนวนอน]</span> สำหรับ <strong>แผ่นราบแนวนอน (Horizontal plates)</strong> ความยาวลักษณะเฉพาะ <span class="math">L</span> ใน <span class="math">Ra<sub>L</sub></span> และ <span class="math">Nū<sub>L</sub></span> นิยามจากพื้นที่ผิวหารด้วยเส้นรอบรูปของแผ่น คือ <strong><span class="math">L ≡ A<sub>s</sub> / P</span></strong> เสมอ! โดยสมการที่ (39)–(45) และตารางสรุป Table 8.1–8.2 แสดงไว้ดังนี้ <span class="tag-slide">[สไลด์หน้า 76–84]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">แผ่นแนวนอน (L ≡ A<sub>s</sub>/P) — ผิวบนร้อน หรือ ผิวล่างเย็น: Nū<sub>L</sub> = 0.54 Ra<sub>L</sub><sup>1/4</sup> (10<sup>4</sup> ≤ Ra<sub>L</sub> ≤ 10<sup>7</sup>) …(39)  ,  Nū<sub>L</sub> = 0.15 Ra<sub>L</sub><sup>1/3</sup> (10<sup>7</sup> ≤ Ra<sub>L</sub> ≤ 10<sup>11</sup>) …(40)</span><br>
+      <span class="math-display">แผ่นแนวนอน — ผิวล่างร้อน หรือ ผิวบนเย็น: Nū<sub>L</sub> = 0.27 Ra<sub>L</sub><sup>1/4</sup> (10<sup>5</sup> ≤ Ra<sub>L</sub> ≤ 10<sup>10</sup>)  …(สมการที่ 41)</span><br>
+      <span class="math-display">ทรงกระบอกแนวนอน: Nū<sub>D</sub> = C Ra<sub>D</sub><sup>n</sup> …(42, Table 8.1)  หรือ  Nū<sub>D</sub> = { 0.60 + <span class="frac"><span>0.387 Ra<sub>D</sub><sup>1/6</sup></span><span>[1 + (0.559 / Pr)<sup>9/16</sup>]<sup>8/27</sup></span></span> }<sup>2</sup>  (Ra<sub>D</sub> ≤ 10<sup>12</sup>)  …(สมการที่ 43)</span><br>
+      <span class="math-display">ทรงกลม: Nū<sub>D</sub> = 2 + <span class="frac"><span>0.589 Ra<sub>D</sub><sup>1/4</sup></span><span>[1 + (0.469 / Pr)<sup>9/16</sup>]<sup>4/9</sup></span></span> (Ra<sub>D</sub> ≤ 10<sup>11</sup>, Pr ≥ 0.7) …(44)   |   การพาแบบผสม: Nu = Nu<sub>F</sub> ± Nu<sub>N</sub> …(สมการที่ 45)</span>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 8: การพาความร้อนแบบอิสระ</span>
+    <span>หน้า 3</span>
+  </footer>
+</section>
+
+<!-- page 4 budget (Compact): Table 8.1 & 8.2 summary 145 + callout Example 8.2 full solution 265 + h2 11 + exercises 155 = 576 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col" colspan="3" style="text-align:center; background-color:#0f172a;">Table 8.1: ค่าคงที่สมการ (42) ทรงกระบอกแนวนอน [หน้า 78]</th>
+          <th scope="col" colspan="3" style="text-align:center;">Table 8.2: สรุปสหสัมพันธ์การพาความร้อนอิสระ (Immersed Geometries) [หน้า 81–83]</th>
+        </tr>
+        <tr>
+          <th scope="col" style="width:18%;">ช่วงของ <span class="math">Ra<sub>D</sub></span></th>
+          <th scope="col" style="width:9%;"><span class="math">C</span></th>
+          <th scope="col" style="width:9%;"><span class="math">n</span></th>
+          <th scope="col" style="width:20%;">รูปทรง (Geometry)</th>
+          <th scope="col" style="width:24%;">สมการที่แนะนำ</th>
+          <th scope="col" style="width:20%;">เงื่อนไข (Restrictions)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>10<sup>−10</sup> – 10<sup>−2</sup></td><td>0.675</td><td>0.058</td><td>1. แผ่นแนวตั้ง (Vertical plates)</td><td>สมการที่ (37)</td><td>ใช้ได้ทุกค่า <span class="math">Ra<sub>L</sub></span> (None)</td></tr>
+        <tr><td>10<sup>−2</sup> – 10<sup>2</sup></td><td>1.02</td><td>0.148</td><td>2. แผ่นเอียง (Inclined plates)</td><td>สมการ (37) โดยแทน <span class="math">g → g cos θ</span></td><td><span class="math">0 ≤ θ ≤ 60°</span> (เย็นบน / ร้อนล่าง)</td></tr>
+        <tr><td>10<sup>2</sup> – 10<sup>4</sup></td><td>0.850</td><td>0.188</td><td>3. แผ่นแนวนอน (<span class="math">L = A<sub>s</sub>/P</span>)</td><td>สมการ (39), (40) และ (41)</td><td>แยกตามทิศทางผิวร้อน/เย็น</td></tr>
+        <tr><td>10<sup>4</sup> – 10<sup>7</sup></td><td>0.480</td><td>0.250</td><td>4. ทรงกระบอกแนวนอน</td><td>สมการที่ (43)</td><td><span class="math">Ra<sub>D</sub> ≤ 10<sup>12</sup></span></td></tr>
+        <tr><td>10<sup>7</sup> – 10<sup>12</sup></td><td>0.125</td><td>0.333</td><td>5. ทรงกลม (Sphere)</td><td>สมการที่ (44)</td><td><span class="math">Ra<sub>D</sub> ≤ 10<sup>11</sup>, Pr ≥ 0.7</span></td></tr>
+      </tbody>
+    </table>
+
+    <h2>8.8 การประยุกต์ใช้ในการถ่ายโอนความร้อนหลายโหมด: Example 8.2 <span class="tag-slide">[สไลด์หน้า 85–88]</span></h2>
+    <div class="callout">
+      <div class="callout-title"><span class="tag-slide">[สไลด์หน้า 85–88]</span> Example 8.2: การสูญเสียความร้อนจากการพาความร้อนอิสระควบคู่กับการแผ่รังสีจากท่อไอน้ำแนวนอน</div>
+      <p><strong>โจทย์ <span class="tag-slide">[สไลด์หน้า 85]</span>:</strong> ท่อไอน้ำความดันสูงวางตัวในแนวนอน มีเส้นผ่านศูนย์กลางภายนอก <span class="math">D = 0.1 m</span> ทอดผ่านห้องขนาดใหญ่ที่มีอุณหภูมิผนังห้องและอุณหภูมิอากาศเท่ากันคือ <span class="math">T<sub>sur</sub> = T<sub>∞</sub> = 23°C (296 K)</span> ผิวด้านนอกของท่อมีอุณหภูมิ <span class="math">T<sub>s</sub> = 165°C (438 K)</span> และมีสภาพเปล่งรังสี <span class="math">ε = 0.85</span> จงประมาณอัตราการสูญเสียความร้อนจากท่อต่อหนึ่งหน่วยความยาว (<span class="math">q&#39;</span>, หน่วย W/m)</p>
+      <p style="margin-top:3px;"><strong>วิธีทำอย่างละเอียด (เติมตัวเลขในช่องว่างหลังเครื่องหมาย = ของสไลด์หน้า 86–88):</strong><br>
+      <strong>1. ประเมินสมบัติของอากาศที่อุณหภูมิฟิล์ม (<span class="math">T<sub>f</sub></span>) <span class="tag-slide">[สไลด์หน้า 86]</span>:</strong><br>
+      <span class="math">T<sub>f</sub> = (165 + 23)/2 = 94°C = 94 + 273 = <strong>367 K</strong></span> เปิดตารางอากาศประมาณค่าในช่วงระหว่าง 350 K และ 400 K ได้: <span class="math">k = 0.0313 W/(m·K), ν = 22.8 × 10<sup>−6</sup> m<sup>2</sup>/s, α = 32.8 × 10<sup>−6</sup> m<sup>2</sup>/s, Pr = 0.697</span> และ <span class="math">β = 1 / T<sub>f</sub> = 1 / 367 = <strong>2.725 × 10<sup>−3</sup> K<sup>−1</sup></strong></span><br>
+      <strong>2. คำนวณ <span class="math">Ra<sub>D</sub></span>, <span class="math">Nū<sub>D</sub></span>, และสัมประสิทธิ์การพาความร้อน <span class="math">h̄</span> ของทรงกระบอกแนวนอน <span class="tag-slide">[สไลด์หน้า 87]</span>:</strong><br>
+      <span class="math">Ra<sub>D</sub> = <span class="frac"><span>g β (T<sub>s</sub> − T<sub>∞</sub>) D<sup>3</sup></span><span>ν α</span></span> = <span class="frac"><span>(9.8 m/s<sup>2</sup>)(2.725 × 10<sup>−3</sup> K<sup>−1</sup>)(165 − 23)°C (0.1 m)<sup>3</sup></span><span>(22.8 × 10<sup>−6</sup> m<sup>2</sup>/s)(32.8 × 10<sup>−6</sup> m<sup>2</sup>/s)</span></span> = <span class="frac"><span>3.7921 × 10<sup>−3</sup></span><span>7.4784 × 10<sup>−10</sup></span></span> = <strong>5.073 × 10<sup>6</sup></strong></span><br>
+      แทนค่าในสมการที่ (43): <span class="math">Nū<sub>D</sub> = { 0.60 + <span class="frac"><span>0.387 (5.073 × 10<sup>6</sup>)<sup>1/6</sup></span><span>[1 + (0.559 / 0.697)<sup>9/16</sup>]<sup>8/27</sup></span></span> }<sup>2</sup> = { 0.60 + <span class="frac"><span>0.387 × 13.128</span><span>[1 + 0.8832]<sup>8/27</sup></span></span> }<sup>2</sup> = { 0.60 + <span class="frac"><span>5.0805</span><span>1.2064</span></span> }<sup>2</sup> = (4.811)<sup>2</sup> = <strong>23.15 (≈ 23.2)</strong></span><br>
+      ดังนั้น: <span class="math">h̄ = <span class="frac"><span>k</span><span>D</span></span> Nū<sub>D</sub> = <span class="frac"><span>0.0313 W/(m·K)</span><span>0.1 m</span></span> × 23.2 = <strong>7.26 ถึง 7.29 W/(m<sup>2</sup>·K)</strong></span> (ในสไลด์หน้า 88 ใช้ค่า <span class="math">h̄ = 7.29 W/m<sup>2</sup>·K</span>)<br>
+      <strong>3. คำนวณอัตราการสูญเสียความร้อนรวมต่อหนึ่งหน่วยความยาว (<span class="math">q&#39; = q&#39;<sub>conv</sub> + q&#39;<sub>rad</sub></span>) <span class="tag-slide">[สไลด์หน้า 86, 88]</span>:</strong><br>
+      เนื่องจากพื้นที่ผิวต่อความยาว 1 เมตร คือ <span class="math">A&#39;<sub>s</sub> = π D = π(0.1 m) = 0.31416 m<sup>2</sup>/m</span> และต้องแปลงอุณหภูมิในการแผ่รังสีเป็นเคลวิน (<span class="math">T<sub>s</sub> = 438 K, T<sub>sur</sub> = 296 K</span>):<br>
+      <span class="math">q&#39; = h̄ (πD)(T<sub>s</sub> − T<sub>∞</sub>) + ε (πD) σ (T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup>)</span><br>
+      <span class="math">q&#39; = 7.29 (π × 0.1)(165 − 23) + 0.85 (π × 0.1)(5.67 × 10<sup>−8</sup>)(438<sup>4</sup> − 296<sup>4</sup>) = <strong>325.3 W/m (พาความร้อน) + 441.5 W/m (แผ่รังสี) = 766.8 W/m (≈ 767 W/m)</strong></span><br>
+      <em>(ข้อสังเกตสำคัญ: ในการพาความร้อนแบบอิสระที่อุณหภูมิสูงระดับนี้ อัตราการสูญเสียความร้อนด้วยการแผ่รังสีมีค่าสูงกว่าการพาความร้อน จึงห้ามตัดการแผ่รังสีทิ้งโดยเด็ดขาด!)</em></p>
+    </div>
+
+    <h2>8.9 แบบฝึกหัดประจำบทที่ 8 (Exercises — ครบ 5 ระดับความลึก)</h2>
+    <ul>
+      <li><strong>[ระดับที่ 1: ความเข้าใจพื้นฐานและเสถียรภาพ] ข้อ 8.1:</strong> ช่องว่างอากาศหนา <span class="math">L = 0.02 m</span> คั่นระหว่างแผ่นราบแนวนอนขนาดใหญ่ 2 แผ่น แผ่นหนึ่งมีอุณหภูมิ <span class="math">127°C</span> และอีกแผ่นมีอุณหภูมิ <span class="math">27°C</span> (ที่ <span class="math">T<sub>f</sub> = 350 K</span>: <span class="math">k = 0.030 W/m·K</span>) จงหาฟลักซ์ความร้อน <span class="math">q&#39;&#39;</span> เมื่อแผ่นร้อนอยู่ด้านบนและแผ่นเย็นอยู่ด้านล่าง (กรณีรูป 8.1b)</li>
+      <li><strong>[ระดับที่ 2: การเปรียบเทียบทิศทางของแผ่นแนวนอน] ข้อ 8.2:</strong> แผ่นโลหะรูปสี่เหลี่ยมจัตุรัสขนาด <span class="math">0.6 m × 0.6 m</span> มีอุณหภูมิ <span class="math">T<sub>s</sub> = 130°C</span> วางอยู่ในอากาศนิ่งที่ <span class="math">T<sub>∞</sub> = 24°C</span> (ที่ <span class="math">T<sub>f</sub> = 350 K</span>: <span class="math">k = 0.030 W/m·K, ν = 20.92 × 10<sup>−6</sup> m<sup>2</sup>/s, α = 29.9 × 10<sup>−6</sup> m<sup>2</sup>/s, Pr = 0.700</span>) จงคำนวณหาความยาวลักษณะเฉพาะ <span class="math">L</span>, ค่า <span class="math">Ra<sub>L</sub></span>, และเปรียบเทียบอัตราการพาความร้อนจากผิวด้านบน (<span class="math">q<sub>top</sub></span>) กับผิวด้านล่าง (<span class="math">q<sub>bottom</sub></span>) ของแผ่น</li>
+      <li><strong>[ระดับที่ 3: การคำนวณแผ่นเอียงและแผ่นแนวตั้ง] ข้อ 8.3:</strong> หากนำแผ่นโลหะจากข้อ 8.2 มาตั้งขึ้นในแนวดิ่ง (<span class="math">L = 0.6 m</span>) จงหาค่า <span class="math">h̄</span> จากสมการที่ (38) และหากเอียงแผ่นไปทำมุม <span class="math">θ = 45°</span> กับแนวดิ่ง ค่า <span class="math">h̄</span> ที่ผิวด้านล่างของแผ่นร้อนจะเปลี่ยนเป็นเท่าใด</li>
+      <li><strong>[ระดับที่ 4: การวิเคราะห์ทรงกลมและเกณฑ์การพาความร้อนแบบผสม] ข้อ 8.4:</strong> หลอดไฟทรงกลมขนาด <span class="math">D = 0.08 m</span> มีอุณหภูมิผิว <span class="math">T<sub>s</sub> = 127°C</span> อยู่ในอากาศที่ <span class="math">T<sub>∞</sub> = 27°C</span> (ใช้สมบัติที่ <span class="math">350 K</span> เหมือนข้อ 8.2) (ก) หากอากาศนิ่งสนิท จงหา <span class="math">h̄<sub>N</sub></span> และ <span class="math">q<sub>conv</sub></span> จากสมการที่ (44), (ข) หากมีลมพัดเอื่อย ๆ ด้วยความเร็ว <span class="math">V = 0.30 m/s</span> จงคำนวณอัตราส่วน <span class="math">Gr<sub>D</sub> / Re<sub>D</sub><sup>2</sup></span> เพื่อตัดสินว่าต้องคิดการพาความร้อนแบบผสมหรือไม่</li>
+      <li><strong>[ระดับที่ 5: โจทย์บูรณาการการพาความร้อนแบบผสม] ข้อ 8.5:</strong> แผงวงจรอิเล็กทรอนิกส์แนวตั้งสูง <span class="math">L = 0.30 m</span> กว้าง <span class="math">w = 0.30 m</span> มีอุณหภูมิผิว <span class="math">T<sub>s</sub> = 77°C</span> มีพัดลมเป่าอากาศที่ <span class="math">T<sub>∞</sub> = 27°C</span> ขึ้นในแนวดิ่ง (เสริมกับแรงลอยตัว) ด้วยความเร็วต่ำ <span class="math">u<sub>∞</sub> = 0.50 m/s</span> (ที่ <span class="math">T<sub>f</sub> = 325 K</span>: <span class="math">k = 0.0281 W/m·K, ν = 18.4 × 10<sup>−6</sup> m<sup>2</sup>/s, α = 26.2 × 10<sup>−6</sup> m<sup>2</sup>/s, Pr = 0.703</span>) จงคำนวณหา <span class="math">Nū<sub>F</sub></span> (จากสมการที่ 2 บทที่ 6), <span class="math">Nū<sub>N</sub></span> (จากสมการที่ 38), และหาอัตราการระบายความร้อน <span class="math">q</span> ตามสมการที่ (45)</li>
+    </ul>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 8: การพาความร้อนแบบอิสระ</span>
+    <span>หน้า 4</span>
+  </footer>
+</section>
+
+<!-- page 5 budget (Compact): h2 11 + detailed solutions 8.1 to 8.5 470 + h2 11 + references 45 + 4 gaps 32 = 569 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>8.10 เฉลยวิธีทำแบบฝึกหัดประจำบทที่ 8 อย่างละเอียด (Detailed Solutions)</h2>
+    <div class="callout">
+      <div class="callout-title">เฉลยละเอียด ข้อ 8.1 (ระดับที่ 1), ข้อ 8.2 (ระดับที่ 2), และ ข้อ 8.3 (ระดับที่ 3)</div>
+      <p><strong>วิธีทำ ข้อ 8.1:</strong> เมื่อแผ่นร้อนอยู่ด้านบนและแผ่นเย็นอยู่ด้านล่าง เกรเดียนต์อุณหภูมิมีความเสถียร (Stable, รูปที่ 8.1b) จึงไม่เกิดการไหลของการพาความร้อน ความร้อนถ่ายโอนด้วยการนำความร้อนบริสุทธิ์ผ่านชั้นอากาศนิ่ง: <span class="math">q&#39;&#39; = k <span class="frac"><span>T<sub>1</sub> − T<sub>2</sub></span><span>L</span></span> = 0.030 × <span class="frac"><span>127 − 27</span><span>0.02</span></span> = <strong>150 W/m<sup>2</sup></strong></span></p>
+      <p style="margin-top:4px;"><strong>วิธีทำ ข้อ 8.2:</strong> สำหรับแผ่นสี่เหลี่ยมจัตุรัสแนวนอน (<span class="math">a = 0.6 m</span>): พื้นที่ผิว <span class="math">A<sub>s</sub> = 0.36 m<sup>2</sup></span>, เส้นรอบรูป <span class="math">P = 4 × 0.6 = 2.4 m</span> ดังนั้นความยาวลักษณะเฉพาะคือ <span class="math">L ≡ A<sub>s</sub> / P = 0.36 / 2.4 = <strong>0.15 m</strong></span> และ <span class="math">β = 1 / 350 K = 2.857 × 10<sup>−3</sup> K<sup>−1</sup></span><br>
+      • คำนวณเรย์ลีย์: <span class="math">Ra<sub>L</sub> = <span class="frac"><span>9.8 × (1/350) × (130 − 24) × (0.15)<sup>3</sup></span><span>(20.92 × 10<sup>−6</sup>)(29.9 × 10<sup>−6</sup>)</span></span> = <span class="frac"><span>0.010017</span><span>6.255 × 10<sup>−10</sup></span></span> = <strong>1.601 × 10<sup>7</sup></strong></span><br>
+      • <strong>ผิวด้านบนของแผ่นร้อน (Hot surface up):</strong> เนื่องจาก <span class="math">10<sup>7</sup> ≤ Ra<sub>L</sub> ≤ 10<sup>11</sup></span> ใช้สมการที่ (40): <span class="math">Nū<sub>L,top</sub> = 0.15 (1.601 × 10<sup>7</sup>)<sup>1/3</sup> = 0.15 × 252.04 = <strong>37.81</strong> ⇒ h̄<sub>top</sub> = (37.81 × 0.030)/0.15 = <strong>7.56 W/(m<sup>2</sup>·K)</strong> ⇒ q<sub>top</sub> = 7.56 × 0.36 × (130 − 24) = <strong>288.5 W</strong></span><br>
+      • <strong>ผิวด้านล่างของแผ่นร้อน (Hot surface down):</strong> ใช้สมการที่ (41): <span class="math">Nū<sub>L,bot</sub> = 0.27 (1.601 × 10<sup>7</sup>)<sup>1/4</sup> = 0.27 × 63.26 = <strong>17.08</strong> ⇒ h̄<sub>bot</sub> = (17.08 × 0.030)/0.15 = <strong>3.42 W/(m<sup>2</sup>·K)</strong> ⇒ q<sub>bottom</sub> = 3.42 × 0.36 × 106 = <strong>130.5 W</strong></span> (ผิวบนระบายความร้อนได้มากกว่าผิวล่างถึง 2.21 เท่า!)</p>
+      <p style="margin-top:4px;"><strong>วิธีทำ ข้อ 8.3:</strong> เมื่อตั้งแผ่นในแนวดิ่ง ความยาวลักษณะเฉพาะคือความสูง <span class="math">L = 0.6 m</span> (ซึ่งเป็น 4 เท่าของ <span class="math">0.15 m</span> ดังนั้น <span class="math">Ra<sub>L</sub></span> จะเพิ่มขึ้นเป็น <span class="math">4<sup>3</sup> = 64</span> เท่า!):<br>
+      • <strong>กรณีตั้งตรง (<span class="math">θ = 0°</span>):</strong> <span class="math">Ra<sub>L</sub> = 64 × (1.601 × 10<sup>7</sup>) = <strong>1.025 × 10<sup>9</sup></strong></span> จากสมการที่ (38): <span class="math">Nū<sub>L</sub> = 0.68 + <span class="frac"><span>0.670(1.025 × 10<sup>9</sup>)<sup>1/4</sup></span><span>[1 + (0.492 / 0.700)<sup>9/16</sup>]<sup>4/9</sup></span></span> = 0.68 + <span class="frac"><span>0.670 × 178.93</span><span>1.3396</span></span> = <strong>90.17</strong> ⇒ h̄ = (90.17 × 0.030)/0.6 = <strong>4.51 W/(m<sup>2</sup>·K)</strong></span><br>
+      • <strong>กรณีเอียง <span class="math">θ = 45°</span>:</strong> แทน <span class="math">g → g cos 45° = 0.7071 g</span> ทำให้ <span class="math">Ra<sub>L,incl</sub> = 0.7071 × 1.025 × 10<sup>9</sup> = 7.248 × 10<sup>8</sup></span> แทนในสมการที่ (38) จะได้ <span class="math">Nū<sub>L</sub> = 0.68 + 89.49(0.7071)<sup>1/4</sup> = <strong>82.75</strong> ⇒ h̄ = (82.75 × 0.030)/0.6 = <strong>4.14 W/(m<sup>2</sup>·K)</strong></span></p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">เฉลยละเอียด ข้อ 8.4 (ระดับที่ 4) และ ข้อ 8.5 (ระดับที่ 5: โจทย์บูรณาการการพาความร้อนแบบผสม)</div>
+      <p><strong>วิธีทำ ข้อ 8.4:</strong> สำหรับทรงกลม <span class="math">D = 0.08 m, ΔT = 100 K</span>:<br>
+      • <strong>(ก) อากาศนิ่ง:</strong> <span class="math">Gr<sub>D</sub> = <span class="frac"><span>9.8 × (1/350) × 100 × (0.08)<sup>3</sup></span><span>(20.92 × 10<sup>−6</sup>)<sup>2</sup></span></span> = <strong>3.276 × 10<sup>6</sup></strong></span> และ <span class="math">Ra<sub>D</sub> = Gr<sub>D</sub> Pr = (3.276 × 10<sup>6</sup>)(0.700) = <strong>2.293 × 10<sup>6</sup></strong></span> แทนในสมการที่ (44): <span class="math">Nū<sub>D</sub> = 2 + <span class="frac"><span>0.589 (2.293 × 10<sup>6</sup>)<sup>1/4</sup></span><span>[1 + (0.469 / 0.700)<sup>9/16</sup>]<sup>4/9</sup></span></span> = 2 + <span class="frac"><span>0.589 × 38.91</span><span>1.331</span></span> = 2 + 17.22 = <strong>19.22</strong> ⇒ h̄<sub>N</sub> = <span class="frac"><span>19.22 × 0.030</span><span>0.08</span></span> = <strong>7.21 W/(m<sup>2</sup>·K)</strong></span> และ <span class="math">q<sub>conv</sub> = 7.21 × [π(0.08)<sup>2</sup>] × 100 = <strong>14.5 W</strong></span><br>
+      • <strong>(ข) เมื่อมีลม <span class="math">V = 0.30 m/s</span>:</strong> <span class="math">Re<sub>D</sub> = VD / ν = (0.30 × 0.08)/(20.92 × 10<sup>−6</sup>) = <strong>1,147</strong></span> ตรวจสอบอัตราส่วน: <span class="math"><span class="frac"><span>Gr<sub>D</sub></span><span>Re<sub>D</sub><sup>2</sup></span></span> = <span class="frac"><span>3.276 × 10<sup>6</sup></span><span>(1,147)<sup>2</sup></span></span> = <strong>2.49 ≈ 1</strong></span> ดังนั้น <strong>ต้องคิดการพาความร้อนแบบผสมทั้งสองโหมดร่วมกัน!</strong></p>
+      <p style="margin-top:4px;"><strong>วิธีทำ ข้อ 8.5:</strong> แผ่นแนวตั้ง <span class="math">L = 0.30 m, ΔT = 50 K, β = 1/325 K</span>:<br>
+      • คำนวณพารามิเตอร์แบบบังคับ: <span class="math">Re<sub>L</sub> = u<sub>∞</sub>L / ν = (0.50 × 0.30)/(18.4 × 10<sup>−6</sup>) = <strong>8,152</strong></span> (ราบเรียบ) จากสมการที่ (2) บทที่ 6: <span class="math">Nū<sub>F</sub> = 0.664 (8,152)<sup>1/2</sup> (0.703)<sup>1/3</sup> = 0.664(90.29)(0.889) = <strong>53.30</strong></span><br>
+      • คำนวณพารามิเตอร์แบบอิสระ: <span class="math">Gr<sub>L</sub> = <span class="frac"><span>9.8 × (1/325) × 50 × (0.30)<sup>3</sup></span><span>(18.4 × 10<sup>−6</sup>)<sup>2</sup></span></span> = <strong>1.202 × 10<sup>8</sup></strong></span> (สังเกตว่า <span class="math">Gr<sub>L</sub>/Re<sub>L</sub><sup>2</sup> = 1.81 ≈ 1</span> จึงเป็นโหมดผสม) และ <span class="math">Ra<sub>L</sub> = Gr<sub>L</sub>Pr = <strong>8.45 × 10<sup>7</sup></strong></span> จากสมการที่ (38): <span class="math">Nū<sub>N</sub> = 0.68 + <span class="frac"><span>0.670(8.45 × 10<sup>7</sup>)<sup>1/4</sup></span><span>[1 + (0.492 / 0.703)<sup>9/16</sup>]<sup>4/9</sup></span></span> = 0.68 + <span class="frac"><span>64.08</span><span>1.339</span></span> = <strong>48.54</strong></span><br>
+      • คำนวณการพาความร้อนแบบผสม (การไหลเสริมกัน ใช้เครื่องหมาย <span class="math">+</span>):<br>
+      ตามสมการที่ (45) ในสไลด์อาจารย์: <span class="math">Nū<sub>L</sub> = Nū<sub>F</sub> + Nū<sub>N</sub> = 53.30 + 48.54 = <strong>101.84</strong> ⇒ h̄ = (101.84 × 0.0281)/0.30 = <strong>9.54 W/(m<sup>2</sup>·K)</strong> ⇒ q = 9.54 × (0.30 × 0.30) × 50 = <strong>42.9 W</strong></span> <em>(หมายเหตุ: หากใช้รูปยกกำลัง <span class="math">n = 3</span> ตามตำรามาตรฐาน จะได้ <span class="math">Nū<sub>L</sub> = (53.30<sup>3</sup> + 48.54<sup>3</sup>)<sup>1/3</sup> = 64.3 ⇒ q = 27.1 W</span>)</em></p>
+    </div>
+
+    <h2>8.11 เอกสารอ้างอิงประจำบท (References)</h2>
+    <ol style="font-size:8.5pt;">
+      <li id="ref-slides8">เอกสารประกอบการสอนรายวิชา <em>Transport Phenomena I: Chapter 8 Free Convection (ไฟล์ที่ 2 หน้า 49–88)</em>, ปีการศึกษา 2569.</li>
+      <li id="ref-incropera8">Incropera, F. P., DeWitt, D. P., Bergman, T. L., &amp; Lavine, A. S. (2007). <em>Fundamentals of Heat and Mass Transfer</em> (6th ed., Chapter 9: Free Convection, pp. 560–618). John Wiley &amp; Sons.</li>
+    </ol>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 8: การพาความร้อนแบบอิสระ</span>
+    <span>หน้า 5</span>
+  </footer>
+</section>
+
+<!-- page 6 budget (Compact): masthead appendix 35 + Table Master Equations 1 to 25 (25 rows = 425) + 3 gaps 24 = 484 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="masthead" style="background-color:#0f172a; border-left-color:#38bdf8;">
+      <div class="course-tag">MASTER REFERENCE APPENDIX | ภาคผนวกสรุปสมการสหสัมพันธ์ทั้งหมดของรายวิชา</div>
+      <h1>ตารางสรุปสมการที่ (1) ถึง (45) พร้อมเงื่อนไขการเลือกใช้ (Master Equation Sheet)</h1>
+      <div class="sub">รวบรวมสมการที่มีหมายเลขกำกับทั้งหมดจากสไลด์บทที่ 6, 7 และ 8 เพื่อให้ผู้เรียนใช้ตรวจสอบและตัดสินใจเลือกสมการได้อย่างแม่นยำ</div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:9%; background-color:#0f172a;">เลขสมการ</th>
+          <th scope="col" style="width:25%; background-color:#0f172a;">รูปทรงและลักษณะการไหล</th>
+          <th scope="col" style="width:40%; background-color:#0f172a;">สมการสหสัมพันธ์ (Correlation Equation)</th>
+          <th scope="col" style="width:26%; background-color:#0f172a;">เงื่อนไขและอุณหภูมิอ้างอิง</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>(1)</strong> [หน้า 47]</td><td>แผ่นราบ — ราบเรียบ (เฉพาะจุด)</td><td><span class="math">Nu<sub>x</sub> = 0.332 Re<sub>x</sub><sup>1/2</sup> Pr<sup>1/3</sup></span></td><td><span class="math">T<sub>s</sub></span> คงที่, <span class="math">Pr ≥ 0.6</span> (ที่ <span class="math">T<sub>f</sub></span>)</td></tr>
+        <tr><td><strong>(2)</strong> [หน้า 48]</td><td>แผ่นราบ — ราบเรียบ (ค่าเฉลี่ย)</td><td><span class="math">Nū<sub>L</sub> = 0.664 Re<sub>L</sub><sup>1/2</sup> Pr<sup>1/3</sup></span></td><td><span class="math">T<sub>s</sub></span> คงที่, <span class="math">Pr ≥ 0.6, Re<sub>L</sub> &lt; 5×10<sup>5</sup></span></td></tr>
+        <tr><td><strong>(3)</strong> [หน้า 49]</td><td>แผ่นราบ — โลหะเหลวราบเรียบ</td><td><span class="math">Nu<sub>x</sub> = 0.565 Pe<sub>x</sub><sup>1/2</sup></span> (<span class="math">Pe<sub>x</sub> = Re<sub>x</sub>Pr</span>)</td><td><span class="math">Pr ≤ 0.05, Pe<sub>x</sub> ≥ 100</span> (ที่ <span class="math">T<sub>f</sub></span>)</td></tr>
+        <tr><td><strong>(4)</strong> [หน้า 50]</td><td>แผ่นราบ — ราบเรียบทุกค่า <span class="math">Pr</span></td><td><span class="math">Nu<sub>x</sub> = 0.3387 Re<sub>x</sub><sup>1/2</sup> Pr<sup>1/3</sup> / [1 + (0.0468/Pr)<sup>2/3</sup>]<sup>1/4</sup></span></td><td><span class="math">T<sub>s</sub></span> คงที่, <span class="math">Pe<sub>x</sub> ≥ 100</span> (Churchill-Ozoe)</td></tr>
+        <tr><td><strong>(5)</strong> [หน้า 50]</td><td>แผ่นราบ — ค่าเฉลี่ยจากสมการ (4)</td><td><span class="math">Nū<sub>x</sub> = 2 Nu<sub>x</sub></span></td><td>ใช้คู่กับสมการ (1), (3), หรือ (4)</td></tr>
+        <tr><td><strong>(6)</strong> [หน้า 52]</td><td>แผ่นราบ — ปั่นป่วน (เฉพาะจุด)</td><td><span class="math">Nu<sub>x</sub> = 0.0296 Re<sub>x</sub><sup>4/5</sup> Pr<sup>1/3</sup></span></td><td><span class="math">T<sub>s</sub></span> คงที่, <span class="math">0.6 &lt; Pr &lt; 60, Re<sub>x</sub> ≤ 10<sup>7</sup></span></td></tr>
+        <tr><td><strong>(7)</strong> [หน้า 54]</td><td>แผ่นราบ — ปั่นป่วนตลอดแผ่น</td><td><span class="math">Nū<sub>L</sub> = 0.037 Re<sub>L</sub><sup>4/5</sup> Pr<sup>1/3</sup></span></td><td>ปั่นป่วนตั้งแต่ <span class="math">x = 0</span> หรือ <span class="math">Re<sub>L</sub> ≫ Re<sub>x,c</sub></span></td></tr>
+        <tr><td><strong>(8)</strong> [หน้า 58]</td><td>แผ่นราบ — ชั้นชิดผิวแบบผสม</td><td><span class="math">Nū<sub>L</sub> = (0.037 Re<sub>L</sub><sup>4/5</sup> − 871) Pr<sup>1/3</sup></span></td><td><span class="math">Re<sub>x,c</sub> = 5×10<sup>5</sup> ≤ Re<sub>L</sub> ≤ 10<sup>8</sup></span> (ที่ <span class="math">T<sub>f</sub></span>)</td></tr>
+        <tr><td><strong>(9)</strong> [หน้า 59]</td><td>แผ่นราบ — ผสมเมื่อ <span class="math">L ≫ x<sub>c</sub></span></td><td><span class="math">Nū<sub>L</sub> = 0.037 Re<sub>L</sub><sup>4/5</sup> Pr<sup>1/3</sup></span> (<span class="math">C̄<sub>f,L</sub> = 0.074 Re<sub>L</sub><sup>−1/5</sup></span>)</td><td>เมื่อ <span class="math">A = 871 ≪ 0.037 Re<sub>L</sub><sup>4/5</sup></span></td></tr>
+        <tr><td><strong>(10)</strong> [หน้า 62]</td><td>แผ่นราบมีช่วง <span class="math">ξ</span> ไม่ร้อน (ราบเรียบ)</td><td><span class="math">Nu<sub>x</sub> = Nu<sub>x</sub>|<sub>ξ=0</sub> / [1 − (ξ / x)<sup>3/4</sup>]<sup>1/3</sup></span></td><td>เฉพาะจุดที่ <span class="math">x &gt; ξ</span> (ใช้คู่สมการ 1)</td></tr>
+        <tr><td><strong>(11)</strong> [หน้า 63]</td><td>แผ่นราบมีช่วง <span class="math">ξ</span> ไม่ร้อน (ปั่นป่วน)</td><td><span class="math">Nu<sub>x</sub> = Nu<sub>x</sub>|<sub>ξ=0</sub> / [1 − (ξ / x)<sup>9/10</sup>]<sup>1/9</sup></span></td><td>เฉพาะจุดที่ <span class="math">x &gt; ξ</span> (ใช้คู่สมการ 6)</td></tr>
+        <tr><td><strong>(12)</strong> [หน้า 64]</td><td>แผ่นราบมีช่วง <span class="math">ξ</span> (ค่าเฉลี่ยราบเรียบ)</td><td><span class="math">Nū<sub>L</sub> = Nū<sub>L</sub>|<sub>ξ=0</sub> [L/(L−ξ)] [1 − (ξ/L)<sup>3/4</sup>]<sup>2/3</sup></span></td><td>แทน <span class="math">p = 2</span> (เฉลี่ยตลอดช่วงร้อน <span class="math">L − ξ</span>)</td></tr>
+        <tr><td><strong>(13)</strong> [หน้า 65]</td><td>แผ่นราบมีช่วง <span class="math">ξ</span> (ค่าเฉลี่ยปั่นป่วน)</td><td><span class="math">Nū<sub>L</sub> = Nū<sub>L</sub>|<sub>ξ=0</sub> [L/(L−ξ)] [1 − (ξ/L)<sup>9/10</sup>]<sup>8/9</sup></span></td><td>แทน <span class="math">p = 8</span> (เฉลี่ยตลอดช่วงร้อน <span class="math">L − ξ</span>)</td></tr>
+        <tr><td><strong>(14)</strong> [หน้า 66]</td><td>แผ่นราบ <span class="math">q&#39;&#39;<sub>s</sub></span> คงที่ (ราบเรียบ)</td><td><span class="math">Nu<sub>x</sub> = 0.453 Re<sub>x</sub><sup>1/2</sup> Pr<sup>1/3</sup></span></td><td><span class="math">q&#39;&#39;<sub>s</sub></span> คงที่, <span class="math">Pr ≥ 0.6</span> (ที่ <span class="math">T<sub>f</sub></span>)</td></tr>
+        <tr><td><strong>(15)</strong> [หน้า 66]</td><td>แผ่นราบ <span class="math">q&#39;&#39;<sub>s</sub></span> คงที่ (ปั่นป่วน)</td><td><span class="math">Nu<sub>x</sub> = 0.0308 Re<sub>x</sub><sup>4/5</sup> Pr<sup>1/3</sup></span></td><td><span class="math">q&#39;&#39;<sub>s</sub></span> คงที่, <span class="math">0.6 ≤ Pr ≤ 60</span> (ที่ <span class="math">T<sub>f</sub></span>)</td></tr>
+        <tr><td><strong>(16)</strong> [หน้า 66]</td><td>แผ่นราบ <span class="math">q&#39;&#39;<sub>s</sub></span> คงที่ (ค่าเฉลี่ยราบเรียบ)</td><td><span class="math">Nū<sub>L</sub> = 0.680 Re<sub>L</sub><sup>1/2</sup> Pr<sup>1/3</sup></span></td><td>ค่าเฉลี่ยอุณหภูมิผิวสำหรับ <span class="math">q&#39;&#39;<sub>s</sub></span> คงที่</td></tr>
+        <tr><td><strong>(17)</strong> [หน้า 84]</td><td>ทรงกระบอกกลม/ไม่กลม (Hilpert)</td><td><span class="math">Nū<sub>D</sub> = C Re<sub>D</sub><sup>m</sup> Pr<sup>1/3</sup></span></td><td>เปิด <span class="math">C, m</span> จาก Table 6.1, 6.2 (ที่ <span class="math">T<sub>f</sub></span>)</td></tr>
+        <tr><td><strong>(18)</strong> [หน้า 86]</td><td>ทรงกระบอกกลม (Zhukauskas)</td><td><span class="math">Nū<sub>D</sub> = C Re<sub>D</sub><sup>m</sup> Pr<sup>n</sup> (Pr / Pr<sub>s</sub>)<sup>1/4</sup></span></td><td>เปิด <span class="math">C, m, n</span> จาก Table 6.3 (ที่ <span class="math">T<sub>∞</sub>, T<sub>s</sub></span>)</td></tr>
+        <tr><td><strong>(19)</strong> [หน้า 87]</td><td>ทรงกระบอกกลม (Churchill-Bernstein)</td><td><span class="math">Nū<sub>D</sub> = 0.3 + <span class="frac"><span>0.62 Re<sub>D</sub><sup>1/2</sup> Pr<sup>1/3</sup></span><span>[1 + (0.4/Pr)<sup>2/3</sup>]<sup>1/4</sup></span></span> [1 + (<span class="frac"><span>Re<sub>D</sub></span><span>282,000</span></span>)<sup>5/8</sup>]<sup>4/5</sup></span></td><td>ทุกช่วง <span class="math">Re<sub>D</sub> Pr ≥ 0.2</span> (ประเมินที่ <span class="math">T<sub>f</sub></span>)</td></tr>
+        <tr><td><strong>(20)</strong> [หน้า 88]</td><td>ทรงกลม (Whitaker)</td><td><span class="math">Nū<sub>D</sub> = 2 + (0.4 Re<sub>D</sub><sup>1/2</sup> + 0.06 Re<sub>D</sub><sup>2/3</sup>) Pr<sup>0.4</sup> (μ / μ<sub>s</sub>)<sup>1/4</sup></span></td><td><span class="math">3.5 ≤ Re<sub>D</sub> ≤ 7.6×10<sup>4</sup></span> (ที่ <span class="math">T<sub>∞</sub></span>, <span class="math">μ<sub>s</sub></span> ที่ <span class="math">T<sub>s</sub></span>)</td></tr>
+        <tr><td><strong>(21)</strong> [หน้า 89]</td><td>หยดของเหลวทรงกลม (Ranz-Marshall)</td><td><span class="math">Nū<sub>D</sub> = 2 + 0.6 Re<sub>D</sub><sup>1/2</sup> Pr<sup>1/3</sup></span></td><td>เมื่อ <span class="math">Re<sub>D</sub> → 0</span> ลดรูปเป็น <span class="math">Nū<sub>D</sub> = 2</span></td></tr>
+        <tr><td><strong>(22)</strong> [หน้า 113]</td><td>ท่อกลม — ราบเรียบพัฒนาเต็มที่ (<span class="math">q&#39;&#39;<sub>s</sub></span>)</td><td><span class="math">Nu<sub>D</sub> = hD / k = 4.36</span></td><td><span class="math">Re<sub>D</sub> ≤ 2,300, q&#39;&#39;<sub>s</sub></span> คงที่ (ที่ <span class="math">T̄<sub>m</sub></span>)</td></tr>
+        <tr><td><strong>(23)</strong> [หน้า 113]</td><td>ท่อกลม — ราบเรียบพัฒนาเต็มที่ (<span class="math">T<sub>s</sub></span>)</td><td><span class="math">Nu<sub>D</sub> = hD / k = 3.66</span></td><td><span class="math">Re<sub>D</sub> ≤ 2,300, T<sub>s</sub></span> คงที่ (ที่ <span class="math">T̄<sub>m</sub></span>)</td></tr>
+        <tr><td><strong>(24)</strong> [หน้า 115]</td><td>ท่อกลม — เขตทางเข้าความร้อน (Hausen)</td><td><span class="math">Nū<sub>D</sub> = 3.66 + <span class="frac"><span>0.0668(D/L)Re<sub>D</sub>Pr</span><span>1 + 0.04[(D/L)Re<sub>D</sub>Pr]<sup>2/3</sup></span></span></span></td><td>ราบเรียบ, <span class="math">T<sub>s</sub></span> คงที่, Thermal entry (ที่ <span class="math">T̄<sub>m</sub></span>)</td></tr>
+        <tr><td><strong>(25)</strong> [หน้า 116]</td><td>ท่อกลม — เขตทางเข้าพร้อมกัน (Sieder-Tate)</td><td><span class="math">Nū<sub>D</sub> = 1.86 [(Re<sub>D</sub> Pr)/(L/D)]<sup>1/3</sup> (μ / μ<sub>s</sub>)<sup>0.14</sup></span></td><td>ราบเรียบ, <span class="math">T<sub>s</sub></span> คงที่, Combined entry (ที่ <span class="math">T̄<sub>m</sub></span>)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — ภาคผนวกสรุปสมการทั้งรายวิชา</span>
+    <span>หน้า 6</span>
+  </footer>
+</section>
+
+<!-- page 7 budget (Compact): Table Master Equations 26 to 45 (17 rows = 289) + h2 11 + Master Reading Checklist Table (12 rows = 204) + 3 gaps 24 = 528 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:9%; background-color:#0f172a;">เลขสมการ</th>
+          <th scope="col" style="width:25%; background-color:#0f172a;">รูปทรงและลักษณะการไหล</th>
+          <th scope="col" style="width:40%; background-color:#0f172a;">สมการสหสัมพันธ์ (Correlation Equation)</th>
+          <th scope="col" style="width:26%; background-color:#0f172a;">เงื่อนไขและอุณหภูมิอ้างอิง</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>(26)</strong> [หน้า 117]</td><td>ท่อกลมปั่นป่วน (Dittus-Boelter)</td><td><span class="math">Nu<sub>D</sub> = 0.023 Re<sub>D</sub><sup>4/5</sup> Pr<sup>n</sup></span></td><td><span class="math">n=0.4</span> (ร้อนขึ้น), <span class="math">0.3</span> (เย็นลง); <span class="math">Re<sub>D</sub> ≥ 10,000</span></td></tr>
+        <tr><td><strong>(27)</strong> [หน้า 118]</td><td>ท่อกลมปั่นป่วน (Sieder-Tate)</td><td><span class="math">Nu<sub>D</sub> = 0.027 Re<sub>D</sub><sup>4/5</sup> Pr<sup>1/3</sup> (μ / μ<sub>s</sub>)<sup>0.14</sup></span></td><td>ผลต่างอุณหภูมิสูง; <span class="math">Re<sub>D</sub> ≥ 10,000, L/D ≥ 10</span></td></tr>
+        <tr><td><strong>(28)</strong> [หน้า 119]</td><td>ท่อกลมปั่นป่วน (Petukhov)</td><td><span class="math">Nu<sub>D</sub> = <span class="frac"><span>(f/8) Re<sub>D</sub> Pr</span><span>1.07 + 12.7(f/8)<sup>1/2</sup>(Pr<sup>2/3</sup> − 1)</span></span></span></td><td><span class="math">10<sup>4</sup> &lt; Re<sub>D</sub> &lt; 5×10<sup>6</sup>, 0.5 &lt; Pr &lt; 2,000</span></td></tr>
+        <tr><td><strong>(29)</strong> [หน้า 120]</td><td>ท่อกลมปั่นป่วน (Gnielinski)</td><td><span class="math">Nu<sub>D</sub> = <span class="frac"><span>(f/8)(Re<sub>D</sub> − 1,000) Pr</span><span>1 + 12.7(f/8)<sup>1/2</sup>(Pr<sup>2/3</sup> − 1)</span></span></span></td><td><span class="math">3,000 &lt; Re<sub>D</sub> &lt; 5×10<sup>6</sup>, 0.5 &lt; Pr &lt; 2,000</span></td></tr>
+        <tr><td><strong>(30)</strong> [หน้า 121]</td><td>ท่อกลมปั่นป่วน — โลหะเหลว (<span class="math">q&#39;&#39;<sub>s</sub></span>)</td><td><span class="math">Nu<sub>D</sub> = 4.82 + 0.0185 Pe<sub>D</sub><sup>0.827</sup></span></td><td><span class="math">q&#39;&#39;<sub>s</sub></span> คงที่, <span class="math">10<sup>2</sup> &lt; Pe<sub>D</sub> &lt; 10<sup>4</sup></span></td></tr>
+        <tr><td><strong>(31)</strong> [หน้า 121]</td><td>ท่อกลมปั่นป่วน — โลหะเหลว (<span class="math">T<sub>s</sub></span>)</td><td><span class="math">Nu<sub>D</sub> = 5.0 + 0.025 Pe<sub>D</sub><sup>0.8</sup></span></td><td><span class="math">T<sub>s</sub></span> คงที่, <span class="math">Pe<sub>D</sub> &gt; 100</span></td></tr>
+        <tr><td><strong>(32–33)</strong> [หน้า 138]</td><td>ท่อวงแหวนร่วมศูนย์ (<span class="math">q&#39;&#39;<sub>i</sub>, q&#39;&#39;<sub>o</sub></span> คงที่)</td><td><span class="math">Nu<sub>i</sub> = <span class="frac"><span>Nu<sub>ii</sub></span><span>1 − (q&#39;&#39;<sub>o</sub>/q&#39;&#39;<sub>i</sub>)θ<sub>i</sub><sup>*</sup></span></span>  ,  Nu<sub>o</sub> = <span class="frac"><span>Nu<sub>oo</sub></span><span>1 − (q&#39;&#39;<sub>i</sub>/q&#39;&#39;<sub>o</sub>)θ<sub>o</sub><sup>*</sup></span></span></span></td><td>ราบเรียบพัฒนาเต็มที่, เปิดค่าจาก Table 7.3</td></tr>
+        <tr><td><strong>(34–35)</strong> [หน้า 154]</td><td>พาอิสระ — แผ่นแนวตั้งราบเรียบ</td><td><span class="math">Nu<sub>x</sub> = (Gr<sub>x</sub>/4)<sup>1/4</sup> g(Pr)  ,  Nū<sub>L</sub> = <span class="frac"><span>4</span><span>3</span></span> Nu<sub>L</sub></span></td><td>ผลเฉลยความคล้ายคลึงทุกค่า <span class="math">Pr</span> (ที่ <span class="math">T<sub>f</sub></span>)</td></tr>
+        <tr><td><strong>(36)</strong> [หน้า 157]</td><td>พาอิสระ — รูปทั่วไปแผ่นแนวตั้ง</td><td><span class="math">Nū<sub>L</sub> = C Ra<sub>L</sub><sup>n</sup></span></td><td>ราบเรียบ <span class="math">n=1/4</span> (<span class="math">C=0.59</span>); ปั่นป่วน <span class="math">n=1/3</span> (<span class="math">C=0.10</span>)</td></tr>
+        <tr><td><strong>(37)</strong> [หน้า 160]</td><td>พาอิสระ — แผ่นแนวตั้ง (ทุกค่า <span class="math">Ra<sub>L</sub></span>)</td><td><span class="math">Nū<sub>L</sub> = { 0.825 + <span class="frac"><span>0.387 Ra<sub>L</sub><sup>1/6</sup></span><span>[1 + (0.492/Pr)<sup>9/16</sup>]<sup>8/27</sup></span></span> }<sup>2</sup></span></td><td>ใช้ได้ทุกช่วง <span class="math">Ra<sub>L</sub></span> (แผ่นเอียงแทน <span class="math">g cos θ</span>)</td></tr>
+        <tr><td><strong>(38)</strong> [หน้า 160]</td><td>พาอิสระ — แผ่นแนวตั้ง (ราบเรียบ)</td><td><span class="math">Nū<sub>L</sub> = 0.68 + <span class="frac"><span>0.670 Ra<sub>L</sub><sup>1/4</sup></span><span>[1 + (0.492/Pr)<sup>9/16</sup>]<sup>4/9</sup></span></span></span></td><td>แม่นยำสูงสำหรับช่วง <span class="math">Ra<sub>L</sub> ≤ 10<sup>9</sup></span> (ที่ <span class="math">T<sub>f</sub></span>)</td></tr>
+        <tr><td><strong>(39–40)</strong> [หน้า 167]</td><td>พาอิสระ — แผ่นแนวนอน (ร้อนบน/เย็นล่าง)</td><td><span class="math">Nū<sub>L</sub> = 0.54 Ra<sub>L</sub><sup>1/4</sup></span> …(39) , <span class="math">0.15 Ra<sub>L</sub><sup>1/3</sup></span> …(40)</td><td><span class="math">L ≡ A<sub>s</sub>/P</span>; (39) <span class="math">10<sup>4</sup>–10<sup>7</sup></span>, (40) <span class="math">10<sup>7</sup>–10<sup>11</sup></span></td></tr>
+        <tr><td><strong>(41)</strong> [หน้า 168]</td><td>พาอิสระ — แผ่นแนวนอน (ร้อนล่าง/เย็นบน)</td><td><span class="math">Nū<sub>L</sub> = 0.27 Ra<sub>L</sub><sup>1/4</sup></span></td><td><span class="math">L ≡ A<sub>s</sub>/P</span>; <span class="math">10<sup>5</sup> ≤ Ra<sub>L</sub> ≤ 10<sup>10</sup></span> (ที่ <span class="math">T<sub>f</sub></span>)</td></tr>
+        <tr><td><strong>(42–43)</strong> [หน้า 169]</td><td>พาอิสระ — ทรงกระบอกแนวนอน</td><td><span class="math">Nū<sub>D</sub> = { 0.60 + <span class="frac"><span>0.387 Ra<sub>D</sub><sup>1/6</sup></span><span>[1 + (0.559/Pr)<sup>9/16</sup>]<sup>8/27</sup></span></span> }<sup>2</sup></span> …(43)</td><td>สมการ (42) เปิด Table 8.1; สมการ (43) <span class="math">Ra<sub>D</sub> ≤ 10<sup>12</sup></span></td></tr>
+        <tr><td><strong>(44)</strong> [หน้า 171]</td><td>พาอิสระ — ทรงกลม (Sphere)</td><td><span class="math">Nū<sub>D</sub> = 2 + <span class="frac"><span>0.589 Ra<sub>D</sub><sup>1/4</sup></span><span>[1 + (0.469/Pr)<sup>9/16</sup>]<sup>4/9</sup></span></span></span></td><td><span class="math">Ra<sub>D</sub> ≤ 10<sup>11</sup>, Pr ≥ 0.7</span> (ที่ <span class="math">T<sub>f</sub></span>)</td></tr>
+        <tr><td><strong>(45)</strong> [หน้า 175]</td><td>การพาความร้อนแบบผสม (Mixed)</td><td><span class="math">Nu = Nu<sub>F</sub> ± Nu<sub>N</sub></span> (หรือ <span class="math">Nu<sup>n</sup> = Nu<sub>F</sub><sup>n</sup> ± Nu<sub>N</sub><sup>n</sup></span>)</td><td>ใช้เมื่อ <span class="math">Gr<sub>L</sub> / Re<sub>L</sub><sup>2</sup> ≈ 1</span> (<span class="math">+</span> เสริมกัน, <span class="math">−</span> ต้านกัน)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>ตารางตรวจสอบความเข้าใจสำหรับการอ่านทบทวนทั้งรายวิชา (Master Self-Study Reading Checklist)</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:8%;">สถานะ</th>
+          <th scope="col" style="width:18%;">บทเรียน / หัวข้อ</th>
+          <th scope="col" style="width:46%;">ทักษะและแนวคิดสำคัญที่ผู้เรียนต้องทำได้ด้วยตนเอง (Mastery Criteria)</th>
+          <th scope="col" style="width:28%;">สมการ / ตัวอย่างอ้างอิงที่ต้องฝึกทำซ้ำ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>☐</td><td><strong>บทที่ 5:</strong> สมดุลพลังงานและนิยาม <span class="math">h, h̄</span></td><td>เขียนสมดุลพลังงานที่พื้นผิว <span class="math">q&#39;&#39;<sub>cond</sub> = q&#39;&#39;<sub>conv</sub> + q&#39;&#39;<sub>rad</sub></span> และอินทิเกรตหาค่าเฉลี่ย <span class="math">h̄ = (1/L)∫<sub>0</sub><sup>L</sup> h(x)dx</span> จากฟังก์ชัน <span class="math">h(x)</span> ได้</td><td>สมการ (5.0), (5.1a–f), ตัวอย่างที่ 5.1, แบบฝึกหัด 5.1 และ 5.3</td></tr>
+        <tr><td>☐</td><td><strong>บทที่ 5:</strong> ชั้นชิดผิวและตัวแปรไร้มิติ</td><td>พิสูจน์ <span class="math">τ<sub>s</sub></span> และ <span class="math">h = −k<sub>f</sub>(∂T/∂y)|<sub>y=0</sub>/(T<sub>s</sub>−T<sub>∞</sub>)</span> ได้ แยกความแตกต่างของ 3 ชั้นย่อยในเขตปั่นป่วน และแยกแยะ <span class="math">Nu</span> (<span class="math">k<sub>f</sub></span>) กับ <span class="math">Bi</span> (<span class="math">k<sub>s</sub></span>) ได้แม่นยำ</td><td>สมการ (5.2a–d), (5.3a–b), Table 5.1, แบบฝึกหัด 5.2, 5.4, 5.5</td></tr>
+        <tr><td>☐</td><td><strong>บทที่ 6:</strong> แผ่นราบในการไหลภายนอก</td><td>คำนวณ <span class="math">T<sub>f</sub></span> ปรับแก้ความหนืดจลน์ตามความดัน <span class="math">ν<sub>2</sub> = ν<sub>1</sub>(p<sub>1</sub>/p<sub>2</sub>)</span> และเลือกใช้สมการแผ่นราบกรณีราบเรียบ ปั่นป่วน ผสม ช่วงไม่ร้อน <span class="math">ξ</span> และ <span class="math">q&#39;&#39;<sub>s</sub></span> คงที่ได้</td><td>สมการที่ (1) ถึง (16), <strong>Example 6.1</strong>, และ <strong>โจทย์ข้อ (13)</strong> แถบฮีตเตอร์ย่อย</td></tr>
+        <tr><td>☐</td><td><strong>บทที่ 6:</strong> ทรงกระบอกและทรงกลม</td><td>อธิบายกลไกการหลุดลอกของชั้นชิดผิว (Separation) และคำนวณการไหลขวางทรงกระบอกกลม/ไม่กลม และทรงกลมโดยเลือกอุณหภูมิอ้างอิง (<span class="math">T<sub>f</sub></span> vs <span class="math">T<sub>∞</sub></span>) ถูก</td><td>สมการที่ (17) ถึง (21), Table 6.1–6.3, และ <strong>โจทย์ข้อ (14)</strong> น้ำไหลขวางทรงกลม</td></tr>
+        <tr><td>☐</td><td><strong>บทที่ 7:</strong> พลศาสตร์และสมดุลความร้อนในท่อ</td><td>คำนวณ <span class="math">u<sub>m</sub>, Re<sub>D</sub> = 4ṁ/(πDμ)</span> (เทียบกับ 2,300), ช่วงทางเข้า <span class="math">x<sub>fd,h</sub>, x<sub>fd,t</sub></span>, ความดันลด <span class="math">Δp</span>, กำลังปั๊ม <span class="math">P</span>, และสมดุลพลังงาน <span class="math">q = ṁc<sub>p</sub>(T<sub>m,L</sub> − T<sub>m,0</sub>)</span> ได้</td><td>ตัวอย่างที่ 7.0, <strong>Example 7.1</strong> (ทั้งข้อ a และวงจรความต้านทานข้อ b)</td></tr>
+        <tr><td>☐</td><td><strong>บทที่ 7:</strong> สหสัมพันธ์ท่อกลม ท่อไม่กลม และวงแหวน</td><td>เลือกใช้สมการท่อกลมราบเรียบ (22–25) และปั่นป่วน (26–31) ได้ถูกต้อง คำนวณ <span class="math">D<sub>h</sub> = 4A<sub>c</sub>/P</span> และใช้ Table 7.1–7.3 สำหรับท่อเหลี่ยมและท่อวงแหวนได้</td><td>สมการที่ (22) ถึง (33), Table 7.1–7.3, แบบฝึกหัด 7.2 ถึง 7.5</td></tr>
+        <tr><td>☐</td><td><strong>บทที่ 8:</strong> แรงลอยตัวและสหสัมพันธ์พาอิสระ</td><td>คำนวณ <span class="math">β = 1/T<sub>f</sub></span> (หน่วย K), <span class="math">Gr<sub>L</sub>, Ra<sub>L</sub></span>, ใช้ <span class="math">L = A<sub>s</sub>/P</span> สำหรับแผ่นแนวนอน, แทน <span class="math">g cos θ</span> สำหรับแผ่นเอียง, และคำนวณร่วมกับการแผ่รังสีได้</td><td>สมการที่ (34) ถึง (45), Table 8.1–8.2, <strong>Example 8.1</strong> และ <strong>Example 8.2</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — ภาคผนวกสรุปสมการและ Master Checklist</span>
+    <span>หน้า 7</span>
+  </footer>
+</section>
+
+</div>
+<script data-bard-injected="true">
+(function() {
+  async function fetchFifeImageBlobUsingAlr(urlString) {
+    if (urlString.startsWith('blob:') || urlString.startsWith('data:')) {
+      throw new Error('Input URL is already a blob or data URL.');
+    }
+    var url = new URL(urlString, window.location.href);
+    url.searchParams.set('alr', 'yes');
+    for (var i = 0; i < 5; i++) {
+      var response = await fetch(url.toString(), {credentials: 'include'});
+      if (!response.ok) {
+        throw new Error('Fetch received not OK response: ' + response.status);
+      }
+      var contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.startsWith('text/plain')) {
+        var blob = await response.blob();
+        if (blob.size > 0 && blob.type.startsWith('image/')) {
+          return blob;
+        }
+        throw new Error('Fetched blob is not a valid image.');
+      }
+      url = new URL(await response.text());
+    }
+    throw new Error('Exceeded maximum number of redirects.');
+  }
+
+  async function updateImageSourcesUsingAlr() {
+    var imgs = Array.from(document.querySelectorAll('img'));
+    await Promise.all(imgs.map(async function(img) {
+      if (img.src && img.src.includes('googleusercontent')) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(img.src);
+          img.src = URL.createObjectURL(blob);
+        } catch (e) {}
+      }
+    }));
+
+    var elements = document.querySelectorAll('[style*="googleusercontent"]');
+    var urlRegex = /url\((['"]?)(https?:\/\/.*?googleusercontent.*?)\1\)/;
+    await Promise.all(Array.from(elements).map(async function(el) {
+      var bg = el.style.backgroundImage;
+      var match = bg ? bg.match(urlRegex) : null;
+      if (match && match[2]) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(match[2]);
+          var blobUrl = URL.createObjectURL(blob);
+          el.style.backgroundImage = bg.replace(match[2], blobUrl);
+        } catch (e) {}
+      }
+    }));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateImageSourcesUsingAlr);
+  } else {
+    updateImageSourcesUsingAlr();
+  }
+})();
+</script></body></html>

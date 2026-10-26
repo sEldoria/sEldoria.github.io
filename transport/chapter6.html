@@ -1,0 +1,505 @@
+<!DOCTYPE html><html lang="th"><head>
+<meta charset="UTF-8">
+<title>บทที่ 6: การไหลภายนอก (External Flow)</title>
+<style>
+    @page { margin: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { background-color: #ffffff; }
+    @media (prefers-color-scheme: dark) {
+        html { background-color: #1f1f1f; }
+    }
+    body {
+        padding: 24px 0;
+        margin: 0 auto;
+        max-width: 900px !important;
+        border: none !important;
+        background: transparent !important;
+        font-family: 'Sarabun', 'TH Sarabun New', 'Tahoma', 'Segoe UI', sans-serif;
+        color: #1e293b;
+    }
+    .page {
+    min-height: 297mm;
+    height: auto;
+    margin: 0 auto 12px auto;
+    padding: 18mm 18mm 12mm 18mm;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: visible;
+}
+    @media screen and (max-width: 600px) {
+        body { padding: 16px 0; }
+        .page { margin: 0 auto 8px auto; border: none; padding: 12px 20px; }
+    }
+    .page-content {
+    flex: 1 0 auto;
+    min-height: 0;
+    overflow: visible;
+}
+    .page-content > * + * { margin-top: 16px; }
+    .page.compact, body.compact .page { font-size: 9pt; line-height: 1.32; }
+    .page.compact .page-content > * + *, body.compact .page-content > * + * { margin-top: 10px; }
+    .page-content > :is(h1, h2, h3, h4) + * { margin-top: 6px; }
+    .page-footer {
+        flex-shrink: 0; margin-top: auto; padding-top: 4mm;
+        display: flex; justify-content: space-between; align-items: center;
+        font-size: 8.5pt; color: #64748b; border-top: 1px solid #cbd5e1;
+    }
+    @media print {
+        *, *::before, *::after { box-shadow: none !important; text-shadow: none !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        body { padding: 0; background: none; }
+        .page {
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        overflow: visible;
+        break-after: page;
+        page-break-after: always;
+    }
+.page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }.page-content {
+        overflow: visible;
+    }
+        .page:last-child { break-after: auto; page-break-after: auto; }
+    }
+    [contenteditable]:focus { outline: none; }
+
+    h1, h2, h3, h4, p, ul, ol, table, figure { margin: 0; }
+    h1 { font-size: 17pt; font-weight: 700; color: #1e3a8a; line-height: 1.2; }
+    h2 { font-size: 12pt; font-weight: 700; color: #1e40af; border-bottom: 1.5px solid #1e40af; padding-bottom: 2px; }
+    h3 { font-size: 10pt; font-weight: 700; color: #0f172a; }
+    p, li { font-size: 9pt; line-height: 1.32; text-align: justify; }
+    ul, ol { padding-left: 16px; }
+    li + li { margin-top: 2px; }
+
+    .masthead { background-color: #1e3a8a; color: #ffffff; padding: 10px 14px; border-left: 6px solid #f59e0b; }
+    .masthead .course-tag { font-size: 8pt; text-transform: uppercase; letter-spacing: 0.5px; color: #fde68a; font-weight: 600; }
+    .masthead h1 { color: #ffffff; font-size: 15pt; margin-top: 2px; }
+    .masthead .sub { font-size: 8.5pt; color: #f1f5f9; margin-top: 2px; }
+
+    .tag-slide { display: inline-block; background-color: #dbeafe; color: #1e40af; font-weight: 700; font-size: 7.5pt; padding: 1px 4px; border: 1px solid #60a5fa; border-radius: 3px; }
+    .tag-supp { display: inline-block; background-color: #f0fdf4; color: #166534; font-weight: 700; font-size: 7.5pt; padding: 1px 4px; border: 1px solid #4ade80; border-radius: 3px; }
+    .tag-note { display: inline-block; background-color: #fef3c7; color: #92400e; font-weight: 700; font-size: 7.5pt; padding: 1px 4px; border: 1px solid #fbbf24; border-radius: 3px; }
+
+    .callout { background-color: #f8fafc; border: 1px solid #cbd5e1; border-left: 4px solid #0284c7; padding: 6px 8px; }
+    .callout.warn { background-color: #fffbeb; border-color: #fde68a; border-left: 4px solid #d97706; }
+    .callout.eq-box { background-color: #eff6ff; border-color: #bfdbfe; border-left: 4px solid #1e40af; text-align: center; padding: 5px 8px; }
+    .callout-title { font-weight: 700; font-size: 9pt; color: #0f172a; margin-bottom: 2px; }
+
+    .math-display { font-family: 'Cambria Math', 'Times New Roman', serif; font-size: 10pt; font-weight: 700; color: #1e3a8a; }
+    .math { font-family: 'Cambria Math', 'Times New Roman', serif; font-style: italic; }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; padding: 0 2px; font-size: 90%; }
+    .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 2px 1px 2px; }
+    .frac > span:last-child { padding: 1px 2px 0 2px; }
+
+    table.data-table { width: 100%; border-collapse: collapse; font-size: 8pt; }
+    table.data-table th { background-color: #1e3a8a; color: #ffffff; font-weight: 700; text-align: left; padding: 3px 5px; border: 1px solid #1e3a8a; }
+    table.data-table td { padding: 2.5px 5px; border: 1px solid #cbd5e1; vertical-align: top; overflow-wrap: break-word; }
+    table.data-table tr:nth-child(even) td { background-color: #f8fafc; }
+
+    figure.diagram-fig { border: 1px solid #cbd5e1; background-color: #ffffff; padding: 5px 6px; text-align: center; }
+    figure.diagram-fig figcaption { font-size: 8pt; color: #334155; margin-top: 3px; text-align: left; }
+    .cite { color: #1e40af; text-decoration: none; font-weight: 600; }
+    li:target { background-color: #fef3c7; }
+</style>
+<style data-bard-injected="true">
+@media screen {
+    html {
+        background-color: #ffffff;
+    }
+    body {
+        padding: 8px 0 24px 0;
+    }
+}
+@media screen and (prefers-color-scheme: dark) {
+    html {
+        background-color: #1f1f1f;
+    }
+}
+@media screen and (max-width: 600px) {
+    body {
+        padding: 4px 0 16px 0;
+        margin: 0 auto;
+    }
+}
+</style></head>
+<body class="compact">
+<div contenteditable="true">
+
+<!-- page 1 budget (Compact): masthead 40 + h2 10 + prose 150 + h2 10 + table 15 rows 250 + 4 gaps 32 = 492 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="masthead">
+      <div class="course-tag">ตำราเรียนวิชาการฉบับสมบูรณ์ | TRANSPORT PHENOMENA I (ปีการศึกษา 2569)</div>
+      <h1>บทที่ 6: การไหลภายนอก (Chapter 6: External Flow)</h1>
+      <div class="sub">เรียบเรียงจากเอกสารการสอนของอาจารย์ (สไลด์หน้า 34–91) ครอบคลุมการไหลขนานแผ่นราบ ทรงกระบอก และทรงกลม พร้อมตัวอย่างคำนวณและแบบฝึกหัดอย่างละเอียด</div>
+    </div>
+
+    <h2>6.0 บทนำและวัตถุประสงค์การเรียนรู้บทที่ 6 <span class="tag-slide">[สไลด์หน้า 34–40]</span></h2>
+    <p>ในการศึกษาบทที่ 6 นี้ เรามุ่งเน้นปัญหาการคำนวณอัตราการถ่ายโอนความร้อนจากพื้นผิวใน <strong>การไหลภายนอก (External flow)</strong> ซึ่งเป็นลักษณะการไหลที่ชั้นชิดผิว (Boundary layers) สามารถพัฒนาได้อย่างอิสระโดยไม่มีข้อจำกัดหรือผนังกั้นจากพื้นผิวรอบข้าง (แตกต่างจากการไหลภายในท่อ) ตัวอย่างเช่น การไหลของอากาศผ่านแผ่นราบ การไหลผ่านท่อทรงกระบอก ทรงกลม หรือใบพัดกังหัน <span class="tag-slide">[สไลด์หน้า 35–36]</span> โดยเราจะพิจารณาเฉพาะการพาความร้อนแบบบังคับ (Forced convection) ความเร็วต่ำ และไม่มีการเปลี่ยนสถานะ (No phase change) <span class="tag-slide">[สไลด์หน้า 37]</span></p>
+
+    <h2>รายการสัญลักษณ์หลักประจำบทที่ 6 (Nomenclature)</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:16%;">สัญลักษณ์</th>
+          <th scope="col" style="width:38%;">ความหมายทางกายภาพ (ภาษาไทย)</th>
+          <th scope="col" style="width:30%;">ความหมายภาษาอังกฤษ (ตามสไลด์)</th>
+          <th scope="col" style="width:16%;">หน่วยในระบบ SI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="math">C, m, n</span></td><td>ค่าคงที่และเลขชี้กำลังในสมการสหสัมพันธ์เชิงประจักษ์</td><td>Empirical correlation constants and exponents [หน้า 44]</td><td>ไร้มิติ</td></tr>
+        <tr><td><span class="math">C<sub>f,x</sub>, C̄<sub>f,L</sub></span></td><td>สัมประสิทธิ์ความเสียดทานเฉพาะจุด และค่าเฉลี่ย</td><td>Local and average friction coefficient [หน้า 24, 48]</td><td>ไร้มิติ</td></tr>
+        <tr><td><span class="math">D</span></td><td>เส้นผ่านศูนย์กลางของทรงกระบอกหรือทรงกลม</td><td>Diameter of cylinder or sphere [หน้า 83, 88]</td><td>m</td></tr>
+        <tr><td><span class="math">I, E</span></td><td>กระแสไฟฟ้า และแรงดันไฟฟ้าของฮีตเตอร์</td><td>Electrical current and voltage [หน้า 41]</td><td>A, V</td></tr>
+        <tr><td><span class="math">Nu<sub>x</sub>, Nū<sub>L</sub></span></td><td>ตัวเลขนัสเซลต์เฉพาะจุด และค่าเฉลี่ย</td><td>Local and average Nusselt number [หน้า 39, 43]</td><td>ไร้มิติ</td></tr>
+        <tr><td><span class="math">Pe<sub>x</sub>, Pe<sub>L</sub></span></td><td>ตัวเลขเพเคลต์ (<span class="math">Re · Pr</span>)</td><td>Peclet number [หน้า 49]</td><td>ไร้มิติ</td></tr>
+        <tr><td><span class="math">Pr, Pr<sub>s</sub></span></td><td>ตัวเลขพรานด์เทิล (ที่อุณหภูมิฟิล์ม และที่ผิว <span class="math">T<sub>s</sub></span>)</td><td>Prandtl number (at film temp and surface) [หน้า 45, 86]</td><td>ไร้มิติ</td></tr>
+        <tr><td><span class="math">q, q&#39;, q&#39;&#39;</span></td><td>อัตราความร้อนรวม, ต่อหน่วยความยาว, และฟลักซ์ความร้อน</td><td>Heat transfer rate, per unit length, flux [หน้า 10, 70]</td><td>W, W/m, W/m<sup>2</sup></td></tr>
+        <tr><td><span class="math">Re<sub>x</sub>, Re<sub>L</sub></span></td><td>ตัวเลขเรย์โนลด์สเฉพาะจุด และแบบใช้ความยาว <span class="math">L</span> หรือ <span class="math">D</span></td><td>Reynolds number [หน้า 29, 43]</td><td>ไร้มิติ</td></tr>
+        <tr><td><span class="math">T<sub>f</sub></span></td><td>อุณหภูมิฟิล์มสำหรับประเมินสมบัติของของไหล (<span class="math">(T<sub>s</sub> + T<sub>∞</sub>)/2</span>)</td><td>Film temperature [หน้า 45]</td><td>K หรือ °C</td></tr>
+        <tr><td><span class="math">u<sub>∞</sub>, V</span></td><td>ความเร็วกระแสอิสระของของไหลภายนอก</td><td>Free stream velocity [หน้า 2, 78]</td><td>m/s</td></tr>
+        <tr><td><span class="math">x, x<sub>c</sub>, ξ</span></td><td>ระยะจากขอบนำ, ระยะวิกฤต, และความยาวช่วงไม่ให้ความร้อน</td><td>Distance, critical location, unheated length [หน้า 30, 60]</td><td>m</td></tr>
+        <tr><td><span class="math">θ, θ<sub>sep</sub></span></td><td>มุมรอบทรงกระบอก และมุมตำแหน่งที่เกิดการหลุดลอก</td><td>Angle and separation angle [หน้า 78, 82]</td><td>เรเดียน หรือ องศา</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 6: การไหลภายนอก</span>
+    <span>หน้า 1</span>
+  </footer>
+</section>
+
+<!-- page 2 budget (Compact): h2 10 + prose 160 + h2 10 + prose 185 + callout eq 55 + 5 gaps 40 = 460 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>6.1 วิธีเชิงประจักษ์ (The Empirical Method) <span class="tag-slide">[สไลด์หน้า 41–45]</span></h2>
+    <p><span class="tag-supp">[เสริมพื้นฐาน]</span> เนื่องจากสมการอนุรักษ์ของการไหลภายนอกมีความซับซ้อนทางคณิตศาสตร์สูง (ໂດຍเฉพาะเมื่อเข้าสู่เขตปั่นป่วน) วิศวกรรมจึงต้องอาศัย <strong>วิธีเชิงประจักษ์ (Empirical method)</strong> ซึ่งเป็นการทดลองวัดค่าการถ่ายโอนความร้อนในห้องปฏิบัติการภายใต้สภาวะควบคุม แล้วนำผลมาจัดกลุ่มในรูปตัวแปรไร้มิติ <span class="tag-slide">[สไลด์หน้า 41]</span></p>
+    <p><strong>หลักการทดลองวัดค่า <span class="math">h̄<sub>L</sub></span> (สไลด์หน้า 41–42):</strong> พิจารณาแผ่นราบที่ติดตั้งฮีตเตอร์ไฟฟ้าอิสระเพื่อให้ความร้อนรักษาอุณหภูมิผิว <span class="math">T<sub>s</sub> &gt; T<sub>∞</sub></span> เมื่ออากาศไหลผ่าน เราสามารถวัดพลังงานความร้อนรวม <span class="math">q</span> จากกำลังไฟฟ้าทางไฟฟ้า <span class="math">E · I</span> แล้วคำนวณหาค่าสัมประสิทธิ์การพาความร้อนเฉลี่ย <span class="math">h̄<sub>L</sub></span> ได้จากกฎการเย็นตัวของนิวตัน <span class="math">q = E · I = h̄<sub>L</sub> A<sub>s</sub> (T<sub>s</sub> − T<sub>∞</sub>)</span> เมื่อทำการทดลองเปลี่ยนความเร็ว <span class="math">u<sub>∞</sub></span> ความยาวแผ่น <span class="math">L</span> และเปลี่ยนชนิดของไหล (เช่น อากาศ น้ำ น้ำมันเครื่อง ซึ่งมีค่า <span class="math">Pr</span> ต่างกัน) เราจะได้ชุดข้อมูลค่านัสเซลต์ <span class="math">Nu<sub>L</sub></span> ที่สอดคล้องกับ <span class="math">Re<sub>L</sub></span> และ <span class="math">Pr</span> จำนวนมาก <span class="tag-slide">[สไลด์หน้า 42]</span> เมื่อนำมาพล็อตกราฟ Log-Log จะได้เส้นตรงที่สอดคล้องกับสมการสหสัมพันธ์ทั่วไป <span class="tag-slide">[สไลด์หน้า 43–44]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Nū<sub>L</sub> = C · Re<sub>L</sub><sup>m</sup> · Pr<sup>n</sup></span>   (สมการสหสัมพันธ์เชิงประจักษ์ทั่วไป) <span class="tag-slide">[สไลด์หน้า 44]</span>
+    </div>
+    <p>และเนื่องจากสมบัติของของไหลแปรผันตามอุณหภูมิ ในการคำนวณจริงจึงต้องประเมินสมบัติทุกตัวที่ <strong>อุณหภูมิฟิล์ม (Film temperature, <span class="math">T<sub>f</sub></span>)</strong> ซึ่งนิยามเป็นค่าเฉลี่ยเลขคณิตระหว่างอุณหภูมิผิวกับอุณหภูมิกระแสอิสระ <span class="tag-slide">[สไลด์หน้า 45]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">T<sub>f</sub> ≡ <span class="frac"><span>T<sub>s</sub> + T<sub>∞</sub></span><span>2</span></span></span>   (นิยามอุณหภูมิฟิล์ม) <span class="tag-slide">[สไลด์หน้า 45]</span>
+    </div>
+
+    <h2>6.2 แผ่นราบในการไหลแบบขนาน (The Flat Plate in Parallel Flow) <span class="tag-slide">[สไลด์หน้า 46–66]</span></h2>
+    <p>การไหลขนานผ่านแผ่นราบเริ่มต้นจากขอบนำ (<span class="math">x = 0</span>) เป็นแบบราบเรียบ (Laminar) และจะพัฒนาจนเกิดการเปลี่ยนผ่านไปสู่การไหลแบบปั่นป่วน (Turbulent) เมื่อค่าเรย์โนลด์สถึงเกณฑ์วิกฤต <span class="tag-slide">[สไลด์หน้า 46]</span> โดยเราสามารถแบ่งกรณีศึกษาออกเป็นหัวข้อย่อยได้ดังนี้:</p>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 6: การไหลภายนอก</span>
+    <span>หน้า 2</span>
+  </footer>
+</section>
+
+<!-- page 3 budget (Compact): h3 10 + equations & prose 240 + h3 10 + prose 185 + 4 gaps 32 = 477 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h3>6.2.1 การไหลแบบราบเรียบ (Laminar Flow, <span class="math">Pr ≥ 0.6</span>) <span class="tag-slide">[สไลด์หน้า 47–50]</span></h3>
+    <p>สำหรับการไหลแบบราบเรียบบนแผ่นราบอุณหภูมิคงที่ โพนฮาวเซนและพฮาวเซน (Pohlhausen) ได้แก้สมการชั้นชิดผิวและได้ผลเฉลยสำหรับตัวเลขนัสเซลต์เฉพาะจุด สัมประสิทธิ์ความเสียดทาน และความหนาสัมพัทธ์ของชั้นชิดผิว ดังนี้ <span class="tag-slide">[สไลด์หน้า 47–48]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Nu<sub>x</sub> = <span class="frac"><span>h<sub>x</sub> x</span><span>k</span></span> = 0.332 Re<sub>x</sub><sup>1/2</sup> Pr<sup>1/3</sup>   (Pr ≥ 0.6)   …(สมการที่ 1)</span><br>
+      <span class="math-display">C̄<sub>f,x</sub> = 1.328 Re<sub>x</sub><sup>−1/2</sup>   ,   <span class="frac"><span>δ</span><span>δ<sub>t</sub></span></span> ≈ Pr<sup>1/3</sup></span><br>
+      <span class="math-display">Nū<sub>L</sub> = <span class="frac"><span>h̄ L</span><span>k</span></span> = 0.664 Re<sub>L</sub><sup>1/2</sup> Pr<sup>1/3</sup>   (Pr ≥ 0.6)   …(สมการที่ 2)</span>   <span class="tag-slide">[สไลด์หน้า 47–48]</span>
+    </div>
+    <p><span class="tag-supp">[เสริมพื้นฐาน]</span> <em>ที่มาของสมการที่ (2):</em> หาได้จากการอินทิเกรตค่าเฉพาะจุด <span class="math">h̄ = (1/L)∫<sub>0</sub><sup>L</sup> h<sub>x</sub> dx = (1/L)∫<sub>0</sub><sup>L</sup> 0.332 (u<sub>∞</sub>/ν x)<sup>1/2</sup> Pr<sup>1/3</sup> k dx</span> ซึ่งเมื่ออินทิเกรตแล้วจะได้ค่าคงที่เพิ่มขึ้นจาก <span class="math">0.332</span> เป็น <span class="math">2 × 0.332 = 0.664</span> (ดังที่พิสูจน์ไว้แล้วในตัวอย่าง 5.2 ของบทที่ 5)</p>
+    <p><strong>กรณีโลหะเหลว (<span class="math">Pr ≤ 0.05, Pe<sub>x</sub> ≥ 100</span>):</strong> เนื่องจากโลหะเหลวมีค่า <span class="math">Pr</span> น้อยมาก การพาความร้อนจึงถูกครอบงำด้วยการแพร่ความร้อนอย่างรวดเร็ว สมการเฉพาะจุดจึงเปลี่ยนเป็น <span class="tag-slide">[สไลด์หน้า 49]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Nu<sub>x</sub> = 0.565 Pe<sub>x</sub><sup>1/2</sup>   (Pr ≤ 0.05, Pe<sub>x</sub> ≥ 100, โดย Pe<sub>x</sub> ≡ Re<sub>x</sub> Pr)   …(สมการที่ 3)</span> <span class="tag-slide">[สไลด์หน้า 49]</span>
+    </div>
+    <p><strong>สหสัมพันธ์ครอบคลุมทุกค่า <span class="math">Pr</span> (ของ Churchill &amp; Ozoe):</strong> สำหรับแผ่นราบอุณหภูมิคงที่ที่ใช้ได้กับทุกค่า Prandtl number เมื่อ <span class="math">Pe<sub>x</sub> ≥ 100</span> <span class="tag-slide">[สไลด์หน้า 50]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Nu<sub>x</sub> = <span class="frac"><span>0.3387 Re<sub>x</sub><sup>1/2</sup> Pr<sup>1/3</sup></span><span>[1 + (0.0468 / Pr)<sup>2/3</sup>]<sup>1/4</sup></span></span>   …(สมการที่ 4)</span>  และค่าเฉลี่ยคือ <span class="math-display">Nū<sub>x</sub> = 2 Nu<sub>x</sub>   …(สมการที่ 5)</span> <span class="tag-slide">[สไลด์หน้า 50]</span>
+    </div>
+
+    <h3>6.2.2 การไหลแบบปั่นป่วน (Turbulent Flow, <span class="math">Re<sub>x</sub> ≤ 10<sup>7</sup></span>) <span class="tag-slide">[สไลด์หน้า 51–54]</span></h3>
+    <p>จากการทดลอง สำหรับการไหลแบบปั่นป่วนที่มี <span class="math">Re<sub>x</sub> ≤ 10<sup>7</sup></span> สัมประสิทธิ์ความเสียดทานและความหนาชั้นชิดผิวความเร็วคือ <span class="tag-slide">[สไลด์หน้า 51]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">C<sub>f,x</sub> = 0.0592 Re<sub>x</sub><sup>−1/5</sup>   ,   δ = 0.37 x Re<sub>x</sub><sup>−1/5</sup></span> <span class="tag-slide">[สไลด์หน้า 51]</span>
+    </div>
+    <p>เมื่ออาศัย Chilton-Colburn Analogy ระหว่างโมเมนตัมและความร้อน (<span class="math">St · Pr<sup>2/3</sup> = C<sub>f,x</sub> / 2</span>) จะได้นัสเซลต์เฉพาะจุดและนัสเซลต์เฉลี่ยสำหรับการไหลแบบปั่นป่วนตลอดทั้งแผ่น ดังนี้ <span class="tag-slide">[สไลด์หน้า 52–54]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Nu<sub>x</sub> = 0.0296 Re<sub>x</sub><sup>4/5</sup> Pr<sup>1/3</sup>   (0.6 &lt; Pr &lt; 60)   …(สมการที่ 6)</span><br>
+      <span class="math-display">Nū<sub>L</sub> = 0.037 Re<sub>L</sub><sup>4/5</sup> Pr<sup>1/3</sup>   (0.6 &lt; Pr &lt; 60, Re<sub>L</sub> ≤ 10<sup>7</sup>)   …(สมการที่ 7)</span> <span class="tag-slide">[สไลด์หน้า 52, 54]</span>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 6: การไหลภายนอก</span>
+    <span>หน้า 3</span>
+  </footer>
+</section>
+
+<!-- page 4 budget (Compact): h3 10 + prose 185 + h3 10 + prose 190 + callout eq 55 + 4 gaps 32 = 482 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h3>6.2.3 สภาวะชั้นชิดผิวแบบผสม (Mixed Boundary Layer Conditions) <span class="tag-slide">[สไลด์หน้า 55–59]</span></h3>
+    <p>ในความเป็นจริง การไหลบนแผ่นราบมักเริ่มต้นด้วยเขตราบเรียบตั้งแต่ขอบนำ แล้วจึงเกิดการเปลี่ยนผ่านไปสู่เขตปั่นป่วนที่ตำแหน่งวิกฤต <span class="math">x<sub>c</sub></span> (หรือกำหนดด้วย <span class="math">Re<sub>x,c</sub> = 5 × 10<sup>5</sup></span>) หากตำแหน่งเปลี่ยนผ่านไม่ได้อยู่ชิดติดปลายแผ่น ($x_c/L \le 0.95$) ค่าสัมประสิทธิ์เฉลี่ยจะได้รับอิทธิพลจากทั้งสองเขต <span class="tag-slide">[สไลด์หน้า 55–56]</span> โดยได้จากการอินทิเกรตช่วงราบเรียบและปั่นป่วนรวมกัน:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Nū<sub>L</sub> = (0.037 Re<sub>L</sub><sup>4/5</sup> − A) Pr<sup>1/3</sup>   โดยที่ A = 0.037 Re<sub>x,c</sub><sup>4/5</sup> − 0.664 Re<sub>x,c</sub><sup>1/2</sup></span> <span class="tag-slide">[สไลด์หน้า 57]</span>
+    </div>
+    <p>เมื่อแทนค่ามาตรฐาน <span class="math">Re<sub>x,c</sub> = 5 × 10<sup>5</sup></span> เราจะได้ค่าคงที่ <span class="math">A = 871</span> ทำให้สมการสหสัมพันธ์สำหรับแผ่นราบในสภาวะชั้นชิดผิวแบบผสม (Mixed boundary layer) คือ <span class="tag-slide">[สไลด์หน้า 58–59]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Nū<sub>L</sub> = (0.037 Re<sub>L</sub><sup>4/5</sup> − 871) Pr<sup>1/3</sup>   (0.6 ≤ Pr ≤ 60, 5 × 10<sup>5</sup> ≤ Re<sub>L</sub> ≤ 10<sup>8</sup>)   …(สมการที่ 8)</span><br>
+      <span class="math-display">C̄<sub>f,L</sub> = <span class="frac"><span>0.074</span><span>Re<sub>L</sub><sup>1/5</sup></span></span> − <span class="frac"><span>1,742</span><span>Re<sub>L</sub></span></span>   และเมื่อ Re<sub>L</sub> ≫ Re<sub>x,c</sub> จะลดรูปเหลือ: Nū<sub>L</sub> = 0.037 Re<sub>L</sub><sup>4/5</sup> Pr<sup>1/3</sup>  …(สมการที่ 9)</span> <span class="tag-slide">[สไลด์หน้า 58–59]</span>
+    </div>
+
+    <h3>6.2.4 กรณีพิเศษ: ช่วงเริ่มต้นไม่ให้ความร้อน (Unheated Starting Length) <span class="tag-slide">[สไลด์หน้า 60–65]</span></h3>
+    <p>ในงานวิศวกรรมบางกรณี แผ่นราบอาจมีช่วงต้นน้ำยาว <span class="math">ξ</span> ที่มีอุณหภูมิเท่ากับกระแสอิสระ (<span class="math">T_s = T_\infty</span>, จึงยังไม่มีการถ่ายโอนความร้อน) และเริ่มต้นให้ความร้อนที่ตำแหน่ง <span class="math">x = ξ</span> เป็นต้นไป (<span class="math">T_s ≠ T_\infty</span>, รูปที่ 6.4) ทำให้ชั้นชิดผิวความเร็วเริ่มต้นที่ <span class="math">x = 0</span> แต่ชั้นชิดผิวความร้อนเริ่มต้นที่ <span class="math">x = ξ</span> <span class="tag-slide">[สไลด์หน้า 60–61]</span> โดยนัสเซลต์เฉพาะจุดและค่าเฉลี่ยคำนวณจากสูตรดัดแปลงดังนี้ <span class="tag-slide">[สไลด์หน้า 61–65]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Nu<sub>x</sub>(Laminar) = <span class="frac"><span>Nu<sub>x</sub>|<sub>ξ=0</sub></span><span>[1 − (ξ / x)<sup>3/4</sup>]<sup>1/3</sup></span></span>   …(สมการที่ 10)  ,  Nu<sub>x</sub>(Turbulent) = <span class="frac"><span>Nu<sub>x</sub>|<sub>ξ=0</sub></span><span>[1 − (ξ / x)<sup>9/10</sup>]<sup>1/9</sup></span></span>  …(สมการที่ 11)</span><br>
+      <span class="math-display">Nū<sub>L</sub> = Nū<sub>L</sub>|<sub>ξ=0</sub> · <span class="frac"><span>L</span><span>L − ξ</span></span> [ 1 − (<span class="frac"><span>ξ</span><span>L</span></span>)<sup><span class="math">p+1</span> / <span class="math">p+2</span></sup> ]<sup><span class="math">p</span> / <span class="math">p+1</span></sup>   (โดย p = 2 สำหรับราบเรียบ, p = 8 สำหรับปั่นป่วน)  …(สมการที่ 12–13)</span> <span class="tag-slide">[สไลด์หน้า 61–65]</span>
+    </div>
+
+    <h3>6.2.5 แผ่นราบภายใต้เงื่อนไขฟลักซ์ความร้อนคงที่ (Constant Heat Flux) <span class="tag-slide">[สไลด์หน้า 66]</span></h3>
+    <p>หากแผ่นราบได้รับฟลักซ์ความร้อนสม่ำเสมอ <span class="math">q&#39;&#39;_s</span> คงที่ตลอดแผ่น (แทนที่จะเป็นอุณหภูมิผิวคงที่ <span class="math">T_s</span>) ค่าตัวเลขนัสเซลต์จะสูงกว่าเล็กน้อย <span class="tag-slide">[สไลด์หน้า 66]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Nu<sub>x</sub>(Laminar) = 0.453 Re<sub>x</sub><sup>1/2</sup> Pr<sup>1/3</sup>  …(สมการที่ 14)  ,  Nu<sub>x</sub>(Turbulent) = 0.0308 Re<sub>x</sub><sup>4/5</sup> Pr<sup>1/3</sup>  …(สมการที่ 15)</span><br>
+      <span class="math-display">Nū<sub>L</sub> = 0.68 Re<sub>L</sub><sup>1/2</sup> Pr<sup>1/3</sup>   (สำหรับแบบราบเรียบ)   …(สมการที่ 16)</span> <span class="tag-slide">[สไลด์หน้า 66]</span>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 6: การไหลภายนอก</span>
+    <span>หน้า 3</span>
+  </footer>
+</section>
+
+<!-- page 5 budget (Compact): h2 10 + prose 120 + callout example 340 + 3 gaps 24 = 494 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>6.3 ระเบียบวิธีมาตรฐานในการคำนวณการพาความร้อน และตัวอย่างที่ 6.1 <span class="tag-slide">[สไลด์หน้า 67–77]</span></h2>
+    <p>ก่อนเลือกใช้สมการสหสัมพันธ์สำหรับปัญหาการพาความร้อนใด ๆ ให้ปฏิบัติตาม <strong>กฎมาตรฐาน 5 ข้อ</strong> อย่างเคร่งครัด: (1) ระบุรูปทรงเรขาคณิตให้ชัดเจน, (2) เลือกอุณหภูมิฟิล์ม <span class="math">T_f</span> และเปิดตารางหาค่าสมบัติของของไหล, (3) คำนวณตัวเลขเรย์โนลด์สเพื่อตรวจสอบระเบียบการไหลว่าเป็นแบบราบเรียบหรือปั่นป่วน, (4) พิจารณาว่าต้องการค่าเฉพาะจุดหรือค่าเฉลี่ย, และ (5) เลือกสมการสหสัมพันธ์ที่ถูกต้องเหมาะสม <span class="tag-slide">[สไลด์หน้า 67–69]</span></p>
+
+    <div class="callout">
+      <div class="callout-title"><span class="tag-supp">[เสริมพื้นฐาน]</span> ตัวอย่างที่ 6.1 (สไลด์หน้า 70–77): การระบายความร้อนแผ่นราบด้วยอากาศความดันต่ำ</div>
+      <p><strong>โจทย์:</strong> อากาศที่ความดัน <span class="math">p<sub>∞</sub> = 6 kN/m<sup>2</sup></span> และอุณหภูมิ <span class="math">T<sub>∞</sub> = 300°C</span> ไหลด้วยความเร็ว <span class="math">u<sub>∞</sub> = 10 m/s</span> ผ่านแผ่นราบความยาว <span class="math">L = 0.5 m</span> (ความกว้างต่อหนึ่งหน่วยความกว้าง <span class="math">w = 1.0 m</span>) ซึ่งถูกรักษาให้อุณหภูมิพื้นผิวอยู่ที่ <span class="math">T<sub>s</sub> = 27°C</span> จงคำนวณหาอัตราการระบายความร้อนต่อหนึ่งหน่วยความกว้าง <span class="math">q&#39;</span> (W/m) <span class="tag-slide">[สไลด์หน้า 70–71]</span></p>
+      <p><strong>วิธีทำอย่างละเอียด (เติมเต็มช่องว่างที่เว้นไว้ในสไลด์หน้า 73–77):</strong><br>
+      <strong>1. ประเมินอุณหภูมิฟิล์ม (<span class="math">T_f</span>):</strong> <span class="math">T_f = (300 + 27)/2 + 273.15 = 163.5 + 273.15 = 436.65 ≈ 437 K</span> (เปิดตารางสมบัติอากาศที่ 1 atm ที่ 400 K และ 450 K แล้วทำ Linear interpolation จะได้ค่าสมบัติที่ 437 K ดังนี้: <span class="math">k = 0.0364 W/(m·K), Pr = 0.687, ν<sub>1</sub> = 30.84 × 10<sup>−6</sup> m<sup>2</sup>/s</span> ที่ 1 atm หรือ <span class="math">p_1 = 1.0133 × 10<sup>5</sup> N/m<sup>2</sup></span>) <span class="tag-slide">[สไลด์หน้า 73]</span><br>
+      <strong>2. ปรับแก้ความหนืดจลน์ตามความดันจริง (<span class="math">p<sub>2</sub> = 6 kN/m<sup>2</sup></span>):</strong> เนื่องจากความหนืดจลน์แปรผกผันกับความดันตามกฎแก๊สอุดมคติ (<span class="math">ν<sub>2</sub> = ν<sub>1</sub> · (p<sub>1</sub> / p<sub>2</sub>)</span>) <span class="tag-slide">[สไลด์หน้า 74–75]</span>:<br>
+      <span class="math">ν<sub>2</sub> = 30.84 × 10<sup>−6</sup> m<sup>2</sup>/s × <span class="frac"><span>1.0133 × 10<sup>5</sup> N/m<sup>2</sup></span><span>6 × 10<sup>3</sup> N/m<sup>2</sup></span></span> = 30.84 × 10<sup>−6</sup> × 16.888 = <strong>5.21 × 10<sup>−4</sup> m<sup>2</sup>/s</strong></span><br>
+      <strong>3. คำนวณตัวเลขเรย์โนลด์ส (<span class="math">Re<sub>L</sub></span>):</strong> <span class="math">Re<sub>L</sub> = <span class="frac"><span>u<sub>∞</sub> L</span><span>ν<sub>2</sub></span></span> = <span class="frac"><span>(10 m/s)(0.5 m)</span><span>5.21 × 10<sup>−4</sup> m<sup>2</sup>/s</span></span> = <span class="frac"><span>5.0</span><span>5.21 × 10<sup>−4</sup></span></span> = <strong>9,597</strong></span> (เนื่องจาก <span class="math">Re<sub>L</sub> &lt; 5 × 10<sup>5</sup></span> การไหลจึงเป็นแบบราบเรียบตลอดทั้งแผ่น) <span class="tag-slide">[สไลด์หน้า 76]</span><br>
+      <strong>4. คำนวณตัวเลขนัสเซลต์และสัมประสิทธิ์การพาความร้อนเฉลี่ย (<span class="math">h̄</span>):</strong> ใช้สมการที่ (2) สำหรับแผ่นราบราบเรียบ <span class="tag-slide">[สไลด์หน้า 77]</span>:<br>
+      <span class="math">Nū<sub>L</sub> = 0.664 Re<sub>L</sub><sup>1/2</sup> Pr<sup>1/3</sup> = 0.664 (9,597)<sup>1/2</sup> (0.687)<sup>1/3</sup> = 0.664 (97.96)(0.8823) = <strong>57.4</strong></span><br>
+      <span class="math">h̄ = <span class="frac"><span>Nū<sub>L</sub> · k</span><span>L</span></span> = <span class="frac"><span>57.4 × 0.0364 W/(m·K)</span><span>0.5 m</span></span> = <span class="frac"><span>2.0894</span><span>0.5</span></span> = <strong>4.18 W/(m<sup>2</sup>·K)</strong></span><br>
+      <strong>5. คำนวณอัตราการระบายความร้อนต่อหนึ่งหน่วยความกว้าง (<span class="math">q&#39;</span>):</strong> จากกฎการเย็นตัวของนิวตัน <span class="tag-slide">[สไลด์หน้า 77]</span>:<br>
+      <span class="math">q&#39; = <span class="frac"><span>q</span><span>w</span></span> = h̄ · L · (T<sub>∞</sub> − T<sub>s</sub>) = (4.18 W/m<sup>2</sup>·K)(0.5 m)(300 − 27)°C = 2.09 × 273 = <strong>570.6 W/m</strong></span></p>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 6: การไหลภายนอก</span>
+    <span>หน้า 4</span>
+  </footer>
+</section>
+
+<!-- page 6 budget (Compact): h2 10 + prose 185 + figure (33mm = 80 + 24 + 14 = 118) + prose 185 + 4 gaps 32 = 530 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>6.4 ทรงกระบอกในการไหลขวาง (The Cylinder in Cross Flow) <span class="tag-slide">[สไลด์หน้า 78–87]</span></h2>
+    <p>อีกหนึ่งการไหลภายนอกที่พบได้บ่อยในงานวิศวกรรมคือ การไหลของของไหลตัดผ่านตั้งฉากกับแกนของท่อทรงกระบอกกลม (Cross flow over a circular cylinder) ดังแสดงใน <strong>รูปที่ 6.5</strong> <span class="tag-slide">[สไลด์หน้า 78–79]</span></p>
+
+    <figure class="diagram-fig">
+      <svg role="img" style="width:100%; height:33mm;" viewBox="0 0 680 125">
+        <title>การไหลขวางผ่านทรงกระบอกกลม แสดงจุดหยุดนิ่งด้านหน้า จุดหลุดลอก (Separation point) และเขตการไหลวนด้านหลัง (Wake) อ้างอิง Figure 6.5 และ 6.6 สไลด์หน้า 78-81</title>
+        <!-- Flow arrows -->
+        <line x1="20" y1="45" x2="70" y2="45" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr2)"></line>
+        <line x1="20" y1="62.5" x2="70" y2="62.5" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr2)"></line>
+        <line x1="20" y1="80" x2="70" y2="80" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arr2)"></line>
+        <text x="45" y="35" font-size="10" font-weight="bold" fill="#0369a1" text-anchor="middle">V</text>
+        <!-- Cylinder -->
+        <circle cx="210" cy="62.5" r="42" fill="#ffe4e6" stroke="#991b1b" stroke-width="2"></circle>
+        <text x="210" y="66" font-size="11" font-weight="bold" fill="#991b1b" text-anchor="middle">D</text>
+        <!-- Stagnation point -->
+        <circle cx="168" cy="62.5" r="3.5" fill="#1e3a8a"></circle>
+        <text x="135" y="42" font-size="9.5" font-weight="bold" fill="#1e3a8a">Forward stagnation point</text>
+        <line x1="150" y1="46" x2="167" y2="60" stroke="#1e3a8a" stroke-width="1" marker-end="url(#arr1)"></line>
+        <!-- Separation point -->
+        <text x="235" y="24" font-size="9.5" font-weight="bold" fill="#b45309">Separation point</text>
+        <line x1="238" y1="28" x2="230" y2="38" stroke="#b45309" stroke-width="1" marker-end="url(#arr1)"></line>
+        <!-- Wake and vortices -->
+        <path d="M 252 35 Q 310 15, 395 30 L 395 95 Q 310 110, 252 90 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3,3"></path>
+        <text x="320" y="66" font-size="11" font-weight="bold" fill="#475569" text-anchor="middle">Wake (เขตไหลวน)</text>
+        <path d="M 280 50 A 6 6 0 1 1 292 58" fill="none" stroke="#b91c1c" stroke-width="1.2"></path>
+        <path d="M 310 70 A 6 6 0 1 0 322 78" fill="none" stroke="#b91c1c" stroke-width="1.2"></path>
+      </svg>
+      <figcaption><strong>รูปที่ 6.5 และ 6.6 (อ้างอิงสไลด์หน้า 78–81):</strong> การพัฒนาชั้นชิดผิว การเกิดจุดหยุดนิ่งด้านหน้า และการหลุดลอกของชั้นชิดผิว (Boundary layer separation) ก่อให้เกิดเขตน้ำวน (Wake) ด้านหลังทรงกระบอก</figcaption>
+    </figure>
+
+    <h3>6.4.1 กลศาสตร์การไหลและการหลุดลอกของชั้นชิดผิวบนทรงกระบอก (สไลด์หน้า 78–83)</h3>
+    <ul>
+      <li><strong>จุดหยุดนิ่งด้านหน้า (Forward stagnation point):</strong> เมื่อของไหลปะทะด้านหน้าสุดของทรงกระบอก ความเร็วของไหลจะลดลงเป็นศูนย์อย่างกะทันหัน เกิดการสะสมของความดันสูงขึ้น (Favorable pressure gradient, <span class="math">dp/dx &lt; 0</span>) ในครึ่งวงกลมด้านหน้า <span class="tag-slide">[สไลด์หน้า 79–80]</span></li>
+      <li><strong>เกรเดียนต์ความดันต้าน (Adverse pressure gradient) และจุดหลุดลอก (Separation point):</strong> เมื่อของไหลเคลื่อนที่อ้อมผ่านครึ่งวงกลมหลัง ความดันจะเริ่มสูงขึ้นอีกครั้ง ทำให้เกิดเกรเดียนต์ความดันต้าน (<span class="math">dp/dx &gt; 0</span>) อนุภาคของไหลที่อยู่ติดผิวสูญเสียโมเมนตัมจนไม่สามารถเอาชนะความดันต้านได้ ทำให้การไหลหยุดนิ่งและเกิดการย้อนกลับ เกิดเป็น <strong>จุดหลุดลอก (Separation point)</strong> ซึ่งชั้นชิดผิวจะหลุดออกจากผิววัตถุ กลายเป็น <strong>เขตน้ำวน (Wake)</strong> ด้านหลังทรงกระบอกที่มีการหมุนวนและปั่นป่วนสูง <span class="tag-slide}[สไลด์หน้า 80–81]&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;อิทธิพลของเรย์โนลด์ส (&lt;span class=" math">Re_D</span>) ต่อจุดหลุดลอก: หากเพิ่มความเร็วให้สูงจนเกิดการเปลี่ยนผ่านเป็นเขตปั่นป่วนก่อนเกิดการหลุดลอก (<span class="math">Re_D ≥ 2 × 10<sup>5</sup></span>) การไหลแบบปั่นป่วนจะมีพลังงานสูงกว่า ทำให้สามารถเคลื่อนที่อ้อมไปได้ไกลขึ้น ส่งผลให้จุดหลุดลอกถูกเลื่อนไปทางด้านหลังของทรงกระบอกมากขึ้น <span class="tag-slide">[สไลด์หน้า 82–83]</span></li>
+    </ul>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 6: การไหลภายนอก</span>
+    <span>หน้า 5</span>
+  </footer>
+</section>
+
+<!-- page 7 budget (Compact): h3 10 + table 6 rows 185 + prose 140 + callout eq 65 + 4 gaps 32 = 432 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h3>6.4.2 สหสัมพันธ์การพาความร้อนสำหรับทรงกระบอกและทรงไม่กลมใน cross flow <span class="tag-slide">[สไลด์หน้า 84–87]</span></h3>
+    <p>สำหรับการคำนวณหาค่าสัมประสิทธิ์การพาความร้อนเฉลี่ย <span class="math">Nū<sub>D</sub> = h̄D / k</span> ของทรงกระบอกกลม นิยมใช้ <strong>สหสัมพันธ์ของ Hilpert (สมการที่ 17)</strong> ซึ่งประเมินสมบัติที่อุณหภูมิฟิล์ม <span class="math">T_f</span> <span class="tag-slide">[สไลด์หน้า 84]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Nū<sub>D</sub> = <span class="frac"><span>h̄ D</span><span>k</span></span> = C · Re<sub>D</sub><sup>m</sup> · Pr<sup>1/3</sup>   …(สมการที่ 17)</span> <span class="tag-slide">[สไลด์หน้า 84]</span>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:35%;">ช่วงของตัวเลขเรย์โนลด์ส (<span class="math">Re_D</span>)</th>
+          <th scope="col" style="width:30%;">ค่าคงที่ <span class="math">C</span></th>
+          <th scope="col" style="width:35%;">เลขชี้กำลัง <span class="math">m</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>0.4 – 4</td><td>0.989</td><td>0.330</td></tr>
+        <tr><td>4 – 40</td><td>0.911</td><td>0.385</td></tr>
+        <tr><td>40 – 4,000</td><td>0.683</td><td>0.466</td></tr>
+        <tr><td>4,000 – 40,000</td><td>0.193</td><td>0.618</td></tr>
+        <tr><td>40,000 – 400,000</td><td>0.027</td><td>0.805</td></tr>
+      </tbody>
+    </table>
+    <p><strong>สหสัมพันธ์ครอบคลุมช่วงกว้าง (Churchill &amp; Bernstein, สมการที่ 19):</strong> เพื่อความสะดวกในการคำนวณที่ไม่ต้องเปิดตารางหาค่า <span class="math">C</span> และ <span class="math">m</span> สามารถใช้สมการครอบคลุมทุกช่วง <span class="math">Re_D Pr ≥ 0.2</span> ดังนี้ <span class="tag-slide">[สไลด์หน้า 87]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Nū<sub>D</sub> = 0.3 + <span class="frac"><span>0.62 Re<sub>D</sub><sup>1/2</sup> Pr<sup>1/3</sup></span><span>[1 + (0.4 / Pr)<sup>2/3</sup>]<sup>1/4</sup></span></span> [ 1 + (<span class="frac"><span>Re<sub>D</sub></span><span>282,000</span></span>)<sup>5/8</sup> ]<sup>4/5</sup>   …(สมการที่ 19)</span> <span class="tag-slide">[สไลด์หน้า 87]</span>
+    </div>
+
+    <h2>6.5 ทรงกลม และการเฉลยแบบฝึกหัดในเอกสารของอาจารย์ <span class="tag-slide">[สไลด์หน้า 88–91, 180]</span></h2>
+    <p>สำหรับการไหลผ่านทรงกลม (Sphere) ใช้ <strong>สหสัมพันธ์ของ Whitaker (สมการที่ 20)</strong> ซึ่งประเมินสมบัติที่ <span class="math">T_\infty</span> ยกเว้นความหนืดที่ผิว <span class="math">μ<sub>s</sub></span> ที่ประเมินที่ <span class="math">T_s</span> (สำหรับ <span class="math">0.71 ≤ Pr ≤ 380, 3.5 ≤ Re<sub>D</sub> ≤ 7.6 × 10<sup>4</sup></span>) <span class="tag-slide">[สไลด์หน้า 88]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Nū<sub>D</sub> = 2 + (0.4 Re<sub>D</sub><sup>1/2</sup> + 0.06 Re<sub>D</sub><sup>2/3</sup>) Pr<sup>0.4</sup> (<span class="frac"><span>μ</span><span>μ<sub>s</sub></span></span>)<sup>1/4</sup>   …(สมการที่ 20)</span> <span class="tag-slide">[สไลด์หน้า 88]</span>
+    </div>
+    <p>ในกรณีที่ <span class="math">Re_D → 0</span> (ของไหลหยุดนิ่งหรือเคลื่อนที่ช้ามาก) สมการจะลดรูปเหลือ <span class="math">Nū<sub>D</sub> = 2</span> ซึ่งเทียบเท่ากับการนำความร้อนบริสุทธิ์จากทรงกลมออกสู่ตัวกลางอนันต์รอบข้าง <span class="tag-slide">[สไลด์หน้า 89]</span></p>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 6: การไหลภายนอก</span>
+    <span>หน้า 6</span>
+  </footer>
+</section>
+
+<!-- page 8 budget (Compact): h3 10 + exercise 13 solution 270 + exercise 14 solution 185 + 4 gaps 32 = 497 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h3>6.5.1 เฉลยละเอียดแบบฝึกหัดข้อ (13) ท้ายบทที่ 6 (สไลด์หน้า 90–91)</h3>
+    <div class="callout">
+      <div class="callout-title"><span class="tag-supp">[เฉลยละเอียด]</span> แบบฝึกหัดข้อ 13: แผ่นราบความกว้าง w = 1 m ติดตั้งแถบฮีตเตอร์แยกส่วนความยาว 50 มม.</div>
+      <p><strong>โจทย์:</strong> แผ่นราบกว้าง <span class="math">w = 1 m</span> รักษาอุณหภูมิผิวคงที่ <span class="math">T_s = 230°C</span> ด้วยแถบฮีตเตอร์ไฟฟ้าอิสระแต่ละแถบยาว <span class="math">L<sub>i</sub> = 50 mm (0.05 m)</span> อากาศบรรยากาศที่ <span class="math">T_\infty = 25°C</span> ไหลผ่านด้วยความเร็ว <span class="math">u_\infty = 60 m/s</span> ถามว่า <strong>ฮีตเตอร์หมายเลขใด (นับจากขอบนำ) ที่ต้องใช้กำลังไฟฟ้าสูงสุด และมีค่าเท่าใด?</strong> <span class="tag-slide">[สไลด์หน้า 90–91]</span><br>
+      <strong>วิธีทำอย่างละเอียด:</strong><br>
+      1. เปิดตารางสมบัติอากาศที่อุณหภูมิฟิล์ม <span class="math">T_f = (230 + 25)/2 + 273.15 = 300.5 + 273.15 = 573.65 ≈ 574 K</span> จะได้ <span class="math">k = 0.0439 W/(m·K), ν = 4.88 × 10<sup>−5</sup> m<sup>2</sup>/s, Pr = 0.680</span><br>
+      2. เนื่องจากฟลักซ์ความร้อนเฉพาะจุดแปรผันตาม <span class="math">q&#39;&#39;<sub>x</sub>(x) = h<sub>x</sub>(T_s − T_\infty)</span> และค่าสัมประสิทธิ์เฉพาะจุด <span class="math">h<sub>x</sub></span> ในเขตราบเรียบแปรผันตาม <span class="math">x<sup>−1/2</sup></span> ดังนั้น <strong>ค่า <span class="math">h<sub>x</sub></span> และฟลักซ์ความร้อนจะสูงสุดที่ขอบนำของแต่ละแถบ (จุดเริ่มต้นที่ใกล้ขอบนำที่สุด)</strong> หากพิจารณาแถบฮีตเตอร์ย่อย: แถบที่ 1 อยู่ชิดขอบนำที่สุด ($x$ น้อยที่สุด) จะมีค่า $h$ สูงที่สุด แต่เนื่องจากโจทย์ถามหาฮีตเตอร์หมายเลขใดที่ใช้กำลังไฟฟ้าสูงสุด (ซึ่งพิจารณาจากอัตราความร้อนรวม $q_i$ ของแต่ละแถบ ซึ่งพื้นที่แถบเท่ากัน แต่ค่าสัมประสิทธิ์เฉลี่ยของแถบแรกสุด $\overline{h}_1$ สูงสุดเนื่องจากชั้นชิดิฟวบางที่สุด) <strong>ดังนั้นฮีตเตอร์หมายเลข 1 (ที่ระยะ $x = 0$ ถึง $0.05$ ม.) จึงต้องใช้กำลังไฟฟ้าสูงสุด</strong><br>
+      3. คำนวณค่าเรย์โนลด์สที่ปลายแถบที่ 1 ($x_1 = 0.05 m$): <span class="math">Re<sub>1</sub> = <span class="frac"><span>u<sub>∞</sub> x<sub>1</sub></span><span>ν</span></span> = <span class="frac"><span>(60 m/s)(0.05 m)</span><span>4.88 × 10<sup>−5</sup> m<sup>2</sup>/s</span></span> = 61,475</span> (<span class="math">&lt; 5 × 10<sup>5</sup></span> เป็นแบบราบเรียบ)<br>
+      4. คำนวณค่าสัมประสิทธิ์เฉลี่ยของแถบที่ 1: <span class="math">h̄<sub>1</sub> = <span class="frac"><span>2 · k · 0.332 Re<sub>1</sub><sup>1/2</sup> Pr<sup>1/3</sup></span><span>x<sub>1</sub></span></span> = <span class="frac"><span>2(0.0439)(0.332)(247.9)(0.879)</span><span>0.05</span></span> = <strong>143.2 W/(m<sup>2</sup>·K)</strong></span><br>
+      5. กำลังไฟฟ้าสูงสุดของฮีตเตอร์แถบที่ 1: <span class="math">q<sub>1</sub> = h̄<sub>1</sub> · (w · L<sub>1</sub>) · (T_s − T_\infty) = (143.2)(1 × 0.05)(230 − 25) = 7.16 × 205 = <strong>1,467.8 W (หรือ 1.468 kW)</strong></span></p>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 6: การไหลภายนอก</span>
+    <span>หน้า 7</span>
+  </footer>
+</section>
+
+<!-- page 9 budget (Compact): h3 10 + exercise 14 solution 185 + h2 10 + summary 140 + review & ref 110 + 4 gaps 32 = 487 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h3>6.5.2 เฉลยละเอียดแบบฝึกหัดข้อ (14) ท้ายบทที่ 8 (สไลด์หน้า 180)</h3>
+    <div class="callout">
+      <div class="callout-title"><span class="tag-supp">[เฉลยละเอียด]</span> แบบฝึกหัดข้อ 14: น้ำไหลขวางทรงกลม (External Flow over a Sphere)</div>
+      <p><strong>โจทย์:</strong> น้ำอุณหภูมิ <span class="math">T_\infty = 20°C</span> ไหลขวางท่วมวัตถุทรงกลมเส้นผ่านศูนย์กลาง <span class="math">D = 20 mm (0.02 m)</span> ด้วยความเร็ว <span class="math">V = 2 m/s</span> อุณหภูมิผิวทรงกลม <span class="math">T_s = 80°C</span> จงคำนวณหาอัตราการถ่ายโอนความร้อนออกจากทรงกลม <span class="math">q</span> <span class="tag-slide">[สไลด์หน้า 180]</span><br>
+      <strong>วิธีทำอย่างละเอียด:</strong><br>
+      1. ประเมินสมบัติของน้ำที่อุณหภูมิฟิล์ม <span class="math">T_f = (80 + 20)/2 = 50°C (323 K)</span> จากตารางน้ำอิ่มตัว: <span class="math">ρ = 988 kg/m<sup>3</sup>, μ = 5.48 × 10<sup>−4</sup> kg/(s·m), k = 0.643 W/(m·K), Pr = 3.56</span> (และที่ผิว <span class="math">T_s = 80°C</span> มีค่า <span class="math">μ_s = 3.55 × 10<sup>−4</sup> kg/(s·m)</span>)<br>
+      2. คำนวณตัวเลขเรย์โนลด์ส (<span class="math">Re_D</span>): <span class="math">Re_D = <span class="frac"><span>ρ V D</span><span>μ</span></span> = <span class="frac"><span>(988 kg/m<sup>3</sup>)(2 m/s)(0.02 m)</span><span>5.48 × 10<sup>−4</sup> kg/s·m</span></span> = <span class="frac"><span>39.52</span><span>5.48 × 10<sup>−4</sup></span></span> = <strong>72,117</strong></span><br>
+      3. คำนวณตัวเลขนัสเซลต์เฉลี่ยจากสมการของ Whitaker (สมการที่ 20) <span class="tag-slide">[สไลด์หน้า 88]</span>:<br>
+      <span class="math">Nū<sub>D</sub> = 2 + [ 0.4(72,117)<sup>1/2</sup> + 0.06(72,117)<sup>2/3</sup> ] (3.56)<sup>0.4</sup> (<span class="frac"><span>5.48 × 10<sup>−4</sup></span><span>3.55 × 10<sup>−4</sup></span></span>)<sup>1/4</sup></span><br>
+      <span class="math">= 2 + [ 0.4(268.55) + 0.06(1,732.1) ] (1.738) (1.115) = 2 + [ 107.42 + 103.93 ] (1.938) = 2 + (211.35)(1.938) = 2 + 409.6 = <strong>411.6</strong></span><br>
+      4. คำนวณสัมประสิทธิ์การพาความร้อนเฉลี่ย (<span class="math">h̄</span>) และอัตราการถ่ายโอนความร้อนรวม (<span class="math">q</span>):<br>
+      <span class="math">h̄ = <span class="frac"><span>Nū<sub>D</sub> · k</span><span>D</span></span> = <span class="frac"><span>411.6 × 0.643 W/(m·K)</span><span>0.02 m</span></span> = <strong>13,233 W/(m<sup>2</sup>·K)</strong></span><br>
+      พื้นที่ผิวทรงกลม <span class="math">A_s = π D<sup>2</sup> = π(0.02 m)<sup>2</sup> = 1.2566 × 10<sup>−3</sup> m<sup>2</sup></span><br>
+      <span class="math">q = h̄ A<sub>s</sub> (T_s − T_\infty) = (13,233 W/m<sup>2</sup>·K)(1.2566 × 10<sup>−3</sup> m<sup>2</sup>)(80 − 20)°C = 16.63 × 60 = <strong>997.8 W (หรือประมาณ 1.0 kW)</strong></span></p>
+    </div>
+
+    <h2>6.6 สรุปสาระสำคัญประจำบทที่ 6 และคำถามทบทวน</h2>
+    <p><strong>สรุปสาระสำคัญ:</strong> บทที่ 6 นำเสนอวิธีคำนวณสัมประสิทธิ์การพาความร้อนในการไหลภายนอก โดยหัวใจสำคัญคือการคำนวณตัวเลขเรย์โนลด์ส ($Re$) เพื่อจำแนกประเภทการไหล (ราบเรียบเทียบกับปั่นป่วน) เลือกใช้สหสัมพันธ์ของแผ่นราบ ทรงกระบอก หรือทรงกลมอย่างเหมาะสม และประเมินสมบัติที่อุณหภูมิฟิล์ม ($T_f$)</p>
+    <p><strong>คำถามทบทวน:</strong> (1) ทำไม ณ ตำแหน่งเริ่มต้น (ขอบนำ $x=0$) ของแผ่นราบ สัมประสิทธิ์การพาความร้อนเฉพาะจุดจึงมีค่าสูงมากเป็นอนันต์? (2) ปรากฏการณ์การหลุดลอกของชั้นชิดผิว (Boundary layer separation) บนทรงกระบอกส่งผลอย่างไรต่ออัตราการถ่ายโอนความร้อนด้านหลังกระบอก?</p>
+
+    <h2>6.7 เอกสารอ้างอิงประจำบท (References)</h2>
+    <ol style="font-size:8pt;">
+      <li id="ref-slides6">เอกสารประกอบการสอนรายวิชา <em>Transport Phenomena I: Chapter 6 External Flow (หน้า 34–91, 180)</em>, ปีการศึกษา 2569.</li>
+      <li id="ref-incropera6">Incropera, F. P., et al. (2007). <em>Fundamentals of Heat and Mass Transfer</em> (6th ed., Chapter 7: External Flow, pp. 400–465). John Wiley &amp; Sons.</li>
+    </ol>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 6: การไหลภายนอก</span>
+    <span>หน้า 8</span>
+  </footer>
+</section>
+
+</div>
+
+<script data-bard-injected="true">
+(function() {
+  async function fetchFifeImageBlobUsingAlr(urlString) {
+    if (urlString.startsWith('blob:') || urlString.startsWith('data:')) {
+      throw new Error('Input URL is already a blob or data URL.');
+    }
+    var url = new URL(urlString, window.location.href);
+    url.searchParams.set('alr', 'yes');
+    for (var i = 0; i < 5; i++) {
+      var response = await fetch(url.toString(), {credentials: 'include'});
+      if (!response.ok) {
+        throw new Error('Fetch received not OK response: ' + response.status);
+      }
+      var contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.startsWith('text/plain')) {
+        var blob = await response.blob();
+        if (blob.size > 0 && blob.type.startsWith('image/')) {
+          return blob;
+        }
+        throw new Error('Fetched blob is not a valid image.');
+      }
+      url = new URL(await response.text());
+    }
+    throw new Error('Exceeded maximum number of redirects.');
+  }
+
+  async function updateImageSourcesUsingAlr() {
+    var imgs = Array.from(document.querySelectorAll('img'));
+    await Promise.all(imgs.map(async function(img) {
+      if (img.src && img.src.includes('googleusercontent')) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(img.src);
+          img.src = URL.createObjectURL(blob);
+        } catch (e) {}
+      }
+    }));
+
+    var elements = document.querySelectorAll('[style*="googleusercontent"]');
+    var urlRegex = /url\((['"]?)(https?:\/\/.*?googleusercontent.*?)\1\)/;
+    await Promise.all(Array.from(elements).map(async function(el) {
+      var bg = el.style.backgroundImage;
+      var match = bg ? bg.match(urlRegex) : null;
+      if (match && match[2]) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(match[2]);
+          var blobUrl = URL.createObjectURL(blob);
+          el.style.backgroundImage = bg.replace(match[2], blobUrl);
+        } catch (e) {}
+      }
+    }));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateImageSourcesUsingAlr);
+  } else {
+    updateImageSourcesUsingAlr();
+  }
+})();
+</script></body></html>

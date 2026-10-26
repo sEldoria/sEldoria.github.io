@@ -1,0 +1,664 @@
+<!DOCTYPE html><html lang="th"><head>
+<meta charset="UTF-8">
+<title>บทที่ 7: การไหลภายใน (Internal Flow)</title>
+<style>
+    @page { margin: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { background-color: #ffffff; }
+    @media (prefers-color-scheme: dark) {
+        html { background-color: #1f1f1f; }
+    }
+    body {
+        padding: 24px 0;
+        margin: 0 auto;
+        max-width: 900px !important;
+        border: none !important;
+        background: transparent !important;
+        font-family: 'Sarabun', 'TH Sarabun New', 'Tahoma', 'Segoe UI', sans-serif;
+        color: #1e293b;
+    }
+    .page {
+    min-height: 297mm;
+    height: auto;
+    margin: 0 auto 12px auto;
+    padding: 18mm 18mm 12mm 18mm;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: visible;
+}
+    @media screen and (max-width: 600px) {
+        body { padding: 16px 0; }
+        .page { margin: 0 auto 8px auto; border: none; padding: 12px 20px; }
+    }
+    .page-content {
+    flex: 1 0 auto;
+    min-height: 0;
+    overflow: visible;
+}
+    .page-content > * + * { margin-top: 20px; }
+    .page.compact, body.compact .page { font-size: 9.5pt; line-height: 1.35; }
+    .page.compact .page-content > * + *, body.compact .page-content > * + * { margin-top: 12px; }
+    .page-content > :is(h1, h2, h3, h4) + * { margin-top: 8px; }
+    .page-footer {
+        flex-shrink: 0; margin-top: auto; padding-top: 4mm;
+        display: flex; justify-content: space-between; align-items: center;
+        font-size: 8.5pt; color: #64748b; border-top: 1px solid #cbd5e1;
+    }
+    @media print {
+        *, *::before, *::after { box-shadow: none !important; text-shadow: none !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        body { padding: 0; background: none; }
+        .page {
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        overflow: visible;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .page-content {
+        overflow: visible;
+    }
+
+    .page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+    }
+    [contenteditable]:focus { outline: none; }
+
+    h1, h2, h3, h4, p, ul, ol, table, figure { margin: 0; }
+    h1 { font-size: 18pt; font-weight: 700; color: #065f46; line-height: 1.25; }
+    h2 { font-size: 13pt; font-weight: 700; color: #047857; border-bottom: 1.5px solid #047857; padding-bottom: 3px; }
+    h3 { font-size: 10.5pt; font-weight: 700; color: #0f172a; }
+    p, li { font-size: 9.5pt; line-height: 1.35; text-align: justify; }
+    ul, ol { padding-left: 18px; }
+    li + li { margin-top: 3px; }
+
+    .masthead { background-color: #065f46; color: #ffffff; padding: 10px 14px; border-left: 6px solid #f59e0b; }
+    .masthead .course-tag { font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.5px; color: #fde68a; font-weight: 600; }
+    .masthead h1 { color: #ffffff; font-size: 16pt; margin-top: 2px; }
+    .masthead .sub { font-size: 9pt; color: #ecfdf5; margin-top: 2px; }
+
+    .tag-slide { display: inline-block; background-color: #d1fae5; color: #065f46; font-weight: 700; font-size: 8pt; padding: 1px 5px; border: 1px solid #34d399; border-radius: 3px; }
+    .tag-supp { display: inline-block; background-color: #e0f2fe; color: #075985; font-weight: 700; font-size: 8pt; padding: 1px 5px; border: 1px solid #38bdf8; border-radius: 3px; }
+    .tag-note { display: inline-block; background-color: #fef3c7; color: #92400e; font-weight: 700; font-size: 8pt; padding: 1px 5px; border: 1px solid #fbbf24; border-radius: 3px; }
+
+    .callout { background-color: #f8fafc; border: 1px solid #cbd5e1; border-left: 4px solid #0284c7; padding: 8px 10px; }
+    .callout.warn { background-color: #fffbeb; border-color: #fde68a; border-left: 4px solid #d97706; }
+    .callout.eq-box { background-color: #ecfdf5; border-color: #a7f3d0; border-left: 4px solid #047857; text-align: center; padding: 6px 10px; }
+    .callout-title { font-weight: 700; font-size: 9.5pt; color: #0f172a; margin-bottom: 3px; }
+
+    .math-display { font-family: 'Cambria Math', 'Times New Roman', serif; font-size: 10.5pt; font-weight: 700; color: #065f46; }
+    .math { font-family: 'Cambria Math', 'Times New Roman', serif; font-style: italic; }
+    .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; padding: 0 3px; font-size: 90%; }
+    .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 2px 1px 2px; }
+    .frac > span:last-child { padding: 1px 2px 0 2px; }
+
+    table.data-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+    table.data-table th { background-color: #065f46; color: #ffffff; font-weight: 700; text-align: left; padding: 4px 6px; border: 1px solid #065f46; }
+    table.data-table td { padding: 3px 6px; border: 1px solid #cbd5e1; vertical-align: top; overflow-wrap: break-word; }
+    table.data-table tr:nth-child(even) td { background-color: #f8fafc; }
+
+    figure.diagram-fig { border: 1px solid #cbd5e1; background-color: #ffffff; padding: 6px 8px; text-align: center; }
+    figure.diagram-fig figcaption { font-size: 8.5pt; color: #334155; margin-top: 4px; text-align: left; }
+    .cite { color: #047857; text-decoration: none; font-weight: 600; }
+    li:target { background-color: #fef3c7; }
+</style>
+<style data-bard-injected="true">
+@media screen {
+    html {
+        background-color: #ffffff;
+    }
+    body {
+        padding: 8px 0 24px 0;
+    }
+}
+@media screen and (prefers-color-scheme: dark) {
+    html {
+        background-color: #1f1f1f;
+    }
+}
+@media screen and (max-width: 600px) {
+    body {
+        padding: 4px 0 16px 0;
+        margin: 0 auto;
+    }
+}
+</style></head>
+<body class="compact">
+<div contenteditable="true">
+
+<!-- page 1 budget (Compact): masthead 45 + h2 11 + prose 135 + h2 11 + table 15 rows 255 + 4 gaps 32 = 489 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="masthead">
+      <div class="course-tag">ตำราเรียนวิชาการฉบับสมบูรณ์ | TRANSPORT PHENOMENA I (ปีการศึกษา 2569)</div>
+      <h1>บทที่ 7: การไหลภายใน (Chapter 7: Internal Flow)</h1>
+      <div class="sub">เรียบเรียงจากเอกสารการสอนของอาจารย์ (ไฟล์ที่ 2 สไลด์หน้า 1–48) ครอบคลุมพลศาสตร์การไหลในท่อ แผนภูมิมูดดี สมดุลพลังงาน สหสัมพันธ์ท่อกลม ท่อไม่กลม และท่อวงแหวนร่วมศูนย์</div>
+    </div>
+
+    <h2>7.0 บทนำและข้อแตกต่างระหว่างการไหลภายในกับการไหลภายนอก <span class="tag-slide">[สไลด์หน้า 1–4]</span></h2>
+    <p>ในบทที่ 6 เราศึกษา <strong>การไหลภายนอก (External flow)</strong> ซึ่งชั้นชิดผิวบนพื้นผิวสามารถขยายความหนาออกไปได้อย่างอิสระโดยไม่มีผนังอื่นมาบังคับ ในทางตรงกันข้าม <strong>การไหลภายใน (Internal flow)</strong> เช่น การไหลในท่อกลม คือการไหลที่ของไหลถูกจำกัดขอบเขตด้วยพื้นผิวที่ล้อมรอบ (Confined by a surface) ส่งผลให้ชั้นชิดผิวที่พัฒนาจากผนังท่อไม่สามารถเติบโตไปได้เรื่อย ๆ แต่จะต้องมาบรรจบกันที่แนวแกนกลางท่อในที่สุด <span class="tag-slide">[สไลด์หน้า 2–3]</span> โครงสร้างการไหลภายในนี้เป็นหัวใจสำคัญของการให้ความร้อนและทำความเย็นแก่ของไหลในกระบวนการทางเคมี การควบคุมสิ่งแวดล้อม และเทคโนโลยีการเปลี่ยนรูปพลังงาน โดยวัตถุประสงค์ของบทนี้คือการเข้าใจปรากฏการณ์ทางกายภาพของการไหลภายใน และการหาค่าสัมประสิทธิ์การพาความร้อนสำหรับสภาวะการไหลที่ใช้งานจริง <span class="tag-slide">[สไลด์หน้า 4]</span></p>
+
+    <h2>รายการสัญลักษณ์หลักและหน่วยวัดประจำบทที่ 7 (Nomenclature)</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:16%;">สัญลักษณ์</th>
+          <th scope="col" style="width:38%;">ความหมายทางกายภาพ (ภาษาไทย)</th>
+          <th scope="col" style="width:30%;">ความหมายภาษาอังกฤษ (ตามสไลด์)</th>
+          <th scope="col" style="width:16%;">หน่วยในระบบ SI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="math">A<sub>c</sub>, P</span></td><td>พื้นที่หน้าตัดการไหล และความยาวเส้นรอบรูปเปียก</td><td>Flow cross-sectional area, Wetted perimeter [หน้า 9, 38]</td><td>m<sup>2</sup>, m</td></tr>
+        <tr><td><span class="math">a, b</span></td><td>ความกว้างและความยาวของท่อหน้าตัดสี่เหลี่ยม</td><td>Rectangular duct dimensions [หน้า 39, 42]</td><td>m</td></tr>
+        <tr><td><span class="math">D, r<sub>o</sub>, r</span></td><td>เส้นผ่านศูนย์กลางภายในท่อ, รัศมีท่อ, และพิกัดรัศมี</td><td>Tube diameter, Tube radius, Radial coord. [หน้า 6–7]</td><td>m</td></tr>
+        <tr><td><span class="math">D<sub>h</sub></span></td><td>เส้นผ่านศูนย์กลางไฮดรอลิก (<span class="math">D<sub>h</sub> ≡ 4A<sub>c</sub> / P</span>)</td><td>Hydraulic diameter [หน้า 38]</td><td>m</td></tr>
+        <tr><td><span class="math">D<sub>i</sub>, D<sub>o</sub></span></td><td>เส้นผ่านศูนย์กลางท่อในและท่อนอกของช่องว่างวงแหวน</td><td>Inner and outer diameter of annulus [หน้า 44–45]</td><td>m</td></tr>
+        <tr><td><span class="math">e, e / D</span></td><td>ความขรุขระของผิวท่อ และความขรุขระสัมพัทธ์</td><td>Surface roughness, Relative roughness [หน้า 14–15]</td><td>μm หรือ m, ไร้มิติ</td></tr>
+        <tr><td><span class="math">f, C<sub>f</sub></span></td><td>ตัวประกอบความเสียดทานมูดดี/ดาร์ซี และสัมประสิทธิ์ความเสียดทาน</td><td>Moody (Darcy) friction factor, Friction coeff. [หน้า 11–12]</td><td>ไร้มิติ (<span class="math">C<sub>f</sub> = f / 4</span>)</td></tr>
+        <tr><td><span class="math">Gz<sub>D</sub></span></td><td>ตัวเลขเกรตซ์ (<span class="math">Gz<sub>D</sub> ≡ (D/x) Re<sub>D</sub> Pr</span>)</td><td>Graetz number [หน้า 23]</td><td>ไร้มิติ</td></tr>
+        <tr><td><span class="math">ṁ, ∀̇</span></td><td>อัตราการไหลเชิงมวล และอัตราการไหลเชิงปริมาตร (<span class="math">ṁ / ρ</span>)</td><td>Mass flow rate, Volumetric flow rate [หน้า 9, 18]</td><td>kg/s, m<sup>3</sup>/s</td></tr>
+        <tr><td><span class="math">p, Δp, P</span></td><td>ความดัน, ความดันลด (<span class="math">p<sub>1</sub> − p<sub>2</sub></span>), และกำลังของปั๊ม/พัดลม</td><td>Pressure, Pressure drop, Pump/fan power [หน้า 11, 17–18]</td><td>N/m<sup>2</sup> (Pa), W</td></tr>
+        <tr><td><span class="math">Re<sub>D</sub>, Re<sub>D,c</sub></span></td><td>ตัวเลขเรย์โนลด์สในท่อ และค่าวิกฤต (<span class="math">Re<sub>D,c</sub> ≈ 2,300</span>)</td><td>Reynolds number &amp; critical value [หน้า 7]</td><td>ไร้มิติ</td></tr>
+        <tr><td><span class="math">T<sub>m</sub>, T̄<sub>m</sub></span></td><td>อุณหภูมิเฉลี่ยเชิงมวลของของไหล และค่าเฉลี่ยต้น-ปลายท่อ</td><td>Mean (bulk) fluid temperature [หน้า 25, 33]</td><td>K หรือ °C</td></tr>
+        <tr><td><span class="math">u<sub>m</sub></span></td><td>ความเร็วเฉลี่ยของของไหลตลอดหน้าตัดท่อ (<span class="math">u<sub>m</sub> = ṁ / ρA<sub>c</sub></span>)</td><td>Mean fluid velocity [หน้า 7, 9]</td><td>m/s</td></tr>
+        <tr><td><span class="math">x<sub>fd,h</sub>, x<sub>fd,t</sub></span></td><td>ความยาวช่วงทางเข้าเชิงอุทกพลศาสตร์ และเชิงความร้อน</td><td>Hydrodynamic &amp; thermal entry length [หน้า 5–8, 19–20]</td><td>m</td></tr>
+        <tr><td><span class="math">θ<sub>i</sub><sup>*</sup>, θ<sub>o</sub><sup>*</sup></span></td><td>สัมประสิทธิ์อิทธิพลสำหรับการถ่ายโอนความร้อนในท่อวงแหวน</td><td>Influence coefficients for annulus [หน้า 47–48]</td><td>ไร้มิติ</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 7: การไหลภายใน</span>
+    <span>หน้า 1</span>
+  </footer>
+</section>
+
+<!-- page 2 budget (Compact): h2 11 + figure (33mm = 80 + 24 + 14 = 118) + prose 185 + callout eq 65 + prose 125 + 5 gaps 40 = 544 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>7.1 การพิจารณาทางอุทกพลศาสตร์ (Hydrodynamic Considerations) <span class="tag-slide">[สไลด์หน้า 5–18]</span></h2>
+    <figure class="diagram-fig">
+      <svg role="img" style="width:100%; height:33mm;" viewBox="0 0 680 125">
+        <title>การพัฒนาชั้นชิดผิวเชิงอุทกพลศาสตร์ของการไหลแบบราบเรียบในท่อกลม แสดงเขตทางเข้าและเขตพัฒนาเต็มที่ (อ้างอิง Figure 7.1 สไลด์หน้า 3, 5)</title>
+        <!-- Top and bottom tube walls -->
+        <rect x="45" y="15" width="580" height="8" fill="#cbd5e1" stroke="#334155" stroke-width="1.2"></rect>
+        <rect x="45" y="92" width="580" height="8" fill="#cbd5e1" stroke="#334155" stroke-width="1.2"></rect>
+        <!-- Centerline -->
+        <line x1="35" y1="57.5" x2="640" y2="57.5" stroke="#475569" stroke-width="1" stroke-dasharray="8,3,2,3"></line>
+        <!-- Uniform inlet velocity -->
+        <line x1="15" y1="28" x2="45" y2="28" stroke="#047857" stroke-width="1.3" marker-end="url(#arrG)"></line>
+        <line x1="15" y1="42" x2="45" y2="42" stroke="#047857" stroke-width="1.3" marker-end="url(#arrG)"></line>
+        <line x1="15" y1="57.5" x2="45" y2="57.5" stroke="#047857" stroke-width="1.3" marker-end="url(#arrG)"></line>
+        <line x1="15" y1="73" x2="45" y2="73" stroke="#047857" stroke-width="1.3" marker-end="url(#arrG)"></line>
+        <line x1="15" y1="87" x2="45" y2="87" stroke="#047857" stroke-width="1.3" marker-end="url(#arrG)"></line>
+        <line x1="45" y1="23" x2="45" y2="92" stroke="#b91c1c" stroke-width="2"></line>
+        <text x="28" y="18" font-size="9.5" font-weight="bold" fill="#065f46">u₀</text>
+        <!-- Boundary layer merging lines -->
+        <path d="M 45 23 Q 210 42 410 57.5" fill="none" stroke="#0f172a" stroke-width="1.6"></path>
+        <path d="M 45 92 Q 210 73 410 57.5" fill="none" stroke="#0f172a" stroke-width="1.6"></path>
+        <text x="125" y="48" font-size="9" font-weight="bold" fill="#0369a1">Inviscid flow region</text>
+        <text x="355" y="34" font-size="9" font-weight="bold" fill="#0f172a">Boundary layer region (δ)</text>
+        <!-- Developing velocity profile -->
+        <line x1="185" y1="23" x2="185" y2="92" stroke="#334155" stroke-width="1.1"></line>
+        <path d="M 185 23 Q 215 30 222 36 L 222 79 Q 215 85 185 92" fill="none" stroke="#b91c1c" stroke-width="2"></path>
+        <line x1="185" y1="36" x2="220" y2="36" stroke="#047857" stroke-width="1.2" marker-end="url(#arrG)"></line>
+        <line x1="185" y1="57.5" x2="220" y2="57.5" stroke="#047857" stroke-width="1.2" marker-end="url(#arrG)"></line>
+        <line x1="185" y1="79" x2="220" y2="79" stroke="#047857" stroke-width="1.2" marker-end="url(#arrG)"></line>
+        <text x="215" y="12" font-size="9" font-weight="bold" fill="#b91c1c">u(r, x)</text>
+        <!-- Entry length dashed line -->
+        <line x1="410" y1="23" x2="410" y2="118" stroke="#0f172a" stroke-width="1.2" stroke-dasharray="4,3"></line>
+        <!-- Fully developed parabolic profile -->
+        <line x1="490" y1="23" x2="490" y2="92" stroke="#334155" stroke-width="1.1"></line>
+        <path d="M 490 23 Q 595 57.5 490 92" fill="none" stroke="#b91c1c" stroke-width="2.2"></path>
+        <line x1="490" y1="35" x2="522" y2="35" stroke="#047857" stroke-width="1.2" marker-end="url(#arrG)"></line>
+        <line x1="490" y1="46" x2="536" y2="46" stroke="#047857" stroke-width="1.2" marker-end="url(#arrG)"></line>
+        <line x1="490" y1="57.5" x2="541" y2="57.5" stroke="#047857" stroke-width="1.2" marker-end="url(#arrG)"></line>
+        <line x1="490" y1="69" x2="536" y2="69" stroke="#047857" stroke-width="1.2" marker-end="url(#arrG)"></line>
+        <line x1="490" y1="80" x2="522" y2="80" stroke="#047857" stroke-width="1.2" marker-end="url(#arrG)"></line>
+        <text x="552" y="54" font-size="9" font-weight="bold" fill="#b91c1c">u(r) พาราโบลา</text>
+        <!-- Region labels at bottom -->
+        <text x="230" y="114" font-size="9.5" font-weight="bold" fill="#0f172a" text-anchor="middle">⟵ Hydrodynamic entrance region (เขตทางเข้า) ⟶</text>
+        <text x="410" y="123" font-size="9.5" font-weight="bold" fill="#b91c1c" text-anchor="middle">x_fd,h</text>
+        <text x="530" y="114" font-size="9.5" font-weight="bold" fill="#065f46" text-anchor="middle">⟵ Fully developed region ⟶</text>
+        <defs>
+          <marker id="arrG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#047857"></path>
+          </marker>
+        </defs>
+      </svg>
+      <figcaption><strong>รูปที่ 7.1 (อ้างอิง Figure 7.1 สไลด์หน้า 3, 5):</strong> การพัฒนาชั้นชิดผิวความเร็วของการไหลแบบราบเรียบในท่อกลมรัศมี <span class="math">r<sub>o</sub></span> จากเขตทางเข้าสู่เขตพัฒนาเต็มที่ที่ระยะ <span class="math">x<sub>fd,h</sub></span></figcaption>
+    </figure>
+
+    <h3>7.1.1 เขตทางเข้า เขตพัฒนาเต็มที่ ความเร็วเฉลี่ย (u<sub>m</sub>) และตัวเลขเรย์โนลด์ส (Re<sub>D</sub>) <span class="tag-slide">[สไลด์หน้า 5–10]</span></h3>
+    <p>ในการไหลภายนอกเราพิจารณาเพียงว่าการไหลเป็นแบบราบเรียบหรือปั่นป่วน แต่สำหรับการไหลภายในเราต้องพิจารณาการมีอยู่ของ <strong>เขตทางเข้า (Entrance region)</strong> และ <strong>เขตพัฒนาเต็มที่ (Fully developed region)</strong> ด้วย <span class="tag-slide">[สไลด์หน้า 5]</span> เมื่อของไหลเข้าสู่ท่อกลมรัศมี <span class="math">r<sub>o</sub></span> ด้วยความเร็วสม่ำเสมอ ความหนืดที่ผนังจะสร้างชั้นชิดผิวความเร็วหนา <span class="math">δ(x)</span> เติบโตเข้าหากึ่งกลางท่อจนบรรจบกันที่แกนกลาง ณ ระยะทาง <span class="math">x<sub>fd,h</sub></span> ซึ่งเรียกว่า <strong>ความยาวช่วงทางเข้าเชิงอุทกพลศาสตร์ (Hydrodynamic entry length)</strong> นับจากจุดนี้โปรไฟล์ความเร็วจะไม่เปลี่ยนแปลงตามระยะ <span class="math">x</span> อีกต่อไป โดยในเขตราบเรียบโปรไฟล์ความเร็วที่พัฒนาเต็มที่จะมีรูปทรงเป็น <em>พาราโบลา (Parabolic)</em> ส่วนในเขตปั่นป่วนโปรไฟล์จะแบนราบกว่า (Flatter) เนื่องจากการผสมกันในแนวรัศมี <span class="tag-slide">[สไลด์หน้า 6]</span></p>
+    <p>เนื่องจากความเร็วแปรผันทั่วหน้าตัด เราจึงนิยาม <strong>ความเร็วเฉลี่ย (<span class="math">u<sub>m</sub></span>)</strong> จากอัตราการไหลเชิงมวล <span class="math">ṁ = ρ u<sub>m</sub> A<sub>c</sub></span> สำหรับท่อกลม (<span class="math">A<sub>c</sub> = πD<sup>2</sup>/4</span>) จะได้ชุดสมการความเร็วเฉลี่ย ตัวเลขเรย์โนลด์ส เกณฑ์วิกฤต และความยาวช่วงทางเข้าดังนี้ <span class="tag-slide">[สไลด์หน้า 7–10]</span>:</p>
+
+    <div class="callout eq-box">
+      <span class="math-display">u<sub>m</sub> = <span class="frac"><span>ṁ</span><span>ρ A<sub>c</sub></span></span> = <span class="frac"><span>4 ṁ</span><span>ρ π D<sup>2</sup></span></span>   ,   Re<sub>D</sub> ≡ <span class="frac"><span>ρ u<sub>m</sub> D</span><span>μ</span></span> = <span class="frac"><span>u<sub>m</sub> D</span><span>ν</span></span> = <span class="frac"><span>4 ṁ</span><span>π D μ</span></span>   (เกณฑ์วิกฤตเริ่มปั่นป่วน: Re<sub>D,c</sub> ≈ 2,300)</span><br>
+      <span class="math-display">ความยาวช่วงทางเข้า:  (<span class="frac"><span>x<sub>fd,h</sub></span><span>D</span></span>)<sub>lam</sub> ≈ 0.05 Re<sub>D</sub>   ,   10 ≤ (<span class="frac"><span>x<sub>fd,h</sub></span><span>D</span></span>)<sub>turb</sub> ≤ 60  (สมมติพัฒนาเต็มที่เมื่อ <span class="frac"><span>x</span><span>D</span></span> &gt; 10)</span> <span class="tag-slide">[สไลด์หน้า 7–10]</span>
+    </div>
+
+    <h3>7.1.2 เกรเดียนต์ความดัน ตัวประกอบความเสียดทาน (f) แผนภูมิมูดดี และกำลังปั๊ม <span class="tag-slide">[สไลด์หน้า 11–18]</span></h3>
+    <p>ในการหาความดันลด (<span class="math">Δp = p<sub>1</sub> − p<sub>2</sub></span>) เพื่อคำนวณกำลังของปั๊มหรือพัดลม (<span class="math">P</span>) เราใช้ <strong>ตัวประกอบความเสียดทานของมูดดี หรือดาร์ซี (Moody or Darcy friction factor, <span class="math">f</span>)</strong> ซึ่งต้องระวังไม่ให้สับสนกับสัมประสิทธิ์ความเสียดทานที่ผนัง (<span class="math">C<sub>f</sub></span> หรือ Fanning friction factor) ที่มีค่าเป็น 1 ใน 4 ของ <span class="math">f</span> <span class="tag-slide">[สไลด์หน้า 11–12]</span> โดยในเขตพัฒนาเต็มที่ ค่า <span class="math">f</span> เป็นค่าคงที่ทำให้หาความดันลดระหว่างตำแหน่ง <span class="math">x<sub>1</sub></span> ถึง <span class="math">x<sub>2</sub></span> ได้ดังนี้ <span class="tag-slide">[สไลด์หน้า 13–18]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">f ≡ <span class="frac"><span>−(dp/dx) D</span><span>ρ u<sub>m</sub><sup>2</sup> / 2</span></span> = 4 C<sub>f</sub>    |    เขตราบเรียบ: f = <span class="frac"><span>64</span><span>Re<sub>D</sub></span></span>    |    ท่อเรียบปั่นป่วน: f = (0.790 ln Re<sub>D</sub> − 1.64)<sup>−2</sup>  (3,000 ≤ Re<sub>D</sub> ≤ 5×10<sup>6</sup>)</span><br>
+      <span class="math-display">ความดันลด: Δp = f <span class="frac"><span>ρ u<sub>m</sub><sup>2</sup></span><span>2 D</span></span> (x<sub>2</sub> − x<sub>1</sub>)    และกำลังปั๊ม/พัดลม: P = (Δp) ∀̇ = (Δp) (<span class="frac"><span>ṁ</span><span>ρ</span></span>)</span> <span class="tag-slide">[สไลด์หน้า 11–18]</span>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 7: การไหลภายใน</span>
+    <span>หน้า 2</span>
+  </footer>
+</section>
+
+<!-- page 3 budget (Compact): figure Moody (33mm = 80 + 24 + 14 = 118) + callout example 135 + h2 11 + figure Thermal BL (28mm = 67 + 24 + 14 = 105) + prose 150 + 5 gaps 40 = 559 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <figure class="diagram-fig">
+      <svg role="img" style="width:100%; height:31mm;" viewBox="0 0 680 118">
+        <title>แผนภูมิโครงสร้างของ Moody Diagram แสดงความสัมพันธ์ระหว่าง f, Re_D และความขรุขระสัมพัทธ์ e/D พร้อมตารางค่าความขรุขระวัสดุ (อ้างอิง Figure 7.2 สไลด์หน้า 14-15)</title>
+        <rect x="45" y="8" width="420" height="92" fill="#f8fafc" stroke="#334155" stroke-width="1.3"></rect>
+        <text x="15" y="55" font-size="9" font-weight="bold" fill="#0f172a" transform="rotate(-90, 15, 55)" text-anchor="middle">Friction factor, f</text>
+        <text x="255" y="113" font-size="9" font-weight="bold" fill="#0f172a" text-anchor="middle">Reynolds number, Re_D = u_m D / ν (สเกล Log: 10³ ถึง 10⁸)</text>
+        <!-- Laminar line f = 64/Re_D -->
+        <line x1="65" y1="15" x2="125" y2="78" stroke="#b91c1c" stroke-width="2"></line>
+        <text x="108" y="42" font-size="8.5" font-weight="bold" fill="#b91c1c">Laminar: f = 64/Re_D</text>
+        <!-- Critical zone dashed -->
+        <line x1="125" y1="8" x2="125" y2="100" stroke="#64748b" stroke-width="1" stroke-dasharray="3,3"></line>
+        <text x="125" y="96" font-size="8" fill="#475569" text-anchor="middle">Re_c≈2300</text>
+        <!-- Smooth pipe curve -->
+        <path d="M 145 42 Q 250 75 450 95" fill="none" stroke="#047857" stroke-width="2.2"></path>
+        <text x="260" y="86" font-size="8.5" font-weight="bold" fill="#047857">Smooth pipes (ท่อผิวเรียบ e/D → 0)</text>
+        <!-- Rough pipe curves -->
+        <path d="M 145 28 Q 210 38 465 38" fill="none" stroke="#1e3a8a" stroke-width="1.5"></path>
+        <path d="M 145 35 Q 230 56 465 56" fill="none" stroke="#1e3a8a" stroke-width="1.5"></path>
+        <path d="M 145 40 Q 260 72 465 72" fill="none" stroke="#1e3a8a" stroke-width="1.5"></path>
+        <text x="470" y="41" font-size="8" font-weight="bold" fill="#1e3a8a">e/D = 0.02</text>
+        <text x="470" y="59" font-size="8" font-weight="bold" fill="#1e3a8a">e/D = 0.004</text>
+        <text x="470" y="75" font-size="8" font-weight="bold" fill="#1e3a8a">e/D = 0.0004</text>
+        <text x="355" y="24" font-size="8.5" font-weight="bold" fill="#334155">Fully rough zone (f คงที่ตาม e/D)</text>
+        <!-- Material roughness box from Slide 14 -->
+        <rect x="525" y="10" width="145" height="90" fill="#fffbeb" stroke="#d97706" stroke-width="1"></rect>
+        <text x="597" y="23" font-size="8.5" font-weight="bold" fill="#92400e" text-anchor="middle">ค่าความขรุขระ e (μm) [หน้า 14]</text>
+        <text x="532" y="38" font-size="8" fill="#1e293b">• Drawn tubing: 1.5 μm</text>
+        <text x="532" y="52" font-size="8" fill="#1e293b">• Commercial steel: 46 μm</text>
+        <text x="532" y="66" font-size="8" fill="#1e293b">• Cast iron: 260 μm</text>
+        <text x="532" y="80" font-size="8" fill="#1e293b">• Concrete: 300–3000 μm</text>
+        <text x="532" y="93" font-size="7.5" fill="#047857" font-weight="bold">ท่อเรียบ: f = 0.316 Re⁻¹/⁴ หรือ 0.184 Re⁻¹/⁵</text>
+      </svg>
+      <figcaption><strong>รูปที่ 7.2 (อ้างอิง Figure 7.2 สไลด์หน้า 14–15):</strong> โครงสร้างแผนภูมิของมูดดี (Moody Diagram) สำหรับหาค่า <span class="math">f</span> จาก <span class="math">Re<sub>D</sub></span> และความขรุขระสัมพัทธ์ <span class="math">e/D</span></figcaption>
+    </figure>
+
+    <div class="callout">
+      <div class="callout-title"><span class="tag-supp">[เสริมพื้นฐาน]</span> ตัวอย่างที่ 7.0: การคำนวณความดันลด (Δp) และกำลังปั๊มน้ำ (P) ในท่อกลม</div>
+      <p><strong>โจทย์:</strong> น้ำที่ <span class="math">20°C</span> (<span class="math">ρ = 998 kg/m<sup>3</sup>, μ = 1.00 × 10<sup>−3</sup> N·s/m<sup>2</sup></span>) ไหลด้วยอัตราการไหลเชิงมวล <span class="math">ṁ = 2.5 kg/s</span> ผ่านท่อผิวเรียบเส้นผ่านศูนย์กลาง <span class="math">D = 0.05 m</span> ยาว <span class="math">L = 30 m</span> จงหา <span class="math">u<sub>m</sub>, Re<sub>D</sub>, f, Δp</span> และกำลังปั๊ม <span class="math">P</span><br>
+      <strong>วิธีทำ:</strong> (1) <span class="math">u<sub>m</sub> = 4ṁ / (ρπD<sup>2</sup>) = 4(2.5) / [998 × π(0.05)<sup>2</sup>] = <strong>1.276 m/s</strong></span>, (2) <span class="math">Re<sub>D</sub> = ρu<sub>m</sub>D/μ = (998)(1.276)(0.05)/(10<sup>−3</sup>) = <strong>63,672</strong></span> (ปั่นป่วน), (3) ใช้สมการ Petukhov (สไลด์หน้า 16): <span class="math">f = [0.790 ln(63,672) − 1.64]<sup>−2</sup> = (7.105)<sup>−2</sup> = <strong>0.0198</strong></span> (หรือใช้สมการ Blasius <span class="math">f = 0.184(63,672)<sup>−1/5</sup> = 0.0201</span>), (4) ความดันลด <span class="math">Δp = f(L/D)(ρu<sub>m</sub><sup>2</sup>/2) = 0.0198(30/0.05)[0.5 × 998 × (1.276)<sup>2</sup>] = 11.88 × 812.5 = <strong>9,653 Pa (9.65 kPa)</strong></span>, และ (5) กำลังปั๊ม <span class="math">P = Δp(ṁ/ρ) = 9,653 × (2.5 / 998) = <strong>24.18 W</strong></span></p>
+    </div>
+
+    <h2>7.2 การพิจารณาทางความร้อน และสมดุลพลังงานในท่อ (Thermal Considerations) <span class="tag-slide">[สไลด์หน้า 19–21]</span></h2>
+    <p>เมื่อของไหลไหลเข้าสู่ท่อที่อุณหภูมิสม่ำเสมอ <span class="math">T(r, 0)</span> ซึ่งต่ำกว่าอุณหภูมิผิวท่อ <span class="math">T<sub>s</sub></span> ชั้นชิดผิวความร้อน (<span class="math">δ<sub>t</sub></span>) จะเริ่มพัฒนาจากผนังเข้าหากึ่งกลางท่อจนบรรจบกันที่ระยะ <strong>ความยาวช่วงทางเข้าเชิงความร้อน (<span class="math">x<sub>fd,t</sub></span>)</strong> เข้าสู่เขตพัฒนาเต็มที่ทางความร้อน (Figure 7.3) <span class="tag-slide">[สไลด์หน้า 19]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">เขตราบเรียบ: (<span class="frac"><span>x<sub>fd,t</sub></span><span>D</span></span>)<sub>lam</sub> ≈ 0.05 Re<sub>D</sub> Pr  (เมื่อ Pr &gt; 1 จะได้ x<sub>fd,h</sub> &lt; x<sub>fd,t</sub>)   |   เขตปั่นป่วน: (<span class="frac"><span>x<sub>fd,t</sub></span><span>D</span></span>)<sub>turb</sub> ≈ 10</span> <span class="tag-slide">[สไลด์หน้า 20–21]</span>
+    </div>
+    <p><span class="tag-supp">[เสริมพื้นฐานสำคัญที่ใช้ใน Example 7.1]</span> <strong>อุณหภูมิเฉลี่ยเชิงมวล (<span class="math">T<sub>m</sub></span>) และสมการสมดุลพลังงานในท่อ:</strong> เนื่องจากอุณหภูมิของไหลในท่อเปลี่ยนแปลงไปตามความยาวท่อ เราจึงอ้างอิงกฎการเย็นตัวของนิวตันกับ <strong>อุณหภูมิเฉลี่ยเชิงมวล (Mean/Bulk temperature, <span class="math">T<sub>m</sub></span>)</strong> ณ หน้าตัดนั้น คือ <span class="math">q&#39;&#39;<sub>s</sub>(x) = h<sub>x</sub> [T<sub>s</sub>(x) − T<sub>m</sub>(x)]</span> และจากกฎอนุรักษ์พลังงาน อัตราความร้อนรวม <span class="math">q</span> ที่ถ่ายโอนเข้าหรือออกจากของไหลตลอดความยาวท่อ <span class="math">L</span> (จากทางเข้า <span class="math">T<sub>m,0</sub></span> ถึงทางออก <span class="math">T<sub>m,L</sub></span>) และสมบัติของของไหลที่ประเมิน ณ อุณหภูมิเฉลี่ย <span class="math">T̄<sub>m</sub></span> คำนวณได้จาก <span class="tag-slide">[สไลด์หน้า 33–36]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">q = ṁ c<sub>p</sub> (T<sub>m,L</sub> − T<sub>m,0</sub>)    ,    T̄<sub>m</sub> = <span class="frac"><span>T<sub>m,0</sub> + T<sub>m,L</sub></span><span>2</span></span>    ,    q&#39;&#39;<sub>s</sub>(L) = <span class="frac"><span>T<sub>m,L</sub> − T<sub>s,L</sub></span><span>1 / h<sub>x</sub>(L)</span></span> = <span class="frac"><span>T<sub>m,L</sub> − T<sub>∞</sub></span><span>[1 / h<sub>x</sub>(L)] + (1 / h<sub>o</sub>)</span></span></span> <span class="tag-slide">[สไลด์หน้า 33–36]</span>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 7: การไหลภายใน</span>
+    <span>หน้า 3</span>
+  </footer>
+</section>
+
+<!-- page 4 budget (Compact): h2 11 + prose & eq 22-25 180 + figure 7.4 (28mm = 67 + 24 + 14 = 105) + h2 11 + prose & eq 26-31 195 + 5 gaps 40 = 542 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>7.3 สหสัมพันธ์การพาความร้อน: การไหลแบบราบเรียบในท่อกลม (<span class="math">Re<sub>D</sub> ≤ 2,300</span>) <span class="tag-slide">[สไลด์หน้า 22–25]</span></h2>
+    <p><strong>1. เขตพัฒนาเต็มที่ (Fully Developed Region) <span class="tag-slide">[สไลด์หน้า 22]</span>:</strong> ในเขตที่ทั้งความเร็วและอุณหภูมิพัฒนาเต็มที่แล้ว ตัวเลขนัสเซลต์จะมีค่าคงที่ (ไม่ขึ้นกับ <span class="math">Re<sub>D</sub>, Pr</span> หรือระยะ <span class="math">x</span>) โดยขึ้นกับเงื่อนไขขอบเขตที่ผนังท่อ:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Nu<sub>D</sub> = <span class="frac"><span>h D</span><span>k</span></span> = 4.36   (เมื่อ q&#39;&#39;<sub>s</sub> = Constant)  …(สมการที่ 22)    |    Nu<sub>D</sub> = <span class="frac"><span>h D</span><span>k</span></span> = 3.66   (เมื่อ T<sub>s</sub> = Constant)  …(สมการที่ 23)</span>
+    </div>
+    <p><strong>2. เขตทางเข้า (The Entry Region) <span class="tag-slide">[สไลด์หน้า 23–25]</span>:</strong> ในช่วงทางเข้า ค่า <span class="math">Nu<sub>D</sub></span> จะแปรผันตามส่วนกลับของ <strong>ตัวเลขเกรตซ์ (<span class="math">Gz<sub>D</sub> ≡ (D/x)Re<sub>D</sub>Pr</span>)</strong> ดังแสดงในรูปที่ 7.4 สำหรับการหาค่าเฉลี่ยตลอดท่อที่มี <span class="math">T<sub>s</sub></span> คงที่ ใช้สมการที่ (24) สำหรับช่วงทางเข้าความร้อนอย่างเดียว (Thermal entry length) หรือสมการที่ (25) ของ Sieder-Tate สำหรับช่วงทางเข้าพร้อมกัน (Combined entry length):</p>
+    <div class="callout eq-box">
+      <span class="math-display">Nū<sub>D</sub> = 3.66 + <span class="frac"><span>0.0668 (D/L) Re<sub>D</sub> Pr</span><span>1 + 0.04 [(D/L) Re<sub>D</sub> Pr]<sup>2/3</sup></span></span>   …(สมการที่ 24)   |   Nū<sub>D</sub> = 1.86 (<span class="frac"><span>Re<sub>D</sub> Pr</span><span>L / D</span></span>)<sup>1/3</sup> (<span class="frac"><span>μ</span><span>μ<sub>s</sub></span></span>)<sup>0.14</sup>   …(สมการที่ 25)</span>
+    </div>
+    <p><span class="tag-note">[ข้อสังเกตต้นฉบับ สไลด์หน้า 25]</span> ในสไลด์หน้า 25 พิมพ์เครื่องหมาย <span class="math">+</span> เกินมาหลังเลข <span class="math">1.86</span> เป็น <span class="math">1.86 + (...)</span> ซึ่งตามสมการจริงของ Sieder-Tate ต้องเป็นการคูณกันโดยไม่มีเครื่องหมายบวก (ประเมินสมบัติทุกตัวที่ <span class="math">T̄<sub>m</sub></span> ยกเว้น <span class="math">μ<sub>s</sub></span> ที่ <span class="math">T<sub>s</sub></span> สำหรับ <span class="math">0.48 &lt; Pr &lt; 16,700</span>)</p>
+
+    <figure class="diagram-fig">
+      <svg role="img" style="width:100%; height:26mm;" viewBox="0 0 680 98">
+        <title>กราฟตัวเลขนัสเซลต์เฉพาะจุดในเขตทางเข้าของการไหลแบบราบเรียบในท่อกลม เทียบกับส่วนกลับของตัวเลขเกรตซ์ (อ้างอิง Figure 7.4 สไลด์หน้า 23)</title>
+        <rect x="55" y="6" width="380" height="72" fill="#f8fafc" stroke="#334155" stroke-width="1.2"></rect>
+        <text x="25" y="42" font-size="9" font-weight="bold" fill="#0f172a" transform="rotate(-90, 25, 42)" text-anchor="middle">Nu_D</text>
+        <text x="245" y="92" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">(x / D) / (Re_D Pr) = Gz⁻¹ (สเกล Log: 0.001 ถึง 1)</text>
+        <!-- Constant heat flux curve -> 4.36 -->
+        <path d="M 85 12 Q 160 46 260 52 L 430 52" fill="none" stroke="#b91c1c" stroke-width="2"></path>
+        <text x="395" y="48" font-size="8.5" font-weight="bold" fill="#b91c1c">q&#39;&#39;_s = Constant (4.36)</text>
+        <!-- Constant surface temp curve -> 3.66 -->
+        <path d="M 75 18 Q 155 55 260 62 L 430 62" fill="none" stroke="#047857" stroke-width="2"></path>
+        <text x="395" y="72" font-size="8.5" font-weight="bold" fill="#047857">T_s = Constant (3.66)</text>
+        <!-- Dashed combined entry length -->
+        <path d="M 100 10 Q 170 42 250 52" fill="none" stroke="#1e3a8a" stroke-width="1.4" stroke-dasharray="4,3"></path>
+        <line x1="255" y1="6" x2="255" y2="78" stroke="#64748b" stroke-width="1" stroke-dasharray="3,3"></line>
+        <text x="155" y="73" font-size="8" font-weight="bold" fill="#334155">Entrance region</text>
+        <text x="315" y="22" font-size="8" font-weight="bold" fill="#065f46">Fully developed (Gz⁻¹ ≈ 0.05)</text>
+        <!-- Info box on right -->
+        <rect x="450" y="8" width="215" height="70" fill="#ecfdf5" stroke="#047857" stroke-width="1"></rect>
+        <text x="458" y="22" font-size="8.5" font-weight="bold" fill="#065f46">สรุปการอ่านกราฟ Figure 7.4 [หน้า 23]:</text>
+        <text x="458" y="36" font-size="8" fill="#1e293b">• เส้นทึบ: Thermal entry length</text>
+        <text x="458" y="49" font-size="8" fill="#1e3a8a">• เส้นประ: Combined entry (Pr = 0.7)</text>
+        <text x="458" y="62" font-size="8" fill="#b91c1c">• เมื่อ Gz⁻¹ ≥ 0.05 เข้าสู่ค่าคงที่ 4.36 / 3.66</text>
+      </svg>
+      <figcaption><strong>รูปที่ 7.4 (อ้างอิง Figure 7.4 สไลด์หน้า 23):</strong> การลดลงของตัวเลขนัสเซลต์จากเขตทางเข้าสู่ค่าคงที่ในเขตพัฒนาเต็มที่ตามค่า <span class="math">Gz<sub>D</sub><sup>−1</sup></span></figcaption>
+    </figure>
+
+    <h2>7.4 สหสัมพันธ์การพาความร้อน: การไหลแบบปั่นป่วนในท่อกลม <span class="tag-slide">[สไลด์หน้า 26–30]</span></h2>
+    <p>สำหรับการไหลแบบปั่นป่วนพัฒนาเต็มที่ในท่อกลม (<span class="math">L/D ≥ 10</span>) สไลด์หน้า 26–30 สรุปสมการสหสัมพันธ์หลักไว้ 6 สมการ (สมการที่ 26 ถึง 31) ดังตารางสรุปเพื่อการเลือกใช้งานต่อไปนี้:</p>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:20%;">ชื่อสหสัมพันธ์ / เลขสมการ</th>
+          <th scope="col" style="width:44%;">รูปแบบสมการ (Equation Form)</th>
+          <th scope="col" style="width:36%;">ขอบเขตและเงื่อนไขการใช้งาน (Restrictions)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Dittus-Boelter</strong><br>สมการที่ (26) [หน้า 26]</td>
+          <td><span class="math">Nu<sub>D</sub> = 0.023 Re<sub>D</sub><sup>4/5</sup> Pr<sup>n</sup></span></td>
+          <td>ท่อเรียบ, <span class="math">n = 0.4</span> เมื่อให้ความร้อน (<span class="math">T<sub>s</sub> &gt; T<sub>m</sub></span>), <span class="math">n = 0.3</span> เมื่อทำให้เย็นลง (<span class="math">T<sub>s</sub> &lt; T<sub>m</sub></span>); <span class="math">0.7 ≤ Pr ≤ 160, Re<sub>D</sub> ≥ 10,000</span></td>
+        </tr>
+        <tr>
+          <td><strong>Sieder-Tate</strong><br>สมการที่ (27) [หน้า 27]</td>
+          <td><span class="math">Nu<sub>D</sub> = 0.027 Re<sub>D</sub><sup>4/5</sup> Pr<sup>1/3</sup> (μ / μ<sub>s</sub>)<sup>0.14</sup></span></td>
+          <td>ท่อเรียบที่มีผลต่างอุณหภูมิสูง; <span class="math">0.7 ≤ Pr ≤ 16,700, Re<sub>D</sub> ≥ 10,000, L/D ≥ 10</span> (<span class="math">μ<sub>s</sub></span> ที่ <span class="math">T<sub>s</sub></span>)</td>
+        </tr>
+        <tr>
+          <td><strong>Petukhov</strong><br>สมการที่ (28) [หน้า 28]</td>
+          <td><span class="math">Nu<sub>D</sub> = <span class="frac"><span>(f/8) Re<sub>D</sub> Pr</span><span>1.07 + 12.7(f/8)<sup>1/2</sup>(Pr<sup>2/3</sup> − 1)</span></span></span></td>
+          <td>แม่นยำสูง ใช้กับท่อเรียบหรือท่อขรุขระได้โดยหา <span class="math">f</span> จาก Moody chart; <span class="math">0.5 &lt; Pr &lt; 2,000, 10<sup>4</sup> &lt; Re<sub>D</sub> &lt; 5×10<sup>6</sup></span></td>
+        </tr>
+        <tr>
+          <td><strong>Gnielinski</strong><br>สมการที่ (29) [หน้า 29]</td>
+          <td><span class="math">Nu<sub>D</sub> = <span class="frac"><span>(f/8)(Re<sub>D</sub> − 1,000) Pr</span><span>1 + 12.7(f/8)<sup>1/2</sup>(Pr<sup>2/3</sup> − 1)</span></span></span></td>
+          <td>ขยายช่วงลงมาครอบคลุม <span class="math">Re<sub>D</sub></span> ต่ำได้ดีเยี่ยม; <span class="math">0.5 &lt; Pr &lt; 2,000, 3,000 &lt; Re<sub>D</sub> &lt; 5×10<sup>6</sup></span></td>
+        </tr>
+        <tr>
+          <td><strong>โลหะเหลว (Liquid Metals)</strong><br>สมการ (30)–(31) [หน้า 30]</td>
+          <td><span class="math">Nu<sub>D</sub> = 4.82 + 0.0185 Pe<sub>D</sub><sup>0.827</sup></span>  …(30)<br><span class="math">Nu<sub>D</sub> = 5.0 + 0.025 Pe<sub>D</sub><sup>0.8</sup></span>      …(31)</td>
+          <td>ใช้สำหรับของไหล <span class="math">Pr ≪ 1</span> (โดย <span class="math">Pe<sub>D</sub> = Re<sub>D</sub>Pr</span>): สมการ (30) สำหรับ <span class="math">q&#39;&#39;<sub>s</sub></span> คงที่ (<span class="math">10<sup>2</sup> &lt; Pe<sub>D</sub> &lt; 10<sup>4</sup></span>); สมการ (31) สำหรับ <span class="math">T<sub>s</sub></span> คงที่ (<span class="math">Pe<sub>D</sub> &gt; 100</span>)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 7: การไหลภายใน</span>
+    <span>หน้า 4</span>
+  </footer>
+</section>
+
+<!-- page 5 budget (Compact): h2 11 + callout Example 7.1 full solution 340 + h2 11 + prose & Dh equations 165 + 4 gaps 32 = 559 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>7.4.1 การวิเคราะห์และแสดงวิธีทำละเอียด Example 7.1 <span class="tag-slide">[สไลด์หน้า 31–36]</span></h2>
+    <div class="callout">
+      <div class="callout-title"><span class="tag-slide">[สไลด์หน้า 31–36]</span> Example 7.1: การสูญเสียความร้อนจากท่อลมร้อนในช่องใต้ถุนบ้าน (พร้อมเติมคำตอบทุกช่องว่าง)</div>
+      <p><strong>โจทย์ <span class="tag-slide">[สไลด์หน้า 31]</span>:</strong> อากาศร้อนไหลด้วยอัตราการไหลเชิงมวล <span class="math">ṁ = 0.050 kg/s</span> ผ่านท่อโลหะแผ่นกลมที่ไม่ได้หุ้มฉนวน เส้นผ่านศูนย์กลาง <span class="math">D = 0.15 m</span> ซึ่งติดตั้งอยู่ในช่องใต้ถุนบ้าน อากาศร้อนไหลเข้าท่อที่อุณหภูมิ <span class="math">T<sub>m,0</sub> = 103°C</span> และหลังจากไหลไปได้ระยะทาง <span class="math">L = 5 m</span> อุณหภูมิลดลงเหลือ <span class="math">T<sub>m,L</sub> = 77°C</span> ทราบว่าสัมประสิทธิ์การถ่ายโอนความร้อนระหว่างผิวนอกของท่อกับอากาศแวดล้อมที่อุณหภูมิ <span class="math">T<sub>∞</sub> = 0°C</span> มีค่าเท่ากับ <span class="math">h<sub>o</sub> = 6 W/(m<sup>2</sup>·K)</span><br>
+      • <strong>(a)</strong> จงคำนวณอัตราการสูญเสียความร้อน (<span class="math">q</span>, หน่วย W) จากท่อตลอดความยาว <span class="math">L = 5 m</span><br>
+      • <strong>(b)</strong> จงหาฟลักซ์ความร้อน (<span class="math">q&#39;&#39;<sub>s</sub>(L)</span>) และอุณหภูมิพื้นผิวท่อ (<span class="math">T<sub>s,L</sub></span>) ที่ตำแหน่งปลายท่อ <span class="math">x = L</span></p>
+
+      <p style="margin-top:4px;"><strong>วิธีทำอย่างละเอียด (เติมตัวเลขในช่องว่างหลังเครื่องหมาย = ของสไลด์หน้า 33–36):</strong><br>
+      <strong>ขั้นตอนที่ 1: เปิดตารางสมบัติของอากาศ (จากตารางสไลด์หน้า 32–33)</strong><br>
+      • สำหรับข้อ (a) คิดตลอดความยาวท่อ ใช้ค่าเฉลี่ย <span class="math">T̄<sub>m</sub> = (103 + 77)/2 = 90°C = 363 K</span> เปิดตารางประมาณค่าในช่วงระหว่าง 350 K (<span class="math">c<sub>p</sub> = 1.009 kJ/kg·K</span>) และ 400 K (<span class="math">c<sub>p</sub> = 1.014 kJ/kg·K</span>) ได้ <span class="math">c<sub>p</sub> = 1,010 J/(kg·K)</span> <span class="tag-slide">[สไลด์หน้า 33]</span><br>
+      • สำหรับข้อ (b) คิดเฉพาะจุดที่ตำแหน่ง <span class="math">x = L</span> ประเมินสมบัติที่อุณหภูมิของไหล ณ จุดนั้นคือ <span class="math">T<sub>m,L</sub> = 77°C = 350 K</span> ซึ่งตรงกับแถว 350 K ในตารางพอดี อ่านค่าได้: <span class="math">k = 0.030 W/(m·K), μ = 208.2 × 10<sup>−7</sup> ≈ 208 × 10<sup>−7</sup> N·s/m<sup>2</sup>, Pr = 0.70</span> <span class="tag-slide">[สไลด์หน้า 33]</span></p>
+
+      <p style="margin-top:4px;"><strong>ขั้นตอนที่ 2: คำนวณข้อ (a) อัตราการสูญเสียความร้อนจากท่อตลอดความยาว L (<span class="tag-slide">[สไลด์หน้า 33]</span>)</strong><br>
+      จากสมการสมดุลพลังงานของของไหลในท่อ:<br>
+      <span class="math">q = ṁ c<sub>p</sub> (T<sub>m,L</sub> − T<sub>m,0</sub>) = (0.050 kg/s) × (1,010 J/kg·K) × (77 − 103)°C = 50.5 × (−26) = <strong>−1,313 W</strong></span><br>
+      <em>(เครื่องหมายลบระบุว่าความร้อนไหลออกจากอากาศในท่อ นั่นคืออัตราการสูญเสียความร้อนจากท่อเท่ากับ <strong>1,313 W</strong>)</em></p>
+
+      <p style="margin-top:4px;"><strong>ขั้นตอนที่ 3: คำนวณข้อ (b) ฟลักซ์ความร้อนและอุณหภูมิผิวท่อที่ตำแหน่ง <span class="math">x = L</span> (<span class="tag-slide">[สไลด์หน้า 34–36]</span>)</strong><br>
+      • <strong>หาตัวเลขเรย์โนลด์ส (<span class="math">Re<sub>D</sub></span>) <span class="tag-slide">[สไลด์หน้า 34]</span>:</strong><br>
+      <span class="math">Re<sub>D</sub> = <span class="frac"><span>4 ṁ</span><span>π D μ</span></span> = <span class="frac"><span>4 × 0.050 kg/s</span><span>π × 0.15 m × 208 × 10<sup>−7</sup> N·s/m<sup>2</sup></span></span> = <span class="frac"><span>0.20</span><span>9.8018 × 10<sup>−6</sup></span></span> = <strong>20,404</strong></span><br>
+      เนื่องจาก <span class="math">Re<sub>D</sub> = 20,404 &gt; 10,000</span> และ <span class="math">L/D = 5 / 0.15 = 33.3 &gt; 10</span> การไหลที่ <span class="math">x = L</span> จึงเป็นการไหลแบบปั่นป่วนพัฒนาเต็มที่!<br>
+      • <strong>หาสัมประสิทธิ์การพาความร้อนภายในท่อที่ <span class="math">x = L</span> (<span class="math">h<sub>x</sub>(L)</span>) <span class="tag-slide">[สไลด์หน้า 35]</span>:</strong> ใช้สมการ Dittus-Boelter (สมการที่ 26) โดยเลือก <span class="math">n = 0.3</span> เพราะอากาศในท่อกำลังเย็นตัวลง (Cooling, <span class="math">T<sub>s</sub> &lt; T<sub>m</sub></span>):<br>
+      <span class="math">Nu<sub>D</sub> = <span class="frac"><span>h<sub>x</sub>(L) D</span><span>k</span></span> = 0.023 Re<sub>D</sub><sup>4/5</sup> Pr<sup>0.3</sup> = 0.023 (20,404)<sup>0.8</sup> (0.70)<sup>0.3</sup> = 0.023 × (2,805.2) × (0.8985) = <strong>58.0</strong></span><br>
+      <span class="math">h<sub>x</sub>(L) = Nu<sub>D</sub> <span class="frac"><span>k</span><span>D</span></span> = 58.0 × <span class="frac"><span>0.030 W/(m·K)</span><span>0.15 m</span></span> = <strong>11.6 W/(m<sup>2</sup>·K)</strong></span><br>
+      • <strong>หาฟลักซ์ความร้อน <span class="math">q&#39;&#39;<sub>s</sub>(L)</span> และอุณหภูมิพื้นผิวท่อ <span class="math">T<sub>s,L</sub></span> <span class="tag-slide">[สไลด์หน้า 34, 36]</span>:</strong> เนื่องจากผนังท่อโลหะแผ่นบางมาก ความต้านทานการนำความร้อนของผนังท่อจึงตัดทิ้งได้ ความร้อนที่ไหลจากอากาศในท่อ (<span class="math">T<sub>m,L</sub> = 77°C</span>) ผ่านความต้านทานพาความร้อนด้านใน (<span class="math">1/h<sub>x</sub>(L)</span>) และผ่านความต้านทานพาความร้อนด้านนอก (<span class="math">1/h<sub>o</sub></span>) ออกสู่อากาศแวดล้อม (<span class="math">T<sub>∞</sub> = 0°C</span>) มีลักษณะเป็นวงจรอนุกรม:<br>
+      <span class="math">q&#39;&#39;<sub>s</sub>(L) = <span class="frac"><span>T<sub>m,L</sub> − T<sub>∞</sub></span><span>[1 / h<sub>x</sub>(L)] + (1 / h<sub>o</sub>)</span></span> = <span class="frac"><span>(77 − 0)°C</span><span>(1 / 11.6) + (1 / 6.0) m<sup>2</sup>·K/W</span></span> = <span class="frac"><span>77</span><span>0.08621 + 0.16667</span></span> = <span class="frac"><span>77</span><span>0.25288</span></span> = <strong>304.5 W/m<sup>2</sup></strong></span><br>
+      และคิดเฉพาะช่วงด้านในท่อ: <span class="math">q&#39;&#39;<sub>s</sub>(L) = <span class="frac"><span>T<sub>m,L</sub> − T<sub>s,L</sub></span><span>1 / h<sub>x</sub>(L)</span></span>  ⇒  T<sub>s,L</sub> = T<sub>m,L</sub> − <span class="frac"><span>q&#39;&#39;<sub>s</sub>(L)</span><span>h<sub>x</sub>(L)</span></span> = 77°C − <span class="frac"><span>304.5 W/m<sup>2</sup></span><span>11.6 W/(m<sup>2</sup>·K)</span></span> = 77 − 26.25 = <strong>50.75°C (≈ 51°C)</strong></span></p>
+    </div>
+
+    <h2>7.5 สหสัมพันธ์การพาความร้อน: ท่อที่ไม่ใช่หน้าตัดกลม (Noncircular Tubes) <span class="tag-slide">[สไลด์หน้า 37–43]</span></h2>
+    <p>สำหรับการไหลภายในท่อที่ไม่ใช่หน้าตัดกลม เราใช้ <strong>เส้นผ่านศูนย์กลางไฮดรอลิก (Hydraulic diameter, <span class="math">D<sub>h</sub></span>)</strong> เป็นความยาวลักษณะเฉพาะ โดยนิยามจากพื้นที่หน้าตัดการไหล (<span class="math">A<sub>c</sub></span>) และเส้นรอบรูปเปียก (<span class="math">P</span>) ดังนี้ (พร้อมเติมคำตอบในช่องว่างสไลด์หน้า 38–39):</p>
+    <div class="callout eq-box">
+      <span class="math-display">D<sub>h</sub> ≡ <span class="frac"><span>4 A<sub>c</sub></span><span>P</span></span>   ⇒   ท่อกลม: D<sub>h</sub> = <span class="frac"><span>4(πD<sup>2</sup>/4)</span><span>πD</span></span> = <strong>D</strong>   |   สี่เหลี่ยมจัตุรัส: D<sub>h</sub> = <span class="frac"><span>4a<sup>2</sup></span><span>4a</span></span> = <strong>a</strong>   |   สี่เหลี่ยมผืนผ้า: D<sub>h</sub> = <span class="frac"><span>4ab</span><span>2a + 2b</span></span> = <strong><span class="frac"><span>2ab</span><span>a + b</span></span></strong></span>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 7: การไหลภายใน</span>
+    <span>หน้า 5</span>
+  </footer>
+</section>
+
+<!-- page 6 budget (Compact): prose 75 + Table 7.1 (10 rows = 170) + h2 11 + figure 7.5 & Table 7.2/7.3 (285) + 4 gaps 32 = 573 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <p>ในการไหลแบบปั่นป่วน (<span class="math">Re<sub>D<sub>h</sub></sub> ≥ 2,300</span>) เราสามารถใช้สมการของท่อกลมได้โดยใช้ <span class="math">D<sub>h</sub></span> แทน <span class="math">D</span> เพื่อหาค่าสัมประสิทธิ์เฉลี่ยรอบเส้นรอบรูป <span class="tag-slide">[สไลด์หน้า 40]</span> แต่สำหรับการไหลแบบราบเรียบพัฒนาเต็มที่ในท่อที่มีมุมแหลม ต้องเปิดค่า <span class="math">Nu<sub>D</sub> ≡ hD<sub>h</sub>/k</span> และ <span class="math">f · Re<sub>D<sub>h</sub></sub></span> จาก <strong>ตารางที่ 7.1 (Table 7.1 สไลด์หน้า 41–43)</strong> ดังนี้:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:34%;">รูปร่างหน้าตัดท่อ (Cross Section)</th>
+          <th scope="col" style="width:14%;">อัตราส่วน <span class="math">b / a</span></th>
+          <th scope="col" style="width:18%;"><span class="math">Nu<sub>D</sub></span> (เมื่อ <span class="math">q&#39;&#39;<sub>s</sub></span> คงที่)</th>
+          <th scope="col" style="width:18%;"><span class="math">Nu<sub>D</sub></span> (เมื่อ <span class="math">T<sub>s</sub></span> คงที่)</th>
+          <th scope="col" style="width:16%;">ผลคูณ <span class="math">f · Re<sub>D<sub>h</sub></sub></span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>ท่อกลม (Circular tube)</td><td>—</td><td>4.36</td><td>3.66</td><td>64</td></tr>
+        <tr><td>สี่เหลี่ยมจัตุรัส (Square duct)</td><td>1.0</td><td>3.61</td><td>2.98</td><td>57</td></tr>
+        <tr><td>สี่เหลี่ยมผืนผ้า (Rectangular duct)</td><td>1.43</td><td>3.73</td><td>3.08</td><td>59</td></tr>
+        <tr><td>สี่เหลี่ยมผืนผ้า (Rectangular duct)</td><td>2.0</td><td>4.12</td><td>3.39</td><td>62</td></tr>
+        <tr><td>สี่เหลี่ยมผืนผ้า (Rectangular duct)</td><td>3.0</td><td>4.79</td><td>3.96</td><td>69</td></tr>
+        <tr><td>สี่เหลี่ยมผืนผ้า (Rectangular duct)</td><td>4.0</td><td>5.33</td><td>4.44</td><td>73</td></tr>
+        <tr><td>สี่เหลี่ยมผืนผ้า (Rectangular duct)</td><td>8.0</td><td>6.49</td><td>5.60</td><td>82</td></tr>
+        <tr><td>แผ่นขนานกว้างอนันต์ (ให้ความร้อนทั้ง 2 ด้าน)</td><td>∞</td><td>8.23</td><td>7.54</td><td>96</td></tr>
+        <tr><td>แผ่นขนานกว้างอนันต์ (ด้านหนึ่งร้อน / ด้านหนึ่งหุ้มฉนวน)</td><td>∞</td><td>5.39</td><td>4.86</td><td>96</td></tr>
+        <tr><td>สามเหลี่ยมด้านเท่า (Equilateral triangle)</td><td>—</td><td>3.11</td><td>2.47</td><td>53</td></tr>
+      </tbody>
+    </table>
+
+    <h2>7.6 ช่องว่างวงแหวนระหว่างท่อร่วมศูนย์ (The Concentric Tube Annulus) <span class="tag-slide">[สไลด์หน้า 44–48]</span></h2>
+    <p>เมื่อของไหลไหลผ่านช่องว่างวงแหวนระหว่างท่อใน (เส้นผ่านศูนย์กลาง <span class="math">D<sub>i</sub></span>) และท่อนอก (เส้นผ่านศูนย์กลาง <span class="math">D<sub>o</sub></span>) ดังรูปที่ 7.5 ฟลักซ์ความร้อนที่แต่ละผิวคือ <span class="math">q&#39;&#39;<sub>i</sub> = h<sub>i</sub>(T<sub>s,i</sub> − T<sub>m</sub>)</span> และ <span class="math">q&#39;&#39;<sub>o</sub> = h<sub>o</sub>(T<sub>s,o</sub> − T<sub>m</sub>)</span> โดยเส้นผ่านศูนย์กลางไฮดรอลิกและตัวเลขนัสเซลต์คือ (เติมช่องว่างสไลด์หน้า 45):</p>
+    <div class="callout eq-box">
+      <span class="math-display">D<sub>h</sub> = <span class="frac"><span>4 A<sub>c</sub></span><span>P</span></span> = <span class="frac"><span>4 (π/4)(D<sub>o</sub><sup>2</sup> − D<sub>i</sub><sup>2</sup>)</span><span>π D<sub>o</sub> + π D<sub>i</sub></span></span> = <strong>D<sub>o</sub> − D<sub>i</sub></strong>    ,    Nu<sub>i</sub> ≡ <span class="frac"><span>h<sub>i</sub> D<sub>h</sub></span><span>k</span></span>    ,    Nu<sub>o</sub> ≡ <span class="frac"><span>h<sub>o</sub> D<sub>h</sub></span><span>k</span></span></span> <span class="tag-slide">[สไลด์หน้า 45]</span>
+    </div>
+    <p>สำหรับการไหลแบบราบเรียบพัฒนาเต็มที่: <strong>กรณีที่ 1 (ผิวด้านหนึ่งหุ้มฉนวน อีกด้านหนึ่งอุณหภูมิคงที่)</strong> เปิดค่า <span class="math">Nu<sub>i</sub></span> หรือ <span class="math">Nu<sub>o</sub></span> จาก <strong>Table 7.2</strong> <span class="tag-slide">[สไลด์หน้า 46]</span>; <strong>กรณีที่ 2 (ฟลักซ์ความร้อนคงที่ทั้งสองผิว)</strong> คำนวณจากสมการที่ (32)–(33) โดยใช้ค่าจาก <strong>Table 7.3</strong> <span class="tag-slide">[สไลด์หน้า 47–48]</span>:</p>
+    <div class="callout eq-box">
+      <span class="math-display">Nu<sub>i</sub> = <span class="frac"><span>Nu<sub>ii</sub></span><span>1 − (q&#39;&#39;<sub>o</sub> / q&#39;&#39;<sub>i</sub>) θ<sub>i</sub><sup>*</sup></span></span>   …(สมการที่ 32)     ,     Nu<sub>o</sub> = <span class="frac"><span>Nu<sub>oo</sub></span><span>1 − (q&#39;&#39;<sub>i</sub> / q&#39;&#39;<sub>o</sub>) θ<sub>o</sub><sup>*</sup></span></span>   …(สมการที่ 33)</span>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col" colspan="3" style="text-align:center; background-color:#0f172a;">Table 7.2: ด้านหนึ่งหุ้มฉนวน อีกด้าน <span class="math">T<sub>s</sub></span> คงที่ [หน้า 46]</th>
+          <th scope="col" colspan="5" style="text-align:center;">Table 7.3: ฟลักซ์ความร้อนสม่ำเสมอทั้งสองผิว (สมการ 32–33) [หน้า 48]</th>
+        </tr>
+        <tr>
+          <th scope="col"><span class="math">D<sub>i</sub> / D<sub>o</sub></span></th>
+          <th scope="col"><span class="math">Nu<sub>i</sub></span></th>
+          <th scope="col"><span class="math">Nu<sub>o</sub></span></th>
+          <th scope="col"><span class="math">D<sub>i</sub> / D<sub>o</sub></span></th>
+          <th scope="col"><span class="math">Nu<sub>ii</sub></span></th>
+          <th scope="col"><span class="math">Nu<sub>oo</sub></span></th>
+          <th scope="col"><span class="math">θ<sub>i</sub><sup>*</sup></span></th>
+          <th scope="col"><span class="math">θ<sub>o</sub><sup>*</sup></span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td>—</td><td>3.66</td><td>0</td><td>—</td><td>4.364</td><td>∞</td><td>0</td></tr>
+        <tr><td>0.05</td><td>17.46</td><td>4.06</td><td>0.05 / 0.10</td><td>17.81 / 11.91</td><td>4.792 / 4.834</td><td>2.18 / 1.383</td><td>0.0294 / 0.0562</td></tr>
+        <tr><td>0.10</td><td>11.56</td><td>4.11</td><td>0.20</td><td>8.499</td><td>4.833</td><td>0.905</td><td>0.1041</td></tr>
+        <tr><td>0.25</td><td>7.37</td><td>4.23</td><td>0.40</td><td>6.583</td><td>4.979</td><td>0.603</td><td>0.1823</td></tr>
+        <tr><td>0.50</td><td>5.74</td><td>4.43</td><td>0.60 / 0.80</td><td>5.912 / 5.58</td><td>5.099 / 5.24</td><td>0.473 / 0.401</td><td>0.2455 / 0.299</td></tr>
+        <tr><td>1.00</td><td>4.86</td><td>4.86</td><td>1.00</td><td>5.385</td><td>5.385</td><td>0.346</td><td>0.346</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 7: การไหลภายใน</span>
+    <span>หน้า 6</span>
+  </footer>
+</section>
+
+<!-- page 7 budget (Compact): callout pitfalls 90 + h2 11 + summary & review 145 + h2 11 + exercises 5 levels 280 + 4 gaps 32 = 569 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="callout warn">
+      <div class="callout-title">7.7 ข้อผิดพลาดและความเข้าใจผิดที่พบบ่อยในการไหลภายใน (Common Pitfalls)</div>
+      <p><strong>1. การสับสนระหว่าง Darcy friction factor (<span class="math">f</span>) กับ Fanning friction factor (<span class="math">C<sub>f</sub></span>):</strong> ในสมการความดันลด <span class="math">Δp = f(L/D)(ρu<sub>m</sub><sup>2</sup>/2)</span> และสมการของ Petukhov/Gnielinski (สมการ 28–29) ต้องใช้ค่า <span class="math">f</span> ของมูดดี/ดาร์ซี (<span class="math">f = 64/Re<sub>D</sub></span> ในเขตราบเรียบ) เสมอ ห้ามนำค่า <span class="math">C<sub>f</sub> = 16/Re<sub>D</sub></span> มาแทนโดยไม่คูณ 4<br>
+      <strong>2. การใช้เกณฑ์ <span class="math">Re<sub>c</sub></span> ของแผ่นราบมาตัดสินการไหลในท่อ:</strong> สำหรับท่อกลม การเปลี่ยนผ่านสู่ความปั่นป่วนเกิดที่ <span class="math">Re<sub>D,c</sub> ≈ 2,300</span> (ไม่ใช่ <span class="math">5 × 10<sup>5</sup></span> ของแผ่นราบ)<br>
+      <strong>3. การใช้เส้นรอบรูปทั้งหมดแทนเส้นรอบรูปเปียก (<span class="math">P</span>) ในท่อวงแหวน:</strong> ในการหา <span class="math">D<sub>h</sub> = 4A<sub>c</sub>/P</span> ของท่อวงแหวน ของไหลสัมผัสทั้งท่อในและท่อนอก ดังนั้น <span class="math">P = π(D<sub>o</sub> + D<sub>i</sub>)</span> ทำให้ <span class="math">D<sub>h</sub> = D<sub>o</sub> − D<sub>i</sub></span> แต่ในการคำนวณพื้นที่ผิวรับความร้อนของท่อในต้องใช้ <span class="math">A<sub>s,i</sub> = π D<sub>i</sub> L</span> เท่านั้น</p>
+    </div>
+
+    <h2>7.8 สรุปสาระสำคัญประจำบทที่ 7 และคำถามทบทวน (Summary &amp; Review Questions)</h2>
+    <p><strong>สรุปสาระสำคัญ:</strong> การวิเคราะห์การไหลภายในเริ่มจากการหาความเร็วเฉลี่ย <span class="math">u<sub>m</sub> = ṁ/(ρA<sub>c</sub>)</span> และตัวเลขเรย์โนลด์ส <span class="math">Re<sub>D</sub> = 4ṁ/(πDμ)</span> เพื่อตัดสินระบอบการไหล (เทียบกับ <span class="math">2,300</span>) และตรวจสอบความยาวช่วงทางเข้า (<span class="math">x<sub>fd,h</sub>, x<sub>fd,t</sub></span>) อัตราการถ่ายโอนความร้อนรวมเชื่อมโยงกับอุณหภูมิเฉลี่ยเชิงมวลผ่านสมดุลพลังงาน <span class="math">q = ṁc<sub>p</sub>(T<sub>m,L</sub> − T<sub>m,0</sub>)</span> ส่วนสัมประสิทธิ์ <span class="math">h</span> หาจากสมการที่ (22)–(25) สำหรับเขตราบเรียบ, สมการที่ (26)–(31) สำหรับเขตปั่นป่วน, หรือเปิดตารางที่ 7.1–7.3 ร่วมกับ <span class="math">D<sub>h</sub> = 4A<sub>c</sub>/P</span> สำหรับท่อไม่กลมและท่อวงแหวน</p>
+    <p><strong>คำถามทบทวน:</strong> <strong>(1)</strong> เหตุใดในเขตพัฒนาเต็มที่ของการไหลแบบราบเรียบในท่อกลม ค่า <span class="math">h</span> และ <span class="math">Nu<sub>D</sub></span> จึงมีค่าคงที่ ไม่ลดลงตามระยะ <span class="math">x</span> เหมือนการไหลผ่านแผ่นราบ? <strong>(2)</strong> สำหรับน้ำมันเครื่องที่มีค่า <span class="math">Pr = 1,000</span> ไหลแบบราบเรียบในท่อ ความยาวช่วงทางเข้าความร้อน <span class="math">x<sub>fd,t</sub></span> เป็นกี่เท่าของ <span class="math">x<sub>fd,h</sub></span>? <strong>(3)</strong> เมื่อใดจึงควรเลือกใช้สมการของ Gnielinski (สมการที่ 29) แทนสมการของ Dittus-Boelter (สมการที่ 26)?</p>
+
+    <h2>7.9 แบบฝึกหัดประจำบทที่ 7 (Exercises — ครบ 5 ระดับความลึก)</h2>
+    <ul>
+      <li><strong>[ระดับที่ 1: ตรวจสอบความเข้าใจพื้นฐาน] ข้อ 7.1:</strong> น้ำมันหล่อลื่น (<span class="math">ρ = 870 kg/m<sup>3</sup>, ν = 8.0 × 10<sup>−5</sup> m<sup>2</sup>/s, Pr = 950</span>) ไหลเข้าสู่ท่อกลมเส้นผ่านศูนย์กลาง <span class="math">D = 0.02 m</span> ด้วยความเร็วเฉลี่ย <span class="math">u<sub>m</sub> = 0.60 m/s</span> จงคำนวณหา (ก) อัตราการไหลเชิงมวล <span class="math">ṁ</span> และตัวเลขเรย์โนลด์ส <span class="math">Re<sub>D</sub></span>, และ (ข) ความยาวช่วงทางเข้าเชิงอุทกพลศาสตร์ <span class="math">x<sub>fd,h</sub></span> และเชิงความร้อน <span class="math">x<sub>fd,t</sub></span> พร้อมระบุว่าที่ปลายท่อยาว <span class="math">L = 3.0 m</span> การไหลพัฒนาเต็มที่แล้วหรือไม่</li>
+      <li><strong>[ระดับที่ 2: อธิบายหลักการและเปรียบเทียบรูปทรง] ข้อ 7.2:</strong> ท่อส่งน้ำหล่อเย็น 2 ท่อมีพื้นที่หน้าตัดการไหลเท่ากันคือ <span class="math">A<sub>c</sub> = 16.0 cm<sup>2</sup></span> ท่อแรกเป็นท่อหน้าตัดสี่เหลี่ยมจัตุรัส (<span class="math">b/a = 1.0</span>) และท่อที่สองเป็นท่อหน้าตัดสี่เหลี่ยมผืนผ้าแบนที่มีอัตราส่วนด้าน <span class="math">b/a = 4.0</span> หากการไหลในท่อทั้งสองเป็นการไหลแบบราบเรียบพัฒนาเต็มที่ภายใต้ฟลักซ์ความร้อนที่ผนังคงที่ (<span class="math">q&#39;&#39;<sub>s</sub> = Constant</span>) และใช้น้ำที่มี <span class="math">k = 0.62 W/(m·K)</span> จงคำนวณหาค่า <span class="math">D<sub>h</sub></span> และสัมประสิทธิ์การพาความร้อน <span class="math">h</span> ของท่อทั้งสองเพื่อเปรียบเทียบว่าท่อใดถ่ายโอนความร้อนได้ดีกว่ากัน</li>
+      <li><strong>[ระดับที่ 3: การคำนวณประยุกต์ใช้ในเขตทางเข้าและเขตพัฒนาเต็มที่] ข้อ 7.3:</strong> น้ำที่อุณหภูมิเฉลี่ย <span class="math">T̄<sub>m</sub> = 40°C</span> (<span class="math">c<sub>p</sub> = 4,179 J/kg·K, μ = 6.53 × 10<sup>−4</sup> N·s/m<sup>2</sup>, k = 0.631 W/m·K, Pr = 4.32</span>) ไหลด้วยอัตรา <span class="math">ṁ = 0.015 kg/s</span> ผ่านท่อกลมขนาด <span class="math">D = 0.015 m</span> ยาว <span class="math">L = 1.5 m</span> ซึ่งมีอุณหภูมิผิวคงที่ <span class="math">T<sub>s</sub> = 80°C</span> (<span class="math">μ<sub>s</sub> = 3.55 × 10<sup>−4</sup> N·s/m<sup>2</sup></span>) จงคำนวณหาค่าสัมประสิทธิ์การพาความร้อนเฉลี่ย <span class="math">h̄</span> ทั้งจากสมการของ Hausen (สมการที่ 24) และสมการของ Sieder-Tate (สมการที่ 25)</li>
+      <li><strong>[ระดับที่ 4: การวิเคราะห์การไหลปั่นป่วนและเปรียบเทียบสหสัมพันธ์] ข้อ 7.4:</strong> อากาศที่อุณหภูมิเฉลี่ย <span class="math">T̄<sub>m</sub> = 350 K</span> (<span class="math">c<sub>p</sub> = 1,009 J/kg·K, μ = 208.2 × 10<sup>−7</sup> N·s/m<sup>2</sup>, k = 0.030 W/m·K, Pr = 0.70</span>) ไหลผ่านท่อเหล็กกล้าการค้า (<span class="math">e = 46 μm</span>) เส้นผ่านศูนย์กลาง <span class="math">D = 0.046 m</span> ยาว <span class="math">L = 4.0 m</span> ด้วยอัตราการไหล <span class="math">ṁ = 0.025 kg/s</span> โดยถูกให้ความร้อนจากผนังท่อ (<span class="math">T<sub>s</sub> &gt; T<sub>m</sub></span>) จงหาค่า <span class="math">h</span> โดยเปรียบเทียบระหว่าง (ก) สมการ Dittus-Boelter (สมการที่ 26), (ข) สมการ Gnielinski (สมการที่ 29) กรณีสมมติท่อเรียบ, และ (ค) สมการ Gnielinski กรณีคิดความขรุขระของท่อเหล็กจริง (<span class="math">e/D = 0.001</span> ซึ่งอ่านค่าจาก Moody diagram ได้ <span class="math">f ≈ 0.026</span>)</li>
+      <li><strong>[ระดับที่ 5: โจทย์บูรณาการท่อวงแหวนร่วมศูนย์และโลหะเหลว] ข้อ 7.5:</strong> ช่องว่างวงแหวนระหว่างท่อร่วมศูนย์มีเส้นผ่านศูนย์กลางท่อใน <span class="math">D<sub>i</sub> = 0.02 m</span> และท่อนอก <span class="math">D<sub>o</sub> = 0.05 m</span><br>
+      • <em>กรณีที่ 1 (การไหลแบบราบเรียบ):</em> ของไหลที่มี <span class="math">k = 0.25 W/(m·K)</span> ไหลแบบราบเรียบพัฒนาเต็มที่ผ่านช่องว่างนี้ โดยผนังท่อในได้รับฟลักซ์ความร้อนสม่ำเสมอ <span class="math">q&#39;&#39;<sub>i</sub> = 2,000 W/m<sup>2</sup></span> และผนังท่อนอกได้รับฟลักซ์ความร้อน <span class="math">q&#39;&#39;<sub>o</sub> = 1,000 W/m<sup>2</sup></span> จงใช้สมการที่ (32)–(33) และ Table 7.3 คำนวณหาสัมประสิทธิ์ <span class="math">h<sub>i</sub></span> และ <span class="math">h<sub>o</sub></span><br>
+      • <em>กรณีที่ 2 (โลหะเหลวไหลปั่นป่วนในท่อใน):</em> หากภายในท่อใน (<span class="math">D<sub>i</sub> = 0.02 m</span>) มีโซเดียมเหลว (<span class="math">k = 72 W/m·K, Pr = 0.006</span>) ไหลปั่นป่วนที่ <span class="math">Re<sub>D</sub> = 50,000</span> จงหาค่า <span class="math">h</span> ภายในท่อในจากสมการที่ (30)</li>
+    </ul>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 7: การไหลภายใน</span>
+    <span>หน้า 7</span>
+  </footer>
+</section>
+
+<!-- page 8 budget (Compact): h2 11 + detailed solutions 7.1 to 7.5 475 + h2 11 + references 45 + 4 gaps 32 = 574 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>7.10 เฉลยคำถามทบทวนและวิธีทำแบบฝึกหัดอย่างละเอียด (Detailed Solutions)</h2>
+    <p><strong>แนวตอบคำถามทบทวน:</strong> <strong>(1)</strong> เพราะในท่อเมื่อชั้นชิดผิวขยายตัวมาบรรจบกันที่กึ่งกลางท่อแล้ว ความหนาของชั้นชิดผิวถูกจำกัดไว้ที่รัศมีท่อ <span class="math">r<sub>o</sub></span> ไม่สามารถหนาขึ้นได้อีก โปรไฟล์อุณหภูมิไร้มิติจึงคงรูป ทำให้ค่า <span class="math">h</span> คงที่ <strong>(2)</strong> จาก <span class="math">x<sub>fd,t</sub> / x<sub>fd,h</sub> = Pr</span> ดังนั้นสำหรับน้ำมันเครื่องที่มี <span class="math">Pr = 1,000</span> ความยาวช่วงทางเข้าความร้อนจะยาวเป็น <strong>1,000 เท่า</strong> ของช่วงทางเข้าความเร็ว <strong>(3)</strong> ควรใช้สมการของ Gnielinski เมื่อต้องการความแม่นยำสูง เมื่อท่อมีความขรุขระ หรือเมื่อค่า <span class="math">Re<sub>D</sub></span> อยู่ในช่วงต่ำ (<span class="math">3,000 &lt; Re<sub>D</sub> &lt; 10,000</span>) ซึ่งสมการ Dittus-Boelter ใช้ไม่ได้</p>
+
+    <div class="callout">
+      <div class="callout-title">เฉลยละเอียด ข้อ 7.1 (ระดับที่ 1) และ ข้อ 7.2 (ระดับที่ 2)</div>
+      <p><strong>วิธีทำ ข้อ 7.1:</strong><br>
+      • <strong>(ก) หา <span class="math">ṁ</span> และ <span class="math">Re<sub>D</sub></span>:</strong> พื้นที่หน้าตัด <span class="math">A<sub>c</sub> = π(0.02)<sup>2</sup>/4 = 3.1416 × 10<sup>−4</sup> m<sup>2</sup></span> ดังนั้น <span class="math">ṁ = ρ u<sub>m</sub> A<sub>c</sub> = 870 × 0.60 × 3.1416 × 10<sup>−4</sup> = <strong>0.164 kg/s</strong></span> และ <span class="math">Re<sub>D</sub> = u<sub>m</sub>D / ν = (0.60 × 0.02) / (8.0 × 10<sup>−5</sup>) = <strong>150</strong></span> (<span class="math">≤ 2,300</span> จึงเป็นการไหลแบบราบเรียบ)<br>
+      • <strong>(ข) หาความยาวช่วงทางเข้า:</strong> <span class="math">x<sub>fd,h</sub> ≈ 0.05 Re<sub>D</sub> D = 0.05(150)(0.02) = <strong>0.15 m</strong></span> และ <span class="math">x<sub>fd,t</sub> ≈ 0.05 Re<sub>D</sub> Pr D = 0.15 × 950 = <strong>142.5 m</strong></span> ดังนั้นที่ปลายท่อ <span class="math">L = 3.0 m</span> <strong>การไหลพัฒนาเต็มที่ทางอุทกพลศาสตร์แล้ว (<span class="math">3.0 m &gt; 0.15 m</span>) แต่ยังอยู่ในช่วงทางเข้าทางความร้อน (<span class="math">3.0 m &lt; 142.5 m</span>)!</strong></p>
+      <p style="margin-top:4px;"><strong>วิธีทำ ข้อ 7.2:</strong> พื้นที่หน้าตัด <span class="math">A<sub>c</sub> = a · b = 16.0 cm<sup>2</sup></span><br>
+      • <strong>ท่อที่ 1 (สี่เหลี่ยมจัตุรัส <span class="math">b = a</span>):</strong> <span class="math">a<sup>2</sup> = 16 ⇒ a = b = 4.0 cm = 0.04 m</span> ดังนั้น <span class="math">D<sub>h,1</sub> = a = <strong>0.04 m</strong></span> เปิด Table 7.1 ที่ <span class="math">b/a = 1.0</span> (<span class="math">q&#39;&#39;<sub>s</sub></span> คงที่) ได้ <span class="math">Nu<sub>D</sub> = 3.61</span> จึงได้ <span class="math">h<sub>1</sub> = Nu<sub>D</sub> k / D<sub>h,1</sub> = (3.61 × 0.62) / 0.04 = <strong>55.96 W/(m<sup>2</sup>·K)</strong></span><br>
+      • <strong>ท่อที่ 2 (สี่เหลี่ยมผืนผ้า <span class="math">b = 4a</span>):</strong> <span class="math">4a<sup>2</sup> = 16 ⇒ a = 2.0 cm, b = 8.0 cm</span> ดังนั้น <span class="math">D<sub>h,2</sub> = 2ab/(a+b) = 2(2)(8)/(2+8) = 3.2 cm = <strong>0.032 m</strong></span> เปิด Table 7.1 ที่ <span class="math">b/a = 4.0</span> ได้ <span class="math">Nu<sub>D</sub> = 5.33</span> จึงได้ <span class="math">h<sub>2</sub> = (5.33 × 0.62) / 0.032 = <strong>103.27 W/(m<sup>2</sup>·K)</strong></span> (ท่อแบนให้ค่า <span class="math">h</span> สูงกว่าถึง 1.85 เท่า!)</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">เฉลยละเอียด ข้อ 7.3 (ระดับที่ 3) และ ข้อ 7.4 (ระดับที่ 4)</div>
+      <p><strong>วิธีทำ ข้อ 7.3:</strong> คำนวณเรย์โนลด์ส <span class="math">Re<sub>D</sub> = <span class="frac"><span>4 ṁ</span><span>π D μ</span></span> = <span class="frac"><span>4 × 0.015</span><span>π × 0.015 × 6.53 × 10<sup>−4</sup></span></span> = <strong>1,950</strong></span> (ราบเรียบ) และตัวเลขเกรตซ์ <span class="math">Gz<sub>D</sub> = (D/L) Re<sub>D</sub> Pr = (0.015 / 1.5)(1,950)(4.32) = <strong>84.24</strong></span><br>
+      • <strong>ตามสมการที่ (24) ของ Hausen:</strong> <span class="math">Nū<sub>D</sub> = 3.66 + <span class="frac"><span>0.0668(84.24)</span><span>1 + 0.04(84.24)<sup>2/3</sup></span></span> = 3.66 + <span class="frac"><span>5.627</span><span>1 + 0.04(19.21)</span></span> = 3.66 + 3.182 = <strong>6.84</strong> ⇒ h̄ = <span class="frac"><span>6.84 × 0.631</span><span>0.015</span></span> = <strong>287.7 W/(m<sup>2</sup>·K)</strong></span><br>
+      • <strong>ตามสมการที่ (25) ของ Sieder-Tate:</strong> <span class="math">Nū<sub>D</sub> = 1.86 (84.24)<sup>1/3</sup> (<span class="frac"><span>6.53 × 10<sup>−4</sup></span><span>3.55 × 10<sup>−4</sup></span></span>)<sup>0.14</sup> = 1.86 × (4.384) × (1.089) = <strong>8.88</strong> ⇒ h̄ = <span class="frac"><span>8.88 × 0.631</span><span>0.015</span></span> = <strong>373.6 W/(m<sup>2</sup>·K)</strong></span></p>
+      <p style="margin-top:4px;"><strong>วิธีทำ ข้อ 7.4:</strong> คำนวณเรย์โนลด์ส <span class="math">Re<sub>D</sub> = <span class="frac"><span>4 × 0.025</span><span>π × 0.046 × 208.2 × 10<sup>−7</sup></span></span> = <strong>33,238</strong></span> (ปั่นป่วนเต็มที่) และตัวคูณ <span class="math">k/D = 0.030 / 0.046 = 0.6522 W/(m<sup>2</sup>·K)</span><br>
+      • <strong>(ก) สมการ Dittus-Boelter (สมการ 26, <span class="math">n = 0.4</span>):</strong> <span class="math">Nu<sub>D</sub> = 0.023(33,238)<sup>0.8</sup>(0.70)<sup>0.4</sup> = 0.023(4,145.8)(0.867) = <strong>82.67</strong> ⇒ h = 82.67 × 0.6522 = <strong>53.9 W/(m<sup>2</sup>·K)</strong></span><br>
+      • <strong>(ข) สมการ Gnielinski ท่อเรียบ (สมการ 29):</strong> หา <span class="math">f = [0.790 ln(33,238) − 1.64]<sup>−2</sup> = 0.0229</span> ดังนั้น <span class="math">f/8 = 0.00286</span> แทนค่า: <span class="math">Nu<sub>D</sub> = <span class="frac"><span>0.00286(33,238 − 1,000)(0.70)</span><span>1 + 12.7(0.00286)<sup>1/2</sup>(0.70<sup>2/3</sup> − 1)</span></span> = <span class="frac"><span>64.54</span><span>1 − 0.144</span></span> = <strong>75.40</strong> ⇒ h = <strong>49.2 W/(m<sup>2</sup>·K)</strong></span><br>
+      • <strong>(ค) สมการ Gnielinski ท่อขรุขระ (<span class="math">f = 0.026, f/8 = 0.00325</span>):</strong> <span class="math">Nu<sub>D</sub> = <span class="frac"><span>0.00325(32,238)(0.70)</span><span>1 + 12.7(0.0570)(−0.2116)</span></span> = <span class="frac"><span>73.34</span><span>0.8468</span></span> = <strong>86.61</strong> ⇒ h = <strong>56.5 W/(m<sup>2</sup>·K)</strong></span> (ความขรุขระช่วยเพิ่มการผสมปั่นป่วนทำให้ <span class="math">h</span> สูงขึ้น)</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">เฉลยละเอียด ข้อ 7.5 (ระดับที่ 5: โจทย์บูรณาการท่อวงแหวนและโลหะเหลว)</div>
+      <p><strong>กรณีที่ 1 (ช่องว่างวงแหวน):</strong> เส้นผ่านศูนย์กลางไฮดรอลิก <span class="math">D<sub>h</sub> = D<sub>o</sub> − D<sub>i</sub> = 0.05 − 0.02 = <strong>0.03 m</strong></span> และอัตราส่วน <span class="math">D<sub>i</sub> / D<sub>o</sub> = 0.02 / 0.05 = <strong>0.40</strong></span> เปิด Table 7.3 ที่แถว <span class="math">D<sub>i</sub>/D<sub>o</sub> = 0.40</span> อ่านค่าได้: <span class="math">Nu<sub>ii</sub> = 6.583, Nu<sub>oo</sub> = 4.979, θ<sub>i</sub><sup>*</sup> = 0.603, θ<sub>o</sub><sup>*</sup> = 0.1823</span><br>
+      • แทนในสมการที่ (32) สำหรับผิวท่อใน (โดย <span class="math">q&#39;&#39;<sub>o</sub> / q&#39;&#39;<sub>i</sub> = 1,000 / 2,000 = 0.50</span>):<br>
+      <span class="math">Nu<sub>i</sub> = <span class="frac"><span>6.583</span><span>1 − (0.50)(0.603)</span></span> = <span class="frac"><span>6.583</span><span>0.6985</span></span> = <strong>9.424</strong>  ⇒  h<sub>i</sub> = <span class="frac"><span>Nu<sub>i</sub> k</span><span>D<sub>h</sub></span></span> = <span class="frac"><span>9.424 × 0.25</span><span>0.03</span></span> = <strong>78.5 W/(m<sup>2</sup>·K)</strong></span><br>
+      • แทนในสมการที่ (33) สำหรับผิวท่อนอก (โดย <span class="math">q&#39;&#39;<sub>i</sub> / q&#39;&#39;<sub>o</sub> = 2,000 / 1,000 = 2.0</span>):<br>
+      <span class="math">Nu<sub>o</sub> = <span class="frac"><span>4.979</span><span>1 − (2.0)(0.1823)</span></span> = <span class="frac"><span>4.979</span><span>0.6354</span></span> = <strong>7.836</strong>  ⇒  h<sub>o</sub> = <span class="frac"><span>Nu<sub>o</sub> k</span><span>D<sub>h</sub></span></span> = <span class="frac"><span>7.836 × 0.25</span><span>0.03</span></span> = <strong>65.3 W/(m<sup>2</sup>·K)</strong></span><br>
+      <strong>กรณีที่ 2 (โซเดียมเหลวไหลในท่อใน):</strong> ตัวเลขเพเคลต์ <span class="math">Pe<sub>D</sub> = Re<sub>D</sub> Pr = 50,000 × 0.006 = <strong>300</strong></span> (อยู่ในช่วง <span class="math">10<sup>2</sup> &lt; Pe<sub>D</sub> &lt; 10<sup>4</sup></span>) จากสมการที่ (30):<br>
+      <span class="math">Nu<sub>D</sub> = 4.82 + 0.0185 (300)<sup>0.827</sup> = 4.82 + 0.0185(111.9) = <strong>6.89</strong>  ⇒  h = <span class="frac"><span>6.89 × 72 W/(m·K)</span><span>0.02 m</span></span> = <strong>24,804 W/(m<sup>2</sup>·K)</strong></span></p>
+    </div>
+
+    <h2>7.11 เอกสารอ้างอิงประจำบท (References)</h2>
+    <ol style="font-size:8.5pt;">
+      <li id="ref-slides7">เอกสารประกอบการสอนรายวิชา <em>Transport Phenomena I: Chapter 7 Internal Flow (ไฟล์ที่ 2 หน้า 1–48)</em>, ปีการศึกษา 2569.</li>
+      <li id="ref-incropera7">Incropera, F. P., DeWitt, D. P., Bergman, T. L., &amp; Lavine, A. S. (2007). <em>Fundamentals of Heat and Mass Transfer</em> (6th ed., Chapter 8: Internal Flow, pp. 486–558). John Wiley &amp; Sons.</li>
+    </ol>
+  </div>
+  <footer class="page-footer">
+    <span>ตำราเรียนปรากฏการณ์การขนส่ง 1 (Transport Phenomena I) — บทที่ 7: การไหลภายใน</span>
+    <span>หน้า 8</span>
+  </footer>
+</section>
+
+</div>
+<script data-bard-injected="true">
+(function() {
+  async function fetchFifeImageBlobUsingAlr(urlString) {
+    if (urlString.startsWith('blob:') || urlString.startsWith('data:')) {
+      throw new Error('Input URL is already a blob or data URL.');
+    }
+    var url = new URL(urlString, window.location.href);
+    url.searchParams.set('alr', 'yes');
+    for (var i = 0; i < 5; i++) {
+      var response = await fetch(url.toString(), {credentials: 'include'});
+      if (!response.ok) {
+        throw new Error('Fetch received not OK response: ' + response.status);
+      }
+      var contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.startsWith('text/plain')) {
+        var blob = await response.blob();
+        if (blob.size > 0 && blob.type.startsWith('image/')) {
+          return blob;
+        }
+        throw new Error('Fetched blob is not a valid image.');
+      }
+      url = new URL(await response.text());
+    }
+    throw new Error('Exceeded maximum number of redirects.');
+  }
+
+  async function updateImageSourcesUsingAlr() {
+    var imgs = Array.from(document.querySelectorAll('img'));
+    await Promise.all(imgs.map(async function(img) {
+      if (img.src && img.src.includes('googleusercontent')) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(img.src);
+          img.src = URL.createObjectURL(blob);
+        } catch (e) {}
+      }
+    }));
+
+    var elements = document.querySelectorAll('[style*="googleusercontent"]');
+    var urlRegex = /url\((['"]?)(https?:\/\/.*?googleusercontent.*?)\1\)/;
+    await Promise.all(Array.from(elements).map(async function(el) {
+      var bg = el.style.backgroundImage;
+      var match = bg ? bg.match(urlRegex) : null;
+      if (match && match[2]) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(match[2]);
+          var blobUrl = URL.createObjectURL(blob);
+          el.style.backgroundImage = bg.replace(match[2], blobUrl);
+        } catch (e) {}
+      }
+    }));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateImageSourcesUsingAlr);
+  } else {
+    updateImageSourcesUsingAlr();
+  }
+})();
+</script></body></html>
