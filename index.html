@@ -6,6 +6,12 @@
 <title>ปี 3 เทอม 1 ปลายภาค</title>
 <style>
 *{box-sizing:border-box}
+.nav-link,
+  .nav-link:hover,
+  .nav-link:focus {
+    color: white !important;
+    text-decoration: none !important;
+  }
 body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#1e293b}
 .navbar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 24px;background:#172554;position:sticky;top:0;z-index:100}
 .logo{color:#fff;font-size:20px;font-weight:bold;text-decoration:none;margin-right:20px}
@@ -82,6 +88,14 @@ iframe{display:block;width:100%;height:75vh;min-height:500px;border:none;backgro
   <div class="document-actions">
     <button type="button" class="action-btn" id="savePdfBtn">Save to PDF</button>
     <button type="button" class="action-btn" id="printBtn">Print</button>
+    
+<a href="https://drive.google.com/drive/folders/19AfQaIUPERvWQ3KjjKLo0MpdVCQ_AMKj?usp=sharing"
+   target="_self"
+   rel="noopener noreferrer"
+   class="nav-link">
+  Google Drive
+</a>
+
     <div class="dropdown" id="otherDropdown">
       <button type="button" class="dropbtn" id="otherBtn" aria-expanded="false">Other</button>
       <div class="dropdown-content" id="otherMenu"></div>
@@ -123,6 +137,10 @@ iframe{display:block;width:100%;height:75vh;min-height:500px;border:none;backgro
 const folders = {
   transport: {
     pages: ["checklist.html", "chapter5.html", "chapter6.html", "chapter7.html", "chapter8.html"],
+    other: ["formula.pdf"]
+  },
+  kinetic: {
+    pages: ["soon..."],
     other: ["formula.pdf"]
   }
 };
