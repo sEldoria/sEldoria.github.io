@@ -1,0 +1,1107 @@
+<!DOCTYPE html><html lang="th"><head>
+    <meta charset="UTF-8">
+    <title>Transport Phenomena I - บทที่ 3 การนำความร้อนในหนึ่งมิติภายใต้สภาวะคงตัว (ส่วนที่ 2/2)</title>
+    <style>
+        @page { margin: 0; }
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { background-color: #ffffff; }
+        @media (prefers-color-scheme: dark) {
+            html { background-color: #1f1f1f; }
+        }
+        body {
+            padding: 24px 0;
+            margin: 0 auto;
+            max-width: 900px !important;
+            border: none !important;
+            background: transparent !important;
+            font-family: 'Sarabun', 'TH Sarabun New', 'Tahoma', 'Segoe UI', sans-serif;
+            color: #1e293b;
+        }
+        .page {
+    min-height: 297mm;
+    height: auto;
+    margin: 0 auto 12px auto;
+    padding: 18mm 18mm 12mm 18mm;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: visible;
+}
+        @media screen and (max-width: 600px) {
+            body { padding: 16px 0; }
+            .page {
+                margin: 0 auto 8px auto;
+                border: none;
+                padding: 12px 20px;
+            }
+        }
+        .page-content {
+    flex: 1 0 auto;
+    min-height: 0;
+    overflow: visible;
+}
+        .page-content > * + * {
+            margin-top: 20px;
+        }
+        .page.compact, body.compact .page {
+            font-size: 9.5pt;
+            line-height: 1.35;
+        }
+        .page.compact .page-content > * + *, body.compact .page-content > * + * {
+            margin-top: 12px;
+        }
+        .page-content > :is(h1, h2, h3, h4) + * {
+            margin-top: 8px;
+        }
+        .page-footer {
+            flex-shrink: 0;
+            margin-top: auto;
+            padding-top: 4mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 8.5pt;
+            color: #64748b;
+            border-top: 1px solid #cbd5e1;
+        }
+        @media print {
+            *, *::before, *::after {
+                box-shadow: none !important;
+                text-shadow: none !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            body { padding: 0; background: none; }
+            .page {
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        overflow: visible;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .page-content {
+        overflow: visible;
+    }
+
+    .page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+        }
+        [contenteditable]:focus { outline: none; }
+
+        /* Typography & Academic Book Theme */
+        h1 {
+            font-size: 18pt;
+            color: #0f172a;
+            margin: 0;
+            line-height: 1.25;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 13.5pt;
+            color: #1e3a8a;
+            margin: 0;
+            padding-bottom: 3px;
+            border-bottom: 1.5px solid #1e3a8a;
+            font-weight: 700;
+        }
+        h3 {
+            font-size: 11pt;
+            color: #9a3412;
+            margin: 0;
+            font-weight: 700;
+        }
+        h4 {
+            font-size: 10pt;
+            color: #0f172a;
+            margin: 0;
+            font-weight: 700;
+        }
+        p {
+            margin: 0;
+            text-align: justify;
+        }
+        ul, ol {
+            margin: 0;
+            padding-left: 18px;
+        }
+        li + li {
+            margin-top: 3px;
+        }
+        .masthead {
+            background-color: #0f172a;
+            color: #ffffff;
+            padding: 12px 16px;
+            border-left: 6px solid #b91c1c;
+        }
+        .masthead-sub {
+            font-size: 9pt;
+            color: #cbd5e1;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .masthead h1 {
+            color: #ffffff;
+            font-size: 16.5pt;
+        }
+        .tag-src {
+            display: inline-block;
+            font-size: 8pt;
+            font-weight: 700;
+            padding: 1px 6px;
+            background-color: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+        .tag-sup {
+            display: inline-block;
+            font-size: 8pt;
+            font-weight: 700;
+            padding: 1px 6px;
+            background-color: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fcd34d;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+        .tag-inf {
+            display: inline-block;
+            font-size: 8pt;
+            font-weight: 700;
+            padding: 1px 6px;
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+        .box-concept {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-left: 4px solid #1e3a8a;
+            padding: 8px 12px;
+        }
+        .box-eq {
+            background-color: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-left: 4px solid #c2410c;
+            padding: 8px 12px;
+        }
+        .box-example {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-left: 4px solid #15803d;
+            padding: 8px 12px;
+        }
+        .box-warn {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            border-left: 4px solid #dc2626;
+            padding: 8px 12px;
+        }
+        .eq-Display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-size: 10.5pt;
+            padding: 4px 8px;
+            background-color: #ffffff;
+            border: 1px dashed #cbd5e1;
+            margin: 4px 0;
+        }
+        .eq-num {
+            font-family: 'Sarabun', sans-serif;
+            font-size: 8.5pt;
+            color: #475569;
+            font-weight: 700;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.5pt;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 4px 6px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #1e3a8a;
+            color: #ffffff;
+            font-weight: 700;
+        }
+        tr:nth-child(even) td {
+            background-color: #f8fafc;
+        }
+        figure {
+            margin: 0;
+            padding: 6px;
+            border: 1px solid #e2e8f0;
+            background-color: #ffffff;
+            text-align: center;
+        }
+        figcaption {
+            font-size: 8.5pt;
+            color: #475569;
+            margin-top: 4px;
+            text-align: left;
+        }
+        .math {
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-style: italic;
+        }
+        .math-rm {
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-style: normal;
+        }
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            padding: 0 2px;
+        }
+        .frac-num {
+            border-bottom: 1px solid #1e293b;
+            padding: 0 2px;
+        }
+        .frac-den {
+            padding: 0 2px;
+        }
+        .cite {
+            color: #1e40af;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+    </style>
+<style data-bard-injected="true">
+@media screen {
+    html {
+        background-color: #ffffff;
+    }
+    body {
+        padding: 8px 0 24px 0;
+    }
+}
+@media screen and (prefers-color-scheme: dark) {
+    html {
+        background-color: #1f1f1f;
+    }
+}
+@media screen and (max-width: 600px) {
+    body {
+        padding: 4px 0 16px 0;
+        margin: 0 auto;
+    }
+}
+</style></head>
+<body class="compact">
+<div contenteditable="true">
+
+<!-- page 1 budget (Compact): masthead 45 + box-concept 115 + h2 11 + prose 115 + svg 35mm 84 + box chrome 24 + prose 120 + 5 gaps 40 = 554 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <div class="masthead">
+            <div class="masthead-sub">ตำราเรียนวิชาการฉบับสมบูรณ์ (Self-Contained University Textbook) | ปีการศึกษา 2569 — ส่วนที่ 2/2 (จบรายวิชา)</div>
+            <h1>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I)<br>บทที่ 3: การนำความร้อนในหนึ่งมิติภายใต้สภาวะคงตัว (ส่วนที่ 2/2: การผลิตความร้อนภายในและแบบฝึกหัด)</h1>
+        </div>
+
+        <div class="box-concept">
+            <h4>ความต่อเนื่องจากส่วนที่ 1/2 และหลักการสำคัญเมื่อมีการผลิตพลังงานความร้อนภายใน (q̇ ≠ 0)</h4>
+            <p><span class="tag-sup">[เสริมพื้นฐาน]</span> ในส่วนที่ 1/2 เราได้ศึกษาการนำความร้อนผ่านผนังราบ ทรงกระบอก และทรงกลมที่ไม่มีการผลิตความร้อนภายใน (<span class="math">q̇ = 0</span>) ซึ่งมีคุณลักษณะสำคัญคือ อัตราการไหลของความร้อน <span class="math">q</span> มีค่าคงตัวตลอดความหนาของวัสดุ จึงสามารถแทนวัสดุชิ้นนั้นด้วยตัวต้านทานความร้อน (<span class="math">R<sub>t,cond</sub></span>) ได้ แต่ในส่วนที่ 2/2 นี้ (<a class="cite" href="#ref-bergman2011" contenteditable="false">Bergman et al., 2011</a>; <a class="cite" href="#ref-archanai2017" contenteditable="false">อาชาไนย บัวศรี, 2560</a>) เราจะศึกษา <strong>การนำความร้อนเมื่อมีการผลิตพลังงานความร้อนภายในตัวกลาง (<span class="math">q̇ &gt; 0</span>)</strong> ซึ่งพบในลวดทำความร้อนไฟฟ้า แท่งเชื้อเพลิงนิวเคลียร์ ถังเก็บกากกัมมันตรังสี และเครื่องปฏิกรณ์เคมีคายความร้อน <strong>ข้อควรจำสูงสุด:</strong> ในบริเวณของวัสดุที่มี <span class="math">q̇ ≠ 0</span> อัตราการนำความร้อน <span class="math">q(x)</span> จะเพิ่มขึ้นตามระยะทาง (ไม่คงตัว) ดังนั้น <strong>ห้ามใช้สูตรความต้านทานความร้อน <span class="math">R<sub>t,cond</sub></span> ในชั้นวัสดุที่มีการผลิตความร้อนภายในโดยเด็ดขาด!</strong> ต้องแก้สมการการแพร่ความร้อนหรือใช้สมดุลพลังงานของปริมาตรควบคุมเท่านั้น</p>
+        </div>
+
+        <h2>3.4 การนำความร้อนเมื่อมีการผลิตพลังงานความร้อนภายใน (3.4 Conduction with Thermal Energy Generation)</h2>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 75]</span> กระบวนการผลิตพลังงานความร้อนภายในตัวกลางที่พบบ่อยที่สุดคือ การเปลี่ยนรูปจากพลังงานไฟฟ้าเป็นพลังงานความร้อนในตัวกลางที่มีกระแสไฟฟ้าไหลผ่าน ซึ่งเรียกว่า <strong>การให้ความร้อนแบบโอห์มมิก หรือการให้ความร้อนด้วยความต้านทานไฟฟ้า (Ohmic or resistance heating)</strong> โดยหากกระแสไฟฟ้า <span class="math">I</span> ไหลผ่านลวดตัวนำที่มีความต้านทานไฟฟ้า <span class="math">R<sub>e</sub></span> และมีปริมาตร <span class="math">V</span> อย่างสม่ำเสมอ อัตราการผลิตความร้อนต่อหนึ่งหน่วยปริมาตรคือ <span class="math">q̇ = Ė<sub>g</sub> / V = I<sup>2</sup> R<sub>e</sub> / V</span> [หน่วย <span class="math-rm">W/m<sup>3</sup></span>]</p>
+
+        <h3>3.4.1 ผนังราบที่มีการผลิตความร้อนภายในอย่างสม่ำเสมอ (3.4.1 The Plane Wall)</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 76–79]</span> พิจารณาผนังราบที่มีความหนารวมเท่ากับ <span class="math">2L</span> โดยตั้งแกนพิกัด <span class="math">x = 0</span> ที่ระนาบกึ่งกลางผนัง (Midplane) ทำให้ขอบเขตผิวซ้ายอยู่ที่ <span class="math">x = −L</span> และผิวขวาอยู่ที่ <span class="math">x = +L</span> ภายในผนังมีการผลิตความร้อนต่อหน่วยปริมาตร <span class="math">q̇</span> อย่างสม่ำเสมอ ดังรูปที่ 3.9 ทั้ง 3 กรณี</p>
+
+        <figure>
+            <svg viewBox="0 0 720 130" style="width: 100%; height: 34mm;" role="img">
+                <title>การนำความร้อนในผนังราบที่มีการผลิตความร้อนภายในอย่างสม่ำเสมอทั้ง 3 กรณี (Figure 3.7a, b, c สไลด์หน้า 76–78)</title>
+                <!-- (a) Asymmetrical -->
+                <rect x="5" y="5" width="230" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="120" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">(a) เงื่อนไขขอบเขตไม่สมมาตร (T_s,1 &gt; T_s,2)</text>
+                <rect x="70" y="26" width="100" height="75" fill="#e2e8f0" stroke="#1e293b" stroke-width="1.5"></rect>
+                <line x1="120" y1="22" x2="120" y2="105" stroke="#475569" stroke-dasharray="4,2"></line>
+                <!-- Asymmetric parabola -->
+                <path d="M 70 52 Q 105 32, 170 82" fill="none" stroke="#b91c1c" stroke-width="2.5"></path>
+                <text x="50" y="55" font-size="8.5" font-weight="bold" fill="#b91c1c">T_s,1</text>
+                <text x="182" y="85" font-size="8.5" font-weight="bold" fill="#1e3a8a">T_s,2</text>
+                <text x="142" y="42" font-size="9" font-weight="bold" fill="#9a3412">q̇</text>
+                <text x="70" y="114" font-size="8" font-weight="bold" text-anchor="middle">x = −L</text>
+                <text x="120" y="114" font-size="8" font-weight="bold" text-anchor="middle">0</text>
+                <text x="170" y="114" font-size="8" font-weight="bold" text-anchor="middle">x = +L</text>
+
+                <!-- (b) Symmetrical -->
+                <rect x="245" y="5" width="230" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="360" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">(b) เงื่อนไขขอบเขตสมมาตร (T_s,1 = T_s,2 = Tₛ)</text>
+                <rect x="310" y="26" width="100" height="75" fill="#e2e8f0" stroke="#1e293b" stroke-width="1.5"></rect>
+                <line x1="360" y1="22" x2="360" y2="105" stroke="#475569" stroke-dasharray="4,2"></line>
+                <!-- Symmetric parabola peaking at x=0 -->
+                <path d="M 310 72 Q 360 12, 410 72" fill="none" stroke="#b91c1c" stroke-width="2.5"></path>
+                <circle cx="360" cy="42" r="3" fill="#b91c1c"></circle>
+                <text x="348" y="38" font-size="8.5" font-weight="bold" fill="#b91c1c">T₀ (สูงสุด)</text>
+                <text x="294" y="75" font-size="8.5" font-weight="bold" fill="#1e3a8a">Tₛ</text>
+                <text x="420" y="75" font-size="8.5" font-weight="bold" fill="#1e3a8a">Tₛ</text>
+                <text x="310" y="114" font-size="8" font-weight="bold" text-anchor="middle">−L</text>
+                <text x="360" y="114" font-size="8" font-weight="bold" text-anchor="middle">0 (dT/dx=0)</text>
+                <text x="410" y="114" font-size="8" font-weight="bold" text-anchor="middle">+L</text>
+
+                <!-- (c) Insulated at x=0 -->
+                <rect x="485" y="5" width="230" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="600" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">(c) ผิวหุ้มฉนวนที่ x = 0 (ความหนา L)</text>
+                <rect x="530" y="26" width="14" height="75" fill="#cbd5e1" stroke="#64748b" stroke-dasharray="2,2"></rect>
+                <rect x="544" y="26" width="60" height="75" fill="#e2e8f0" stroke="#1e293b" stroke-width="1.5"></rect>
+                <!-- Half parabola -->
+                <path d="M 544 42 Q 574 42, 604 72" fill="none" stroke="#b91c1c" stroke-width="2.5"></path>
+                <text x="516" y="45" font-size="8.5" font-weight="bold" fill="#b91c1c">T₀</text>
+                <text x="615" y="75" font-size="8.5" font-weight="bold" fill="#1e3a8a">Tₛ</text>
+                <line x1="608" y1="60" x2="645" y2="60" stroke="#dc2626" stroke-width="1.8"></line>
+                <polygon points="643,57 650,60 643,63" fill="#dc2626"></polygon>
+                <text x="672" y="63" font-size="8" font-weight="bold" fill="#dc2626">q_conv&#39;&#39;</text>
+                <text x="544" y="114" font-size="8" font-weight="bold" text-anchor="middle">x = 0 (ฉนวน)</text>
+                <text x="604" y="114" font-size="8" font-weight="bold" text-anchor="middle">x = L</text>
+            </svg>
+            <figcaption><strong>รูปที่ 3.9</strong> <span class="tag-src">[ต้นฉบับ: Figure 3.7a–c สไลด์หน้า 76–78]</span> การกระจายอุณหภูมิแบบพาราโบลาในผนังราบที่มีการผลิตความร้อนสม่ำเสมอ: (a) ขอบเขตไม่สมมาตร, (b) ขอบเขตสมมาตร, และ (c) ผนังหุ้มฉนวนที่ <span class="math">x = 0</span></figcaption>
+        </figure>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 2/2)</span>
+        <span>หน้า 1</span>
+    </footer>
+</section>
+
+<!-- page 2 budget (Compact): box-eq 260 + box-eq 255 + 2 gaps 16 = 531 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <div class="box-eq">
+            <h4>กรณีที่ 1: ผนังราบที่มีเงื่อนไขขอบเขตไม่สมมาตร (Asymmetrical Boundary Conditions - สไลด์หน้า 79–83)</h4>
+            <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 79–83]</span> พิจารณาผนังราบในรูปที่ 3.9a ซึ่งมีการผลิตความร้อนต่อหน่วยปริมาตร <span class="math">q̇</span> คงตัว และสภาพนำความร้อน <span class="math">k</span> คงตัว สมการการแพร่ความร้อนใน 1 มิติ สภาวะคงตัว และการอินทิเกรตสองครั้งคือ:</p>
+            <div class="eq-Display">
+                <span><span class="frac"><span class="frac-num"><span class="math">d<sup>2</sup>T</span></span><span class="frac-den"><span class="math">dx<sup>2</sup></span></span></span> + <span class="frac"><span class="frac-num"><span class="math">q̇</span></span><span class="frac-den"><span class="math">k</span></span></span> = 0   ⇒   อินทิเกรตครั้งที่ 1:   <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dx</span></span></span> = −<span class="frac"><span class="frac-num"><span class="math">q̇</span></span><span class="frac-den"><span class="math">k</span></span></span> <span class="math">x + C<sub>1</sub></span>   ⇒   ผลเฉลยทั่วไป:   <span class="math">T(x)</span> = −<span class="frac"><span class="frac-num"><span class="math">q̇</span></span><span class="frac-den">2<span class="math">k</span></span></span> <span class="math">x<sup>2</sup> + C<sub>1</sub> x + C<sub>2</sub></span></span>
+                <span class="eq-num">(สมการที่ 3.20)</span>
+            </div>
+            <p><span class="tag-sup">[เสริมพื้นฐาน: ขั้นตอนการแก้สมการหา <span class="math">C<sub>1</sub></span> และ <span class="math">C<sub>2</sub></span> ที่สไลด์หน้า 83 สรุปผลไว้]</span> แทนเงื่อนไขขอบเขตทั้งสองด้านคือ ที่ผิวซ้าย <span class="math">x = −L</span> มี <span class="math">T(−L) = T<sub>s,1</sub></span> และที่ผิวขวา <span class="math">x = +L</span> มี <span class="math">T(+L) = T<sub>s,2</sub></span> ลงในสมการที่ 3.20:</p>
+            <ul>
+                <li>สมการที่ (ก) แทน <span class="math">x = −L</span>:   <span class="math">T<sub>s,1</sub> = −(q̇ / 2k) L<sup>2</sup> − C<sub>1</sub> L + C<sub>2</sub></span></li>
+                <li>สมการที่ (ข) แทน <span class="math">x = +L</span>:   <span class="math">T<sub>s,2</sub> = −(q̇ / 2k) L<sup>2</sup> + C<sub>1</sub> L + C<sub>2</sub></span></li>
+                <li>นำสมการ (ข) ลบด้วย (ก):   <span class="math">T<sub>s,2</sub> − T<sub>s,1</sub> = 2 C<sub>1</sub> L</span>   ⇒   <strong><span class="math">C<sub>1</sub> = (T<sub>s,2</sub> − T<sub>s,1</sub>) / (2L)</span></strong></li>
+                <li>นำสมการ (ก) บวกกับ (ข):   <span class="math">T<sub>s,1</sub> + T<sub>s,2</sub> = −2(q̇ / 2k) L<sup>2</sup> + 2 C<sub>2</sub></span>   ⇒   <strong><span class="math">C<sub>2</sub> = (q̇ L<sup>2</sup>) / (2k) + (T<sub>s,1</sub> + T<sub>s,2</sub>) / 2</span></strong></li>
+            </ul>
+            <p>แทนค่า <span class="math">C<sub>1</sub></span> และ <span class="math">C<sub>2</sub></span> กลับลงในสมการที่ 3.20 จะได้ <strong>สมการการกระจายอุณหภูมิสำหรับผนังราบที่ไม่สมมาตร</strong> (สไลด์หน้า 83):</p>
+            <div class="eq-Display">
+                <span><span class="math">T(x)</span> = <span class="frac"><span class="frac-num"><span class="math">q̇ L<sup>2</sup></span></span><span class="frac-den">2<span class="math">k</span></span></span> <span class="math-rm">(</span>1 − <span class="frac"><span class="frac-num"><span class="math">x<sup>2</sup></span></span><span class="frac-den"><span class="math">L<sup>2</sup></span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">T<sub>s,2</sub> − T<sub>s,1</sub></span></span><span class="frac-den">2</span></span> <span class="frac"><span class="frac-num"><span class="math">x</span></span><span class="frac-den"><span class="math">L</span></span></span> + <span class="frac"><span class="frac-num"><span class="math">T<sub>s,1</sub> + T<sub>s,2</sub></span></span><span class="frac-den">2</span></span></span>
+                <span class="eq-num">(สมการที่ 3.21)</span>
+            </div>
+            <p>และเมื่อใช้กฎของฟูริเยร์ <span class="math">q<sub>x</sub>&#39;&#39;(x) = −k(dT/dx)</span> จะได้ฟลักซ์ความร้อน ณ ตำแหน่ง <span class="math">x</span> ใดๆ คือ: <strong><span class="math">q<sub>x</sub>&#39;&#39;(x) = q̇ x − [k / (2L)](T<sub>s,2</sub> − T<sub>s,1</sub>)</span></strong> (จะเห็นว่าฟลักซ์ความร้อนแปรผันเชิงเส้นกับตำแหน่ง <span class="math">x</span> ไม่ใช่ค่าคงตัว!)</p>
+        </div>
+
+        <div class="box-eq">
+            <h4>กรณีที่ 2 และ 3: เงื่อนไขขอบเขตสมมาตร (Symmetrical) และผนังหุ้มฉนวนที่ระนาบกึ่งกลาง (สไลด์หน้า 84–90)</h4>
+            <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 84–90]</span> เมื่อพื้นผิวทั้งสองด้านถูกควบคุมให้มีอุณหภูมิเท่ากันคือ <span class="math">T<sub>s,1</sub> = T<sub>s,2</sub> ≡ T<sub>s</sub></span> (หรือสัมผัสกับของไหลชนิดเดียวกันที่มี <span class="math">T<sub>∞,1</sub> = T<sub>∞,2</sub> = T<sub>∞</sub></span> และ <span class="math">h<sub>1</sub> = h<sub>2</sub> = h</span> ดังรูปที่ 3.9b) พจน์กลางของสมการที่ 3.21 จะเป็นศูนย์ทันที การกระจายอุณหภูมิจะสมมาตรรอบระนาบกึ่งกลาง (<span class="math">x = 0</span>):</p>
+            <div class="eq-Display">
+                <span><span class="math">T(x)</span> = <span class="frac"><span class="frac-num"><span class="math">q̇ L<sup>2</sup></span></span><span class="frac-den">2<span class="math">k</span></span></span> <span class="math-rm">(</span>1 − <span class="frac"><span class="frac-num"><span class="math">x<sup>2</sup></span></span><span class="frac-den"><span class="math">L<sup>2</sup></span></span></span><span class="math-rm">)</span> + <span class="math">T<sub>s</sub></span></span>
+                <span class="eq-num">(สมการที่ 3.22)</span>
+            </div>
+            <ul>
+                <li><strong>อุณหภูมิสูงสุดที่ระนาบกึ่งกลาง (<span class="math">x = 0</span>, สไลด์หน้า 86–87):</strong> แทน <span class="math">x = 0</span> ลงในสมการที่ 3.22 จะได้อุณหภูมิสูงสุด <span class="math">T(0) ≡ T<sub>0</sub></span> และรูปไร้มิติ (Nondimensional form):
+                    <div class="eq-Display">
+                        <span><span class="math">T<sub>0</sub></span> = <span class="frac"><span class="frac-num"><span class="math">q̇ L<sup>2</sup></span></span><span class="frac-den">2<span class="math">k</span></span></span> + <span class="math">T<sub>s</sub></span>     และรูปไร้มิติ:     <span class="frac"><span class="frac-num"><span class="math">T(x) − T<sub>0</sub></span></span><span class="frac-den"><span class="math">T<sub>s</sub> − T<sub>0</sub></span></span></span> = <span class="math-rm">(</span><span class="frac"><span class="frac-num"><span class="math">x</span></span><span class="frac-den"><span class="math">L</span></span></span><span class="math-rm">)</span><sup>2</sup></span>
+                        <span class="eq-num">(สมการที่ 3.23)</span>
+                    </div>
+                </li>
+                <li><strong>ความสมมูลกับผนังความหนา <span class="math">L</span> ที่หุ้มฉนวนด้านหนึ่ง (รูปที่ 3.9c, สไลด์หน้า 88–90):</strong> ที่ระนาบสมมาตร <span class="math">x = 0</span> เกรเดียนต์ของอุณหภูมิมีค่าเป็นศูนย์ [<span class="math">(dT/dx)|<sub>x=0</sub> = 0</span>] จึงไม่มีการถ่ายเทความร้อนข้ามระนาบนี้ ดังนั้น ครึ่งขวาของผนังสมมาตร (<span class="math">0 ≤ x ≤ L</span>) จึงเหมือนกับ <strong>ผนังเดี่ยวความหนา <span class="math">L</span> ที่หุ้มฉนวนสนิท (Adiabatic surface) ที่ด้าน <span class="math">x = 0</span> และระบายความร้อนด้วยการพาความร้อนที่ด้าน <span class="math">x = L</span></strong> ทุกประการ! เมื่อตั้งสมดุลพลังงานรวมของผนังความหนา <span class="math">L</span> (<span class="math">Ė<sub>g</sub> = Ė<sub>out</sub></span> ต่อหน่วยพื้นที่ผิว):
+                    <div class="eq-Display">
+                        <span><span class="math">q<sub>cond</sub>&#39;&#39;</span>(<span class="math">L</span>) = <span class="math">q<sub>conv</sub>&#39;&#39;</span>   ⇒   <span class="math">q̇ L</span> = <span class="math">h</span> (<span class="math">T<sub>s</sub> − T<sub>∞</sub></span>)   ⇒   อุณหภูมิพื้นผิว:   <span class="math">T<sub>s</sub></span> = <span class="math">T<sub>∞</sub></span> + <span class="frac"><span class="frac-num"><span class="math">q̇ L</span></span><span class="frac-den"><span class="math">h</span></span></span></span>
+                        <span class="eq-num">(สมการที่ 3.24)</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 2/2)</span>
+        <span>หน้า 2</span>
+    </footer>
+</section>
+
+<!-- page 3 budget (Compact): h3 11 + prose 95 + svg 28mm 68 + box chrome 24 + box-eq 240 + box-concept 95 + 5 gaps 40 = 573 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h3>3.4.2 ระบบแนวรัศมีที่มีการผลิตความร้อนภายใน (3.4.2 Radial Systems with Generation)</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 91–95]</span> การผลิตพลังงานความร้อนภายในระบบแนวรัศมีมีความสำคัญอย่างยิ่งในการวิเคราะห์ลวดตัวนำไฟฟ้าทรงกระบอกตัน และแท่งเชื้อเพลิงนิวเคลียร์ (Nuclear fuel rods) พิจารณาทรงกระบอกตัน (Solid cylinder) รัศมี <span class="math">r<sub>0</sub></span> ยาว <span class="math">L</span> (<span class="math">L ≫ r<sub>0</sub></span> เพื่อให้การนำความร้อนเป็น 1 มิติตามแนวรัศมี <span class="math">r</span>) ที่มีการผลิตความร้อนต่อหน่วยปริมาตร <span class="math">q̇</span> สม่ำเสมอ และระบายความร้อนสู่ของไหลเย็น (<span class="math">T<sub>∞</sub>, h</span>) ที่ผิวรอบนอก ดังรูปที่ 3.10</p>
+
+        <figure>
+            <svg viewBox="0 0 720 95" style="width: 100%; height: 26mm;" role="img">
+                <title>การนำความร้อนในทรงกระบอกตันที่มีการผลิตความร้อนสม่ำเสมอและการกระจายอุณหภูมิพาราโบลา (Figure 3.8)</title>
+                <!-- Left: Solid cylinder with generation -->
+                <rect x="5" y="5" width="340" height="85" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="175" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">1. ทรงกระบอกตันที่มีการผลิตความร้อน q̇ (Figure 3.8 สไลด์หน้า 91)</text>
+                <!-- Cylinder -->
+                <polygon points="65,45 195,22 215,58 85,81" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.5"></polygon>
+                <ellipse cx="75" cy="63" rx="14" ry="20" fill="#bae6fd" stroke="#0369a1" stroke-width="1.5"></ellipse>
+                <ellipse cx="145" cy="50" rx="28" ry="12" fill="#fecaca" stroke="#dc2626" stroke-dasharray="2,2"></ellipse>
+                <text x="145" y="54" font-size="9.5" font-weight="bold" fill="#b91c1c" text-anchor="middle">q̇ (W/m³)</text>
+                <text x="75" y="66" font-size="8" font-weight="bold">r₀</text>
+                <text x="275" y="42" font-size="8" font-weight="bold" fill="#0369a1" text-anchor="middle">Cold fluid: T_∞ , h</text>
+                <text x="275" y="58" font-size="8" font-weight="bold" fill="#dc2626" text-anchor="middle">ผิวทรงกระบอก: T(r₀) = Tₛ</text>
+                <text x="275" y="74" font-size="8" font-weight="bold" fill="#1e293b" text-anchor="middle">แกนกลาง r = 0: (dT/dr) = 0</text>
+
+                <!-- Right: Parabolic radial profile -->
+                <rect x="355" y="5" width="360" height="85" fill="#fff7ed" stroke="#fed7aa"></rect>
+                <text x="535" y="18" font-size="8.5" font-weight="bold" fill="#9a3412" text-anchor="middle">2. สรุปสมการของทรงกระบอกตันและทรงกลมตันที่มีการผลิตความร้อน q̇</text>
+                <text x="535" y="38" font-size="8.5" font-weight="bold" fill="#1e293b" text-anchor="middle">ทรงกระบอกตัน: T(r) = (q̇ r₀² / 4k)[1 − (r/r₀)²] + Tₛ   |   T₀ = (q̇ r₀² / 4k) + Tₛ</text>
+                <text x="535" y="56" font-size="8.5" font-weight="bold" fill="#1e3a8a" text-anchor="middle">สมดุลพลังงานทรงกระบอกตัน: q̇ (π r₀² L) = h (2π r₀ L)(Tₛ − T_∞) ⇒ Tₛ = T_∞ + (q̇ r₀)/(2h)</text>
+                <text x="535" y="74" font-size="8.5" font-weight="bold" fill="#15803d" text-anchor="middle">ทรงกลมตัน (Solid Sphere): T(r) = (q̇ r₀² / 6k)[1 − (r/r₀)²] + Tₛ   |   Tₛ = T_∞ + (q̇ r₀)/(3h)</text>
+            </svg>
+            <figcaption><strong>รูปที่ 3.10</strong> <span class="tag-src">[ต้นฉบับ: Figure 3.8 สไลด์หน้า 91–95]</span> การนำความร้อนในทรงกระบอกตันที่มีการผลิตความร้อนสม่ำเสมอ <span class="math">q̇</span> และสมการเปรียบเทียบกับทรงกลมตัน</figcaption>
+        </figure>
+
+        <div class="box-eq">
+            <h4>การพิสูจน์การกระจายอุณหภูมิในทรงกระบอกตัน (Solid Cylinder - สไลด์หน้า 92–95)</h4>
+            <ul>
+                <li><strong>1. สมการควบคุมและการอินทิเกรตสองครั้ง (สไลด์หน้า 92):</strong> จากสมการการแพร่ความร้อนในพิกัดทรงกระบอก (สมการที่ 2.14) เมื่ออยู่ในสภาวะคงตัว 1 มิติตามแนวรัศมี <span class="math">r</span> และมีค่า <span class="math">k</span> คงตัว:
+                    <div class="eq-Display">
+                        <span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r</span></span></span> <span class="frac"><span class="frac-num"><span class="math">d</span></span><span class="frac-den"><span class="math">dr</span></span></span><span class="math-rm">(</span><span class="math">r</span> <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dr</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">q̇</span></span><span class="frac-den"><span class="math">k</span></span></span> = 0    ⇒    คูณด้วย <span class="math">r</span>:    <span class="frac"><span class="frac-num"><span class="math">d</span></span><span class="frac-den"><span class="math">dr</span></span></span><span class="math-rm">(</span><span class="math">r</span> <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dr</span></span></span><span class="math-rm">)</span> = −<span class="frac"><span class="frac-num"><span class="math">q̇</span></span><span class="frac-den"><span class="math">k</span></span></span> <span class="math">r</span></span>
+                        <span class="eq-num">(สมการที่ 3.25)</span>
+                    </div>
+                    <p>แยกตัวแปรแล้วอินทิเกรตครั้งที่ 1 เทียบกับ <span class="math">r</span> (โดยเมื่อ <span class="math">q̇</span> คงตัว อินทิเกรต <span class="math">r dr</span> ได้ <span class="math">r<sup>2</sup>/2</span>):</p>
+                    <div class="eq-Display">
+                        <span><span class="math">r</span> <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dr</span></span></span> = −<span class="frac"><span class="frac-num"><span class="math">q̇</span></span><span class="frac-den">2<span class="math">k</span></span></span> <span class="math">r<sup>2</sup> + C<sub>1</sub></span>   ⇒   หารด้วย <span class="math">r</span>:   <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dr</span></span></span> = −<span class="frac"><span class="frac-num"><span class="math">q̇</span></span><span class="frac-den">2<span class="math">k</span></span></span> <span class="math">r</span> + <span class="frac"><span class="frac-num"><span class="math">C<sub>1</sub></span></span><span class="frac-den"><span class="math">r</span></span></span>   ⇒   อินทิเกรตครั้งที่ 2:   <span class="math">T(r)</span> = −<span class="frac"><span class="frac-num"><span class="math">q̇</span></span><span class="frac-den">4<span class="math">k</span></span></span> <span class="math">r<sup>2</sup> + C<sub>1</sub></span> <span class="math-rm">ln</span>(<span class="math">r</span>) + <span class="math">C<sub>2</sub></span></span>
+                        <span class="eq-num">(สมการที่ 3.26)</span>
+                    </div>
+                </li>
+                <li><strong>2. แทนเงื่อนไขขอบเขตของทรงกระบอกตัน (สไลด์หน้า 93–94):</strong>
+                    <ul>
+                        <li>ที่เส้นแกนกลาง <span class="math">r = 0</span> (Centerline): เนื่องจากความสมมาตรรอบแกนกลาง เกรเดียนต์อุณหภูมิต้องเป็นศูนย์ [<span class="math">(dT/dr)|<sub>r=0</sub> = 0</span>] แทนในสมการ <span class="math">r(dT/dr) = −(q̇/2k)r<sup>2</sup> + C<sub>1</sub></span> ที่ <span class="math">r = 0</span> จะได้ทันทีว่า <strong><span class="math">C<sub>1</sub> = 0</span></strong> (และในทางฟิสิกส์ อุณหภูมิที่ <span class="math">r = 0</span> ต้องมีค่าจำกัด ไม่เป็นอนันต์ เนื่องจาก <span class="math">ln(0) → −∞</span> ดังนั้นสัมประสิทธิ์ <span class="math">C<sub>1</sub></span> ที่คูณอยู่กับ <span class="math">ln(r)</span> จึงต้องเป็นศูนย์เสมอสำหรับทรงกระบอกตัน!)</li>
+                        <li>ที่ผิวนอก <span class="math">r = r<sub>0</sub></span>: มี <span class="math">T(r<sub>0</sub>) = T<sub>s</sub></span> แทนลงใน <span class="math">T(r) = −(q̇/4k)r<sup>2</sup> + C<sub>2</sub></span> จะได้ <strong><span class="math">C<sub>2</sub> = T<sub>s</sub> + (q̇ / 4k) r<sub>0</sub><sup>2</sup></span></strong></li>
+                    </ul>
+                    <div class="eq-Display">
+                        <span><span class="math">T(r)</span> = <span class="frac"><span class="frac-num"><span class="math">q̇ r<sub>0</sub><sup>2</sup></span></span><span class="frac-den">4<span class="math">k</span></span></span> <span class="math-rm">(</span>1 − <span class="frac"><span class="frac-num"><span class="math">r<sup>2</sup></span></span><span class="frac-den"><span class="math">r<sub>0</sub><sup>2</sup></span></span></span><span class="math-rm">)</span> + <span class="math">T<sub>s</sub></span>     |     อุณหภูมิแกนกลาง: <span class="math">T<sub>0</sub></span> = <span class="frac"><span class="frac-num"><span class="math">q̇ r<sub>0</sub><sup>2</sup></span></span><span class="frac-den">4<span class="math">k</span></span></span> + <span class="math">T<sub>s</sub></span>     |     รูปไร้มิติ: <span class="frac"><span class="frac-num"><span class="math">T(r) − T<sub>s</sub></span></span><span class="frac-den"><span class="math">T<sub>0</sub> − T<sub>s</sub></span></span></span> = 1 − <span class="math-rm">(</span><span class="frac"><span class="frac-num"><span class="math">r</span></span><span class="frac-den"><span class="math">r<sub>0</sub></span></span></span><span class="math-rm">)</span><sup>2</sup></span>
+                        <span class="eq-num">(สมการที่ 3.27)</span>
+                    </div>
+                </li>
+                <li><strong>3. การหาอุณหภูมิพื้นผิว <span class="math">T<sub>s</sub></span> จากสมดุลพลังงานรวมของปริมาตรควบคุม (สไลด์หน้า 95):</strong>
+                    <p>ความร้อนทั้งหมดที่ผลิตขึ้นในปริมาตรทรงกระบอก (<span class="math">V = π r<sub>0</sub><sup>2</sup> L</span>) ต้องระบายออกทางพื้นที่ผิวข้าง (<span class="math">A = 2π r<sub>0</sub> L</span>) ด้วยการพาความร้อน:</p>
+                    <div class="eq-Display">
+                        <span><span class="math">Ė<sub>g</sub></span> = <span class="math">Ė<sub>out</sub></span>   ⇒   <span class="math">q̇</span> (<span class="math">π r<sub>0</sub><sup>2</sup> L</span>) = <span class="math">h</span> (2<span class="math">π r<sub>0</sub> L</span>)(<span class="math">T<sub>s</sub> − T<sub>∞</sub></span>)   ⇒   <span class="math">T<sub>s</sub></span> = <span class="math">T<sub>∞</sub></span> + <span class="frac"><span class="frac-num"><span class="math">q̇ r<sub>0</sub></span></span><span class="frac-den">2<span class="math">h</span></span></span></span>
+                        <span class="eq-num">(สมการที่ 3.28)</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="box-concept">
+            <h4>เนื้อหาเสริมสำหรับการประยุกต์ใช้กับแบบฝึกหัดข้อ (11): ทรงกลมตันที่มีการผลิตความร้อนสม่ำเสมอ (Solid Sphere)</h4>
+            <p><span class="tag-sup">[เสริมพื้นฐาน]</span> ในทำนองเดียวกัน สำหรับ <strong>ทรงกลมตัน (Solid sphere)</strong> รัศมี <span class="math">r<sub>1</sub></span> ที่มีการผลิตความร้อนต่อหน่วยปริมาตร <span class="math">q̇</span> สม่ำเสมอ เมื่ออินทิเกรตสมการ <span class="math">(1/r<sup>2</sup>) d/dr(r<sup>2</sup> dT/dr) + q̇/k = 0</span> สองครั้งและใช้เงื่อนไขสมมาตรที่จุดศูนย์กลาง <span class="math">(dT/dr)|<sub>r=0</sub> = 0</span> กับอุณหภูมิผิว <span class="math">T(r<sub>1</sub>) = T<sub>s,1</sub></span> จะได้การกระจายอุณหภูมิเป็นพาราโบลาตัวหาร <span class="math">6k</span> คือ: <strong><span class="math">T(r) = (q̇ r<sub>1</sub><sup>2</sup> / 6k)[1 − (r/r<sub>1</sub>)<sup>2</sup>] + T<sub>s,1</sub></span></strong> และอุณหภูมิสูงสุดที่จุดศูนย์กลางทรงกลมคือ <strong><span class="math">T<sub>0</sub> = T(0) = (q̇ r<sub>1</sub><sup>2</sup>) / (6k) + T<sub>s,1</sub></span></strong> โดยอัตราความร้อนรวมที่ผลิตขึ้นภายในทรงกลมตันทั้งลูกคือ <span class="math">q = q̇ V = q̇ [(4/3)π r<sub>1</sub><sup>3</sup>]</span> (สมการนี้จะใช้ในการแก้โจทย์แบบฝึกหัดข้อ 11 ท้ายบท)</p>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 2/2)</span>
+        <span>หน้า 3</span>
+    </footer>
+</section>
+
+<!-- page 4 budget (Compact): h3 11 + prose 110 + svg 26mm 62 + box chrome 24 + table 5 rows 115 + prose 125 + 5 gaps 40 = 487 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h3>3.4.3 ภาคผนวก C: ผลเฉลยทั่วไปสำหรับระบบ 1 มิติที่มีการผลิตความร้อนสม่ำเสมอ (Appendix C)</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 96–99]</span> ในกรณีทั่วไปที่ระบบเป็นผนังราบ ท่อทรงกระบอกกลวง (Cylindrical shell รัศมี <span class="math">r<sub>1</sub></span> ถึง <span class="math">r<sub>2</sub></span>) หรือเปลือกทรงกลมกลวง (Spherical shell รัศมี <span class="math">r<sub>1</sub></span> ถึง <span class="math">r<sub>2</sub></span>) ที่มีการผลิตความร้อนสม่ำเสมอ <span class="math">q̇</span> และมีอุณหภูมิขอบเขตทั้งสองด้านไม่เท่ากัน (<span class="math">T<sub>s,1</sub> ≠ T<sub>s,2</sub></span> ดังรูปที่ 3.11 / Figure C.1) การอินทิเกรตสมการการแพร่ความร้อนจะให้ผลเฉลยของการกระจายอุณหภูมิ <span class="math">T</span>, ฟลักซ์ความร้อน <span class="math">q&#39;&#39;</span>, และอัตราความร้อน <span class="math">q</span> ดังสรุปในตารางที่ 3.5 (Table C.1)</p>
+
+        <figure>
+            <svg viewBox="0 0 720 88" style="width: 100%; height: 24mm;" role="img">
+                <title>ระบบการนำความร้อน 1 มิติที่มีการผลิตพลังงานความร้อนสม่ำเสมอในภาคผนวก C (Figure C.1 สไลด์หน้า 97)</title>
+                <!-- 1. Plane wall -->
+                <rect x="5" y="4" width="230" height="80" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="120" y="17" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">1. ผนังราบ (Plane Wall: −L ≤ x ≤ +L)</text>
+                <rect x="85" y="23" width="70" height="46" fill="#ffe4e6" stroke="#b91c1c" stroke-width="1.5"></rect>
+                <line x1="120" y1="20" x2="120" y2="73" stroke="#475569" stroke-dasharray="3,2"></line>
+                <text x="135" y="48" font-size="9" font-weight="bold" fill="#b91c1c">q̇</text>
+                <text x="65" y="48" font-size="8" font-weight="bold" fill="#1e293b">T_s,1</text>
+                <text x="172" y="48" font-size="8" font-weight="bold" fill="#1e293b">T_s,2</text>
+                <text x="85" y="79" font-size="7.5" font-weight="bold" text-anchor="middle">−L</text>
+                <text x="155" y="79" font-size="7.5" font-weight="bold" text-anchor="middle">+L</text>
+
+                <!-- 2. Cylindrical wall -->
+                <rect x="245" y="4" width="230" height="80" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="360" y="17" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">2. ผนังทรงกระบอกกลวง (Cylindrical Wall: r₁ ≤ r ≤ r₂)</text>
+                <circle cx="330" cy="48" r="26" fill="#ffe4e6" stroke="#b91c1c" stroke-width="1.5"></circle>
+                <circle cx="330" cy="48" r="13" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.5"></circle>
+                <text x="330" y="31" font-size="8.5" font-weight="bold" fill="#b91c1c" text-anchor="middle">q̇</text>
+                <text x="415" y="38" font-size="8" font-weight="bold" fill="#1e293b" text-anchor="middle">ผิวใน r₁ : T_s,1</text>
+                <text x="415" y="54" font-size="8" font-weight="bold" fill="#1e293b" text-anchor="middle">ผิวนอก r₂ : T_s,2</text>
+                <text x="415" y="70" font-size="8" font-weight="bold" fill="#475569" text-anchor="middle">ความยาวท่อ = L</text>
+
+                <!-- 3. Spherical wall -->
+                <rect x="485" y="4" width="230" height="80" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="600" y="17" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">3. ผนังทรงกลมกลวง (Spherical Wall: r₁ ≤ r ≤ r₂)</text>
+                <circle cx="570" cy="48" r="26" fill="#ffe4e6" stroke="#b91c1c" stroke-width="1.5"></circle>
+                <circle cx="570" cy="48" r="13" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.5"></circle>
+                <text x="570" y="31" font-size="8.5" font-weight="bold" fill="#b91c1c" text-anchor="middle">q̇</text>
+                <text x="655" y="42" font-size="8" font-weight="bold" fill="#1e293b" text-anchor="middle">ผิวใน r₁ : T_s,1</text>
+                <text x="655" y="60" font-size="8" font-weight="bold" fill="#1e293b" text-anchor="middle">ผิวนอก r₂ : T_s,2</text>
+            </svg>
+            <figcaption><strong>รูปที่ 3.11</strong> <span class="tag-src">[ต้นฉบับ: Figure C.1 สไลด์หน้า 97]</span> ระบบการนำความร้อน 1 มิติที่มีการผลิตความร้อนสม่ำเสมอ <span class="math">q̇</span> และมีเงื่อนไขขอบเขตไม่สมมาตร</figcaption>
+        </figure>
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 16%;">ปริมาณและรูปทรง</th>
+                    <th scope="col" style="width: 84%;">สมการผลเฉลยสำหรับเงื่อนไขขอบเขตไม่สมมาตร (<span class="math">T<sub>s,1</sub></span> และ <span class="math">T<sub>s,2</sub></span>) <span class="tag-src">[ต้นฉบับ: Table C.1 สไลด์หน้า 98–99]</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2" style="background-color: #e2e8f0; font-weight: 700; color: #0f172a;">1. การกระจายอุณหภูมิ (Temperature Distribution)</td>
+                </tr>
+                <tr>
+                    <td><strong>ผนังราบ</strong><br>(Plane Wall)</td>
+                    <td><span class="math">T(x)</span> = <span class="frac"><span class="frac-num"><span class="math">q̇ L<sup>2</sup></span></span><span class="frac-den">2<span class="math">k</span></span></span> <span class="math-rm">(</span>1 − <span class="frac"><span class="frac-num"><span class="math">x<sup>2</sup></span></span><span class="frac-den"><span class="math">L<sup>2</sup></span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">T<sub>s,2</sub> − T<sub>s,1</sub></span></span><span class="frac-den">2</span></span> <span class="frac"><span class="frac-num"><span class="math">x</span></span><span class="frac-den"><span class="math">L</span></span></span> + <span class="frac"><span class="frac-num"><span class="math">T<sub>s,1</sub> + T<sub>s,2</sub></span></span><span class="frac-den">2</span></span></td>
+                </tr>
+                <tr>
+                    <td><strong>ผนังทรงกระบอก</strong><br>(Cylindrical Wall)</td>
+                    <td><span class="math">T(r)</span> = <span class="math">T<sub>s,2</sub></span> + <span class="frac"><span class="frac-num"><span class="math">q̇ r<sub>2</sub><sup>2</sup></span></span><span class="frac-den">4<span class="math">k</span></span></span> <span class="math-rm">(</span>1 − <span class="frac"><span class="frac-num"><span class="math">r<sup>2</sup></span></span><span class="frac-den"><span class="math">r<sub>2</sub><sup>2</sup></span></span></span><span class="math-rm">)</span> − <span class="math-rm">[</span><span class="frac"><span class="frac-num"><span class="math">q̇ r<sub>2</sub><sup>2</sup></span></span><span class="frac-den">4<span class="math">k</span></span></span> <span class="math-rm">(</span>1 − <span class="frac"><span class="frac-num"><span class="math">r<sub>1</sub><sup>2</sup></span></span><span class="frac-den"><span class="math">r<sub>2</sub><sup>2</sup></span></span></span><span class="math-rm">)</span> + (<span class="math">T<sub>s,2</sub> − T<sub>s,1</sub></span>)<span class="math-rm">]</span> <span class="frac"><span class="frac-num"><span class="math-rm">ln</span>(<span class="math">r<sub>2</sub> / r</span>)</span><span class="frac-den"><span class="math-rm">ln</span>(<span class="math">r<sub>2</sub> / r<sub>1</sub></span>)</span></span></td>
+                </tr>
+                <tr>
+                    <td><strong>ผนังทรงกลม</strong><br>(Spherical Wall)</td>
+                    <td><span class="math">T(r)</span> = <span class="math">T<sub>s,2</sub></span> + <span class="frac"><span class="frac-num"><span class="math">q̇ r<sub>2</sub><sup>2</sup></span></span><span class="frac-den">6<span class="math">k</span></span></span> <span class="math-rm">(</span>1 − <span class="frac"><span class="frac-num"><span class="math">r<sup>2</sup></span></span><span class="frac-den"><span class="math">r<sub>2</sub><sup>2</sup></span></span></span><span class="math-rm">)</span> − <span class="math-rm">[</span><span class="frac"><span class="frac-num"><span class="math">q̇ r<sub>2</sub><sup>2</sup></span></span><span class="frac-den">6<span class="math">k</span></span></span> <span class="math-rm">(</span>1 − <span class="frac"><span class="frac-num"><span class="math">r<sub>1</sub><sup>2</sup></span></span><span class="frac-den"><span class="math">r<sub>2</sub><sup>2</sup></span></span></span><span class="math-rm">)</span> + (<span class="math">T<sub>s,2</sub> − T<sub>s,1</sub></span>)<span class="math-rm">]</span> <span class="frac"><span class="frac-num">(1/<span class="math">r</span>) − (1/<span class="math">r<sub>2</sub></span>)</span><span class="frac-den">(1/<span class="math">r<sub>1</sub></span>) − (1/<span class="math">r<sub>2</sub></span>)</span></span></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="background-color: #e2e8f0; font-weight: 700; color: #0f172a;">2. ฟลักซ์ความร้อน (<span class="math">q&#39;&#39;</span>) และ 3. อัตราการถ่ายเทความร้อน (<span class="math">q = q&#39;&#39; A</span>)</td>
+                </tr>
+                <tr>
+                    <td><strong>ผนังราบ</strong></td>
+                    <td><span class="math">q&#39;&#39;(x)</span> = <span class="math">q̇ x</span> − <span class="frac"><span class="frac-num"><span class="math">k</span></span><span class="frac-den">2<span class="math">L</span></span></span> (<span class="math">T<sub>s,2</sub> − T<sub>s,1</sub></span>)     |     <span class="math">q(x)</span> = <span class="math-rm">[</span><span class="math">q̇ x</span> − <span class="frac"><span class="frac-num"><span class="math">k</span></span><span class="frac-den">2<span class="math">L</span></span></span> (<span class="math">T<sub>s,2</sub> − T<sub>s,1</sub></span>)<span class="math-rm">]</span> <span class="math">A<sub>x</sub></span></td>
+                </tr>
+                <tr>
+                    <td><strong>ผนังทรงกระบอก</strong></td>
+                    <td><span class="math">q&#39;&#39;(r)</span> = <span class="frac"><span class="frac-num"><span class="math">q̇ r</span></span><span class="frac-den">2</span></span> − <span class="frac"><span class="frac-num"><span class="math">k</span> <span class="math-rm">[</span>(<span class="math">q̇ r<sub>2</sub><sup>2</sup> / 4k</span>)(1 − <span class="math">r<sub>1</sub><sup>2</sup>/r<sub>2</sub><sup>2</sup></span>) + (<span class="math">T<sub>s,2</sub> − T<sub>s,1</sub></span>)<span class="math-rm">]</span></span><span class="frac-den"><span class="math">r</span> <span class="math-rm">ln</span>(<span class="math">r<sub>2</sub> / r<sub>1</sub></span>)</span></span>    |    <span class="math">q(r)</span> = 2<span class="math">π r L · q&#39;&#39;(r)</span></td>
+                </tr>
+                <tr>
+                    <td><strong>ผนังทรงกลม</strong></td>
+                    <td><span class="math">q&#39;&#39;(r)</span> = <span class="frac"><span class="frac-num"><span class="math">q̇ r</span></span><span class="frac-den">3</span></span> − <span class="frac"><span class="frac-num"><span class="math">k</span> <span class="math-rm">[</span>(<span class="math">q̇ r<sub>2</sub><sup>2</sup> / 6k</span>)(1 − <span class="math">r<sub>1</sub><sup>2</sup>/r<sub>2</sub><sup>2</sup></span>) + (<span class="math">T<sub>s,2</sub> − T<sub>s,1</sub></span>)<span class="math-rm">]</span></span><span class="frac-den"><span class="math">r<sup>2</sup></span> [(1/<span class="math">r<sub>1</sub></span>) − (1/<span class="math">r<sub>2</sub></span>)]</span></span>    |    <span class="math">q(r)</span> = 4<span class="math">π r<sup>2</sup> · q&#39;&#39;(r)</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 8pt; color: #475569;"><strong>ตารางที่ 3.5</strong> <span class="tag-src">[ต้นฉบับ: Table C.1 สไลด์หน้า 98–99]</span> ผลเฉลยสภาวะคงตัว 1 มิติของสมการการแพร่ความร้อนเมื่อมีการผลิตความร้อนสม่ำเสมอ <span class="math">q̇</span></p>
+
+        <p><span class="tag-sup">[เสริมพื้นฐาน: ความหมายทางกายภาพของสมการในตารางที่ 3.5]</span> สังเกตว่าทุกสมการในตารางที่ 3.5 เกิดจากการซ้อนทับ (Superposition) ของผลเฉลย 2 ส่วนเข้าด้วยกัน คือ: (1) พจน์ที่มี <span class="math">q̇</span> ซึ่งเกิดจากการผลิตความร้อนภายใน และ (2) พจน์ที่มี <span class="math">(T<sub>s,2</sub> − T<sub>s,1</sub>)</span> ซึ่งเป็นการนำความร้อนปกติจากผลต่างอุณหภูมิขอบเขต หากเรากำหนดให้ <span class="math">q̇ = 0</span> สมการทั้งหมดในตารางที่ 3.5 (Table C.1) จะลดรูปกลับไปเป็นสมการในตารางที่ 3.4 (Table 3.3) ทันที!</p>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 2/2)</span>
+        <span>หน้า 4</span>
+    </footer>
+</section>
+
+<!-- page 5 budget (Compact): box-example 280 + svg 30mm 72 + box chrome 24 + box-example 195 + 3 gaps 24 = 595 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <div class="box-example">
+            <h4>ตัวอย่างที่ 3.3 (Example 3.3): ผนังประกอบที่วัสดุชั้นหนึ่งมีการผลิตความร้อนภายในและอีกชั้นหนึ่งไม่มีการผลิตความร้อน</h4>
+            <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 104–108]</span> <span class="tag-inf">[จัดเรียงลำดับสไลด์หน้า 107 ใหม่และกู้คืนส่วนที่ถูกตัดขอบล่างในหน้า 107–108]</span> <strong>โจทย์:</strong> ผนังราบประกอบขึ้นจากวัสดุสองชนิดคือ A และ B ผนังวัสดุ A มีการผลิตความร้อนภายในอย่างสม่ำเสมอด้วยอัตรา <span class="math">q̇<sub>A</sub> = 1.5 × 10<sup>6</sup></span> <span class="math-rm">W/m<sup>3</sup></span> มีสภาพนำความร้อน <span class="math">k<sub>A</sub> = 75</span> <span class="math-rm">W/(m·K)</span> และมีความหนา <span class="math">L<sub>A</sub> = 50</span> <span class="math-rm">mm</span> (<span class="math">0.050</span> <span class="math-rm">m</span>) ส่วนผนังวัสดุ B ไม่มีการผลิตความร้อนภายใน (<span class="math">q̇<sub>B</sub> = 0</span>) มีสภาพนำความร้อน <span class="math">k<sub>B</sub> = 150</span> <span class="math-rm">W/(m·K)</span> และมีความหนา <span class="math">L<sub>B</sub> = 20</span> <span class="math-rm">mm</span> (<span class="math">0.020</span> <span class="math-rm">m</span>) พื้นผิวด้านในสุดของวัสดุ A (<span class="math">x = 0</span>) หุ้มด้วยฉนวนอย่างดี ในขณะที่พื้นผิวด้านนอกของวัสดุ B (<span class="math">x = L<sub>A</sub> + L<sub>B</sub></span>) ถูotsระบายความร้อนด้วยกระแสน้ำที่มีอุณหภูมิ <span class="math">T<sub>∞</sub> = 30</span> <span class="math-rm">°C</span> และมีสัมประสิทธิ์การพาความร้อน <span class="math">h = 1,000</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span><br>
+            (1) จงวาดกราฟโครงร่างการกระจายอุณหภูมิ (Temperature distribution) ที่เกิดขึ้นในผนังประกอบภายใต้สภาวะคงตัว<br>
+            (2) จงคำนวณหาอุณหภูมิ <span class="math">T<sub>0</sub></span> ที่พื้นผิวหุ้มฉนวน (<span class="math">x = 0</span>) และอุณหภูมิ <span class="math">T<sub>2</sub></span> ที่พื้นผิวด้านที่สัมผัสน้ำหล่อเย็น (<span class="math">x = L<sub>A</sub> + L<sub>B</sub></span>)</p>
+        </div>
+
+        <figure>
+            <svg viewBox="0 0 720 105" style="width: 100%; height: 28mm;" role="img">
+                <title>แผนภาพระบบผนังประกอบ A-B และกราฟการกระจายอุณหภูมิสำหรับตัวอย่างที่ 3.3 (สไลด์หน้า 104, 106, 108)</title>
+                <!-- Left: Schematic -->
+                <rect x="5" y="5" width="335" height="95" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="172" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">1. แผนภาพผนังประกอบ A และ B (สไลด์หน้า 104)</text>
+                <rect x="65" y="25" width="14" height="58" fill="#cbd5e1" stroke="#64748b" stroke-dasharray="2,2"></rect>
+                <rect x="79" y="25" width="90" height="58" fill="#ffe4e6" stroke="#b91c1c" stroke-width="1.5"></rect>
+                <rect x="169" y="25" width="42" height="58" fill="#f8fafc" stroke="#1e293b" stroke-width="1.5"></rect>
+                <text x="124" y="48" font-size="8.5" font-weight="bold" fill="#b91c1c" text-anchor="middle">วัสดุ A (L_A=50 mm)</text>
+                <text x="124" y="60" font-size="7.5" fill="#b91c1c" text-anchor="middle">q̇_A = 1.5×10⁶, k_A = 75</text>
+                <text x="190" y="48" font-size="8.5" font-weight="bold" fill="#1e3a8a" text-anchor="middle">B (20mm)</text>
+                <text x="190" y="60" font-size="7.5" fill="#1e3a8a" text-anchor="middle">q̇_B=0, k_B=150</text>
+                <text x="79" y="94" font-size="8" font-weight="bold" text-anchor="middle">T₀ (x=0)</text>
+                <text x="169" y="94" font-size="8" font-weight="bold" text-anchor="middle">T₁</text>
+                <text x="211" y="94" font-size="8" font-weight="bold" text-anchor="middle">T₂</text>
+                <text x="275" y="48" font-size="8" font-weight="bold" fill="#0369a1" text-anchor="middle">น้ำหล่อเย็น (Water)</text>
+                <text x="275" y="60" font-size="7.5" fill="#0369a1" text-anchor="middle">T_∞ = 30°C, h = 1000</text>
+
+                <!-- Right: Sketch of T(x) features (a)-(e) -->
+                <rect x="350" y="5" width="365" height="95" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="532" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">2. ลักษณะสำคัญ (a)–(e) ของกราฟการกระจายอุณหภูมิ T(x) (สไลด์หน้า 106)</text>
+                <line x1="395" y1="84" x2="395" y2="24" stroke="#1e293b" stroke-width="1.5"></line>
+                <line x1="395" y1="84" x2="555" y2="84" stroke="#1e293b" stroke-width="1.5"></line>
+                <line x1="465" y1="24" x2="465" y2="84" stroke="#64748b" stroke-dasharray="3,2"></line>
+                <line x1="505" y1="24" x2="505" y2="84" stroke="#1e293b" stroke-width="1.2"></line>
+                <!-- Curve: (b) zero slope at 0, (a) parabola in A, (d) slope halves at interface, (c) linear in B, (e) steep in water -->
+                <path d="M 395 30 Q 430 30, 465 52 L 505 58 Q 512 78, 525 78 L 548 78" fill="none" stroke="#dc2626" stroke-width="2.5"></path>
+                <text x="380" y="33" font-size="8" font-weight="bold" fill="#b91c1c">T₀</text>
+                <text x="380" y="54" font-size="8" font-weight="bold" fill="#9a3412">T₁</text>
+                <text x="380" y="64" font-size="8" font-weight="bold" fill="#1e3a8a">T₂</text>
+                <text x="380" y="80" font-size="8" font-weight="bold" fill="#0369a1">T_∞</text>
+                <text x="410" y="28" font-size="7.5" font-weight="bold">(b)</text>
+                <text x="442" y="38" font-size="7.5" font-weight="bold">(a)</text>
+                <text x="468" y="48" font-size="7.5" font-weight="bold">(d)</text>
+                <text x="488" y="52" font-size="7.5" font-weight="bold">(c)</text>
+                <text x="522" y="70" font-size="7.5" font-weight="bold">(e)</text>
+                <text x="632" y="36" font-size="7.5" fill="#1e293b" text-anchor="middle">(a) โค้งพาราโบลาใน A (q̇_A &gt; 0)</text>
+                <text x="632" y="48" font-size="7.5" fill="#1e293b" text-anchor="middle">(b) ความชัน = 0 ที่ผิวฉนวน x=0</text>
+                <text x="632" y="60" font-size="7.5" fill="#1e293b" text-anchor="middle">(c) เส้นตรงใน B (เพราะ q̇_B = 0)</text>
+                <text x="632" y="72" font-size="7.5" fill="#1e293b" text-anchor="middle">(d) ความชันใน A เป็น 2 เท่าของ B</text>
+                <text x="632" y="84" font-size="7.5" fill="#1e293b" text-anchor="middle">(e) เกรเดียนต์สูงในชั้นน้ำหล่อเย็น</text>
+            </svg>
+            <figcaption><strong>รูปที่ 3.12</strong> <span class="tag-src">[ต้นฉบับ: สไลด์หน้า 104, 106]</span> แผนภาพระบบและกราฟการกระจายอุณหภูมิในผนังประกอบ A–B ของตัวอย่างที่ 3.3</figcaption>
+        </figure>
+
+        <div class="box-example">
+            <p><strong>วิธีทำอย่างละเอียด (กู้คืนบรรทัดการคำนวณที่ถูกตัดขอบล่างในสไลด์หน้า 107 และ 108):</strong></p>
+            <ul>
+                <li><strong>เฉลยข้อ (1) การวิเคราะห์รูปร่างกราฟการกระจายอุณหภูมิ (สไลด์หน้า 106):</strong> กราฟในรูปที่ 3.12 (ขวา) มีจุดเด่นทางฟิสิกส์ 5 ประการคือ: (a) ในวัสดุ A มีการผลิตความร้อนสม่ำเสมอ กราฟจึงเป็น <strong>โค้งพาราโบลาคว่ำ</strong>, (b) ที่ <span class="math">x = 0</span> หุ้มฉนวน ความชันของกราฟจึงเป็นศูนย์ [<span class="math">(dT/dx)|<sub>x=0</sub> = 0</span>], (c) ในวัสดุ B ไม่มีการผลิตความร้อน (<span class="math">q̇<sub>B</sub> = 0</span>) ฟลักซ์ความร้อนจึงคงตัวและกราฟเป็น <strong>เส้นตรง</strong>, (d) ที่รอยต่อ <span class="math">x = L<sub>A</sub></span> ฟลักซ์ความร้อนต้องต่อเนื่องกัน [<span class="math">−k<sub>A</sub>(dT/dx)<sub>A</sub> = −k<sub>B</sub>(dT/dx)<sub>B</sub></span>] เนื่องจาก <span class="math">k<sub>B</sub>/k<sub>A</sub> = 150/75 = 2</span> ความชันในวัสดุ A จึงต้องชันเป็น 2 เท่าของในวัสดุ B!, และ (e) ในชั้นชิดผิวของน้ำมีเกรเดียนต์อุณหภูมิสูงมาก</li>
+                <li><strong>เฉลยข้อ (2) การคำนวณหาอุณหภูมิ <span class="math">T<sub>2</sub></span>, <span class="math">T<sub>1</sub></span> และ <span class="math">T<sub>0</sub></span> (จัดเรียงลำดับสไลด์หน้า 107–108 ใหม่และเติมคำตอบ):</strong>
+                    <ul>
+                        <li><strong>ขั้นที่ 2.1 หาฟลักซ์ความร้อน <span class="math">q&#39;&#39;</span> จากสมดุลพลังงานของวัสดุ A (สไลด์หน้า 107):</strong> เนื่องจากผิวที่ <span class="math">x = 0</span> หุ้มฉนวนสนิท ความร้อนทั้งหมดที่ผลิตขึ้นในวัสดุ A ต้องไหลออกทางรอยต่อที่ <span class="math">x = L<sub>A</sub></span> แล้วไหลผ่านวัสดุ B (ซึ่งไม่มีการผลิตความร้อน) ออกสู่น้ำหล่อเย็นด้วยฟลักซ์คงตัว <span class="math">q&#39;&#39;</span>:
+                            <div class="eq-Display">
+                                <span><span class="math">q&#39;&#39;</span> = <span class="math">q̇<sub>A</sub> L<sub>A</sub></span> = (1.5 × 10<sup>6</sup> <span class="math-rm">W/m<sup>3</sup></span>)(0.050 <span class="math-rm">m</span>) = <strong>75,000 <span class="math-rm">W/m<sup>2</sup></span> (หรือ 75 <span class="math-rm">kW/m<sup>2</sup></span>)</strong></span>
+                                <span class="eq-num">(3.3a)</span>
+                            </div>
+                        </li>
+                        <li><strong>ขั้นที่ 2.2 คำนวณอุณหภูมิผิวนอก <span class="math">T<sub>2</sub></span> ที่สัมผัสน้ำ (กู้คืนสมการที่ถูกตัดในสไลด์หน้า 107):</strong> จาก <span class="math">q&#39;&#39; = h (T<sub>2</sub> − T<sub>∞</sub>)</span>:
+                            <div class="eq-Display">
+                                <span><span class="math">T<sub>2</sub></span> = <span class="math">T<sub>∞</sub></span> + <span class="frac"><span class="frac-num"><span class="math">q&#39;&#39;</span></span><span class="frac-den"><span class="math">h</span></span></span> = 30 <span class="math-rm">°C</span> + <span class="frac"><span class="frac-num">75,000 <span class="math-rm">W/m<sup>2</sup></span></span><span class="frac-den">1,000 <span class="math-rm">W/(m<sup>2</sup>·K)</span></span></span> = 30 + 75 = <strong>105 <span class="math-rm">°C</span></strong></span>
+                                <span class="eq-num">(ตอบ T₂)</span>
+                            </div>
+                        </li>
+                        <li><strong>ขั้นที่ 2.3 คำนวณอุณหภูมิรอยต่อ <span class="math">T<sub>1</sub></span> และอุณหภูมิผิวฉนวน <span class="math">T<sub>0</sub></span> (กู้คืนส่วนที่ถูกตัดหลังคำว่า <code>Hence</code> ในสไลด์หน้า 108):</strong>
+                            <p>เนื่องจากวัสดุ B ไม่มีการผลิตความร้อน เราจึงใช้ <strong>วงจรความร้อนสมมูลต่อหน่วยพื้นที่</strong> จาก <span class="math">T<sub>1</sub></span> ไปยัง <span class="math">T<sub>∞</sub></span> ได้โดยตรง คือ <span class="math">R<sub>cond,B</sub>&#39;&#39; = L<sub>B</sub> / k<sub>B</sub> = 0.020 / 150 = 1.333 × 10<sup>−4</sup></span> <span class="math-rm">(m<sup>2</sup>·K)/W</span> และ <span class="math">R<sub>conv</sub>&#39;&#39; = 1 / h = 1 / 1,000 = 10 × 10<sup>−4</sup></span> <span class="math-rm">(m<sup>2</sup>·K)/W</span>:</p>
+                            <div class="eq-Display">
+                                <span><span class="math">T<sub>1</sub></span> = <span class="math">T<sub>∞</sub></span> + (<span class="math">R<sub>cond,B</sub>&#39;&#39; + R<sub>conv</sub>&#39;&#39;</span>) <span class="math">q&#39;&#39;</span> = 30 + (1.333 × 10<sup>−4</sup> + 10 × 10<sup>−4</sup>)(75,000) = 30 + 10 + 75 = <strong>115 <span class="math-rm">°C</span></strong></span>
+                                <span class="eq-num">(3.3b)</span>
+                            </div>
+                            <p>สำหรับวัสดุ A ซึ่งหุ้มฉนวนที่ <span class="math">x = 0</span> และมีอุณหภูมิขอบเขตที่ <span class="math">x = L<sub>A</sub></span> เท่ากับ <span class="math">T<sub>1</sub> = 115</span> <span class="math-rm">°C</span> จากสมการที่ 3.23:</p>
+                            <div class="eq-Display">
+                                <span><span class="math">T<sub>0</sub></span> = <span class="frac"><span class="frac-num"><span class="math">q̇<sub>A</sub> L<sub>A</sub><sup>2</sup></span></span><span class="frac-den">2<span class="math">k<sub>A</sub></span></span></span> + <span class="math">T<sub>1</sub></span> = <span class="frac"><span class="frac-num">(1.5 × 10<sup>6</sup> <span class="math-rm">W/m<sup>3</sup></span>)(0.050 <span class="math-rm">m</span>)<sup>2</sup></span><span class="frac-den">2 × 75 <span class="math-rm">W/(m·K)</span></span></span> + 115 <span class="math-rm">°C</span> = <span class="frac"><span class="frac-num">3,750</span><span class="frac-den">150</span></span> + 115 = 25 + 115 = <strong>140 <span class="math-rm">°C</span></strong></span>
+                                <span class="eq-num">(ตอบ T₀)</span>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 2/2)</span>
+        <span>หน้า 5</span>
+    </footer>
+</section>
+
+<!-- page 6 budget (Compact): box-warn 140 + h2 11 + ol 100 + h2 11 + ul 290 + 5 gaps 40 = 592 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <div class="box-warn">
+            <h4>3.5 ข้อผิดพลาดและความเข้าใจผิดที่พบบ่อยในบทที่ 3 (Common Pitfalls and How to Avoid Them)</h4>
+            <ul>
+                <li><strong>ข้อผิดพลาดที่ 1 เผลอใช้สูตรความต้านทาน <span class="math">R<sub>t,cond</sub> = L/(kA)</span> ในวัสดุที่มีการผลิตความร้อนภายใน (<span class="math">q̇ ≠ 0</span>):</strong> ดังที่เห็นในตัวอย่างที่ 3.3 เราใช้ความต้านทานความร้อน <span class="math">R<sub>cond,B</sub>&#39;&#39; = L<sub>B</sub>/k<sub>B</sub></span> ได้เฉพาะในวัสดุ B ที่ไม่มีการผลิตความร้อน (<span class="math">q̇<sub>B</sub> = 0</span>) เท่านั้น ส่วนในวัสดุ A ที่มี <span class="math">q̇<sub>A</sub> &gt; 0</span> ต้องใช้สมการพาราโบลา <span class="math">T<sub>0</sub> − T<sub>1</sub> = q̇<sub>A</sub> L<sub>A</sub><sup>2</sup> / (2k<sub>A</sub>)</span> เสมอ</li>
+                <li><strong>ข้อผิดพลาดที่ 2 แทนค่ารัศมี <span class="math">r</span> ด้วยเส้นผ่านศูนย์กลาง <span class="math">D</span> ในพจน์ความต้านทานการพาความร้อนของท่อ:</strong> ในพจน์ <span class="math">ln(r<sub>2</sub>/r<sub>1</sub>)</span> ของทรงกระบอก เนื่องจากเป็นอัตราส่วน เราจะแทนด้วยรัศมีหรือเส้นผ่านศูนย์กลางก็ได้ [<span class="math">ln(r<sub>2</sub>/r<sub>1</sub>) = ln(D<sub>2</sub>/D<sub>1</sub>)</span>] แต่ในพจน์ความต้านทานการพาความร้อน <span class="math">1/(2π r<sub>1</sub> L h<sub>1</sub>)</span> และในสมการทรงกลม <span class="math">[(1/r<sub>1</sub>) − (1/r<sub>2</sub>)] / (4π k)</span> <strong>บังคับว่าต้องหารเส้นผ่านศูนย์กลางด้วย 2 ให้เป็นรัศมี <span class="math">r</span> ก่อนแทนค่าเสมอ!</strong></li>
+                <li><strong>ข้อผิดพลาดที่ 3 สับสนเรื่องพื้นที่อ้างอิงของสัมประสิทธิ์การถ่ายเทความร้อนรวม (<span class="math">U</span>) ในระบบทรงกระบอก:</strong> หากโจทย์ถามหาค่า <span class="math">U<sub>1</sub></span> ที่อ้างอิงกับพื้นที่ผิวด้านใน (<span class="math">A<sub>1</sub> = 2π r<sub>1</sub> L</span>) ต้องคูณ <span class="math">R<sub>tot</sub></span> ด้วย <span class="math">A<sub>1</sub></span> ตามสมการที่ 3.15 เสมอ</li>
+            </ul>
+        </div>
+
+        <h2>3.6 คำถามทบทวนแนวคิดท้ายบทที่ 3 (Review Questions)</h2>
+        <ol>
+            <li>เหตุใดในการนำความร้อน 1 มิติ สภาวะคงตัว ไร้การผลิตความร้อนภายใน ผ่านท่อทรงกระบอกกลวงและเปลือกทรงกลมกลวง อัตราการถ่ายเทความร้อน <span class="math">q<sub>r</sub></span> (หน่วย <span class="math-rm">W</span>) จึงมีค่าคงตัวไม่ขึ้นกับรัศมี <span class="math">r</span> ในขณะที่ฟลักซ์ความร้อน <span class="math">q<sub>r</sub>&#39;&#39;</span> (หน่วย <span class="math-rm">W/m<sup>2</sup></span>) กลับลดลงเมื่อรัศมี <span class="math">r</span> เพิ่มขึ้น?</li>
+            <li>จงอธิบายว่าเหตุใดการเพิ่มความดันกดทับที่รอยต่อ (Contact pressure) หรือการทาซิลิโคนระบายความร้อน (Thermal grease) จึงช่วยลดความต้านทานการสัมผัสทางความร้อน (<span class="math">R<sub>t,c</sub>&#39;&#39;</span>) ลงได้อย่างมาก?</li>
+            <li>ในระบบผนังประกอบแบบอนุกรมที่ไม่มีการผลิตความร้อนภายใน ชั้นวัสดุที่มีสภาพนำความร้อน <span class="math">k</span> ต่ำกว่า จะมีความชันของกราฟอุณหภูมิ <span class="math">|dT/dx|</span> ชันกว่าหรือราบกว่าชั้นวัสดุที่มีค่า <span class="math">k</span> สูง? เพราะเหตุใด?</li>
+            <li>เหตุใดที่แกนกลาง (<span class="math">r = 0</span>) ของทรงกระบอกตันและทรงกลมตันที่มีการผลิตความร้อนสม่ำเสมอ เกรเดียนต์ของอุณหภูมิ <span class="math">(dT/dr)|<sub>r=0</sub></span> จึงต้องมีค่าเท่ากับศูนย์เสมอ?</li>
+        </ol>
+
+        <h2>3.7 แบบฝึกหัดท้ายบทที่ 3 ครบ 5 ระดับ (รวมโจทย์ต้นฉบับของอาจารย์ ข้อ 6–11 ครบทุกข้อ)</h2>
+        <h4>【ระดับที่ 1 และ 2: โจทย์เสริมตรวจสอบความเข้าใจพื้นฐานและหลักการ】</h4>
+        <ul>
+            <li><strong>ข้อ 3.A (ระดับ 1 — ความต้านทานการสัมผัสทางความร้อน):</strong> แผ่นอะลูมิเนียมสองแผ่นประกบกันภายใต้ความดัน <span class="math">100</span> <span class="math-rm">kN/m<sup>2</sup></span> โดยมีฟลักซ์ความร้อนไหลผ่านรอยต่อ <span class="math">q<sub>x</sub>&#39;&#39; = 4.0 × 10<sup>4</sup></span> <span class="math-rm">W/m<sup>2</sup></span> จงใช้ข้อมูลจากตารางที่ 3.2 และ 3.3 เพื่อคำนวณหาผลต่างของอุณหภูมิที่ตกลงคร่อมรอยต่อ (<span class="math">ΔT<sub>c</sub> = T<sub>A</sub> − T<sub>B</sub></span>) ใน 2 กรณี: (ก) เมื่อมีอากาศแทรกอยู่ที่รอยต่อ (<span class="math">R<sub>t,c</sub>&#39;&#39; = 2.75 × 10<sup>−4</sup></span> <span class="math-rm">m<sup>2</sup>·K/W</span>) และ (ข) เมื่อทาซิลิโคน Dow Corning 340 grease ที่รอยต่อ (<span class="math">R<sub>t,c</sub>&#39;&#39; = 0.07 × 10<sup>−4</sup></span> <span class="math-rm">m<sup>2</sup>·K/W</span>)</li>
+            <li><strong>ข้อ 3.B (ระดับ 2 — รัศมีวิกฤตของฉนวนหุ้มสายไฟ):</strong> ลวดตัวนำไฟฟ้าทองแดงมีรัศมี <span class="math">r<sub>1</sub> = 1.5</span> <span class="math-rm">mm</span> ต้องการหุ้มด้วยฉนวนพลาสติกที่มีสภาพนำความร้อน <span class="math">k = 0.15</span> <span class="math-rm">W/(m·K)</span> โดยสายไฟวางอยู่ในอากาศที่มีสัมประสิทธิ์การพาความร้อน <span class="math">h = 25</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span> จงหาค่า <strong>รัศมีวิกฤตของฉนวน (<span class="math">r<sub>cr</sub></span>)</strong> และอธิบายว่าการหุ้มฉนวนพลาสติกหนา <span class="math">4.5</span> <span class="math-rm">mm</span> (ทำให้รัศมีภายนอกเป็น <span class="math">6.0</span> <span class="math-rm">mm</span>) จะช่วยให้สายไฟระบายความร้อนได้ดีขึ้นหรือแย่ลงเมื่อเทียบกับสายไฟเปลือย?</li>
+        </ul>
+
+        <h4>【ระดับที่ 3, 4 และ 5: โจทย์ต้นฉบับในเอกสารประกอบการสอนของอาจารย์ ข้อ (6) ถึง ข้อ (11)】</h4>
+        <ul>
+            <li><strong>แบบฝึกหัดข้อ (6) <span class="tag-src">[ต้นฉบับ: สไลด์หน้า 109]</span>:</strong> พิจารณาการนำความร้อนใน 1 มิติ ภายใต้สภาวะคงตัว ในแผ่นระนาบ ซึ่งมีสภาพนำความร้อนคงที่ในบริเวณ <span class="math">0 ≤ x ≤ L</span> พลังงานถูกผลิตขึ้นภายในตัวกลางในอัตรา <span class="math">q̇(x) = q̇<sub>0</sub> e<sup>−βx</sup></span> <span class="math-rm">W/m<sup>3</sup></span> ซึ่งขณะนั้นที่ผิวด้าน <span class="math">x = 0</span> มีฉนวนหุ้ม และที่ผิวด้าน <span class="math">x = L</span> กำหนดให้มีการพาความร้อนสู่ของไหลอุณหภูมิ <span class="math">T<sub>∞</sub></span> และสัมประสิทธิ์การพาความร้อน <span class="math">h</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span> จงกำหนดชุดสมการซึ่งประกอบด้วยสมการควบคุมและเงื่อนไขขอบเขตสำหรับปัญหาการนำความร้อนนี้ <em>(พร้อมแสดงการอินทิเกรตหาฟังก์ชัน <span class="math">T(x)</span> เสริมเพื่อความสมบูรณ์)</em></li>
+            <li><strong>แบบฝึกหัดข้อ (7) <span class="tag-src">[ต้นฉบับ: สไลด์หน้า 110]</span>:</strong> อากาศที่มีอุณหภูมิ <span class="math">20</span> <span class="math-rm">°C</span> เป่าลงบนแผ่นเรียบ ขนาด <span class="math">50</span> <span class="math-rm">cm</span> × <span class="math">75</span> <span class="math-rm">cm</span> ถูกควบคุมให้มีอุณหภูมิเท่ากับ <span class="math">250</span> <span class="math-rm">°C</span> ค่าสัมประสิทธิ์การพาเท่ากับ <span class="math">25</span> <span class="math-rm">W/(m<sup>2</sup>·°C)</span> จงคำนวณค่าการถ่ายเทความร้อน ถ้ากำหนดให้แผ่นเรียบทำด้วยเหล็กกล้าคาร์บอน (1%) มีความหนา <span class="math">2</span> <span class="math-rm">cm</span> และมีปริมาณการสูญเสีย <span class="math">300</span> <span class="math-rm">W</span> ออกจากผิวด้วยการแผ่รังสีความร้อน จงคำนวณอุณหภูมิภายในแผ่นเหล็ก</li>
+            <li><strong>แบบฝึกหัดข้อ (8) <span class="tag-src">[ต้นฉบับ: สไลด์หน้า 111]</span>:</strong> ผนังสองชั้นทำด้วยไม้และอิฐ ผนังกว้าง <span class="math">4</span> <span class="math-rm">m</span> สูง <span class="math">3</span> <span class="math-rm">m</span> ไม้หนา <span class="math">3</span> <span class="math-rm">cm</span> ส่วนอิฐหนา <span class="math">20</span> <span class="math-rm">cm</span> อุณหภูมิที่ผิวของผนังไม้มีค่า <span class="math">25</span> <span class="math-rm">°C</span> และอุณหภูมิที่ผิวของผนังอิฐมีค่า <span class="math">100</span> <span class="math-rm">°C</span> จงคำนวณหาอัตราการถ่ายเทความร้อนผ่านผนังสองชั้น และหาอุณหภูมิของผนังไม้ที่สัมผัสกับผนังอิฐ โดยไม้มีค่าการนำความร้อน <span class="math">0.17</span> <span class="math-rm">W/(m·K)</span> ส่วนอิฐมีค่าการนำความร้อน <span class="math">0.70</span> <span class="math-rm">W/(m·K)</span></li>
+        </ul>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 2/2)</span>
+        <span>หน้า 6</span>
+    </footer>
+</section>
+
+<!-- page 7 budget (Compact): ul 180 + h2 11 + box-example 150 + box-example 230 + 3 gaps 24 = 595 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <ul>
+            <li><strong>แบบฝึกหัดข้อ (9) <span class="tag-src">[ต้นฉบับ: สไลด์หน้า 112]</span>:</strong> ผนังของห้องเย็นห้องหนึ่งประกอบด้วยอิฐหนา <span class="math">0.23</span> <span class="math-rm">m</span> ทางด้านนอก ไม้หนา <span class="math">0.015</span> <span class="math-rm">m</span> ทางด้านใน และโฟมหนา <span class="math">0.08</span> <span class="math-rm">m</span> อยู่ระหว่างอิฐและไม้ อุณหภูมิของอากาศภายนอกห้องเย็นมีค่าเท่ากับ <span class="math">30</span> <span class="math-rm">°C</span> อุณหภูมิของอากาศภายในห้องเย็นมีค่าเท่ากับ <span class="math">−5</span> <span class="math-rm">°C</span> ถ้าสัมประสิทธิ์การพาความร้อนระหว่างผนังของอิฐและอากาศภายนอกมีค่า <span class="math">10</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span> และระหว่างผนังของไม้และอากาศภายในมีค่า <span class="math">30</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span> และค่าการนำความร้อนของไม้ โฟม และอิฐมีค่า <span class="math">0.17</span>, <span class="math">0.024</span> และ <span class="math">0.97</span> <span class="math-rm">W/(m·K)</span> ตามลำดับ ให้คำนวณค่าสัมประสิทธิ์การถ่ายเทความร้อน (รวม, <span class="math">U</span>) และถ้าผนังของห้องเย็นนี้มีพื้นที่ <span class="math">100</span> <span class="math-rm">m<sup>2</sup></span> จงคำนวณหาอัตราการนำความเย็นของเครื่องทำความเย็นที่จะใช้กับห้องเย็นนี้</li>
+            <li><strong>แบบฝึกหัดข้อ (10) <span class="tag-src">[ต้นฉบับ: สไลด์หน้า 113]</span>:</strong> ท่อเหล็กมีเส้นผ่านศูนย์กลางภายใน <span class="math">5</span> <span class="math-rm">cm</span> และมีเส้นผ่านศูนย์กลางภายนอก <span class="math">6</span> <span class="math-rm">cm</span> ใช้สำหรับให้ไอน้ำที่มีอุณหภูมิ <span class="math">500</span> <span class="math-rm">°C</span> ไหลผ่าน ในขณะที่อุณหภูมิของบรรยากาศภายนอกท่อมีค่า <span class="math">20</span> <span class="math-rm">°C</span> ถ้าสัมประสิทธิ์การพาความร้อนที่ผิวของท่อทางด้านไอน้ำมีค่า <span class="math">5,000</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span> และทางด้านบรรยากาศมีค่า <span class="math">250</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span> จงหาค่าสัมประสิทธิ์การถ่ายเทความร้อนที่ขึ้นอยู่กับพื้นที่ภายในท่อ (<span class="math">U<sub>1</sub></span>) และหาอัตราการสูญเสียความร้อนต่อความยาว <span class="math">1</span> <span class="math-rm">m</span> ของท่อ สมมติว่าเหล็กมีค่าการนำความร้อน <span class="math">40</span> <span class="math-rm">W/(m·K)</span> <em>(สไลด์พิมพ์หน่วยเป็น <span class="math-rm">W/m<sup>2</sup>·K</span>)</em></li>
+            <li><strong>แบบฝึกหัดข้อ (11) <span class="tag-src">[ต้นฉบับ: สไลด์หน้า 114]</span>:</strong> ถังรูปทรงกลมมีรัศมีภายใน <span class="math">r<sub>1</sub> = 0.20</span> <span class="math-rm">m</span> ทำจากตะกั่ว <span class="math">k<sub>1</sub> = 35</span> <span class="math-rm">W/(m·K)</span> และรัศมีภายนอก <span class="math">r<sub>2</sub> = 0.30</span> <span class="math-rm">m</span> ส่วนเปลือกนอกทำจากเหล็กกล้าไร้สนิม <span class="math">k<sub>2</sub> = 15.2</span> <span class="math-rm">W/(m·K)</span> รัศมีภายนอก <span class="math">r<sub>3</sub> = 0.34</span> <span class="math-rm">m</span> ภายในใช้เก็บกากกัมมันตรังสีซึ่งทำให้เกิดการผลิตความร้อนในอัตรา <span class="math">q&#39;&#39;&#39; = q̇ = 4.5 × 10<sup>5</sup></span> <span class="math-rm">W/m<sup>3</sup></span> และนำไปเก็บไว้ภายในน้ำเกลือซึ่งมีอุณหภูมิคงที่ <span class="math">T<sub>∞</sub> = 20</span> <span class="math-rm">°C</span> ทำให้มีสัมประสิทธิ์การพาความร้อนที่ผิวถังภายนอก <span class="math">h = 500</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span> จงตรวจสอบว่าในการออกแบบถังรูปทรงกลมซึ่งใช้ในการเก็บกากกัมมันตรังสีข้างต้นอยู่ในเกณฑ์ที่เป็นไปได้หรือไม่ ถ้าจุดหลอมเหลวของตะกั่วเท่ากับ <span class="math">328</span> <span class="math-rm">°C</span></li>
+        </ul>
+
+        <h2>3.8 เฉลยแบบฝึกหัดท้ายบทที่ 3 อย่างละเอียด (Detailed Step-by-Step Solutions)</h2>
+
+        <div class="box-example">
+            <h4>เฉลยข้อ 3.A และ 3.B (ระดับที่ 1 และ 2)</h4>
+            <ul>
+                <li><strong>เฉลยข้อ 3.A:</strong> จากนิยามความต้านทานการสัมผัส <span class="math">R<sub>t,c</sub>&#39;&#39; = ΔT<sub>c</sub> / q<sub>x</sub>&#39;&#39;</span> จะได้ <span class="math">ΔT<sub>c</sub> = q<sub>x</sub>&#39;&#39; · R<sub>t,c</sub>&#39;&#39;</span>: (ก) กรณีมีอากาศแทรก: <span class="math">ΔT<sub>c</sub> = (4.0 × 10<sup>4</sup>)(2.75 × 10<sup>−4</sup>) =</span> <strong>11.0 <span class="math-rm">K</span> (หรือ 11.0 <span class="math-rm">°C</span>)</strong> และ (ข) กรณีทาซิลิโคน Dow Corning 340: <span class="math">ΔT<sub>c</sub> = (4.0 × 10<sup>4</sup>)(0.07 × 10<sup>−4</sup>) =</span> <strong>0.28 <span class="math-rm">K</span> (หรือ 0.28 <span class="math-rm">°C</span>)</strong> (ช่วยลดอุณหภูมิตกคร่อมรอยต่อลงได้เกือบ 40 เท่า!)</li>
+                <li><strong>เฉลยข้อ 3.B:</strong> สำหรับทรงกระบอก รัศมีวิกฤตของฉนวนคือ <span class="math">r<sub>cr</sub> = k / h = 0.15 / 25 = 0.006</span> <span class="math-rm">m</span> = <strong>6.0 <span class="math-rm">mm</span></strong> เนื่องจากสายไฟเปลือยมีรัศมี <span class="math">r<sub>1</sub> = 1.5</span> <span class="math-rm">mm</span> &lt; <span class="math">r<sub>cr</sub></span> การหุ้มฉนวนพลาสติกหนา <span class="math">4.5</span> <span class="math-rm">mm</span> ทำให้รัศมีภายนอกเท่ากับ <span class="math">r<sub>2</sub> = 6.0</span> <span class="math-rm">mm</span> = <span class="math">r<sub>cr</sub></span> พอดี ซึ่งจะทำให้ความต้านทานความร้อนรวมมีค่าต่ำที่สุด ดังนั้น <strong>จะช่วยให้สายไฟระบายความร้อนออกสู่อากาศได้ดีขึ้น (อัตราการระบายความร้อนสูงสุด)</strong></li>
+            </ul>
+        </div>
+
+        <div class="box-example">
+            <h4>เฉลยแบบฝึกหัดข้อ (6) <span class="tag-src">[โจทย์ต้นฉบับ สไลด์หน้า 109]</span> <span class="tag-inf">[เฉลยละเอียดพร้อมอินทิเกรตหา T(x)]</span></h4>
+            <p><strong>1. สิ่งที่โจทย์กำหนด:</strong> การนำความร้อน 1 มิติ สภาวะคงตัว (<span class="math">∂T/∂t = 0</span>) ในแผ่นระนาบช่วง <span class="math">0 ≤ x ≤ L</span> สภาพนำความร้อน <span class="math">k</span> คงตัว อัตราการผลิตความร้อนต่อหน่วยปริมาตรเป็นฟังก์ชันของตำแหน่งคือ <span class="math">q̇(x) = q̇<sub>0</sub> e<sup>−βx</sup></span> <span class="math-rm">W/m<sup>3</sup></span> (มักพบในการดูดกลืนรังสีแกมมาหรือรังสีไมโครเวฟในเนื้อวัสดุ)</p>
+            <p><strong>2. การกำหนดชุดสมการควบคุมและเงื่อนไขขอบเขต (คำตอบหลักตามที่โจทย์ถาม):</strong></p>
+            <ul>
+                <li><strong>สมการควบคุม (Governing Differential Equation):</strong> จากสมการการแพร่ความร้อน 1 มิติ สภาวะคงตัว เมื่อ <span class="math">k</span> คงตัว:
+                    <div class="eq-Display">
+                        <span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">d<sup>2</sup>T</span></span><span class="frac-den"><span class="math">dx<sup>2</sup></span></span></span> + <span class="math">q̇<sub>0</sub> e<sup>−βx</sup></span> = 0     หรือเขียนในรูปมาตรฐาน:     <span class="frac"><span class="frac-num"><span class="math">d<sup>2</sup>T</span></span><span class="frac-den"><span class="math">dx<sup>2</sup></span></span></span> + <span class="frac"><span class="frac-num"><span class="math">q̇<sub>0</sub></span></span><span class="frac-den"><span class="math">k</span></span></span> <span class="math">e<sup>−βx</sup></span> = 0     (สำหรับ <span class="math">0 ≤ x ≤ L</span>)</span>
+                        <span class="eq-num">(เฉลย 6.1)</span>
+                    </div>
+                </li>
+                <li><strong>เงื่อนไขขอบเขตที่ 1 (Boundary Condition 1 ที่ผิว <span class="math">x = 0</span> มีฉนวนหุ้ม / Adiabatic surface):</strong>
+                    <div class="eq-Display">
+                        <span>−<span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dx</span></span></span><span class="math-rm">|</span><sub><span class="math">x</span>=0</sub> = 0     หรือ     <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dx</span></span></span><span class="math-rm">|</span><sub><span class="math">x</span>=0</sub> = 0</span>
+                        <span class="eq-num">(เฉลย 6.2)</span>
+                    </div>
+                </li>
+                <li><strong>เงื่อนไขขอบเขตที่ 2 (Boundary Condition 2 ที่ผิว <span class="math">x = L</span> มีการพาความร้อนสู่ของไหล <span class="math">T<sub>∞</sub>, h</span>):</strong>
+                    <p>ตั้งสมดุลพลังงานที่พื้นผิว <span class="math">x = L</span> (อัตราการนำความร้อนมาถึงผิวด้านใน = อัตราการพาความร้อนออกจากผิวด้านนอก):</p>
+                    <div class="eq-Display">
+                        <span>−<span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dx</span></span></span><span class="math-rm">|</span><sub><span class="math">x</span>=<span class="math">L</span></sub> = <span class="math">h</span> [<span class="math">T</span>(<span class="math">L</span>) − <span class="math">T<sub>∞</sub></span>]</span>
+                        <span class="eq-num">(เฉลย 6.3)</span>
+                    </div>
+                </li>
+            </ul>
+            <p><strong>3. ส่วนเสริมระดับตำราเรียน — การอินทิเกรตหาฟังก์ชันการกระจายอุณหภูมิ <span class="math">T(x)</span>:</strong> อินทิเกรตสมการ (6.1) ครั้งที่ 1 ได้ <span class="math">dT/dx = (q̇<sub>0</sub> / βk) e<sup>−βx</sup> + C<sub>1</sub></span> แทนเงื่อนไขขอบเขต (6.2) ที่ <span class="math">x = 0</span> จะได้ <span class="math">0 = (q̇<sub>0</sub> / βk)(1) + C<sub>1</sub> ⇒ C<sub>1</sub> = −q̇<sub>0</sub> / (βk)</span> อินทิเกรตครั้งที่ 2 ได้ <span class="math">T(x) = −(q̇<sub>0</sub> / β<sup>2</sup>k) e<sup>−βx</sup> − (q̇<sub>0</sub> / βk) x + C<sub>2</sub></span> เมื่อแทนในเงื่อนไขขอบเขต (6.3) ที่ <span class="math">x = L</span> คือ <span class="math">(q̇<sub>0</sub>/β)(1 − e<sup>−βL</sup>) = h[T(L) − T<sub>∞</sub>]</span> จะหาค่า <span class="math">C<sub>2</sub></span> และได้คำตอบสมบูรณ์คือ: <strong><span class="math">T(x) = T<sub>∞</sub> + (q̇<sub>0</sub>/βh)(1 − e<sup>−βL</sup>) + (q̇<sub>0</sub>/βk)(L − x) + (q̇<sub>0</sub>/β<sup>2</sup>k)(e<sup>−βL</sup> − e<sup>−βx</sup>)</span></strong></p>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 2/2)</span>
+        <span>หน้า 7</span>
+    </footer>
+</section>
+
+<!-- page 8 budget (Compact): box-example 280 + box-example 290 + 2 gaps 16 = 586 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <div class="box-example">
+            <h4>เฉลยแบบฝึกหัดข้อ (7) <span class="tag-src">[โจทย์ต้นฉบับ สไลด์หน้า 110]</span> <span class="tag-inf">[เฉลยละเอียดทุกขั้นตอน]</span></h4>
+            <p><strong>1. สิ่งที่โจทย์กำหนด (Known):</strong> อากาศมีอุณหภูมิ <span class="math">T<sub>∞</sub> = 20</span> <span class="math-rm">°C</span> เป่าลงบนผิวด้านบนของแผ่นเหล็กเรียบขนาด <span class="math">50</span> <span class="math-rm">cm</span> × <span class="math">75</span> <span class="math-rm">cm</span> (<span class="math">0.50</span> <span class="math-rm">m</span> × <span class="math">0.75</span> <span class="math-rm">m</span>) ซึ่งผิวด้านที่สัมผัสอากาศถูกควบคุมให้มีอุณหภูมิคงที่ <span class="math">T<sub>s,2</sub> = 250</span> <span class="math-rm">°C</span> สัมประสิทธิ์การพาความร้อน <span class="math">h = 25</span> <span class="math-rm">W/(m<sup>2</sup>·°C)</span> แผ่นเรียบทำจาก <strong>เหล็กกล้าคาร์บอน 1% (Carbon steel, 1% C)</strong> มีความหนา <span class="math">L = 2</span> <span class="math-rm">cm</span> = <span class="math">0.02</span> <span class="math-rm">m</span> และมีอัตราการสูญเสียความร้อนออกจากผิวด้านบนด้วยการแผ่รังสีความร้อน <span class="math">q<sub>rad</sub> = 300</span> <span class="math-rm">W</span></p>
+            <p><strong>2. สิ่งที่ต้องการหา (Find):</strong> (ก) อัตราการถ่ายเทความร้อน (ด้วยการพาความร้อน <span class="math">q<sub>conv</sub></span> และอัตราความร้อนรวมที่ต้องนำผ่านแผ่นเหล็ก <span class="math">q<sub>cond</sub></span>) และ (ข) อุณหภูมิที่ผิวด้านใน (ด้านล่างที่รับความร้อน, <span class="math">T<sub>s,1</sub></span>) และผลต่างอุณหภูมิภายในแผ่นเหล็ก</p>
+            <p><strong>3. ขั้นตอนการคำนวณอย่างละเอียด:</strong></p>
+            <ul>
+                <li><strong>ขั้นที่ 3.1 คำนวณพื้นที่ผิวของแผ่นเหล็ก (<span class="math">A</span>) และอัตราการพาความร้อนสู่อากาศ (<span class="math">q<sub>conv</sub></span>):</strong>
+                    <div class="eq-Display">
+                        <span><span class="math">A</span> = 0.50 <span class="math-rm">m</span> × 0.75 <span class="math-rm">m</span> = <strong>0.375 <span class="math-rm">m<sup>2</sup></span></strong>   ⇒   <span class="math">q<sub>conv</sub></span> = <span class="math">h A</span> (<span class="math">T<sub>s,2</sub> − T<sub>∞</sub></span>) = 25 × 0.375 × (250 − 20) = 9.375 × 230 = <strong>2,156.25 <span class="math-rm">W</span></strong></span>
+                        <span class="eq-num">(เฉลย 7.1)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 3.2 ตั้งสมดุลพลังงานที่พื้นผิวด้านบนของแผ่นเหล็ก (<span class="math">Ė<sub>in</sub> = Ė<sub>out</sub></span>):</strong>
+                    <p>ความร้อนที่นำผ่านความหนาของแผ่นเหล็กขึ้นมาถึงผิวบน (<span class="math">q<sub>cond</sub></span>) ต้องเท่ากับผลรวมของความร้อนที่ระบายออกด้วยการพาความร้อน (<span class="math">q<sub>conv</sub></span>) และการแผ่รังสีความร้อน (<span class="math">q<sub>rad</sub> = 300</span> <span class="math-rm">W</span>):</p>
+                    <div class="eq-Display">
+                        <span><span class="math">q<sub>cond</sub></span> = <span class="math">q<sub>conv</sub> + q<sub>rad</sub></span> = 2,156.25 <span class="math-rm">W</span> + 300 <span class="math-rm">W</span> = <strong>2,456.25 <span class="math-rm">W</span> (หรือประมาณ 2.46 <span class="math-rm">kW</span>)</strong></span>
+                        <span class="eq-num">(เฉลย 7.2)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 3.3 คำนวณอุณหภูมิผิวด้านในของแผ่นเหล็ก (<span class="math">T<sub>s,1</sub></span>):</strong>
+                    <p><em>ข้อมูลสมบัติวัสดุจากตารางมาตรฐาน:</em> สำหรับเหล็กกล้าคาร์บอน 1% (Carbon steel, 1% C) จากตาราง A.1 ของตำรา <a class="cite" href="#ref-bergman2011" contenteditable="false">Bergman et al. (2011)</a> และตำรา <a class="cite" href="#ref-cengel2020" contenteditable="false">Çengel &amp; Ghajar (2020)</a> มีค่าสภาพนำความร้อนมาตรฐานคือ <strong><span class="math">k = 43</span> <span class="math-rm">W/(m·°C)</span></strong> จากกฎของฟูริเยร์:</p>
+                    <div class="eq-Display">
+                        <span><span class="math">q<sub>cond</sub></span> = <span class="math">k A</span> <span class="frac"><span class="frac-num"><span class="math">T<sub>s,1</sub> − T<sub>s,2</sub></span></span><span class="frac-den"><span class="math">L</span></span></span>   ⇒   <span class="math-rm">Δ</span><span class="math">T<sub>plate</sub></span> = <span class="math">T<sub>s,1</sub> − T<sub>s,2</sub></span> = <span class="frac"><span class="frac-num"><span class="math">q<sub>cond</sub> · L</span></span><span class="frac-den"><span class="math">k · A</span></span></span> = <span class="frac"><span class="frac-num">2,456.25 <span class="math-rm">W</span> × 0.02 <span class="math-rm">m</span></span><span class="frac-den">43 <span class="math-rm">W/(m·°C)</span> × 0.375 <span class="math-rm">m<sup>2</sup></span></span></span> = <span class="frac"><span class="frac-num">49.125</span><span class="frac-den">16.125</span></span> = <strong>3.05 <span class="math-rm">°C</span></strong></span>
+                        <span class="eq-num">(เฉลย 7.3)</span>
+                    </div>
+                    <p>ดังนั้น อุณหภูมิที่ผิวด้านในของแผ่นเหล็กคือ: <span class="math">T<sub>s,1</sub> = T<sub>s,2</sub> + 3.05 = 250 + 3.05 =</span> <strong>253.05 <span class="math-rm">°C</span></strong></p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="box-example">
+            <h4>เฉลยแบบฝึกหัดข้อ (8) <span class="tag-src">[โจทย์ต้นฉบับ สไลด์หน้า 111]</span> <span class="tag-inf">[เฉลยละเอียดทุกขั้นตอน]</span></h4>
+            <p><strong>1. สิ่งที่โจทย์กำหนด (Known):</strong> ผนังประกอบ 2 ชั้นทำจากไม้ (Wood, ดัชนี <span class="math">w</span>) และอิฐ (Brick, ดัชนี <span class="math">b</span>) มีขนาดกว้าง <span class="math">W = 4</span> <span class="math-rm">m</span> สูง <span class="math">H = 3</span> <span class="math-rm">m</span> (พื้นที่หน้าตัด <span class="math">A = 4 × 3 = 12</span> <span class="math-rm">m<sup>2</sup></span>):</p>
+            <ul>
+                <li>ชั้นไม้: ความหนา <span class="math">L<sub>w</sub> = 3</span> <span class="math-rm">cm</span> = <span class="math">0.03</span> <span class="math-rm">m</span>, สภาพนำความร้อน <span class="math">k<sub>w</sub> = 0.17</span> <span class="math-rm">W/(m·K)</span>, อุณหภูมิผิวนอกด้านไม้ <span class="math">T<sub>s,w</sub> = 25</span> <span class="math-rm">°C</span></li>
+                <li>ชั้นอิฐ: ความหนา <span class="math">L<sub>b</sub> = 20</span> <span class="math-rm">cm</span> = <span class="math">0.20</span> <span class="math-rm">m</span>, สภาพนำความร้อน <span class="math">k<sub>b</sub> = 0.70</span> <span class="math-rm">W/(m·K)</span>, อุณหภูมิผิวนอกด้านอิฐ <span class="math">T<sub>s,b</sub> = 100</span> <span class="math-rm">°C</span></li>
+            </ul>
+            <p><strong>2. สิ่งที่ต้องการหา (Find):</strong> (ก) อัตราการถ่ายเทความร้อนผ่านผนังสองชั้น (<span class="math">q<sub>x</sub></span>) และ (ข) อุณหภูมิที่รอยต่อระหว่างผนังไม้กับผนังอิฐ (<span class="math">T<sub>interface</sub></span>)</p>
+            <p><strong>3. ขั้นตอนการคำนวณอย่างละเอียด:</strong></p>
+            <ul>
+                <li><strong>ขั้นที่ 3.1 คำนวณความต้านทานการนำความร้อนของแต่ละชั้นและผลรวมความต้านทาน (<span class="math">R<sub>tot</sub></span>):</strong>
+                    <div class="eq-Display">
+                        <span><span class="math">R<sub>t,w</sub></span> = <span class="frac"><span class="frac-num"><span class="math">L<sub>w</sub></span></span><span class="frac-den"><span class="math">k<sub>w</sub> A</span></span></span> = <span class="frac"><span class="frac-num">0.03 <span class="math-rm">m</span></span><span class="frac-den">0.17 <span class="math-rm">W/(m·K)</span> × 12 <span class="math-rm">m<sup>2</sup></span></span></span> = <span class="frac"><span class="frac-num">0.03</span><span class="frac-den">2.04</span></span> = <strong>0.01471 <span class="math-rm">K/W</span></strong></span>
+                        <span class="eq-num">(เฉลย 8.1)</span>
+                    </div>
+                    <div class="eq-Display">
+                        <span><span class="math">R<sub>t,b</sub></span> = <span class="frac"><span class="frac-num"><span class="math">L<sub>b</sub></span></span><span class="frac-den"><span class="math">k<sub>b</sub> A</span></span></span> = <span class="frac"><span class="frac-num">0.20 <span class="math-rm">m</span></span><span class="frac-den">0.70 <span class="math-rm">W/(m·K)</span> × 12 <span class="math-rm">m<sup>2</sup></span></span></span> = <span class="frac"><span class="frac-num">0.20</span><span class="frac-den">8.40</span></span> = <strong>0.02381 <span class="math-rm">K/W</span></strong>  ⇒  <span class="math">R<sub>tot</sub></span> = 0.01471 + 0.02381 = <strong>0.03852 <span class="math-rm">K/W</span></strong></span>
+                        <span class="eq-num">(เฉลย 8.2)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 3.2 คำนวณ (ก) อัตราการถ่ายเทความร้อนผ่านผนังสองชั้น (<span class="math">q<sub>x</sub></span>):</strong>
+                    <div class="eq-Display">
+                        <span><span class="math">q<sub>x</sub></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>s,b</sub> − T<sub>s,w</sub></span></span><span class="frac-den"><span class="math">R<sub>tot</sub></span></span></span> = <span class="frac"><span class="frac-num">(100 − 25) <span class="math-rm">°C</span></span><span class="frac-den">0.03852 <span class="math-rm">K/W</span></span></span> = <span class="frac"><span class="frac-num">75</span><span class="frac-den">0.03852</span></span> = <strong>1,947.2 <span class="math-rm">W</span> (หรือประมาณ 1.95 <span class="math-rm">kW</span>)</strong></span>
+                        <span class="eq-num">(ตอบ ก)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 3.3 คำนวณ (ข) อุณหภูมิของผนังไม้ที่สัมผัสกับผนังอิฐ (<span class="math">T<sub>interface</sub></span>):</strong>
+                    <p>คิดเฉพาะชั้นไม้ (ความร้อนไหลจากรอยต่อ <span class="math">T<sub>interface</sub></span> ไปยังผิวไม้ <span class="math">T<sub>s,w</sub> = 25</span> <span class="math-rm">°C</span>):</p>
+                    <div class="eq-Display">
+                        <span><span class="math">q<sub>x</sub></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>interface</sub> − T<sub>s,w</sub></span></span><span class="frac-den"><span class="math">R<sub>t,w</sub></span></span></span>   ⇒   <span class="math">T<sub>interface</sub></span> = <span class="math">T<sub>s,w</sub></span> + <span class="math">q<sub>x</sub> R<sub>t,w</sub></span> = 25 + (1,947.2 <span class="math-rm">W</span> × 0.01471 <span class="math-rm">K/W</span>) = 25 + 28.64 = <strong>53.64 <span class="math-rm">°C</span></strong></span>
+                        <span class="eq-num">(ตอบ ข)</span>
+                    </div>
+                    <p><em>ตรวจสอบคำตอบจากฝั่งอิฐ:</em> <span class="math">T<sub>interface</sub> = T<sub>s,b</sub> − q<sub>x</sub> R<sub>t,b</sub> = 100 − (1,947.2 × 0.02381) = 100 − 46.36 = 53.64</span> <span class="math-rm">°C</span> ตรงกันทุกประการ!</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 2/2)</span>
+        <span>หน้า 8</span>
+    </footer>
+</section>
+
+<!-- page 9 budget (Compact): box-example 280 + box-example 295 + 2 gaps 16 = 591 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <div class="box-example">
+            <h4>เฉลยแบบฝึกหัดข้อ (9) <span class="tag-src">[โจทย์ต้นฉบับ สไลด์หน้า 112]</span> <span class="tag-inf">[เฉลยละเอียดทุกขั้นตอน]</span></h4>
+            <p><strong>1. สิ่งที่โจทย์กำหนด (Known):</strong> ผนังห้องเย็นประกอบด้วยวัสดุ 3 ชั้นเรียงจากด้านนอกเข้าด้านในดังนี้:</p>
+            <ul>
+                <li>อากาศภายนอก: <span class="math">T<sub>∞,o</sub> = 30</span> <span class="math-rm">°C</span>, สัมประสิทธิ์การพาความร้อนด้านนอก (ติดอิฐ) <span class="math">h<sub>o</sub> = 10</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span></li>
+                <li>ชั้นที่ 1 อิฐ (ด้านนอก): ความหนา <span class="math">L<sub>brick</sub> = 0.23</span> <span class="math-rm">m</span>, สภาพนำความร้อน <span class="math">k<sub>brick</sub> = 0.97</span> <span class="math-rm">W/(m·K)</span></li>
+                <li>ชั้นที่ 2 โฟม (ตรงกลาง): ความหนา <span class="math">L<sub>foam</sub> = 0.08</span> <span class="math-rm">m</span>, สภาพนำความร้อน <span class="math">k<sub>foam</sub> = 0.024</span> <span class="math-rm">W/(m·K)</span></li>
+                <li>ชั้นที่ 3 ไม้ (ด้านใน): ความหนา <span class="math">L<sub>wood</sub> = 0.015</span> <span class="math-rm">m</span>, สภาพนำความร้อน <span class="math">k<sub>wood</sub> = 0.17</span> <span class="math-rm">W/(m·K)</span></li>
+                <li>อากาศภายในห้องเย็น: <span class="math">T<sub>∞,i</sub> = −5</span> <span class="math-rm">°C</span>, สัมประสิทธิ์การพาความร้อนด้านใน (ติดไม้) <span class="math">h<sub>i</sub> = 30</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span>, พื้นที่ผนังรวม <span class="math">A = 100</span> <span class="math-rm">m<sup>2</sup></span></li>
+            </ul>
+            <p><strong>2. สิ่งที่ต้องการหา (Find):</strong> (ก) สัมประสิทธิ์การถ่ายเทความร้อนรวม (<span class="math">U</span>) และ (ข) อัตราการนำความเย็นของเครื่องทำความเย็น (ซึ่งต้องเท่ากับอัตราความร้อนรั่วไหลเข้าสู่ห้องเย็น, <span class="math">q</span>)</p>
+            <p><strong>3. ขั้นตอนการคำนวณอย่างละเอียด:</strong></p>
+            <ul>
+                <li><strong>ขั้นที่ 3.1 คำนวณความต้านทานความร้อนต่อหน่วยพื้นที่ (<span class="math">R<sub>tot</sub>&#39;&#39; = R<sub>tot</sub> A</span>) ของทั้ง 5 พจน์ที่ต่ออนุกรมกัน (จากสมการที่ 3.10):</strong>
+                    <ul>
+                        <li>การพาความร้อนด้านนอก: <span class="math">1 / h<sub>o</sub> = 1 / 10 =</span> <strong>0.1000 <span class="math-rm">(m<sup>2</sup>·K)/W</span></strong></li>
+                        <li>การนำความร้อนผ่านชั้นอิฐ: <span class="math">L<sub>brick</sub> / k<sub>brick</sub> = 0.23 / 0.97 =</span> <strong>0.2371 <span class="math-rm">(m<sup>2</sup>·K)/W</span></strong></li>
+                        <li>การนำความร้อนผ่านชั้นโฟม: <span class="math">L<sub>foam</sub> / k<sub>foam</sub> = 0.08 / 0.024 =</span> <strong>3.3333 <span class="math-rm">(m<sup>2</sup>·K)/W</span></strong> <em>(สังเกตว่าโฟมเป็นตัวต้านทานหลักถึง 90%!)</em></li>
+                        <li>การนำความร้อนผ่านชั้นไม้: <span class="math">L<sub>wood</sub> / k<sub>wood</sub> = 0.015 / 0.17 =</span> <strong>0.0882 <span class="math-rm">(m<sup>2</sup>·K)/W</span></strong></li>
+                        <li>การพาความร้อนด้านใน: <span class="math">1 / h<sub>i</sub> = 1 / 30 =</span> <strong>0.0333 <span class="math-rm">(m<sup>2</sup>·K)/W</span></strong></li>
+                    </ul>
+                    <div class="eq-Display">
+                        <span><span class="math">R<sub>tot</sub> A</span> = 0.1000 + 0.2371 + 3.3333 + 0.0882 + 0.0333 = <strong>3.7920 <span class="math-rm">(m<sup>2</sup>·K)/W</span></strong></span>
+                        <span class="eq-num">(เฉลย 9.1)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 3.2 คำนวณ (ก) สัมประสิทธิ์การถ่ายเทความร้อนรวม (<span class="math">U</span>) และ (ข) อัตราการนำความเย็น (<span class="math">q</span>):</strong>
+                    <div class="eq-Display">
+                        <span><span class="math">U</span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">R<sub>tot</sub> A</span></span></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">3.7920 <span class="math-rm">(m<sup>2</sup>·K)/W</span></span></span> = <strong>0.2637 <span class="math-rm">W/(m<sup>2</sup>·K)</span></strong></span>
+                        <span class="eq-num">(ตอบ ก)</span>
+                    </div>
+                    <div class="eq-Display">
+                        <span><span class="math">q</span> = <span class="math">U A</span> (<span class="math">T<sub>∞,o</sub> − T<sub>∞,i</sub></span>) = 0.2637 <span class="math-rm">W/(m<sup>2</sup>·K)</span> × 100 <span class="math-rm">m<sup>2</sup></span> × [30 − (−5)] <span class="math-rm">K</span> = 26.37 × 35 = <strong>923.0 <span class="math-rm">W</span> (หรือ 0.923 <span class="math-rm">kW</span>)</strong></span>
+                        <span class="eq-num">(ตอบ ข)</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="box-example">
+            <h4>เฉลยแบบฝึกหัดข้อ (10) <span class="tag-src">[โจทย์ต้นฉบับ สไลด์หน้า 113]</span> <span class="tag-inf">[เฉลยละเอียดทุกขั้นตอน]</span></h4>
+            <p><strong>1. สิ่งที่โจทย์กำหนด (Known):</strong> ท่อเหล็กทรงกระบอกมีเส้นผ่านศูนย์กลางภายใน <span class="math">D<sub>1</sub> = 5</span> <span class="math-rm">cm</span> (รัศมีภายใน <span class="math">r<sub>1</sub> = 2.5</span> <span class="math-rm">cm</span> = <span class="math">0.025</span> <span class="math-rm">m</span>) และเส้นผ่านศูนย์กลางภายนอก <span class="math">D<sub>2</sub> = 6</span> <span class="math-rm">cm</span> (รัศมีภายนอก <span class="math">r<sub>2</sub> = 3.0</span> <span class="math-rm">cm</span> = <span class="math">0.030</span> <span class="math-rm">m</span>), ความยาวท่อที่พิจารณา <span class="math">L = 1</span> <span class="math-rm">m</span>, อุณหภูมิไอน้ำด้านใน <span class="math">T<sub>∞,1</sub> = 500</span> <span class="math-rm">°C</span>, <span class="math">h<sub>1</sub> = 5,000</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span>, อุณหภูมิอากาศด้านนอก <span class="math">T<sub>∞,2</sub> = 20</span> <span class="math-rm">°C</span>, <span class="math">h<sub>2</sub> = 250</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span>, และสภาพนำความร้อนของเหล็ก <span class="math">k = 40</span> <span class="math-rm">W/(m·K)</span></p>
+            <p><strong>2. สิ่งที่ต้องการหา (Find):</strong> (ก) สัมประสิทธิ์การถ่ายเทความร้อนรวมที่อ้างอิงกับพื้นที่ผิวภายในท่อ (<span class="math">U<sub>1</sub></span>) และ (ข) อัตราการสูญเสียความร้อนต่อความยาว <span class="math">1</span> <span class="math-rm">m</span> ของท่อ (<span class="math">q&#39; = q/L</span>)</p>
+            <p><strong>3. ขั้นตอนการคำนวณอย่างละเอียด:</strong></p>
+            <ul>
+                <li><strong>ขั้นที่ 3.1 คำนวณ (ก) สัมประสิทธิ์การถ่ายเทความร้อนรวมอ้างอิงพื้นที่ภายใน (<span class="math">U<sub>1</sub></span>) จากสมการที่ 3.15:</strong>
+                    <div class="eq-Display">
+                        <span><span class="math">U<sub>1</sub></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">h<sub>1</sub></span></span></span> + <span class="frac"><span class="frac-num"><span class="math">r<sub>1</sub></span></span><span class="frac-den"><span class="math">k</span></span></span> <span class="math-rm">ln</span><span class="math-rm">(</span><span class="frac"><span class="frac-num"><span class="math">r<sub>2</sub></span></span><span class="frac-den"><span class="math">r<sub>1</sub></span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">r<sub>1</sub></span></span><span class="frac-den"><span class="math">r<sub>2</sub></span></span></span> <span class="math-rm">(</span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">h<sub>2</sub></span></span></span><span class="math-rm">)</span></span></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="frac"><span class="frac-num">1</span><span class="frac-den">5,000</span></span> + <span class="frac"><span class="frac-num">0.025</span><span class="frac-den">40</span></span> <span class="math-rm">ln</span><span class="math-rm">(</span><span class="frac"><span class="frac-num">0.030</span><span class="frac-den">0.025</span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num">0.025</span><span class="frac-den">0.030</span></span> <span class="math-rm">(</span><span class="frac"><span class="frac-num">1</span><span class="frac-den">250</span></span><span class="math-rm">)</span></span></span></span>
+                        <span class="eq-num">(เฉลย 10.1)</span>
+                    </div>
+                    <p>คำนวณค่าแต่ละพจน์ในตัวส่วน: พจน์ที่ 1 = <span class="math">0.000200</span>, พจน์ที่ 2 = <span class="math">0.000625 × ln(1.2) = 0.000114</span>, พจน์ที่ 3 = <span class="math">0.8333 × 0.004 = 0.003333</span> รวมตัวส่วน = <span class="math">0.003647</span> <span class="math-rm">(m<sup>2</sup>·K)/W</span> ดังนั้น:</p>
+                    <div class="eq-Display">
+                        <span><span class="math">U<sub>1</sub></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">0.003647 <span class="math-rm">(m<sup>2</sup>·K)/W</span></span></span> = <strong>274.18 <span class="math-rm">W/(m<sup>2</sup>·K)</span></strong></span>
+                        <span class="eq-num">(ตอบ ก)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 3.2 คำนวณ (ข) อัตราการสูญเสียความร้อนต่อความยาว <span class="math">L = 1</span> <span class="math-rm">m</span> ของท่อ (<span class="math">q</span>):</strong>
+                    <p>พื้นที่ผิวภายในท่อต่อความยาว 1 เมตรคือ <span class="math">A<sub>1</sub> = 2π r<sub>1</sub> L = 2π (0.025</span> <span class="math-rm">m</span>)(<span class="math">1</span> <span class="math-rm">m</span>) = <span class="math">0.15708</span> <span class="math-rm">m<sup>2</sup></span> ดังนั้น:</p>
+                    <div class="eq-Display">
+                        <span><span class="math">q</span> = <span class="math">U<sub>1</sub> A<sub>1</sub></span> (<span class="math">T<sub>∞,1</sub> − T<sub>∞,2</sub></span>) = 274.18 <span class="math-rm">W/(m<sup>2</sup>·K)</span> × 0.15708 <span class="math-rm">m<sup>2</sup></span> × (500 − 20) <span class="math-rm">K</span> = 43.068 × 480 = <strong>20,672.6 <span class="math-rm">W/m</span> (หรือ 20.67 <span class="math-rm">kW/m</span>)</strong></span>
+                        <span class="eq-num">(ตอบ ข)</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 2/2)</span>
+        <span>หน้า 9</span>
+    </footer>
+</section>
+
+<!-- page 10 budget (Compact): box-example 330 + h2 11 + table 6 rows 102 + h2 11 + ul 55 + box-concept 50 = 559 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <div class="box-example">
+            <h4>เฉลยแบบฝึกหัดข้อ (11) <span class="tag-src">[โจทย์ต้นฉบับ สไลด์หน้า 114 — โจทย์บูรณาการระดับมหาวิทยาลัย]</span> <span class="tag-inf">[เฉลยละเอียดทุกขั้นตอน]</span></h4>
+            <p><strong>1.การวิเคราะห์ระบบทางกายภาพ:</strong> ถังรูปทรงกลมมีโครงสร้างเป็นชั้นๆ โดยภายในโพรงทรงกลมรัศมี <span class="math">r<sub>1</sub> = 0.20</span> <span class="math-rm">m</span> บรรจุกากกัมมันตรังสีที่ผลิตความร้อนอย่างสม่ำเสมอด้วยอัตราต่อหน่วยปริมาตร <span class="math">q̇ = 4.5 × 10<sup>5</sup></span> <span class="math-rm">W/m<sup>3</sup></span> ล้อมรอบด้วยเปลือกทรงกลมชั้นในทำจากตะกั่ว (<span class="math">r<sub>1</sub> = 0.20</span> <span class="math-rm">m</span> ถึง <span class="math">r<sub>2</sub> = 0.30</span> <span class="math-rm">m</span>, <span class="math">k<sub>1</sub> = 35</span> <span class="math-rm">W/(m·K)</span>, จุดหลอมเหลว <span class="math">T<sub>mp</sub> = 328</span> <span class="math-rm">°C</span>) และเปลือกนอกทำจากเหล็กกล้าไร้สนิม (<span class="math">r<sub>2</sub> = 0.30</span> <span class="math-rm">m</span> ถึง <span class="math">r<sub>3</sub> = 0.34</span> <span class="math-rm">m</span>, <span class="math">k<sub>2</sub> = 15.2</span> <span class="math-rm">W/(m·K)</span>) แช่อยู่ในน้ำเกลือที่ <span class="math">T<sub>∞</sub> = 20</span> <span class="math-rm">°C</span>, <span class="math">h = 500</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span></p>
+            <p><strong>2. เกณฑ์การตรวจสอบความเหมาะสมของการออกแบบ:</strong> ตะกั่วจะสัมผัสกับอุณหภูมิสูงสุดที่พื้นผิวด้านในสุดของชั้นตะกั่ว (<span class="math">T<sub>s,1</sub></span> ที่รัศมี <span class="math">r<sub>1</sub> = 0.20</span> <span class="math-rm">m</span>) ดังนั้น การออกแบบนี้จะเป็นไปได้ก็ต่อเมื่อ <strong><span class="math">T<sub>s,1</sub> &lt; 328</span> <span class="math-rm">°C</span></strong></p>
+            <p><strong>3. ขั้นตอนการคำนวณอย่างละเอียด:</strong></p>
+            <ul>
+                <li><strong>ขั้นที่ 3.1 คำนวณอัตราการผลิตความร้อนรวมทั้งหมด (<span class="math">q</span>) จากปริมาตรของกากกัมมันตรังสีภายในโพรงทรงกลมรัศมี <span class="math">r<sub>1</sub> = 0.20</span> <span class="math-rm">m</span>:</strong>
+                    <div class="eq-Display">
+                        <span><span class="math">V<sub>waste</sub></span> = <span class="frac"><span class="frac-num">4</span><span class="frac-den">3</span></span> <span class="math">π r<sub>1</sub><sup>3</sup></span> = <span class="frac"><span class="frac-num">4</span><span class="frac-den">3</span></span> <span class="math">π</span> (0.20 <span class="math-rm">m</span>)<sup>3</sup> = 0.03351 <span class="math-rm">m<sup>3</sup></span>   ⇒   <span class="math">q</span> = <span class="math">q̇ V<sub>waste</sub></span> = (4.5 × 10<sup>5</sup> <span class="math-rm">W/m<sup>3</sup></span>)(0.03351 <span class="math-rm">m<sup>3</sup></span>) = <strong>15,079.6 <span class="math-rm">W</span> (15.08 <span class="math-rm">kW</span>)</strong></span>
+                        <span class="eq-num">(เฉลย 11.1)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 3.2 คำนวณความต้านทานความร้อนของเปลือกตะกั่ว เปลือกเหล็กกล้าไร้สนิม และการพาความร้อนสู่บ่อน้ำเกลือ:</strong>
+                    <p>เนื่องจากภายในเนื้อเปลือกตะกั่วและเปลือกเหล็กกล้าไร้สนิมไม่มีการผลิตความร้อน อัตราความร้อน <span class="math">q = 15,079.6</span> <span class="math-rm">W</span> จึงไหลผ่านความต้านทานทั้งสามที่ต่ออนุกรมกันโดยตรง (จากสมการที่ 3.19):</p>
+                    <ul>
+                        <li>ความต้านทานการนำความร้อนของเปลือกตะกั่ว (<span class="math">r<sub>1</sub></span> ถึง <span class="math">r<sub>2</sub></span>): <span class="math">R<sub>t,lead</sub> = [(1/r<sub>1</sub>) − (1/r<sub>2</sub>)] / (4π k<sub>1</sub>) = [(1/0.20) − (1/0.30)] / (4π × 35) = 1.6667 / 439.82 =</span> <strong>0.003789 <span class="math-rm">K/W</span></strong></li>
+                        <li>ความต้านทานการนำความร้อนของเปลือกเหล็กกล้าไร้สนิม (<span class="math">r<sub>2</sub></span> ถึง <span class="math">r<sub>3</sub></span>): <span class="math">R<sub>t,ss</sub> = [(1/r<sub>2</sub>) − (1/r<sub>3</sub>)] / (4π k<sub>2</sub>) = [(1/0.30) − (1/0.34)] / (4π × 15.2) = 0.39216 / 191.01 =</span> <strong>0.002053 <span class="math-rm">K/W</span></strong></li>
+                        <li>ความต้านทานการพาความร้อนที่ผิวนอก (<span class="math">r<sub>3</sub> = 0.34</span> <span class="math-rm">m</span>): <span class="math">R<sub>t,conv</sub> = 1 / (h · 4π r<sub>3</sub><sup>2</sup>) = 1 / [500 × 4π × (0.34)<sup>2</sup>] = 1 / 726.34 =</span> <strong>0.001377 <span class="math-rm">K/W</span></strong></li>
+                        <li>รวมความต้านทานทั้งหมด: <span class="math">R<sub>tot</sub> = 0.003789 + 0.002053 + 0.001377 =</span> <strong>0.007219 <span class="math-rm">K/W</span></strong></li>
+                    </ul>
+                </li>
+                <li><strong>ขั้นที่ 3.3 คำนวณอุณหภูมิสูงสุดของชั้นตะกั่วที่ผิวใน (<span class="math">T<sub>s,1</sub></span>) และสรุปผลการตรวจสอบ:</strong>
+                    <div class="eq-Display">
+                        <span><span class="math">T<sub>s,1</sub></span> = <span class="math">T<sub>∞</sub></span> + <span class="math">q R<sub>tot</sub></span> = 20 <span class="math-rm">°C</span> + (15,079.6 <span class="math-rm">W</span> × 0.007219 <span class="math-rm">K/W</span>) = 20 + 108.86 = <strong>128.86 <span class="math-rm">°C</span></strong></span>
+                        <span class="eq-num">(เฉลย 11.2)</span>
+                    </div>
+                    <p><strong>สรุปผลการตรวจสอบการออกแบบ:</strong> เนื่องจากอุณหภูมิสูงสุดของเปลือกตะกั่ว (<span class="math">T<sub>s,1</sub> = 128.86</span> <span class="math-rm">°C</span>) มีค่าต่ำกว่าจุดหลอมเหลวของตะกั่ว (<span class="math">328</span> <span class="math-rm">°C</span>) อย่างมาก (มีส่วนเผื่อความปลอดภัยเกือบ <span class="math">200</span> <span class="math-rm">°C</span>) <em>และแม้แต่ในกรณีที่กากกัมมันตรังสีเป็นของแข็งที่มี <span class="math">k = 35</span> <span class="math-rm">W/(m·K)</span> เท่ากับตะกั่ว อุณหภูมิที่จุดศูนย์กลางสุด <span class="math">T(0) = T<sub>s,1</sub> + q̇ r<sub>1</sub><sup>2</sup>/(6k) = 128.86 + 85.71 = 214.57</span> <span class="math-rm">°C</span> ก็ยังคงต่ำกว่า <span class="math">328</span> <span class="math-rm">°C</span></em> ดังนั้น <strong>การออกแบบถังรูปทรงกลมนี้มีความปลอดภัยและอยู่ในเกณฑ์ที่เป็นไปได้ (Feasible and Safe)</strong></p>
+                </li>
+            </ul>
+        </div>
+
+        <h2>อภิธานศัพท์วิชาการสำคัญ (Glossary of Technical Terms)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 28%;">คำศัพท์ภาษาไทย</th>
+                    <th scope="col" style="width: 28%;">คำศัพท์ภาษาอังกฤษ</th>
+                    <th scope="col" style="width: 44%;">คำอธิบายความหมายโดยสรุป</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>พื้นผิวอะเดียแบติก / หุ้มฉนวน</td>
+                    <td>Adiabatic / Insulated Surface</td>
+                    <td>พื้นผิวที่ไม่มีการถ่ายเทความร้อนไหลผ่าน (<span class="math">q&#39;&#39; = 0</span>) ทำให้เกรเดียนต์อุณหภูมิตั้งฉากกับผิวเป็นศูนย์ (<span class="math">∂T/∂n = 0</span>)</td>
+                </tr>
+                <tr>
+                    <td>วัสดุไอโซทรอปิก</td>
+                    <td>Isotropic Material</td>
+                    <td>วัสดุที่มีสมบัติทางกายภาพ (เช่น สภาพนำความร้อน <span class="math">k</span>) เท่ากันในทุกทิศทาง (<span class="math">k<sub>x</sub> = k<sub>y</sub> = k<sub>z</sub> = k</span>)</td>
+                </tr>
+                <tr>
+                    <td>สัมประสิทธิ์การถ่ายเทความร้อนรวม</td>
+                    <td>Overall Heat Transfer Coefficient (<span class="math">U</span>)</td>
+                    <td>สัมประสิทธิ์ที่รวมผลของความต้านทานการนำและการพาความร้อนทุกชั้นเข้าด้วยกัน นิยามโดย <span class="math">UA = 1/R<sub>tot</sub></span></td>
+                </tr>
+                <tr>
+                    <td>ความต้านทานการสัมผัสทางความร้อน</td>
+                    <td>Thermal Contact Resistance (<span class="math">R<sub>t,c</sub>&#39;&#39;</span>)</td>
+                    <td>ความต้านทานที่รอยต่อของของแข็งสองชนิดอันเกิดจากความขรุขระระดับจุลภาคทำให้เกิดช่องว่างกักเก็บของไหล</td>
+                </tr>
+                <tr>
+                    <td>สภาพแพร่ความร้อน</td>
+                    <td>Thermal Diffusivity (<span class="math">α</span>)</td>
+                    <td>อัตราส่วนระหว่างสภาพนำความร้อนต่อความจุความร้อนเชิงปริมาตร (<span class="math">α = k/ρc<sub>p</sub></span>) บ่งบอกความเร็วในการแพร่ของอุณหภูมิ</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>เอกสารอ้างอิงประจำวิชา (Master References)</h2>
+        <ul style="font-size: 8.5pt;">
+            <li id="ref-bergman2011">Bergman, T. L., Lavine, A. S., Incropera, F. P., &amp; DeWitt, D. P. (2011). <em>Introduction to Heat Transfer</em> (6th ed., Chapters 1–3 &amp; Appendix C). John Wiley &amp; Sons Inc.</li>
+            <li id="ref-cengel2020">Çengel, Y. A., &amp; Ghajar, A. J. (2020). <em>Heat and Mass Transfer: Fundamentals &amp; Applications</em> (6th ed. in SI Units, Chapters 1–3). McGraw-Hill Education.</li>
+            <li id="ref-archanai2017">อาชาไนย บัวศรี. (2560). <em>การถ่ายเทความร้อน (Heat Transfer)</em> (พิมพ์ครั้งที่ 1, บทที่ 1–3). ภาควิชาวิทยาการและวิศวกรรมวัสดุ คณะวิศวกรรมศาสตร์และเทคโนโลยีอุตสาหกรรม มหาวิทยาลัยศิลปากร.</li>
+        </ul>
+
+        <div class="box-concept" style="font-size: 8.5pt;">
+            <h4>บันทึกการตรวจสอบความครบถ้วนสมบูรณ์ของหนังสือทั้งรายวิชา (Final Verification Checklist)</h4>
+            <p><strong>สถานะ:</strong> จัดทำตำราเรียนวิชาการฉบับสมบูรณ์ครบถ้วน 100% ทั้ง 3 บท (รวม 214 หน้าสไลด์ต้นฉบับ) พร้อมเติมสมการที่เว้นว่าง กู้คืนส่วนที่ถูกตัดขอบ และแสดงวิธีทำละเอียดของตัวอย่างและแบบฝึกหัดท้ายบททั้ง 11 ข้อครบสมบูรณ์ทุกประการ</p>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 2/2)</span>
+        <span>หน้า 10</span>
+    </footer>
+</section>
+
+</div>
+
+<script data-bard-injected="true">
+(function() {
+  async function fetchFifeImageBlobUsingAlr(urlString) {
+    if (urlString.startsWith('blob:') || urlString.startsWith('data:')) {
+      throw new Error('Input URL is already a blob or data URL.');
+    }
+    var url = new URL(urlString, window.location.href);
+    url.searchParams.set('alr', 'yes');
+    for (var i = 0; i < 5; i++) {
+      var response = await fetch(url.toString(), {credentials: 'include'});
+      if (!response.ok) {
+        throw new Error('Fetch received not OK response: ' + response.status);
+      }
+      var contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.startsWith('text/plain')) {
+        var blob = await response.blob();
+        if (blob.size > 0 && blob.type.startsWith('image/')) {
+          return blob;
+        }
+        throw new Error('Fetched blob is not a valid image.');
+      }
+      url = new URL(await response.text());
+    }
+    throw new Error('Exceeded maximum number of redirects.');
+  }
+
+  async function updateImageSourcesUsingAlr() {
+    var imgs = Array.from(document.querySelectorAll('img'));
+    await Promise.all(imgs.map(async function(img) {
+      if (img.src && img.src.includes('googleusercontent')) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(img.src);
+          img.src = URL.createObjectURL(blob);
+        } catch (e) {}
+      }
+    }));
+
+    var elements = document.querySelectorAll('[style*="googleusercontent"]');
+    var urlRegex = /url\((['"]?)(https?:\/\/.*?googleusercontent.*?)\1\)/;
+    await Promise.all(Array.from(elements).map(async function(el) {
+      var bg = el.style.backgroundImage;
+      var match = bg ? bg.match(urlRegex) : null;
+      if (match && match[2]) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(match[2]);
+          var blobUrl = URL.createObjectURL(blob);
+          el.style.backgroundImage = bg.replace(match[2], blobUrl);
+        } catch (e) {}
+      }
+    }));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateImageSourcesUsingAlr);
+  } else {
+    updateImageSourcesUsingAlr();
+  }
+})();
+</script></body></html>

@@ -1,0 +1,1325 @@
+<!DOCTYPE html><html lang="th"><head>
+    <meta charset="UTF-8">
+    <title>Transport Phenomena I - บทที่ 3 การนำความร้อนในหนึ่งมิติภายใต้สภาวะคงตัว (ส่วนที่ 1/2)</title>
+    <style>
+        @page { margin: 0; }
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { background-color: #ffffff; }
+        @media (prefers-color-scheme: dark) {
+            html { background-color: #1f1f1f; }
+        }
+        body {
+            padding: 24px 0;
+            margin: 0 auto;
+            max-width: 900px !important;
+            border: none !important;
+            background: transparent !important;
+            font-family: 'Sarabun', 'TH Sarabun New', 'Tahoma', 'Segoe UI', sans-serif;
+            color: #1e293b;
+        }
+        .page {
+    min-height: 297mm;
+    height: auto;
+    margin: 0 auto 12px auto;
+    padding: 18mm 18mm 12mm 18mm;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: visible;
+}
+        @media screen and (max-width: 600px) {
+            body { padding: 16px 0; }
+            .page {
+                margin: 0 auto 8px auto;
+                border: none;
+                padding: 12px 20px;
+            }
+        }
+        .page-content {
+    flex: 1 0 auto;
+    min-height: 0;
+    overflow: visible;
+}
+        .page-content > * + * {
+            margin-top: 20px;
+        }
+        .page.compact, body.compact .page {
+            font-size: 9.5pt;
+            line-height: 1.35;
+        }
+        .page.compact .page-content > * + *, body.compact .page-content > * + * {
+            margin-top: 12px;
+        }
+        .page-content > :is(h1, h2, h3, h4) + * {
+            margin-top: 8px;
+        }
+        .page-footer {
+            flex-shrink: 0;
+            margin-top: auto;
+            padding-top: 4mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 8.5pt;
+            color: #64748b;
+            border-top: 1px solid #cbd5e1;
+        }
+        @media print {
+            *, *::before, *::after {
+                box-shadow: none !important;
+                text-shadow: none !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            body { padding: 0; background: none; }
+            .page {
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        overflow: visible;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .page-content {
+        overflow: visible;
+    }
+
+    .page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+        }
+        [contenteditable]:focus { outline: none; }
+
+        /* Typography & Academic Book Theme */
+        h1 {
+            font-size: 18pt;
+            color: #0f172a;
+            margin: 0;
+            line-height: 1.25;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 13.5pt;
+            color: #1e3a8a;
+            margin: 0;
+            padding-bottom: 3px;
+            border-bottom: 1.5px solid #1e3a8a;
+            font-weight: 700;
+        }
+        h3 {
+            font-size: 11pt;
+            color: #9a3412;
+            margin: 0;
+            font-weight: 700;
+        }
+        h4 {
+            font-size: 10pt;
+            color: #0f172a;
+            margin: 0;
+            font-weight: 700;
+        }
+        p {
+            margin: 0;
+            text-align: justify;
+        }
+        ul, ol {
+            margin: 0;
+            padding-left: 18px;
+        }
+        li + li {
+            margin-top: 3px;
+        }
+        .masthead {
+            background-color: #0f172a;
+            color: #ffffff;
+            padding: 12px 16px;
+            border-left: 6px solid #15803d;
+        }
+        .masthead-sub {
+            font-size: 9pt;
+            color: #cbd5e1;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .masthead h1 {
+            color: #ffffff;
+            font-size: 16.5pt;
+        }
+        .tag-src {
+            display: inline-block;
+            font-size: 8pt;
+            font-weight: 700;
+            padding: 1px 6px;
+            background-color: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+        .tag-sup {
+            display: inline-block;
+            font-size: 8pt;
+            font-weight: 700;
+            padding: 1px 6px;
+            background-color: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fcd34d;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+        .tag-inf {
+            display: inline-block;
+            font-size: 8pt;
+            font-weight: 700;
+            padding: 1px 6px;
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+        .box-concept {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-left: 4px solid #1e3a8a;
+            padding: 8px 12px;
+        }
+        .box-eq {
+            background-color: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-left: 4px solid #c2410c;
+            padding: 8px 12px;
+        }
+        .box-example {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-left: 4px solid #15803d;
+            padding: 8px 12px;
+        }
+        .box-warn {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            border-left: 4px solid #dc2626;
+            padding: 8px 12px;
+        }
+        .eq-Display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-size: 10.5pt;
+            padding: 4px 8px;
+            background-color: #ffffff;
+            border: 1px dashed #cbd5e1;
+            margin: 4px 0;
+        }
+        .eq-num {
+            font-family: 'Sarabun', sans-serif;
+            font-size: 8.5pt;
+            color: #475569;
+            font-weight: 700;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.5pt;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 4px 6px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #1e3a8a;
+            color: #ffffff;
+            font-weight: 700;
+        }
+        tr:nth-child(even) td {
+            background-color: #f8fafc;
+        }
+        figure {
+            margin: 0;
+            padding: 6px;
+            border: 1px solid #e2e8f0;
+            background-color: #ffffff;
+            text-align: center;
+        }
+        figcaption {
+            font-size: 8.5pt;
+            color: #475569;
+            margin-top: 4px;
+            text-align: left;
+        }
+        .math {
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-style: italic;
+        }
+        .math-rm {
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-style: normal;
+        }
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            padding: 0 2px;
+        }
+        .frac-num {
+            border-bottom: 1px solid #1e293b;
+            padding: 0 2px;
+        }
+        .frac-den {
+            padding: 0 2px;
+        }
+        .cite {
+            color: #1e40af;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+<style data-bard-injected="true">
+@media screen {
+    html {
+        background-color: #ffffff;
+    }
+    body {
+        padding: 8px 0 24px 0;
+    }
+}
+@media screen and (prefers-color-scheme: dark) {
+    html {
+        background-color: #1f1f1f;
+    }
+}
+@media screen and (max-width: 600px) {
+    body {
+        padding: 4px 0 16px 0;
+        margin: 0 auto;
+    }
+}
+</style></head>
+<body class="compact">
+<div contenteditable="true">
+
+<!-- page 1 budget (Compact): masthead 45 + box-concept 125 + h2 11 + table 9 rows 153 + h2 11 + prose 145 + 5 gaps 40 = 530 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <div class="masthead">
+            <div class="masthead-sub">ตำราเรียนวิชาการฉบับสมบูรณ์ (Self-Contained University Textbook) | ปีการศึกษา 2569 — ส่วนที่ 1/2</div>
+            <h1>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I)<br>บทที่ 3: การนำความร้อนในหนึ่งมิติภายใต้สภาวะคงตัว (One-Dimensional, Steady-State Conduction)</h1>
+        </div>
+
+        <div class="box-concept">
+            <h4>บทนำ ความเชื่อมโยงจากบทที่ 2 และแผนผังเนื้อหาบทที่ 3 (ส่วนที่ 1/2 และ 2/2)</h4>
+            <p><span class="tag-sup">[เสริมพื้นฐาน]</span> ในบทที่ 2 เราได้พิสูจน์สมการการแพร่ความร้อน (Heat Diffusion Equation) ในระบบพิกัดฉาก พิกัดทรงกระบอก และพิกัดทรงกลม ในบทที่ 3 นี้ (<a class="cite" href="#ref-bergman2011" contenteditable="false">Bergman et al., 2011</a>; <a class="cite" href="#ref-archanai2017" contenteditable="false">อาชาไนย บัวศรี, 2560</a>) เราจะนำสมการเหล่านั้นมาแก้ปัญหาที่สำคัญที่สุดในทางวิศวกรรม คือ <strong>การนำความร้อนใน 1 มิติ ภายใต้สภาวะคงตัว (One-Dimensional, Steady-State Conduction)</strong> เนื่องจากเนื้อหาต้นฉบับมีความยาวถึง 114 หน้าสไลด์ เพื่อให้มีรายละเอียดครบถ้วนทุกสมการและทุกขั้นตอนการคำนวณ ตำราบทที่ 3 จึงแบ่งออกเป็น 2 ส่วนต่อเนื่องกัน: <strong>ส่วนที่ 1/2 (เอกสารฉบับนี้)</strong> ครอบคลุมหัวข้อ 3.1 ผนังราบ, ความต้านทานความร้อน, ผนังประกอบ, ความต้านทานการสัมผัส, หัวข้อ 3.2 ระบบแนวรัศมี (ทรงกระบอก ทรงกลม รัศมีวิกฤตของฉนวน), หัวข้อ 3.3 ตารางสรุปที่ 3.3, และตัวอย่างที่ 3.1–3.2 ส่วน <strong>ส่วนที่ 2/2</strong> จะครอบคลุมหัวข้อ 3.4 การนำความร้อนเมื่อมีการผลิตพลังงานความร้อนภายใน, ภาคผนวก C, ตัวอย่างที่ 3.3, และแบบฝึกหัดท้ายบทข้อ (6)–(11) พร้อมเฉลยวิธีทำละเอียด</p>
+        </div>
+
+        <h2>รายการสัญลักษณ์และตัวแปรมาตรฐานประจำบทที่ 3 (Nomenclature)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 16%;">สัญลักษณ์</th>
+                    <th scope="col" style="width: 40%;">ความหมายทางกายภาพ (ภาษาไทย / ภาษาอังกฤษ)</th>
+                    <th scope="col" style="width: 18%;">หน่วย SI</th>
+                    <th scope="col" style="width: 26%;">ความสัมพันธ์และสูตรสำคัญ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="math">C<sub>1</sub>, C<sub>2</sub></span></td>
+                    <td>ค่าคงที่ของการอินทิเกรต (Constants of Integration)</td>
+                    <td>ขึ้นกับระบบพิกัด</td>
+                    <td>หาค่าได้จากการแทนเงื่อนไขขอบเขต 2 เงื่อนไข</td>
+                </tr>
+                <tr>
+                    <td><span class="math">h<sub>fg</sub></span>, <span class="math">ṁ</span></td>
+                    <td>ความร้อนแฝงของการกลายเป็นไอ (<span class="math">h<sub>fg</sub></span>) และอัตราการระเหยเชิงมวล (<span class="math">ṁ</span>)</td>
+                    <td><span class="math-rm">J/kg, kg/s</span></td>
+                    <td>สมดุลพลังงานการเดือด: <span class="math">q = ṁ h<sub>fg</sub></span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">L, L<sub>A</sub>, L<sub>B</sub>, L<sub>C</sub></span></td>
+                    <td>ความหนาของผนังราบ หรือความยาวของท่อทรงกระบอก</td>
+                    <td><span class="math-rm">m</span></td>
+                    <td>ในผนังประกอบ <span class="math">L = L<sub>A</sub> + L<sub>B</sub> + ...</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">q<sub>x</sub>, q<sub>r</sub></span></td>
+                    <td>อัตราการถ่ายเทความร้อนในทิศทาง <span class="math">x</span> และในแนวรัศมี <span class="math">r</span></td>
+                    <td><span class="math-rm">W</span></td>
+                    <td>มีค่าคงตัวตลอดวงจรอนุกรมเมื่อ <span class="math">q̇ = 0</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">r<sub>1</sub>, r<sub>2</sub>, r<sub>cr</sub></span></td>
+                    <td>รัศมีภายใน (<span class="math">r<sub>1</sub></span>), รัศมีภายนอก (<span class="math">r<sub>2</sub></span>), และรัศมีวิกฤตของฉนวน (<span class="math">r<sub>cr</sub></span>)</td>
+                    <td><span class="math-rm">m</span></td>
+                    <td>ทรงกระบอก <span class="math">r<sub>cr</sub> = k/h</span>, ทรงกลม <span class="math">r<sub>cr</sub> = 2k/h</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">R<sub>t,cond</sub>, R<sub>t,conv</sub>, R<sub>t,rad</sub></span></td>
+                    <td>ความต้านทานความร้อนของการนำ การพา และการแผ่รังสี</td>
+                    <td><span class="math-rm">K/W (หรือ °C/W)</span></td>
+                    <td>นิยามทั่วไป: <span class="math">R<sub>t</sub> ≡ ΔT / q</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">R<sub>t</sub>&#39;&#39;, R<sub>t,c</sub>&#39;&#39;</span></td>
+                    <td>ความต้านทานความร้อนต่อหน่วยพื้นที่ และความต้านทานการสัมผัส</td>
+                    <td><span class="math-rm">(m<sup>2</sup>·K)/W</span></td>
+                    <td><span class="math">R<sub>t</sub> = R<sub>t</sub>&#39;&#39; / A</span> และ <span class="math">R<sub>t,c</sub>&#39;&#39; = (T<sub>A</sub> − T<sub>B</sub>)/q<sub>x</sub>&#39;&#39;</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">R<sub>tot</sub></span></td>
+                    <td>ความต้านทานความร้อนรวมทั้งหมดของเครือข่าย (Total Resistance)</td>
+                    <td><span class="math-rm">K/W</span></td>
+                    <td>ต่ออนุกรม: <span class="math">R<sub>tot</sub> = ∑ R<sub>t,i</sub> = 1/(UA)</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">U, U<sub>1</sub>, U<sub>4</sub></span></td>
+                    <td>สัมประสิทธิ์การถ่ายเทความร้อนรวม (Overall Heat Transfer Coefficient)</td>
+                    <td><span class="math-rm">W/(m<sup>2</sup>·K)</span></td>
+                    <td><span class="math">q = U A ΔT<sub>overall</sub></span> โดยที่ <span class="math">U<sub>1</sub>A<sub>1</sub> = U<sub>2</sub>A<sub>2</sub> = 1/R<sub>tot</sub></span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>3.0 ความรู้พื้นฐานที่จำเป็นก่อนเรียนบทที่ 3 (Essential Prerequisites)</h2>
+        <p><span class="tag-sup">[เสริมพื้นฐาน]</span> คำว่า <strong>&#34;หนึ่งมิติ (One-Dimensional)&#34;</strong> หมายความว่าอุณหภูมิเป็นฟังก์ชันของพิกัดตำแหน่งเพียงตัวเดียว (เช่น <span class="math">T(x)</span> หรือ <span class="math">T(r)</span>) และความร้อนไหลในทิศทางนั้นเพียงทิศทางเดียว ส่วนคำว่า <strong>&#34;สภาวะคงตัว (Steady-State)&#34;</strong> หมายความว่าอุณหภูมิ ณ จุดใดๆ ไม่เปลี่ยนแปลงตามเวลา (<span class="math">∂T/∂t = 0</span>) ส่งผลให้ไม่มีการสะสมพลังงานเพิ่มขึ้นในผนัง (<span class="math">Ė<sub>st</sub> = 0</span>) ความรู้คณิตศาสตร์และฟิสิกส์พื้นฐานที่ใช้ในบทนี้ได้แก่: (1) <strong>การอินทิเกรตสองครั้ง:</strong> เมื่ออินทิเกรต <span class="math">d<sup>2</sup>T/dx<sup>2</sup> = 0</span> ครั้งที่หนึ่งจะได้ <span class="math">dT/dx = C<sub>1</sub></span> และอินทิเกรตครั้งที่สองจะได้สมการเส้นตรง <span class="math">T(x) = C<sub>1</sub>x + C<sub>2</sub></span> ส่วนการอินทิเกรต <span class="math">dT/dr = C<sub>1</sub>/r</span> จะได้ลอการิทึมธรรมชาติ <span class="math">T(r) = C<sub>1</sub> ln(r) + C<sub>2</sub></span> (โดยใช้สมบัติ <span class="math">ln(a) − ln(b) = ln(a/b)</span>), และ (2) <strong>การรวมตัวต้านทานในวงจรไฟฟ้า:</strong> ตัวต้านทานต่ออนุกรมกันจะมีกระแสไหลเท่ากันและ <span class="math">R<sub>tot</sub> = R<sub>1</sub> + R<sub>2</sub> + ...</span> ส่วนตัวต้านทานต่อขนานกันจะมีแรงดันตกคร่อมเท่ากันและ <span class="math">1/R<sub>eq</sub> = 1/R<sub>1</sub> + 1/R<sub>2</sub></span></p>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 1/2)</span>
+        <span>หน้า 1</span>
+    </footer>
+</section>
+
+<!-- page 2 budget (Compact): h2 11 + prose 115 + svg 35mm 84 + box chrome 24 + h3 11 + box-eq 225 + 5 gaps 40 = 510 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h2>3.1 ผนังราบ (3.1 The Plane Wall)</h2>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 2–3]</span> สำหรับการนำความร้อนใน 1 มิติผ่านผนังราบ อุณหภูมิจะเป็นฟังก์ชันของพิกัด <span class="math">x</span> เพียงอย่างเดียว [<span class="math">T = T(x)</span>] และความร้อนจะถูกถ่ายโอนในทิศทาง <span class="math">x</span> นี้เท่านั้น ในรูปที่ 3.1a ผนังราบความหนา <span class="math">L</span> ทำหน้าที่กั้นของไหลสองชนิดที่มีอุณหภูมิแตกต่างกัน คือ ของไหลร้อนด้านซ้าย (<span class="math">T<sub>∞,1</sub>, h<sub>1</sub></span>) และของไหลเย็นด้านขวา (<span class="math">T<sub>∞,2</sub>, h<sub>2</sub></span>) การถ่ายเทความร้อนเกิดขึ้นต่อเนื่องกัน 3 ขั้นตอนตามลำดับ ได้แก่: (1) <strong>การพาความร้อน</strong> จากของไหลร้อนที่ <span class="math">T<sub>∞,1</sub></span> มายังผิวผนังด้านซ้ายที่ <span class="math">T<sub>s,1</sub></span>, (2) <strong>การนำความร้อน</strong> ผ่านเนื้อผนังราบจาก <span class="math">x = 0</span> ไปยัง <span class="math">x = L</span>, และ (3) <strong>การพาความร้อน</strong> จากผิวผนังด้านขวาที่ <span class="math">T<sub>s,2</sub></span> ออกไปยังของไหลเย็นที่ <span class="math">T<sub>∞,2</sub></span></p>
+
+        <figure>
+            <svg viewBox="0 0 720 130" style="width: 100%; height: 34mm;" role="img">
+                <title>การถ่ายเทความร้อนผ่านผนังราบ: การกระจายอุณหภูมิและวงจรความร้อนสมมูล (Figure 3.1)</title>
+                <!-- Left: Fig 3.1a Physical system & Temp profile -->
+                <rect x="5" y="5" width="350" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="180" y="18" font-size="9" font-weight="bold" fill="#0f172a" text-anchor="middle">(a) การกระจายอุณหภูมิในผนังราบ (Figure 3.1a)</text>
+                <defs>
+                    <linearGradient id="planeWallGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#f97316" stop-opacity="0.7"></stop>
+                        <stop offset="100%" stop-color="#ffedd5" stop-opacity="0.4"></stop>
+                    </linearGradient>
+                </defs>
+                <!-- Wall -->
+                <rect x="125" y="25" width="110" height="75" fill="url(#planeWallGrad)" stroke="#1e293b" stroke-width="1.5"></rect>
+                <!-- Hot fluid left -->
+                <ellipse cx="62" cy="88" rx="45" ry="14" fill="#ffedd5" stroke="#f97316"></ellipse>
+                <text x="62" y="86" font-size="8" font-weight="bold" fill="#9a3412" text-anchor="middle">Hot fluid</text>
+                <text x="62" y="96" font-size="8" font-weight="bold" fill="#9a3412" text-anchor="middle">T_∞,1 , h₁</text>
+                <!-- Cold fluid right -->
+                <ellipse cx="295" cy="96" rx="45" ry="14" fill="#e0f2fe" stroke="#0284c7"></ellipse>
+                <text x="295" y="94" font-size="8" font-weight="bold" fill="#0369a1" text-anchor="middle">Cold fluid</text>
+                <text x="295" y="104" font-size="8" font-weight="bold" fill="#0369a1" text-anchor="middle">T_∞,2 , h₂</text>
+                <!-- Temp curve -->
+                <path d="M 55 34 L 92 34 Q 112 34, 125 50 L 235 76 Q 248 92, 268 92 L 305 92" fill="none" stroke="#dc2626" stroke-width="2.5"></path>
+                <text x="42" y="32" font-size="8.5" font-weight="bold" fill="#dc2626">T_∞,1</text>
+                <text x="102" y="54" font-size="8.5" font-weight="bold" fill="#dc2626">T_s,1</text>
+                <text x="242" y="74" font-size="8.5" font-weight="bold" fill="#dc2626">T_s,2</text>
+                <text x="310" y="90" font-size="8.5" font-weight="bold" fill="#dc2626">T_∞,2</text>
+                <!-- qx arrow -->
+                <line x1="95" y1="68" x2="265" y2="68" stroke="#b91c1c" stroke-width="1.8"></line>
+                <polygon points="263,65 270,68 263,71" fill="#b91c1c"></polygon>
+                <text x="278" y="71" font-size="9" font-weight="bold" fill="#b91c1c">qₓ</text>
+                <text x="125" y="114" font-size="8.5" font-weight="bold" fill="#1e293b" text-anchor="middle">x = 0</text>
+                <text x="235" y="114" font-size="8.5" font-weight="bold" fill="#1e293b" text-anchor="middle">x = L</text>
+
+                <!-- Right: Fig 3.1b Equivalent Thermal Circuit -->
+                <rect x="365" y="5" width="350" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="540" y="18" font-size="9" font-weight="bold" fill="#0f172a" text-anchor="middle">(b) วงจรความร้อนสมมูล (Equivalent Thermal Circuit - Figure 3.1b)</text>
+                <!-- Circuit nodes and resistors -->
+                <line x1="380" y1="62" x2="412" y2="62" stroke="#dc2626" stroke-width="2"></line>
+                <polygon points="410,58 417,62 410,66" fill="#dc2626"></polygon>
+                <text x="392" y="54" font-size="9.5" font-weight="bold" fill="#dc2626">qₓ</text>
+
+                <!-- Node 1: T_inf,1 -->
+                <circle cx="425" cy="62" r="4" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"></circle>
+                <text x="425" y="45" font-size="9" font-weight="bold" fill="#c2410c" text-anchor="middle">T_∞,1</text>
+                <!-- R_conv,1 -->
+                <polyline points="429,62 442,62 447,52 455,72 463,52 471,72 479,52 487,72 492,62 505,62" fill="none" stroke="#1e293b" stroke-width="1.5"></polyline>
+                <text x="467" y="92" font-size="9" font-weight="bold" fill="#1e3a8a" text-anchor="middle">1 / (h₁A)</text>
+
+                <!-- Node 2: T_s,1 -->
+                <circle cx="509" cy="62" r="4" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"></circle>
+                <text x="509" y="45" font-size="9" font-weight="bold" fill="#9a3412" text-anchor="middle">T_s,1</text>
+                <!-- R_cond -->
+                <polyline points="513,62 526,62 531,52 539,72 547,52 555,72 563,52 571,72 576,62 589,62" fill="none" stroke="#1e293b" stroke-width="1.5"></polyline>
+                <text x="551" y="92" font-size="9" font-weight="bold" fill="#1e3a8a" text-anchor="middle">L / (kA)</text>
+
+                <!-- Node 3: T_s,2 -->
+                <circle cx="593" cy="62" r="4" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"></circle>
+                <text x="593" y="45" font-size="9" font-weight="bold" fill="#9a3412" text-anchor="middle">T_s,2</text>
+                <!-- R_conv,2 -->
+                <polyline points="597,62 610,62 615,52 623,72 631,52 639,72 647,52 655,72 660,62 673,62" fill="none" stroke="#1e293b" stroke-width="1.5"></polyline>
+                <text x="635" y="92" font-size="9" font-weight="bold" fill="#1e3a8a" text-anchor="middle">1 / (h₂A)</text>
+
+                <!-- Node 4: T_inf,2 -->
+                <circle cx="677" cy="62" r="4" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"></circle>
+                <text x="677" y="45" font-size="9" font-weight="bold" fill="#0369a1" text-anchor="middle">T_∞,2</text>
+                <text x="540" y="114" font-size="8.5" fill="#334155" text-anchor="middle">R_tot = 1/(h₁A) + L/(kA) + 1/(h₂A)  ⇒  qₓ = (T_∞,1 − T_∞,2) / R_tot</text>
+            </svg>
+            <figcaption><strong>รูปที่ 3.1</strong> <span class="tag-src">[ต้นฉบับ: Figure 3.1a–b สไลด์หน้า 2, 11, 16]</span> การถ่ายเทความร้อนผ่านผนังราบ: (a) การกระจายอุณหภูมิ และ (b) วงจรความร้อนสมมูล</figcaption>
+        </figure>
+
+        <h3>3.1.1 การกระจายอุณหภูมิและอัตราการนำความร้อน (Temperature Distribution and Conduction Rate)</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 4–10]</span> <span class="tag-inf">[แก้ไขจุดพิมพ์ผิดในสไลด์]</span> การกระจายอุณหภูมิภายในผนังสามารถหาได้โดยการแก้สมการการแพร่ความร้อนพร้อมเงื่อนไขขอบเขตที่เหมาะสม สำหรับสภาวะคงตัว (<span class="math">∂T/∂t = 0</span>) การนำความร้อน 1 มิติในทิศทาง <span class="math">x</span> (<span class="math">∂T/∂y = ∂T/∂z = 0</span>) และไม่มีแหล่งกำเนิดพลังงานความร้อนภายในผนัง (<span class="math">q̇ = 0</span>) สมการการแพร่ความร้อนลดรูปลงเป็น:</p>
+
+        <div class="box-eq">
+            <div class="eq-Display">
+                <span><span class="frac"><span class="frac-num"><span class="math">d</span></span><span class="frac-den"><span class="math">dx</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dx</span></span></span><span class="math-rm">)</span> = 0    หรือเนื่องจาก <span class="math">q<sub>x</sub>&#39;&#39; = −k(dT/dx)</span> จะได้ว่า:    <span class="frac"><span class="frac-num"><span class="math">dq<sub>x</sub>&#39;&#39;</span></span><span class="frac-den"><span class="math">dx</span></span></span> = 0  ⇒  <span class="math">q<sub>x</sub>&#39;&#39;</span> = <span class="math-rm">constant (ไม่ขึ้นกับ </span><span class="math">x</span><span class="math-rm">)</span></span>
+                <span class="eq-num">(สมการที่ 3.1)</span>
+            </div>
+            <p>หากกำหนดสมมติฐานว่าสภาพนำความร้อน <span class="math">k</span> ของวัสดุผนังมีค่าคงตัว เราสามารถหารด้วย <span class="math">k</span> แล้วอินทิเกรตสมการสองครั้งต่อเนื่องกันเพื่อหาผลเฉลยทั่วไป (General solution) ได้ดังนี้ <em>(หมายเหตุ: ในสไลด์หน้า 6–9 พิมพ์ค่าคงที่ <span class="math">C<sub>1</sub></span> เป็น <span class="math">C<sub>r</sub></span> ในสมการ <span class="math">T(x)</span> ซึ่งที่ถูกต้องคือ <span class="math">C<sub>1</sub></span>)</em>:</p>
+            <ul>
+                <li><strong>อินทิเกรตครั้งที่ 1:</strong> จาก <span class="math">d/dx(dT/dx) = 0</span> อินทิเกรตเทียบกับ <span class="math">x</span> ได้ <span class="math">dT/dx = C<sub>1</sub></span></li>
+                <li><strong>อินทิเกรตครั้งที่ 2:</strong> อินทิเกรตเทียบกับ <span class="math">x</span> อีกครั้ง ได้ผลเฉลยทั่วไปเป็นสมการเส้นตรง: <strong><span class="math">T(x) = C<sub>1</sub> x + C<sub>2</sub></span></strong></li>
+                <li><strong>แทนเงื่อนไขขอบเขตชนิดที่ 1 (สไลด์หน้า 7–8):</strong> กำหนดอุณหภูมิที่ผิวทั้งสองด้านคือ ที่ <span class="math">x = 0</span> มี <span class="math">T(0) = T<sub>s,1</sub></span> และที่ <span class="math">x = L</span> มี <span class="math">T(L) = T<sub>s,2</sub></span>
+                    <ul>
+                        <li>แทนที่ <span class="math">x = 0</span>: <span class="math">T(0) = C<sub>1</sub>(0) + C<sub>2</sub> = T<sub>s,1</sub></span>  ⇒  <strong><span class="math">C<sub>2</sub> = T<sub>s,1</sub></span></strong></li>
+                        <li>แทนที่ <span class="math">x = L</span>: <span class="math">T(L) = C<sub>1</sub> L + C<sub>2</sub> = C<sub>1</sub> L + T<sub>s,1</sub> = T<sub>s,2</sub></span>  ⇒  <strong><span class="math">C<sub>1</sub> = (T<sub>s,2</sub> − T<sub>s,1</sub>) / L</span></strong></li>
+                    </ul>
+                </li>
+            </ul>
+            <p>แทนค่า <span class="math">C<sub>1</sub></span> และ <span class="math">C<sub>2</sub></span> กลับลงในผลเฉลยทั่วไป จะได้ <strong>สมการการกระจายอุณหภูมิเชิงเส้นในผนังราบ</strong> (สไลด์หน้า 9):</p>
+            <div class="eq-Display">
+                <span><span class="math">T(x)</span> = <span class="math-rm">(</span><span class="frac"><span class="frac-num"><span class="math">T<sub>s,2</sub> − T<sub>s,1</sub></span></span><span class="frac-den"><span class="math">L</span></span></span><span class="math-rm">)</span> <span class="math">x</span> + <span class="math">T<sub>s,1</sub></span> = <span class="math">T<sub>s,1</sub></span> − (<span class="math">T<sub>s,1</sub> − T<sub>s,2</sub></span>) <span class="frac"><span class="frac-num"><span class="math">x</span></span><span class="frac-den"><span class="math">L</span></span></span></span>
+                <span class="eq-num">(สมการที่ 3.2)</span>
+            </div>
+            <p>และเมื่อนำสมการที่ 3.2 ไปหาอนุพันธ์ <span class="math">dT/dx = (T<sub>s,2</sub> − T<sub>s,1</sub>)/L</span> แทนลงในกฎของฟูริเยร์ (สไลด์หน้า 10) จะได้อัตราการนำความร้อนและฟลักซ์ความร้อน:</p>
+            <div class="eq-Display">
+                <span><span class="math">q<sub>x</sub></span> = −<span class="math">k A</span> <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dx</span></span></span> = <span class="frac"><span class="frac-num"><span class="math">k A</span></span><span class="frac-den"><span class="math">L</span></span></span> (<span class="math">T<sub>s,1</sub> − T<sub>s,2</sub></span>)     และ     <span class="math">q<sub>x</sub>&#39;&#39;</span> = <span class="frac"><span class="frac-num"><span class="math">q<sub>x</sub></span></span><span class="frac-den"><span class="math">A</span></span></span> = <span class="frac"><span class="frac-num"><span class="math">k</span></span><span class="frac-den"><span class="math">L</span></span></span> (<span class="math">T<sub>s,1</sub> − T<sub>s,2</sub></span>)</span>
+                <span class="eq-num">(สมการที่ 3.3)</span>
+            </div>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 1/2)</span>
+        <span>หน้า 2</span>
+    </footer>
+</section>
+
+<!-- page 3 budget (Compact): h3 11 + prose 95 + table 5 rows 85 + box-eq 180 + h3 11 + prose 140 + 5 gaps 40 = 562 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h3>3.1.2 ความต้านทานความร้อนและวงจรความร้อนสมมูล (3.1.2 Thermal Resistance &amp; Equivalent Circuit)</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 11–17]</span> จากสมการที่ 3.3 จะเห็นว่ามีแนวคิดที่สำคัญมากเกิดขึ้นเมื่อเราเปรียบเทียบการแพร่ของพลังงานความร้อนกับการแพร่ของประจุไฟฟ้า (การนำไฟฟ้าตามกฎของโอห์ม, Ohm&#39;s law) หากเรานิยาม <strong>ความต้านทาน (Resistance)</strong> ว่าเป็น <em>&#34;อัตราส่วนระหว่างศักย์ขับเคลื่อน (Driving potential) ต่ออัตราการถ่ายโอนที่เกิดขึ้น (Transfer rate)&#34;</em> เราสามารถเปรียบเทียบระบบไฟฟ้าและระบบความร้อนได้ดังตารางที่ 3.1</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 24%;">องค์ประกอบของการเปรียบเทียบ</th>
+                    <th scope="col" style="width: 38%;">การนำไฟฟ้า (Electrical Conduction - กฎของโอห์ม)</th>
+                    <th scope="col" style="width: 38%;">การถ่ายเทความร้อน (Heat Transfer - กฎของฟูริเยร์/นิวตัน)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>ศักย์ขับเคลื่อน (Driving Potential)</strong></td>
+                    <td>ผลต่างศักย์ไฟฟ้า หรือแรงดันไฟฟ้า: <span class="math">ΔE = E<sub>s,1</sub> − E<sub>s,2</sub></span> [โวลต์, <span class="math-rm">V</span>]</td>
+                    <td>ผลต่างของอุณหภูมิ: <span class="math">ΔT = T<sub>s,1</sub> − T<sub>s,2</sub></span> [เคลวิน, <span class="math-rm">K</span> หรือ <span class="math-rm">°C</span>]</td>
+                </tr>
+                <tr>
+                    <td><strong>อัตราการไหล (Transfer Rate)</strong></td>
+                    <td>กระแสไฟฟ้า (Electric Current): <span class="math">I</span> [แอมแปร์, <span class="math-rm">A</span>]</td>
+                    <td>อัตราการถ่ายเทความร้อน (Heat Transfer Rate): <span class="math">q<sub>x</sub></span> [วัตต์, <span class="math-rm">W</span>]</td>
+                </tr>
+                <tr>
+                    <td><strong>สภาพนำของวัสดุ (Conductivity)</strong></td>
+                    <td>สภาพนำไฟฟ้า: <span class="math">σ</span> [หน่วย <span class="math-rm">1/(Ω·m)</span>]</td>
+                    <td>สภาพนำความร้อน: <span class="math">k</span> [หน่วย <span class="math-rm">W/(m·K)</span>]</td>
+                </tr>
+                <tr>
+                    <td><strong>นิยามความต้านทาน (Resistance)</strong></td>
+                    <td><span class="math">R<sub>e</sub></span> ≡ <span class="math">(E<sub>s,1</sub> − E<sub>s,2</sub>) / I = L / (σ A)</span> [โอห์ม, <span class="math-rm">Ω</span>]</td>
+                    <td><span class="math">R<sub>t,cond</sub></span> ≡ <span class="math">(T<sub>s,1</sub> − T<sub>s,2</sub>) / q<sub>x</sub> = L / (k A)</span> [หน่วย <span class="math-rm">K/W</span>]</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 8pt; color: #475569;"><strong>ตารางที่ 3.1</strong> <span class="tag-src">[ต้นฉบับ: สไลด์หน้า 12–13]</span> การอุปมาเปรียบเทียบระหว่างความต้านทานไฟฟ้าตามกฎของโอห์มกับความต้านทานความร้อน</p>
+
+        <div class="box-eq">
+            <h4>สรุปสูตรความต้านทานความร้อนของผนังราบทั้ง 3 โหมด และการวิเคราะห์วงจรความร้อน (สไลด์หน้า 12–17)</h4>
+            <ul>
+                <li><strong>1. ความต้านทานความร้อนสำหรับการนำความร้อนในผนังราบ (Conduction Resistance, สไลด์หน้า 12):</strong>
+                    <div class="eq-Display">
+                        <span><span class="math">R<sub>t,cond</sub></span> ≡ <span class="frac"><span class="frac-num"><span class="math">T<sub>s,1</sub> − T<sub>s,2</sub></span></span><span class="frac-den"><span class="math">q<sub>x</sub></span></span></span> = <span class="frac"><span class="frac-num"><span class="math">L</span></span><span class="frac-den"><span class="math">k A</span></span></span>     ⇒     <span class="math">q<sub>x</sub></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>s,1</sub> − T<sub>s,2</sub></span></span><span class="frac-den"><span class="math">R<sub>t,cond</sub></span></span></span></span>
+                        <span class="eq-num">(สมการที่ 3.4)</span>
+                    </div>
+                </li>
+                <li><strong>2. ความต้านทานความร้อนสำหรับการพาความร้อนที่พื้นผิว (Convection Resistance, สไลด์หน้า 14):</strong> จากกฎการเย็นตัวของนิวตัน <span class="math">q<sub>conv</sub> = h A (T<sub>s</sub> − T<sub>∞</sub>)</span>:
+                    <div class="eq-Display">
+                        <span><span class="math">R<sub>t,conv</sub></span> ≡ <span class="frac"><span class="frac-num"><span class="math">T<sub>s</sub> − T<sub>∞</sub></span></span><span class="frac-den"><span class="math">q<sub>conv</sub></span></span></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">h A</span></span></span>     ⇒     <span class="math">q<sub>conv</sub></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>s</sub> − T<sub>∞</sub></span></span><span class="frac-den"><span class="math">R<sub>t,conv</sub></span></span></span></span>
+                        <span class="eq-num">(สมการที่ 3.5)</span>
+                    </div>
+                </li>
+                <li><strong>3. ความต้านทานความร้อนสำหรับการแผ่รังสีที่พื้นผิว (Radiation Resistance, สไลด์หน้า 15):</strong> จากสมการเชิงเส้น <span class="math">q<sub>rad</sub> = h<sub>r</sub> A (T<sub>s</sub> − T<sub>sur</sub>)</span>:
+                    <div class="eq-Display">
+                        <span><span class="math">R<sub>t,rad</sub></span> ≡ <span class="frac"><span class="frac-num"><span class="math">T<sub>s</sub> − T<sub>sur</sub></span></span><span class="frac-den"><span class="math">q<sub>rad</sub></span></span></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">h<sub>r</sub> A</span></span></span>     (โดยที่ <span class="math">h<sub>r</sub> = ε σ (T<sub>s</sub> + T<sub>sur</sub>)(T<sub>s</sub><sup>2</sup> + T<sub>sur</sub><sup>2</sup>)</span>)</span>
+                        <span class="eq-num">(สมการที่ 3.6)</span>
+                    </div>
+                </li>
+                <li><strong>4. การวิเคราะห์วงจรความร้อนสมมูลของผนังราบ (Equivalent Thermal Circuit, สไลด์หน้า 16–17):</strong>
+                    <p><span class="tag-inf">[แก้ไขจุดพิมพ์ผิดในสไลด์หน้า 16–17]</span> พิจารณาวงจรความร้อนสมมูลในรูปที่ 3.1b เนื่องจากไม่มีการผลิตความร้อนภายในผนังและเป็นสภาวะคงตัว อัตราความร้อน <span class="math">q<sub>x</sub></span> จะมีค่าคงตัวเท่ากันตลอดทุกชิ้นส่วนที่ต่ออนุกรมกัน <em>(หมายเหตุ: ในสไลด์หน้า 16 พิมพ์ตัวเศษคลาดเคลื่อนเป็น <span class="math">T<sub>s,1</sub> − T<sub>s,1</sub></span> และ <span class="math">T<sub>s,2</sub> − T<sub>s,2</sub></span> และหน้า 17 พิมพ์ตัวเศษเป็น <span class="math">T<sub>s,1</sub> − T<sub>s,2</sub></span> เมื่อหารด้วย <span class="math">R<sub>tot</sub></span> ซึ่งที่ถูกต้องต้องใช้อุณหภูมิของไหล <span class="math">T<sub>∞,1</sub></span> และ <span class="math">T<sub>∞,2</sub></span> ดังนี้)</em>:</p>
+                    <div class="eq-Display">
+                        <span><span class="math">q<sub>x</sub></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>∞,1</sub> − T<sub>s,1</sub></span></span><span class="frac-den">1 / (<span class="math">h<sub>1</sub>A</span>)</span></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>s,1</sub> − T<sub>s,2</sub></span></span><span class="frac-den"><span class="math">L</span> / (<span class="math">kA</span>)</span></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>s,2</sub> − T<sub>∞,2</sub></span></span><span class="frac-den">1 / (<span class="math">h<sub>2</sub>A</span>)</span></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>∞,1</sub> − T<sub>∞,2</sub></span></span><span class="frac-den"><span class="math">R<sub>tot</sub></span></span></span>   โดยที่   <span class="math">R<sub>tot</sub></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">h<sub>1</sub>A</span></span></span> + <span class="frac"><span class="frac-num"><span class="math">L</span></span><span class="frac-den"><span class="math">kA</span></span></span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">h<sub>2</sub>A</span></span></span></span>
+                        <span class="eq-num">(สมการที่ 3.7)</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <h3>3.1.3 ผนังประกอบ (3.1.3 The Composite Wall) และสัมประสิทธิ์การถ่ายเทความร้อนรวม (<span class="math">U</span>)</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 18–23]</span> วงจรความร้อนสมมูลมีประโยชน์อย่างยิ่งสำหรับระบบที่ซับซ้อน เช่น <strong>ผนังประกอบ (Composite walls)</strong> ซึ่งประกอบด้วยชั้นของวัสดุต่างชนิดกันมาประกบกันทั้งแบบอนุกรม (Series) และแบบอนุกรม-ขนาน (Series-parallel) ตัวอย่างเช่น ผนังห้องเย็นที่ประกอบด้วยชั้นอิฐ ชั้นโฟมฉนวน และชั้นไม้ หรือผนังเตาอบหลายชั้น</p>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 1/2)</span>
+        <span>หน้า 3</span>
+    </footer>
+</section>
+
+<!-- page 4 budget (Compact): svg 35mm 84 + box chrome 24 + box-eq 185 + prose 125 + box-concept 115 + 4 gaps 32 = 565 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <figure>
+            <svg viewBox="0 0 720 130" style="width: 100%; height: 34mm;" role="img">
+                <title>วงจรความร้อนสมมูลสำหรับผนังประกอบแบบอนุกรม (Figure 3.2) และแบบอนุกรม-ขนาน (Figure 3.3)</title>
+                <!-- Left: Fig 3.2 Series Composite Wall -->
+                <rect x="5" y="5" width="350" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="180" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">1. ผนังประกอบแบบอนุกรม (Series Composite Wall - Figure 3.2)</text>
+                <!-- 3 layers A, B, C -->
+                <rect x="75" y="25" width="55" height="58" fill="#fdba74" stroke="#1e293b"></rect>
+                <rect x="130" y="25" width="70" height="58" fill="#fed7aa" stroke="#1e293b"></rect>
+                <rect x="200" y="25" width="45" height="58" fill="#ffedd5" stroke="#1e293b"></rect>
+                <text x="102" y="58" font-size="9" font-weight="bold" fill="#9a3412" text-anchor="middle">A (k_A)</text>
+                <text x="165" y="58" font-size="9" font-weight="bold" fill="#9a3412" text-anchor="middle">B (k_B)</text>
+                <text x="222" y="58" font-size="9" font-weight="bold" fill="#9a3412" text-anchor="middle">C (k_C)</text>
+                <!-- Temp profile piecewise linear -->
+                <path d="M 35 28 L 58 28 Q 68 28, 75 36 L 130 48 L 200 66 L 245 72 Q 252 80, 265 80 L 290 80" fill="none" stroke="#dc2626" stroke-width="2"></path>
+                <text x="75" y="94" font-size="7.5" font-weight="bold" text-anchor="middle">T_s,1</text>
+                <text x="130" y="94" font-size="7.5" font-weight="bold" text-anchor="middle">T₂</text>
+                <text x="200" y="94" font-size="7.5" font-weight="bold" text-anchor="middle">T₃</text>
+                <text x="245" y="94" font-size="7.5" font-weight="bold" text-anchor="middle">T_s,4</text>
+                <!-- Series circuit bottom -->
+                <text x="180" y="114" font-size="8" font-weight="bold" fill="#1e3a8a" text-anchor="middle">R_tot = 1/(h₁A) + L_A/(k_AA) + L_B/(k_BA) + L_C/(k_CA) + 1/(h₄A)</text>
+
+                <!-- Right: Fig 3.3 Series-Parallel Composite Wall -->
+                <rect x="365" y="5" width="350" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="540" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">2. ผนังประกอบแบบอนุกรม-ขนาน (Series-Parallel - Figure 3.3)</text>
+                <!-- Physical wall E, F/G, H -->
+                <rect x="385" y="32" width="30" height="56" fill="#e2e8f0" stroke="#1e293b"></rect>
+                <rect x="415" y="32" width="45" height="28" fill="#fdba74" stroke="#1e293b"></rect>
+                <rect x="415" y="60" width="45" height="28" fill="#bae6fd" stroke="#1e293b"></rect>
+                <rect x="460" y="32" width="30" height="56" fill="#e2e8f0" stroke="#1e293b"></rect>
+                <text x="400" y="64" font-size="9" font-weight="bold" text-anchor="middle">E</text>
+                <text x="437" y="50" font-size="8.5" font-weight="bold" fill="#9a3412" text-anchor="middle">F (A/2)</text>
+                <text x="437" y="78" font-size="8.5" font-weight="bold" fill="#0369a1" text-anchor="middle">G (A/2)</text>
+                <text x="475" y="64" font-size="9" font-weight="bold" text-anchor="middle">H</text>
+                <text x="437" y="102" font-size="7.5" fill="#475569" text-anchor="middle">|← L_E →|← L_F=L_G →|← L_H →|</text>
+
+                <!-- Two circuit approximations on right -->
+                <text x="605" y="34" font-size="8" font-weight="bold" fill="#9a3412" text-anchor="middle">แบบที่ 1 (รอยต่อเป็น Isothermal):</text>
+                <text x="605" y="46" font-size="7.5" fill="#1e293b" text-anchor="middle">R_E + (R_F // R_G) + R_H</text>
+                <text x="605" y="58" font-size="7.5" fill="#1e3a8a" text-anchor="middle">เมื่อ R_F = L_F/[k_F(A/2)]</text>
+
+                <text x="605" y="78" font-size="8" font-weight="bold" fill="#15803d" text-anchor="middle">แบบที่ 2 (ระนาบกลางเป็น Adiabatic):</text>
+                <text x="605" y="90" font-size="7.5" fill="#1e293b" text-anchor="middle">(R_E1+R_F+R_H1) // (R_E2+R_G+R_H2)</text>
+                <text x="605" y="102" font-size="7.5" fill="#166534" text-anchor="middle">แยกครึ่งบน (A/2) ขนานกับครึ่งล่าง (A/2)</text>
+            </svg>
+            <figcaption><strong>รูปที่ 3.2</strong> <span class="tag-src">[ต้นฉบับ: Figures 3.2 &amp; 3.3 สไลด์หน้า 18–23]</span> ผนังประกอบแบบอนุกรม (ซ้าย) และผนังประกอบแบบอนุกรม-ขนานพร้อมวงจรสมมูลทั้ง 2 แบบจำลอง (ขวา)</figcaption>
+        </figure>
+
+        <div class="box-eq">
+            <h4>สมการอัตราการถ่ายเทความร้อนและสัมประสิทธิ์การถ่ายเทความร้อนรวม (<span class="math">U</span>) สำหรับผนังประกอบ (สไลด์หน้า 20–22)</h4>
+            <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 20–22]</span> <span class="tag-inf">[แก้ไขจุดพิมพ์ผิดในสไลด์หน้า 20]</span> สำหรับผนังประกอบแบบอนุกรมในรูปที่ 3.2 (ซ้าย) อัตราการถ่ายเทความร้อนใน 1 มิติสามารถหาได้จากผลต่างอุณหภูมิรวมหารด้วยผลรวมความต้านทานความร้อน <em>(หมายเหตุ: ในสไลด์หน้า 20 บรรทัดที่สองพิมพ์พจน์ <span class="math">L<sub>A</sub>/k<sub>A</sub>A</span> และ <span class="math">L<sub>C</sub>/k<sub>C</sub>A</span> ซ้ำสองครั้งและขาดตัวเศษ รูปที่ถูกต้องคือสมการที่ 3.8 ด้านล่าง)</em>:</p>
+            <div class="eq-Display">
+                <span><span class="math">q<sub>x</sub></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>∞,1</sub> − T<sub>∞,4</sub></span></span><span class="frac-den">∑ <span class="math">R<sub>t</sub></span></span></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>∞,1</sub> − T<sub>∞,4</sub></span></span><span class="frac-den"><span class="math">R<sub>tot</sub></span></span></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>∞,1</sub> − T<sub>∞,4</sub></span></span><span class="frac-den">[(1/<span class="math">h<sub>1</sub>A</span>) + (<span class="math">L<sub>A</sub>/k<sub>A</sub>A</span>) + (<span class="math">L<sub>B</sub>/k<sub>B</sub>A</span>) + (<span class="math">L<sub>C</sub>/k<sub>C</sub>A</span>) + (1/<span class="math">h<sub>4</sub>A</span>)]</span></span></span>
+                <span class="eq-num">(สมการที่ 3.8)</span>
+            </div>
+            <p>และเมื่อเราคำนวณหาค่า <span class="math">q<sub>x</sub></span> จากสมการที่ 3.8 ได้แล้ว เราสามารถหาอุณหภูมิที่ผิวหรือรอยต่อระหว่างชั้นใดๆ (<span class="math">T<sub>s,1</sub>, T<sub>2</sub>, T<sub>3</sub>, T<sub>s,4</sub></span>) ได้ทันทีโดยพิจารณาความต้านทานของแต่ละช่วงแยกกัน:</p>
+            <div class="eq-Display">
+                <span><span class="math">q<sub>x</sub></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>∞,1</sub> − T<sub>s,1</sub></span></span><span class="frac-den">(1/<span class="math">h<sub>1</sub>A</span>)</span></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>s,1</sub> − T<sub>2</sub></span></span><span class="frac-den">(<span class="math">L<sub>A</sub>/k<sub>A</sub>A</span>)</span></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>2</sub> − T<sub>3</sub></span></span><span class="frac-den">(<span class="math">L<sub>B</sub>/k<sub>B</sub>A</span>)</span></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>3</sub> − T<sub>s,4</sub></span></span><span class="frac-den">(<span class="math">L<sub>C</sub>/k<sub>C</sub>A</span>)</span></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>s,4</sub> − T<sub>∞,4</sub></span></span><span class="frac-den">(1/<span class="math">h<sub>4</sub>A</span>)</span></span></span>
+                <span class="eq-num">(สมการที่ 3.9)</span>
+            </div>
+            <p>ในระบบผนังประกอบ เรานิยมนิยาม <strong>สัมประสิทธิ์การถ่ายเทความร้อนรวม (Overall Heat Transfer Coefficient, <span class="math">U</span>)</strong> ในรูปแบบที่คล้ายกับกฎการเย็นตัวของนิวตัน (สไลด์หน้า 21–22):</p>
+            <div class="eq-Display">
+                <span><span class="math">q<sub>x</sub></span> ≡ <span class="math">U A</span> <span class="math-rm">Δ</span><span class="math">T</span>   ⇒   <span class="math">U A</span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">R<sub>tot</sub></span></span></span>   ⇒   <span class="math">U</span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">R<sub>tot</sub> A</span></span></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den">[(1/<span class="math">h<sub>1</sub></span>) + (<span class="math">L<sub>A</sub>/k<sub>A</sub></span>) + (<span class="math">L<sub>B</sub>/k<sub>B</sub></span>) + (<span class="math">L<sub>C</sub>/k<sub>C</sub></span>) + (1/<span class="math">h<sub>4</sub></span>)]</span></span></span>
+                <span class="eq-num">(สมการที่ 3.10)</span>
+            </div>
+        </div>
+
+        <div class="box-concept">
+            <h4>คำอธิบายเสริมสำหรับผนังประกอบแบบอนุกรม-ขนาน (Series-Parallel Composite Wall - สไลด์หน้า 23)</h4>
+            <p><span class="tag-sup">[เสริมพื้นฐาน]</span> ในรูปที่ 3.2 (ขวา, Figure 3.3) เมื่อวัสดุชั้นกลางประกอบด้วยวัสดุ F และ G วางขนานกัน (แต่ละชิ้นมีพื้นที่หน้าตัด <span class="math">A/2</span>) หาก <span class="math">k<sub>F</sub> ≠ k<sub>G</sub></span> การนำความร้อนที่แท้จริงจะเป็น 2 มิติ แต่เราสามารถประมาณค่าด้วยวงจร 1 มิติได้ 2 วิธี ซึ่งให้ค่าขอบเขตบนและขอบเขตล่างของความต้านทานรวม:
+            (1) <strong>วงจรบนใน Figure 3.3:</strong> สมมติว่าพื้นผิวตั้งฉากกับทิศทาง <span class="math">x</span> ที่รอยต่อเป็นพื้นผิวอุณหภูมิคงตัว (Isothermal surfaces) ความต้านทานรวมคือ <span class="math">R<sub>tot</sub> = R<sub>E</sub> + (R<sub>F</sub> R<sub>G</sub>)/(R<sub>F</sub> + R<sub>G</sub>) + R<sub>H</sub></span> (เหมาะเมื่อ <span class="math">k<sub>E</sub></span> และ <span class="math">k<sub>H</sub></span> มีค่าสูงมาก)
+            (2) <strong>วงจรล่างใน Figure 3.3:</strong> สมมติว่าระนาบแนวนอนที่แบ่งครึ่งบนและครึ่งล่างเป็นพื้นผิวหุ้มฉนวน (Adiabatic line) แยกการไหลเป็นสองสายขนานกันตลอดความหนา (เหมาะเมื่อ <span class="math">k<sub>E</sub></span> และ <span class="math">k<sub>H</sub></span> มีค่าต่ำ)</p>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 1/2)</span>
+        <span>หน้า 4</span>
+    </footer>
+</section>
+
+<!-- page 5 budget (Compact): h3 11 + prose 110 + svg 28mm 68 + box chrome 24 + table 7 rows 119 + table 9 rows 153 + 5 gaps 40 = 525 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h3>3.1.4 ความต้านทานการสัมผัสทางความร้อน (3.1.4 Thermal Contact Resistance)</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 24–27]</span> ในระบบผนังประกอบที่เราพิจารณาผ่านมา เราสมมติว่าที่รอยต่อระหว่างวัสดุสองชนิดสัมผัสกันอย่างแนบสนิทสมบูรณ์ (อุณหภูมิต่อเนื่องกัน) แต่ในความเป็นจริง พื้นผิวของของแข็งทุกชนิดมีความขรุขระในระดับจุลภาค (Surface roughness) ดังแสดงในรูปที่ 3.3 (Figure 3.4) ทำให้เกิดการสัมผัสกันจริงของเนื้อของแข็งเพียงบางจุดเท่านั้น (<span class="math">q<sub>contact</sub>&#39;&#39;</span>) ส่วนพื้นที่ส่วนใหญ่ที่เหลือเป็นช่องว่าง (Gaps) ซึ่งมักมีอากาศหรือของไหลแทรกอยู่ (<span class="math">q<sub>gap</sub>&#39;&#39;</span>) เนื่องจากอากาศมีสภาพนำความร้อนต่ำกว่าของแข็งมาก จึงเกิดการตกลงของอุณหภูมิอย่างฉับพลัน (<span class="math">ΔT = T<sub>A</sub> − T<sub>B</sub></span>) ข้ามรอยต่อ เรียกว่า <strong>ความต้านทานการสัมผัสทางความร้อน (Thermal contact resistance, <span class="math">R<sub>t,c</sub>&#39;&#39;</span>)</strong> สำหรับพื้นที่หนึ่งตารางเมตร:</p>
+
+        <figure>
+            <svg viewBox="0 0 720 95" style="width: 100%; height: 26mm;" role="img">
+                <title>กลไกระดับจุลภาคและการลดลงของอุณหภูมิจากความต้านทานการสัมผัสทางความร้อน (Figure 3.4)</title>
+                <!-- Left: Macroscopic view -->
+                <rect x="10" y="12" width="90" height="55" fill="#e2e8f0" stroke="#1e293b" stroke-width="1.5"></rect>
+                <rect x="100" y="12" width="90" height="55" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.5"></rect>
+                <text x="55" y="44" font-size="11" font-weight="bold" text-anchor="middle">A</text>
+                <text x="145" y="44" font-size="11" font-weight="bold" text-anchor="middle">B</text>
+                <rect x="92" y="28" width="16" height="24" fill="none" stroke="#dc2626" stroke-width="1.5"></rect>
+                <text x="100" y="82" font-size="8.5" font-weight="bold" fill="#dc2626" text-anchor="middle">qₓ&#39;&#39; = q_contact&#39;&#39; + q_gap&#39;&#39;</text>
+
+                <!-- Middle: Magnified rough interface -->
+                <rect x="220" y="6" width="215" height="82" fill="#f8fafc" stroke="#64748b"></rect>
+                <path d="M 315 6 L 332 18 L 312 32 L 335 46 L 310 62 L 332 76 L 318 88" fill="none" stroke="#9a3412" stroke-width="2"></path>
+                <path d="M 342 6 L 332 18 L 348 32 L 335 46 L 350 62 L 332 76 L 345 88" fill="none" stroke="#1e3a8a" stroke-width="2"></path>
+                <text x="265" y="50" font-size="10" font-weight="bold" fill="#9a3412" text-anchor="middle">วัสดุ A</text>
+                <text x="395" y="50" font-size="10" font-weight="bold" fill="#1e3a8a" text-anchor="middle">วัสดุ B</text>
+                <!-- Contact and gap arrows -->
+                <line x1="295" y1="18" x2="365" y2="18" stroke="#dc2626" stroke-width="2"></line>
+                <text x="330" y="14" font-size="7.5" font-weight="bold" fill="#dc2626" text-anchor="middle">q_contact&#39;&#39;</text>
+                <line x1="305" y1="33" x2="355" y2="33" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="2,2"></line>
+                <text x="330" y="42" font-size="7.5" font-weight="bold" fill="#2563eb" text-anchor="middle">q_gap&#39;&#39; (ช่องว่าง)</text>
+
+                <!-- Right: Temperature drop graph -->
+                <rect x="450" y="6" width="260" height="82" fill="#ffffff" stroke="#94a3b8"></rect>
+                <line x1="480" y1="76" x2="480" y2="14" stroke="#1e293b" stroke-width="1.2"></line>
+                <line x1="480" y1="76" x2="695" y2="76" stroke="#1e293b" stroke-width="1.2"></line>
+                <line x1="585" y1="14" x2="585" y2="76" stroke="#64748b" stroke-dasharray="3,2"></line>
+                <!-- Temp lines with jump at interface -->
+                <line x1="495" y1="20" x2="585" y2="36" stroke="#dc2626" stroke-width="2"></line>
+                <line x1="585" y1="56" x2="675" y2="70" stroke="#dc2626" stroke-width="2"></line>
+                <text x="572" y="34" font-size="8.5" font-weight="bold" fill="#dc2626">T_A</text>
+                <text x="572" y="62" font-size="8.5" font-weight="bold" fill="#dc2626">T_B</text>
+                <text x="645" y="48" font-size="8.5" font-weight="bold" fill="#1e3a8a" text-anchor="middle">R_t,c&#39;&#39; = (T_A − T_B) / qₓ&#39;&#39;</text>
+            </svg>
+            <figcaption><strong>รูปที่ 3.3</strong> <span class="tag-src">[ต้นฉบับ: Figure 3.4 สไลด์หน้า 24–25]</span> ความต้านทานการสัมผัสทางความร้อนที่รอยต่อของของแข็ง A และ B และการตกลงของอุณหภูมิ <span class="math">T<sub>A</sub> − T<sub>B</sub></span></figcaption>
+        </figure>
+
+        <div class="grid-2">
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col" colspan="3">(a) รอยต่อโลหะในสุญญากาศ (Vacuum Interface)</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">วัสดุโลหะ</th>
+                            <th scope="col"><span class="math">P = 100</span> <span class="math-rm">kN/m<sup>2</sup></span></th>
+                            <th scope="col"><span class="math">P = 10,000</span> <span class="math-rm">kN/m<sup>2</sup></span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Stainless steel</td>
+                            <td>6 – 25</td>
+                            <td>0.7 – 4.0</td>
+                        </tr>
+                        <tr>
+                            <td>Copper (ทองแดง)</td>
+                            <td>1 – 10</td>
+                            <td>0.1 – 0.5</td>
+                        </tr>
+                        <tr>
+                            <td>Magnesium</td>
+                            <td>1.5 – 3.5</td>
+                            <td>0.2 – 0.4</td>
+                        </tr>
+                        <tr>
+                            <td>Aluminum</td>
+                            <td>1.5 – 5.0</td>
+                            <td>0.2 – 0.4</td>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="2">(b) รอยต่ออะลูมิเนียมที่มีของไหลแทรก</th>
+                            <th scope="col"><span class="math">R<sub>t,c</sub>&#39;&#39; × 10<sup>4</sup></span> [<span class="math-rm">m<sup>2</sup>·K/W</span>]</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Air (อากาศ) / Helium (ฮีเลียม)</td>
+                            <td>2.75 / 1.05</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Hydrogen / Silicone oil / Glycerine</td>
+                            <td>0.720 / 0.525 / 0.265</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="font-size: 7.8pt; color: #475569; margin-top: 2px;"><strong>ตารางที่ 3.2</strong> <span class="tag-src">[ต้นฉบับ: Table 3.1 สไลด์หน้า 26]</span> ค่า <span class="math">R<sub>t,c</sub>&#39;&#39; × 10<sup>4</sup></span> (<span class="math-rm">m<sup>2</sup>·K/W</span>)</p>
+            </div>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">รอยต่อของแข็ง/ของแข็ง (Solid/Solid Interface)</th>
+                            <th scope="col"><span class="math">R<sub>t,c</sub>&#39;&#39; × 10<sup>4</sup></span> (<span class="math-rm">m<sup>2</sup>·K/W</span>)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Silicon chip / lapped Al in air (27–500 <span class="math-rm">kN/m<sup>2</sup></span>)</td>
+                            <td>0.3 – 0.6</td>
+                        </tr>
+                        <tr>
+                            <td>Al / Al with indium foil filler (~100 <span class="math-rm">kN/m<sup>2</sup></span>)</td>
+                            <td>~ 0.07</td>
+                        </tr>
+                        <tr>
+                            <td>Stainless / stainless with indium foil (~3500 <span class="math-rm">kN/m<sup>2</sup></span>)</td>
+                            <td>~ 0.04</td>
+                        </tr>
+                        <tr>
+                            <td>Al / Al with metallic (Pb) coating</td>
+                            <td>0.01 – 0.1</td>
+                        </tr>
+                        <tr>
+                            <td>Al / Al with Dow Corning 340 grease (~100 <span class="math-rm">kN/m<sup>2</sup></span>)</td>
+                            <td>~ 0.07</td>
+                        </tr>
+                        <tr>
+                            <td>Stainless / stainless with Dow Corning 340 grease</td>
+                            <td>~ 0.04</td>
+                        </tr>
+                        <tr>
+                            <td>Silicon chip / Al with 0.02-mm epoxy</td>
+                            <td>0.2 – 0.9</td>
+                        </tr>
+                        <tr>
+                            <td>Brass / brass with 15-μm tin solder</td>
+                            <td>0.025 – 0.14</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="font-size: 7.8pt; color: #475569; margin-top: 2px;"><strong>ตารางที่ 3.3</strong> <span class="tag-src">[ต้นฉบับ: Table 3.2 สไลด์หน้า 27]</span> ความต้านทานการสัมผัสเมื่อใช้วัสดุประสาน</p>
+            </div>
+        </div>
+
+        <p><span class="tag-sup">[เสริมพื้นฐาน: การตีความตารางที่ 3.2 และ 3.3]</span> ข้อมูลในตารางทั้งสองชี้ให้เห็นวิธีลดความต้านทานการสัมผัสทางความร้อน (<span class="math">R<sub>t,c</sub>&#39;&#39;</span>) ในทางวิศวกรรม 3 แนวทางหลัก: (1) <strong>การเพิ่มความดันกดทับที่รอยต่อ (Contact pressure):</strong> เมื่อเพิ่มความดันจาก <span class="math">100</span> เป็น <span class="math">10,000</span> <span class="math-rm">kN/m<sup>2</sup></span> ยอดแหลมของผิวขรุขระจะเสียรูปและแนบกันมากขึ้น ทำให้ <span class="math">R<sub>t,c</sub>&#39;&#39;</span> ลดลงถึง 10 เท่า โดยเฉพาะโลหะที่นิ่มกว่า (ทองแดง อะลูมิเนียม) จะแนบกันได้ดีกว่าเหล็กกล้าไร้สนิมที่แข็งมาก, (2) <strong>การแทนที่อากาศในช่องว่างด้วยของไหลที่นำความร้อนสูงกว่า:</strong> เช่น เปลี่ยนจากอากาศ (<span class="math">2.75</span>) เป็นแก๊สไฮโดรเจน (<span class="math">0.720</span>) หรือกลีเซอรีน (<span class="math">0.265</span>), และ (3) <strong>การทาซิลิโคนระบายความร้อน (Thermal grease เช่น Dow Corning 340) หรือคั่นด้วยแผ่นฟอยล์โลหะอ่อน (Indium foil):</strong> ช่วยลด <span class="math">R<sub>t,c</sub>&#39;&#39;</span> ลงเหลือเพียง <span class="math">0.04 – 0.07 × 10<sup>−4</sup></span> <span class="math-rm">m<sup>2</sup>·K/W</span> ซึ่งใช้ในการติดตั้งฮีตซิงก์บนชิป CPU ทุกเครื่อง</p>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 1/2)</span>
+        <span>หน้า 5</span>
+    </footer>
+</section>
+
+<!-- page 6 budget (Compact): box-example 330 + svg 30mm 72 + box chrome 24 + box-example 130 + 3 gaps 24 = 580 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <div class="box-example">
+            <h4>ตัวอย่างที่ 3.1 (Example 3.1): การออกแบบความหนาหน้าต่างพลาสติกสองชั้นของเตาอบทำความสะอาดตัวเอง</h4>
+            <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 28–36]</span> <span class="tag-inf">[เติมเต็มสไลด์]</span> <strong>โจทย์:</strong> บริษัทผู้ผลิตเครื่องใช้ไฟฟ้าชั้นนำเสนอการออกแบบเตาอบที่มีระบบทำความสะอาดตัวเอง (Self-cleaning oven) โดยใช้หน้าต่างผนังประกอบกั้นระหว่างโพรงเตาอบด้านในกับอากาศในห้อง ผนังประกอบทำจากพลาสติกทนความร้อนสูงสองชนิด (A และ B) ที่มีความหนา <span class="math">L<sub>A</sub> = 2 L<sub>B</sub></span> และมีสภาพนำความร้อน <span class="math">k<sub>A</sub> = 0.15</span> <span class="math-rm">W/(m·K)</span> และ <span class="math">k<sub>B</sub> = 0.08</span> <span class="math-rm">W/(m·K)</span> ในระหว่างกระบวนการทำความสะอาดตัวเอง อุณหภูมิผนังเตาและอากาศภายในเตา (<span class="math">T<sub>w</sub></span> และ <span class="math">T<sub>a</sub></span>) มีค่าเท่ากับ <span class="math">400</span> <span class="math-rm">°C</span> ในขณะที่อุณหภูมิอากาศในห้อง <span class="math">T<sub>∞</sub></span> มีค่า <span class="math">25</span> <span class="math-rm">°C</span> สัมประสิทธิ์การพาความร้อนและการแผ่รังสีด้านใน (<span class="math">h<sub>i</sub></span> และ <span class="math">h<sub>r</sub></span>) ตลอดจนสัมประสิทธิ์การพาความร้อนด้านนอก (<span class="math">h<sub>o</sub></span>) มีค่าประมาณตัวละ <span class="math">25</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span> เท่ากันทั้งหมด จงหาความหนารวมต่ำสุดของหน้าต่าง (<span class="math">L = L<sub>A</sub> + L<sub>B</sub></span>) ที่จำเป็นเพื่อให้มั่นใจว่าอุณหภูมิที่พื้นผิวด้านนอกของหน้าต่าง (<span class="math">T<sub>s,o</sub></span>) มีค่าไม่เกิน <span class="math">50</span> <span class="math-rm">°C</span> เพื่อความปลอดภัยของผู้ใช้งาน</p>
+        </div>
+
+        <figure>
+            <svg viewBox="0 0 720 105" style="width: 100%; height: 28mm;" role="img">
+                <title>แผนภาพหน้าต่างพลาสติกประกอบสองชั้นและวงจรความร้อนสมมูลสำหรับตัวอย่างที่ 3.1</title>
+                <!-- Left: Physical schematic -->
+                <rect x="5" y="5" width="315" height="95" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="162" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">1. แผนภาพหน้าต่างเตาอบ (สไลด์หน้า 31)</text>
+                <rect x="115" y="25" width="55" height="62" fill="#fdba74" stroke="#9a3412" stroke-width="1.5"></rect>
+                <rect x="170" y="25" width="30" height="62" fill="#fed7aa" stroke="#9a3412" stroke-width="1.5"></rect>
+                <text x="142" y="55" font-size="8.5" font-weight="bold" fill="#9a3412" text-anchor="middle">A (L_A=2L_B)</text>
+                <text x="142" y="67" font-size="7.5" fill="#9a3412" text-anchor="middle">k_A = 0.15</text>
+                <text x="185" y="55" font-size="8.5" font-weight="bold" fill="#9a3412" text-anchor="middle">B (L_B)</text>
+                <text x="185" y="67" font-size="7.5" fill="#9a3412" text-anchor="middle">k_B = 0.08</text>
+                <text x="58" y="45" font-size="8" font-weight="bold" fill="#b91c1c" text-anchor="middle">ในเตาอบ 400°C</text>
+                <text x="58" y="58" font-size="7.5" fill="#b91c1c" text-anchor="middle">h_i = h_r = 25</text>
+                <text x="258" y="45" font-size="8" font-weight="bold" fill="#0369a1" text-anchor="middle">T_s,o ≤ 50°C</text>
+                <text x="258" y="58" font-size="7.5" fill="#0369a1" text-anchor="middle">ห้อง T_∞=25°C, h_o=25</text>
+
+                <!-- Right: Thermal circuit with parallel inside resistances -->
+                <rect x="330" y="5" width="385" height="95" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="522" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">2. วงจรความร้อนสมมูล (การพากับการแผ่รังสีด้านในต่อขนานกัน - สไลด์หน้า 30)</text>
+                <circle cx="360" cy="56" r="4" fill="#dc2626"></circle>
+                <text x="360" y="42" font-size="8" font-weight="bold" fill="#dc2626" text-anchor="middle">400°C</text>
+                <!-- Parallel branch -->
+                <line x1="364" y1="56" x2="380" y2="56" stroke="#1e293b" stroke-width="1.5"></line>
+                <line x1="380" y1="38" x2="380" y2="74" stroke="#1e293b" stroke-width="1.5"></line>
+                <rect x="392" y="32" width="48" height="12" fill="#ffedd5" stroke="#9a3412"></rect>
+                <text x="416" y="41" font-size="7.5" font-weight="bold" text-anchor="middle">1/(h_r A)</text>
+                <rect x="392" y="68" width="48" height="12" fill="#ffedd5" stroke="#9a3412"></rect>
+                <text x="416" y="77" font-size="7.5" font-weight="bold" text-anchor="middle">1/(h_i A)</text>
+                <line x1="380" y1="38" x2="392" y2="38" stroke="#1e293b" stroke-width="1.5"></line>
+                <line x1="380" y1="74" x2="392" y2="74" stroke="#1e293b" stroke-width="1.5"></line>
+                <line x1="440" y1="38" x2="452" y2="38" stroke="#1e293b" stroke-width="1.5"></line>
+                <line x1="440" y1="74" x2="452" y2="74" stroke="#1e293b" stroke-width="1.5"></line>
+                <line x1="452" y1="38" x2="452" y2="74" stroke="#1e293b" stroke-width="1.5"></line>
+                <!-- Series A, B, Out -->
+                <line x1="452" y1="56" x2="472" y2="56" stroke="#1e293b" stroke-width="1.5"></line>
+                <circle cx="462" cy="56" r="3.5" fill="#1e293b"></circle><text x="462" y="46" font-size="8" font-weight="bold" text-anchor="middle">T_s,i</text>
+                <rect x="472" y="50" width="52" height="12" fill="#fed7aa" stroke="#9a3412"></rect>
+                <text x="498" y="59" font-size="7.5" font-weight="bold" text-anchor="middle">L_A/(k_AA)</text>
+                <line x1="524" y1="56" x2="540" y2="56" stroke="#1e293b" stroke-width="1.5"></line>
+                <rect x="540" y="50" width="52" height="12" fill="#fed7aa" stroke="#9a3412"></rect>
+                <text x="566" y="59" font-size="7.5" font-weight="bold" text-anchor="middle">L_B/(k_BA)</text>
+                <line x1="592" y1="56" x2="618" y2="56" stroke="#1e293b" stroke-width="1.5"></line>
+                <circle cx="605" cy="56" r="3.5" fill="#dc2626"></circle><text x="605" y="44" font-size="8" font-weight="bold" fill="#dc2626" text-anchor="middle">T_s,o=50°C</text>
+                <rect x="618" y="50" width="52" height="12" fill="#e0f2fe" stroke="#0369a1"></rect>
+                <text x="644" y="59" font-size="7.5" font-weight="bold" text-anchor="middle">1/(h_o A)</text>
+                <line x1="670" y1="56" x2="690" y2="56" stroke="#1e293b" stroke-width="1.5"></line>
+                <circle cx="690" cy="56" r="4" fill="#0284c7"></circle><text x="690" y="44" font-size="8" font-weight="bold" fill="#0369a1" text-anchor="middle">25°C</text>
+            </svg>
+            <figcaption><strong>รูปที่ 3.4</strong> <span class="tag-src">[ต้นฉบับ: สไลด์หน้า 30–31]</span> แผนภาพหน้าต่างพลาสติกสองชั้นและวงจรความร้อนสมมูลสำหรับตัวอย่างที่ 3.1</figcaption>
+        </figure>
+
+        <div class="box-example">
+            <p><strong>วิธีทำอย่างละเอียด (ตามลำดับสไลด์หน้า 32–36 พร้อมคำนวณคำตอบสุดท้ายที่สไลด์เว้นไว้):</strong></p>
+            <ul>
+                <li><strong>ขั้นที่ 1 วิเคราะห์ความต้านทานความร้อนรวมตั้งแต่ในเตาอบ (<span class="math">T<sub>a</sub> = T<sub>w</sub> = 400</span> <span class="math-rm">°C</span>) มาจนถึงผิวนอกหน้าต่าง (<span class="math">T<sub>s,o</sub> = 50</span> <span class="math-rm">°C</span>):</strong>
+                    <p>ที่ผิวด้านในของหน้าต่าง การพาความร้อน (<span class="math">h<sub>i</sub></span>) และการแผ่รังสี (<span class="math">h<sub>r</sub></span>) เกิดขึ้นพร้อมกันจากอุณหภูมิ <span class="math">400</span> <span class="math-rm">°C</span> มายัง <span class="math">T<sub>s,i</sub></span> จึงต่อกันแบบ <strong>ขนาน (Parallel)</strong> มีความต้านทานยุบรวมเป็น <span class="math">[(1/h<sub>i</sub>A)<sup>−1</sup> + (1/h<sub>r</sub>A)<sup>−1</sup>]<sup>−1</sup> = 1 / [A(h<sub>i</sub> + h<sub>r</sub>)]</span> เมื่อนำมาบวกอนุกรมกับความต้านทานการนำความร้อนของพลาสติก A และ B (โดยแทนค่า <span class="math">L<sub>B</sub> = L<sub>A</sub> / 2</span> ตามโจทย์) จะได้ (สไลด์หน้า 32–33):</p>
+                    <div class="eq-Display">
+                        <span>∑ <span class="math">R<sub>t</sub></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">A</span></span></span> <span class="math-rm">(</span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">h<sub>i</sub> + h<sub>r</sub></span></span></span> + <span class="frac"><span class="frac-num"><span class="math">L<sub>A</sub></span></span><span class="frac-den"><span class="math">k<sub>A</sub></span></span></span> + <span class="frac"><span class="frac-num"><span class="math">L<sub>B</sub></span></span><span class="frac-den"><span class="math">k<sub>B</sub></span></span></span><span class="math-rm">)</span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">A</span></span></span> <span class="math-rm">[</span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">h<sub>i</sub> + h<sub>r</sub></span></span></span> + <span class="math-rm">(</span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">k<sub>A</sub></span></span></span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den">2<span class="math">k<sub>B</sub></span></span></span><span class="math-rm">)</span> <span class="math">L<sub>A</sub></span><span class="math-rm">]</span></span>
+                        <span class="eq-num">(3.1a)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 2 ตั้งสมการสมดุลพลังงานที่พื้นผิวด้านนอกของหน้าต่าง (<span class="math">Ė<sub>in</sub> = Ė<sub>out</sub></span>, สไลด์หน้า 34–36):</strong>
+                    <p>อัตราความร้อนที่ไหลผ่านหน้าต่างมาถึงผิวนอก <span class="math">Ė<sub>in</sub> = (T<sub>a</sub> − T<sub>s,o</sub>) / ∑R<sub>t</sub></span> จะต้องเท่ากับอัตราความร้อนที่ระบายออกจากผิวนอกสู่อากาศในห้อง <span class="math">Ė<sub>out</sub> = h<sub>o</sub> A (T<sub>s,o</sub> − T<sub>∞</sub>)</span> เมื่อตัดพื้นที่ <span class="math">A</span> ทั้งสองข้างและจัดรูปหาความหนา <span class="math">L<sub>A</sub></span> จะได้:</p>
+                    <div class="eq-Display">
+                        <span><span class="math">L<sub>A</sub></span> = <span class="frac"><span class="frac-num">(1/<span class="math">h<sub>o</sub></span>)(<span class="math">T<sub>a</sub> − T<sub>s,o</sub></span>)/(<span class="math">T<sub>s,o</sub> − T<sub>∞</sub></span>) − (<span class="math">h<sub>i</sub> + h<sub>r</sub></span>)<sup>−1</sup></span><span class="frac-den">[(1/<span class="math">k<sub>A</sub></span>) + (1 / 2<span class="math">k<sub>B</sub></span>)]</span></span> = <span class="frac"><span class="frac-num">(1/25)(400 − 50)/(50 − 25) − (25 + 25)<sup>−1</sup></span><span class="frac-den">[(1/0.15) + 1/(2 × 0.08)]</span></span></span>
+                        <span class="eq-num">(3.1b)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 3 คำนวณตัวเลขหา <span class="math">L<sub>A</sub></span>, <span class="math">L<sub>B</sub></span> และความหนารวม <span class="math">L</span> (เติมคำตอบที่สไลด์หน้า 36 เว้นว่างไว้):</strong>
+                    <ul>
+                        <li>ตัวเศษ: <span class="math">0.04 × (350 / 25) − (1 / 50) = (0.04 × 14) − 0.02 = 0.56 − 0.02 = 0.54</span> <span class="math-rm">(m<sup>2</sup>·K)/W</span></li>
+                        <li>ตัวส่วน: <span class="math">(1 / 0.15) + (1 / 0.16) = 6.6667 + 6.2500 = 12.9167</span> <span class="math-rm">(m·K)/W</span></li>
+                        <li>ดังนั้น: <span class="math">L<sub>A</sub> = 0.54 / 12.9167 =</span> <strong>0.0418 <span class="math-rm">m</span> (หรือ 41.8 <span class="math-rm">mm</span>)</strong> และ <span class="math">L<sub>B</sub> = L<sub>A</sub> / 2 =</span> <strong>0.0209 <span class="math-rm">m</span> (หรือ 20.9 <span class="math-rm">mm</span>)</strong></li>
+                        <li><strong>คำตอบความหนารวมต่ำสุดของหน้าต่าง:</strong> <span class="math">L = L<sub>A</sub> + L<sub>B</sub> = 41.8 + 20.9 =</span> <strong>62.7 <span class="math-rm">mm</span> (หรือ 0.0627 <span class="math-rm">m</span>)</strong></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 1/2)</span>
+        <span>หน้า 6</span>
+    </footer>
+</section>
+
+<!-- page 7 budget (Compact): h2 11 + h3 11 + prose 115 + svg 35mm 84 + box chrome 24 + box-eq 255 + 4 gaps 32 = 532 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h2>3.2 ระบบแนวรัศมี (3.2 Radial Systems)</h2>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 37]</span> ระบบทรงกระบอกและทรงกลมในทางวิศวกรรมมักมีเกรเดียนต์ของอุณหภูมิเกิดขึ้นเฉพาะในแนวรัศมี (<span class="math">r</span>) เพียงทิศทางเดียว จึงสามารถวิเคราะห์เสมือนเป็นระบบ 1 มิติ [<span class="math">T = T(r)</span>] ได้ ในหัวข้อนี้เราจะวิเคราะห์การทำงานของท่อทรงกระบอกกลวงและเปลือกทรงกลมภายใต้สภาวะคงตัวเมื่อไม่มีการผลิตพลังงานความร้อนภายใน (<span class="math">q̇ = 0</span>)</p>
+
+        <h3>3.2.1 ทรงกระบอกกลวง (3.2.1 The Cylinder)</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 37–41]</span> ตัวอย่างที่พบบ่อยที่สุดคือท่อทรงกระบอกกลวง (Hollow cylinder) ที่มีความยาว <span class="math">L</span> รัศมีภายใน <span class="math">r<sub>1</sub></span> และรัศมีภายนอก <span class="math">r<sub>2</sub></span> ซึ่งผิวด้านในและด้านนอกสัมผัสกับของไหลที่มีอุณหภูมิต่างกัน (<span class="math">T<sub>∞,1</sub>, h<sub>1</sub></span> และ <span class="math">T<sub>∞,2</sub>, h<sub>2</sub></span>) ดังรูปที่ 3.5</p>
+
+        <figure>
+            <svg viewBox="0 0 720 125" style="width: 100%; height: 33mm;" role="img">
+                <title>ทรงกระบอกกลวงภายใต้สภาวะการพาความร้อนที่พื้นผิวและการกระจายอุณหภูมิแบบลอการิทึม (Figure 3.5)</title>
+                <!-- Left: Hollow cylinder geometry -->
+                <rect x="5" y="5" width="235" height="115" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="122" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">1. ท่อทรงกระบอกกลวง (สไลด์หน้า 37)</text>
+                <!-- Outer & Inner circles -->
+                <circle cx="85" cy="72" r="36" fill="#fed7aa" stroke="#9a3412" stroke-width="1.5"></circle>
+                <circle cx="85" cy="72" r="16" fill="#ffffff" stroke="#9a3412" stroke-width="1.5"></circle>
+                <!-- Cylinder body projection -->
+                <line x1="60" y1="46" x2="135" y2="22" stroke="#9a3412" stroke-width="1.5"></line>
+                <line x1="110" y1="98" x2="185" y2="74" stroke="#9a3412" stroke-width="1.5"></line>
+                <path d="M 135 22 A 36 36 0 0 1 185 74" fill="none" stroke="#9a3412" stroke-width="1.5"></path>
+                <!-- Radii labels -->
+                <line x1="85" y1="72" x2="73" y2="62" stroke="#1e293b" stroke-width="1.2"></line>
+                <text x="68" y="60" font-size="8.5" font-weight="bold">r₁</text>
+                <line x1="85" y1="72" x2="105" y2="102" stroke="#1e293b" stroke-width="1.2"></line>
+                <text x="112" y="108" font-size="8.5" font-weight="bold">r₂</text>
+                <text x="35" y="45" font-size="8.5" font-weight="bold" fill="#dc2626">T_s,1</text>
+                <text x="165" y="96" font-size="8.5" font-weight="bold" fill="#1e3a8a">T_s,2</text>
+                <text x="162" y="60" font-size="8.5" font-weight="bold">ยาว L</text>
+
+                <!-- Middle: Logarithmic Temp Profile -->
+                <rect x="248" y="5" width="210" height="115" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="353" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">2. การกระจายอุณหภูมิลอการิทึม (หน้า 41, 48)</text>
+                <line x1="285" y1="98" x2="285" y2="25" stroke="#1e293b" stroke-width="1.2"></line>
+                <line x1="285" y1="98" x2="435" y2="98" stroke="#1e293b" stroke-width="1.2"></line>
+                <line x1="325" y1="25" x2="325" y2="98" stroke="#94a3b8" stroke-dasharray="3,2"></line>
+                <line x1="395" y1="25" x2="395" y2="98" stroke="#94a3b8" stroke-dasharray="3,2"></line>
+                <!-- Log curve (steep at r1, flatter at r2) -->
+                <path d="M 325 36 Q 355 72, 395 85" fill="none" stroke="#dc2626" stroke-width="2.5"></path>
+                <circle cx="325" cy="36" r="3.5" fill="#dc2626"></circle><text x="302" y="39" font-size="8.5" font-weight="bold" fill="#dc2626">T_s,1</text>
+                <circle cx="395" cy="85" r="3.5" fill="#dc2626"></circle><text x="302" y="88" font-size="8.5" font-weight="bold" fill="#1e3a8a">T_s,2</text>
+                <text x="325" y="110" font-size="8.5" font-weight="bold" text-anchor="middle">r₁</text>
+                <text x="395" y="110" font-size="8.5" font-weight="bold" text-anchor="middle">r₂</text>
+                <text x="375" y="55" font-size="8" fill="#9a3412">โค้งแบบ ln(r/r₂)</text>
+
+                <!-- Right: Equivalent circuit -->
+                <rect x="466" y="5" width="249" height="115" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="590" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">3. วงจรความร้อนสมมูล (Figure 3.5)</text>
+                <text x="590" y="45" font-size="8.5" font-weight="bold" fill="#dc2626" text-anchor="middle">T_∞,1 ──[ R_conv,1 ]── T_s,1 ──[ R_cond ]── T_s,2 ──[ R_conv,2 ]── T_∞,2</text>
+                <text x="590" y="68" font-size="8" fill="#1e3a8a" text-anchor="middle">R_conv,1 = 1 / (h₁ · 2πr₁L)</text>
+                <text x="590" y="84" font-size="8.5" font-weight="bold" fill="#9a3412" text-anchor="middle">R_t,cond = ln(r₂ / r₁) / (2π k L)</text>
+                <text x="590" y="100" font-size="8" fill="#1e3a8a" text-anchor="middle">R_conv,2 = 1 / (h₂ · 2πr₂L)</text>
+            </svg>
+            <figcaption><strong>รูปที่ 3.5</strong> <span class="tag-src">[ต้นฉบับ: Figure 3.5 สไลด์หน้า 37, 41, 48, 50]</span> ทรงกระบอกกลวง การกระจายอุณหภูมิแบบลอการิทึม และวงจรความร้อนสมมูล</figcaption>
+        </figure>
+
+        <div class="box-eq">
+            <h4>การพิสูจน์การกระจายอุณหภูมิ อัตราความร้อน และความต้านทานของทรงกระบอกกลวง (สไลด์หน้า 38–50)</h4>
+            <ul>
+                <li><strong>1. สมการควบคุมและข้อสรุปเรื่องอัตราความร้อน <span class="math">q<sub>r</sub></span> (สไลด์หน้า 38–40):</strong> จากสมการที่ 2.14 สำหรับสภาวะคงตัว 1 มิติตามแนวรัศมีและไร้การผลิตความร้อน สมการการแพร่ความร้อนลดรูปเป็น:
+                    <div class="eq-Display">
+                        <span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r</span></span></span> <span class="frac"><span class="frac-num"><span class="math">d</span></span><span class="frac-den"><span class="math">dr</span></span></span><span class="math-rm">(</span><span class="math">k r</span> <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dr</span></span></span><span class="math-rm">)</span> = 0   ⇒   คูณด้วย −2<span class="math">πL</span>:   <span class="frac"><span class="frac-num"><span class="math">d</span></span><span class="frac-den"><span class="math">dr</span></span></span><span class="math-rm">[</span>−<span class="math">k</span> (2<span class="math">πrL</span>) <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dr</span></span></span><span class="math-rm">]</span> = <span class="frac"><span class="frac-num"><span class="math">d</span></span><span class="frac-den"><span class="math">dr</span></span></span>(<span class="math">q<sub>r</sub></span>) = 0</span>
+                        <span class="eq-num">(สมการที่ 3.11)</span>
+                    </div>
+                    <p><strong>ข้อสังเกตสำคัญที่สุด (สไลด์หน้า 39–40):</strong> ในระบบแนวรัศมี เนื่องจากพื้นที่ผิวตั้งฉาก <span class="math">A(r) = 2π r L</span> ขยายใหญ่ขึ้นตามรัศมี <span class="math">r</span> ดังนั้น <strong>อัตราการนำความร้อน <span class="math">q<sub>r</sub></span> (หน่วย <span class="math-rm">W</span>) เท่านั้นที่มีค่าคงตัวไม่ขึ้นกับรัศมี <span class="math">r</span></strong> ส่วนฟลักซ์ความร้อน <span class="math">q<sub>r</sub>&#39;&#39; = q<sub>r</sub> / (2π r L)</span> จะลดลงแปรผกผันกับรัศมี <span class="math">r</span>!</p>
+                </li>
+                <li><strong>2. การอินทิเกรตสองครั้งและแทนเงื่อนไขขอบเขต (สไลด์หน้า 42–48):</strong> เมื่อ <span class="math">k</span> คงตัว จาก <span class="math">d/dr(r dT/dr) = 0</span> อินทิเกรตครั้งที่ 1 ได้ <span class="math">r(dT/dr) = C<sub>1</sub></span> หรือ <span class="math">dT/dr = C<sub>1</sub> / r</span> อินทิเกรตครั้งที่ 2 ได้ผลเฉลยทั่วไป: <strong><span class="math">T(r) = C<sub>1</sub> ln(r) + C<sub>2</sub></span></strong>
+                    <ul>
+                        <li>แทนเงื่อนไขขอบเขต <span class="math">T(r<sub>1</sub>) = T<sub>s,1</sub></span> และ <span class="math">T(r<sub>2</sub>) = T<sub>s,2</sub></span>: จะได้ <span class="math">T<sub>s,1</sub> = C<sub>1</sub> ln(r<sub>1</sub>) + C<sub>2</sub></span> และ <span class="math">T<sub>s,2</sub> = C<sub>1</sub> ln(r<sub>2</sub>) + C<sub>2</sub></span></li>
+                        <li>นำสองสมการมาลบกัน: <span class="math">T<sub>s,1</sub> − T<sub>s,2</sub> = C<sub>1</sub>[ln(r<sub>1</sub>) − ln(r<sub>2</sub>)] = C<sub>1</sub> ln(r<sub>1</sub>/r<sub>2</sub>)</span>  ⇒  <strong><span class="math">C<sub>1</sub> = (T<sub>s,1</sub> − T<sub>s,2</sub>) / ln(r<sub>1</sub>/r<sub>2</sub>)</span></strong></li>
+                        <li>แทนค่า <span class="math">C<sub>1</sub></span> หา <span class="math">C<sub>2</sub> = T<sub>s,2</sub> − [(T<sub>s,1</sub> − T<sub>s,2</sub>)/ln(r<sub>1</sub>/r<sub>2</sub>)] ln(r<sub>2</sub>)</span> แล้วแทนกลับใน <span class="math">T(r)</span> จะได้ <strong>สมการการกระจายอุณหภูมิแบบลอการิทึม</strong>:</li>
+                    </ul>
+                    <div class="eq-Display">
+                        <span><span class="math">T(r)</span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>s,1</sub> − T<sub>s,2</sub></span></span><span class="frac-den"><span class="math-rm">ln</span>(<span class="math">r<sub>1</sub> / r<sub>2</sub></span>)</span></span> <span class="math-rm">ln</span><span class="math-rm">(</span><span class="frac"><span class="frac-num"><span class="math">r</span></span><span class="frac-den"><span class="math">r<sub>2</sub></span></span></span><span class="math-rm">)</span> + <span class="math">T<sub>s,2</sub></span></span>
+                        <span class="eq-num">(สมการที่ 3.12)</span>
+                    </div>
+                </li>
+                <li><strong>3. อัตราการนำความร้อน (<span class="math">q<sub>r</sub></span>) และความต้านทานความร้อนของทรงกระบอก (สไลด์หน้า 49–50):</strong> นำ <span class="math">dT/dr = C<sub>1</sub>/r = [(T<sub>s,1</sub> − T<sub>s,2</sub>)/ln(r<sub>1</sub>/r<sub>2</sub>)](1/r)</span> แทนลงในกฎของฟูริเยร์ <span class="math">q<sub>r</sub> = −k(2π r L)(dT/dr)</span> (สังเกตว่าตัวแปร <span class="math">r</span> ตัดกันหมดไป และ <span class="math">−ln(r<sub>1</sub>/r<sub>2</sub>) = +ln(r<sub>2</sub>/r<sub>1</sub>)</span>):
+                    <div class="eq-Display">
+                        <span><span class="math">q<sub>r</sub></span> = <span class="frac"><span class="frac-num">2<span class="math">π L k</span> (<span class="math">T<sub>s,1</sub> − T<sub>s,2</sub></span>)</span><span class="frac-den"><span class="math-rm">ln</span>(<span class="math">r<sub>2</sub> / r<sub>1</sub></span>)</span></span>     ⇒     ความต้านทานการนำความร้อนของทรงกระบอก:   <span class="math">R<sub>t,cond</sub></span> = <span class="frac"><span class="frac-num"><span class="math-rm">ln</span>(<span class="math">r<sub>2</sub> / r<sub>1</sub></span>)</span><span class="frac-den">2<span class="math">π L k</span></span></span></span>
+                        <span class="eq-num">(สมการที่ 3.13)</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 1/2)</span>
+        <span>หน้า 7</span>
+    </footer>
+</section>
+
+<!-- page 8 budget (Compact): h4 10 + svg 33mm 80 + box chrome 24 + box-eq 210 + box-concept 175 + 4 gaps 32 = 531 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h4>ทรงกระบอกประกอบหลายชั้น (Composite Cylindrical Wall) และสัมประสิทธิ์การถ่ายเทความร้อนรวม (<span class="math">U</span>)</h4>
+        <figure>
+            <svg viewBox="0 0 720 120" style="width: 100%; height: 32mm;" role="img">
+                <title>การกระจายอุณหภูมิและวงจรความร้อนสมมูลสำหรับทรงกระบอกประกอบ 3 ชั้น A, B, C (Figure 3.6)</title>
+                <!-- Left: Cross-section sector A, B, C -->
+                <rect x="5" y="5" width="320" height="110" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="165" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">1. ทรงกระบอกประกอบ 3 ชั้น (Figure 3.6 สไลด์หน้า 51–53)</text>
+                <!-- Arcs for r1, r2, r3, r4 -->
+                <path d="M 45 95 L 115 35 A 90 90 0 0 1 145 95 Z" fill="#ffedd5" stroke="#9a3412"></path>
+                <path d="M 85 61 A 50 50 0 0 1 102 95" fill="none" stroke="#9a3412" stroke-width="1.5"></path>
+                <path d="M 98 50 A 68 68 0 0 1 122 95" fill="none" stroke="#9a3412" stroke-width="1.5"></path>
+                <path d="M 110 40 A 84 84 0 0 1 140 95" fill="none" stroke="#9a3412" stroke-width="1.5"></path>
+                <text x="108" y="88" font-size="8.5" font-weight="bold" fill="#9a3412">A</text>
+                <text x="128" y="88" font-size="8.5" font-weight="bold" fill="#9a3412">B</text>
+                <text x="148" y="88" font-size="8.5" font-weight="bold" fill="#9a3412">C</text>
+                <text x="235" y="45" font-size="8" font-weight="bold" fill="#dc2626">ในท่อ: T_∞,1 , h₁ (ที่ r₁)</text>
+                <text x="235" y="62" font-size="8" font-weight="bold" fill="#1e293b">รอยต่อ: r₂ (T₂), r₃ (T₃)</text>
+                <text x="235" y="79" font-size="8" font-weight="bold" fill="#0369a1">นอกท่อ: T_∞,4 , h₄ (ที่ r₄)</text>
+
+                <!-- Right: Series thermal circuit -->
+                <rect x="335" y="5" width="380" height="110" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="525" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">2. วงจรความร้อนสมมูลและนิยามสัมประสิทธิ์รวม U (สไลด์หน้า 53–60)</text>
+                <text x="525" y="40" font-size="8" font-weight="bold" fill="#dc2626" text-anchor="middle">T_∞,1 ─[R_conv,1]─ T_s,1 ─[R_A]─ T₂ ─[R_B]─ T₃ ─[R_C]─ T_s,4 ─[R_conv,4]─ T_∞,4</text>
+                <text x="525" y="58" font-size="7.8" fill="#1e3a8a" text-anchor="middle">R_tot = 1/(2πr₁Lh₁) + ln(r₂/r₁)/(2πk_AL) + ln(r₃/r₂)/(2πk_BL) + ln(r₄/r₃)/(2πk_CL) + 1/(2πr₄Lh₄)</text>
+                <rect x="350" y="68" width="350" height="38" fill="#fff7ed" stroke="#fed7aa" rx="3"></rect>
+                <text x="525" y="82" font-size="8.5" font-weight="bold" fill="#9a3412" text-anchor="middle">เนื่องจากพื้นที่ A_i = 2π r_i L ไม่เท่ากันในแต่ละชั้น ดังนั้นค่า U ต้องระบุพื้นที่อ้างอิงเสมอ:</text>
+                <text x="525" y="98" font-size="8.5" font-weight="bold" fill="#1e293b" text-anchor="middle">U₁ A₁ = U₂ A₂ = U₃ A₃ = U₄ A₄ = (∑ R_t)⁻¹ = 1 / R_tot</text>
+            </svg>
+            <figcaption><strong>รูปที่ 3.6</strong> <span class="tag-src">[ต้นฉบับ: Figure 3.6 สไลด์หน้า 51–60]</span> ทรงกระบอกประกอบ 3 ชั้น (A, B, C) และความสัมพันธ์ระหว่างสัมประสิทธิ์การถ่ายเทความร้อนรวม <span class="math">U<sub>i</sub></span> กับพื้นที่ผิว <span class="math">A<sub>i</sub></span></figcaption>
+        </figure>
+
+        <div class="box-eq">
+            <h4>สมการอัตราความร้อนและสัมประสิทธิ์การถ่ายเทความร้อนรวม (<span class="math">U<sub>1</sub>, U<sub>2</sub>, U<sub>3</sub>, U<sub>4</sub></span>) ของทรงกระบอกประกอบ (สไลด์หน้า 54–60)</h4>
+            <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 54–60]</span> <span class="tag-inf">[แก้ไขจุดพิมพ์ผิดในสไลด์หน้า 55 และ 58]</span> สำหรับทรงกระบอกประกอบ 3 ชั้นในรูปที่ 3.6 เมื่อละเว้นความต้านทานการสัมผัส อัตราการถ่ายเทความร้อนในแนวรัศมีคือ <em>(หมายเหตุ: ในสไลด์หน้า 55 พิมพ์ตัวเศษคลาดเคลื่อนเป็น <span class="math">T<sub>s,1</sub> − T<sub>s,4</sub></span> ซึ่งที่ถูกต้องเมื่อหารด้วย <span class="math">R<sub>tot</sub></span> รวมการพาความร้อนต้องเป็น <span class="math">T<sub>∞,1</sub> − T<sub>∞,4</sub></span> ดังปรากฏถูกต้องในสไลด์หน้า 57)</em>:</p>
+            <div class="eq-Display">
+                <span><span class="math">q<sub>r</sub></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>∞,1</sub> − T<sub>∞,4</sub></span></span><span class="frac-den"><span class="math">R<sub>tot</sub></span></span></span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>∞,1</sub> − T<sub>∞,4</sub></span></span><span class="frac-den"><span class="frac"><span class="frac-num">1</span><span class="frac-den">2<span class="math">πr<sub>1</sub>Lh<sub>1</sub></span></span></span> + <span class="frac"><span class="frac-num"><span class="math-rm">ln</span>(<span class="math">r<sub>2</sub>/r<sub>1</sub></span>)</span><span class="frac-den">2<span class="math">πk<sub>A</sub>L</span></span></span> + <span class="frac"><span class="frac-num"><span class="math-rm">ln</span>(<span class="math">r<sub>3</sub>/r<sub>2</sub></span>)</span><span class="frac-den">2<span class="math">πk<sub>B</sub>L</span></span></span> + <span class="frac"><span class="frac-num"><span class="math-rm">ln</span>(<span class="math">r<sub>4</sub>/r<sub>3</sub></span>)</span><span class="frac-den">2<span class="math">πk<sub>C</sub>L</span></span></span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den">2<span class="math">πr<sub>4</sub>Lh<sub>4</sub></span></span></span></span></span> = <span class="math">U A</span> (<span class="math">T<sub>∞,1</sub> − T<sub>∞,4</sub></span>)</span>
+                <span class="eq-num">(สมการที่ 3.14)</span>
+            </div>
+            <p>เนื่องจากพื้นที่ผิวของทรงกระบอกขึ้นกับรัศมี (<span class="math">A<sub>i</sub> = 2π r<sub>i</sub> L</span>) การนิยามค่า <span class="math">U = 1 / (R<sub>tot</sub> A)</span> จึงต้องระบุว่าอ้างอิงกับพื้นที่ผิวใด โดยผลคูณ <span class="math">U<sub>1</sub>A<sub>1</sub> = U<sub>2</sub>A<sub>2</sub> = U<sub>3</sub>A<sub>3</sub> = U<sub>4</sub>A<sub>4</sub> = 1/R<sub>tot</sub></span> มีค่าเท่ากันเสมอ:
+            </p><ul>
+                <li><strong>เมื่ออ้างอิงกับพื้นที่ผิวด้านในท่อ <span class="math">A<sub>1</sub> = 2π r<sub>1</sub> L</span> (สไลด์หน้า 57–58, และใช้ในแบบฝึกหัดข้อ 10):</strong>
+                    <div class="eq-Display">
+                        <span><span class="math">U<sub>1</sub></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">R<sub>tot</sub> A<sub>1</sub></span></span></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">h<sub>1</sub></span></span></span> + <span class="frac"><span class="frac-num"><span class="math">r<sub>1</sub></span></span><span class="frac-den"><span class="math">k<sub>A</sub></span></span></span><span class="math-rm">ln</span><span class="math-rm">(</span><span class="frac"><span class="frac-num"><span class="math">r<sub>2</sub></span></span><span class="frac-den"><span class="math">r<sub>1</sub></span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">r<sub>1</sub></span></span><span class="frac-den"><span class="math">k<sub>B</sub></span></span></span><span class="math-rm">ln</span><span class="math-rm">(</span><span class="frac"><span class="frac-num"><span class="math">r<sub>3</sub></span></span><span class="frac-den"><span class="math">r<sub>2</sub></span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">r<sub>1</sub></span></span><span class="frac-den"><span class="math">k<sub>C</sub></span></span></span><span class="math-rm">ln</span><span class="math-rm">(</span><span class="frac"><span class="frac-num"><span class="math">r<sub>4</sub></span></span><span class="frac-den"><span class="math">r<sub>3</sub></span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">r<sub>1</sub></span></span><span class="frac-den"><span class="math">r<sub>4</sub></span></span></span><span class="math-rm">(</span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">h<sub>4</sub></span></span></span><span class="math-rm">)</span></span></span></span>
+                        <span class="eq-num">(สมการที่ 3.15)</span>
+                    </div>
+                </li>
+                <li><strong>เมื่ออ้างอิงกับพื้นที่ผิวด้านนอกสุด <span class="math">A<sub>4</sub> = 2π r<sub>4</sub> L</span> (สไลด์หน้า 60):</strong> (สำหรับ <span class="math">U<sub>2</sub></span> และ <span class="math">U<sub>3</sub></span> ในสไลด์หน้า 59 เปลี่ยนตัวคูณเศษข้างบนเป็น <span class="math">r<sub>2</sub></span> และ <span class="math">r<sub>3</sub></span> ในทำนองเดียวกัน)
+                    <div class="eq-Display">
+                        <span><span class="math">U<sub>4</sub></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">R<sub>tot</sub> A<sub>4</sub></span></span></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="frac"><span class="frac-num"><span class="math">r<sub>4</sub></span></span><span class="frac-den"><span class="math">r<sub>1</sub></span></span></span><span class="math-rm">(</span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">h<sub>1</sub></span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">r<sub>4</sub></span></span><span class="frac-den"><span class="math">k<sub>A</sub></span></span></span><span class="math-rm">ln</span><span class="math-rm">(</span><span class="frac"><span class="frac-num"><span class="math">r<sub>2</sub></span></span><span class="frac-den"><span class="math">r<sub>1</sub></span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">r<sub>4</sub></span></span><span class="frac-den"><span class="math">k<sub>B</sub></span></span></span><span class="math-rm">ln</span><span class="math-rm">(</span><span class="frac"><span class="frac-num"><span class="math">r<sub>3</sub></span></span><span class="frac-den"><span class="math">r<sub>2</sub></span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">r<sub>4</sub></span></span><span class="frac-den"><span class="math">k<sub>C</sub></span></span></span><span class="math-rm">ln</span><span class="math-rm">(</span><span class="frac"><span class="frac-num"><span class="math">r<sub>4</sub></span></span><span class="frac-den"><span class="math">r<sub>3</sub></span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">h<sub>4</sub></span></span></span></span></span></span>
+                        <span class="eq-num">(สมการที่ 3.16)</span>
+                    </div>
+                </li>
+            </ul>
+        <p></p></div>
+
+        <div class="box-concept">
+            <h4>เนื้อหาเสริมระดับมหาวิทยาลัย: รัศมีวิกฤตของฉนวน (Critical Radius of Insulation)</h4>
+            <p><span class="tag-sup">[เสริมพื้นฐาน]</span> ในผนังราบ การเพิ่มความหนาของฉนวนจะช่วยลดการสูญเสียความร้อนเสมอ แต่สำหรับท่อทรงกระบอกขนาดเล็กหรือลวดตัวนำไฟฟ้าที่มีรัศมีเปลือย <span class="math">r<sub>i</sub></span> เมื่อหุ้มฉนวนที่มีสภาพนำความร้อน <span class="math">k</span> ให้มีรัศมีภายนอกเป็น <span class="math">r</span> ความต้านทานรวมคือ <span class="math">R<sub>tot</sub>(r) = ln(r/r<sub>i</sub>)/(2πkL) + 1/(2πrLh)</span> เมื่อ <span class="math">r</span> เพิ่มขึ้น <strong>ความต้านทานการนำความร้อนจะเพิ่มขึ้น แต่ความต้านทานการพาความร้อนที่ผิวนอกจะลดลง</strong> (เพราะพื้นที่ผิวพาความร้อน <span class="math">2πrL</span> ใหญ่ขึ้น!) หากหาอนุพันธ์ <span class="math">dR<sub>tot</sub>/dr = 1/(2πkLr) − 1/(2πhr<sup>2</sup>L) = 0</span> จะได้รัศมีที่ทำให้ความต้านทานรวมต่ำสุด (อัตราการถ่ายเทความร้อนสูงสุด) เรียกว่า <strong>รัศมีวิกฤตของฉนวน (Critical radius): <span class="math">r<sub>cr,ทรงกระบอก</sub> = k / h</span></strong> (และสำหรับทรงกลมคือ <strong><span class="math">r<sub>cr,ทรงกลม</sub> = 2k / h</span></strong>) วิศวกรออกแบบสายไฟใช้หลักการนี้เลือกหุ้มฉนวนพลาสติกให้รัศมีใกล้เคียง <span class="math">r<sub>cr</sub></span> เพื่อช่วยระบายความร้อนออกจากสายไฟได้ดีขึ้น!</p>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 1/2)</span>
+        <span>หน้า 8</span>
+    </footer>
+</section>
+
+<!-- page 9 budget (Compact): h3 11 + prose 90 + svg 28mm 68 + box chrome 24 + box-eq 210 + h2 11 + table 6 rows 102 + 5 gaps 40 = 556 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h3>3.2.2 ทรงกลมกลวง (The Sphere — ในเอกสารต้นฉบับระบุเลขหัวข้อ 3.3.2)</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 61–72]</span> พิจารณาเปลือกทรงกลมกลวง (Hollow sphere) ที่มีรัศมีภายใน <span class="math">r<sub>1</sub></span> (อุณหภูมิผิว <span class="math">T<sub>s,1</sub></span>) และรัศมีภายนอก <span class="math">r<sub>2</sub></span> (อุณหภูมิผิว <span class="math">T<sub>s,2</sub></span>) ดังรูปที่ 3.7 สำหรับสภาวะคงตัวใน 1 มิติตามแนวรัศมีโดยไม่มีการผลิตความร้อนภายใน พื้นที่ผิวทรงกลมที่ตั้งฉากกับทิศทางการไหลของความร้อนคือ <span class="math">A(r) = 4π r<sup>2</sup></span></p>
+
+        <figure>
+            <svg viewBox="0 0 720 95" style="width: 100%; height: 26mm;" role="img">
+                <title>การนำความร้อนในเปลือกทรงกลมกลวงและการกระจายอุณหภูมิแบบไฮเพอร์โบลิก (Figure 3.7 หน้า 63)</title>
+                <!-- Left: Spherical shell -->
+                <rect x="5" y="5" width="320" height="85" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="165" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">1. เปลือกทรงกลมกลวง (Figure 3.7 สไลด์หน้า 61–63)</text>
+                <circle cx="95" cy="52" r="34" fill="#fed7aa" stroke="#9a3412" stroke-width="1.5"></circle>
+                <circle cx="95" cy="52" r="24" fill="none" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,2"></circle>
+                <circle cx="95" cy="52" r="15" fill="#ffffff" stroke="#9a3412" stroke-width="1.5"></circle>
+                <line x1="95" y1="52" x2="84" y2="42" stroke="#1e293b" stroke-width="1.2"></line><text x="75" y="42" font-size="8" font-weight="bold">r₁</text>
+                <line x1="95" y1="52" x2="128" y2="52" stroke="#1e293b" stroke-width="1.2"></line><text x="134" y="55" font-size="8" font-weight="bold">r₂</text>
+                <text x="225" y="38" font-size="8.5" font-weight="bold" fill="#dc2626" text-anchor="middle">พื้นที่ผิวตั้งฉาก: A(r) = 4π r²</text>
+                <text x="225" y="54" font-size="8.5" font-weight="bold" fill="#9a3412" text-anchor="middle">d(q_r)/dr = 0 ⇒ q_r = ค่าคงตัว</text>
+                <text x="225" y="70" font-size="8.5" font-weight="bold" fill="#1e3a8a" text-anchor="middle">T(r) = C₁/r + C₂ (โค้งแบบ 1/r)</text>
+
+                <!-- Right: Equations summary -->
+                <rect x="335" y="5" width="380" height="85" fill="#fff7ed" stroke="#fed7aa"></rect>
+                <text x="525" y="20" font-size="9" font-weight="bold" fill="#9a3412" text-anchor="middle">สรุปผลลัพธ์สำคัญของเปลือกทรงกลมกลวง (สไลด์หน้า 70–72)</text>
+                <text x="525" y="42" font-size="9" font-weight="bold" fill="#1e293b" text-anchor="middle">อัตราการนำความร้อน:  q_r = 4π k (T_s,1 − T_s,2) / [(1/r₁) − (1/r₂)]</text>
+                <text x="525" y="62" font-size="9" font-weight="bold" fill="#1e3a8a" text-anchor="middle">ความต้านทานการนำความร้อน:  R_t,cond = [(1/r₁) − (1/r₂)] / (4π k)</text>
+                <text x="525" y="80" font-size="8" fill="#475569" text-anchor="middle">ความต้านทานการพาความร้อนที่ผิวทรงกลม: R_t,conv = 1 / (h · 4π r²)</text>
+            </svg>
+            <figcaption><strong>รูปที่ 3.7</strong> <span class="tag-src">[ต้นฉบับ: Figure 3.7 สไลด์หน้า 61–72]</span> การนำความร้อนในแนวรัศมีผ่านเปลือกทรงกลมกลวง</figcaption>
+        </figure>
+
+        <div class="box-eq">
+            <h4>การพิสูจน์การกระจายอุณหภูมิ อัตราความร้อน และความต้านทานของทรงกลมกลวง (สไลด์หน้า 62–72)</h4>
+            <ul>
+                <li><strong>1. สมการควบคุมและการอินทิเกรตสองครั้ง (สไลด์หน้า 62–65):</strong> จากสมการที่ 2.16 เมื่อ <span class="math">k</span> คงตัว สมการการแพร่ความร้อนคือ:
+                    <div class="eq-Display">
+                        <span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r<sup>2</sup></span></span></span> <span class="frac"><span class="frac-num"><span class="math">d</span></span><span class="frac-den"><span class="math">dr</span></span></span><span class="math-rm">(</span><span class="math">k r<sup>2</sup></span> <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dr</span></span></span><span class="math-rm">)</span> = 0   ⇒   อินทิเกรตครั้งที่ 1:   <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dr</span></span></span> = <span class="frac"><span class="frac-num"><span class="math">C</span></span><span class="frac-den"><span class="math">k r<sup>2</sup></span></span></span>   ⇒   อินทิเกรตครั้งที่ 2:   <span class="math">T(r)</span> = −<span class="frac"><span class="frac-num"><span class="math">C</span></span><span class="frac-den"><span class="math">k r</span></span></span> + <span class="math">C<sub>2</sub></span> = <span class="frac"><span class="frac-num"><span class="math">C<sub>1</sub></span></span><span class="frac-den"><span class="math">r</span></span></span> + <span class="math">C<sub>2</sub></span></span>
+                        <span class="eq-num">(สมการที่ 3.17)</span>
+                    </div>
+                </li>
+                <li><strong>2. แทนเงื่อนไขขอบเขต <span class="math">T(r<sub>1</sub>) = T<sub>s,1</sub></span> และ <span class="math">T(r<sub>2</sub>) = T<sub>s,2</sub></span> (สไลด์หน้า 66–70):</strong>
+                    <p>จาก <span class="math">T<sub>s,1</sub> = C<sub>1</sub>/r<sub>1</sub> + C<sub>2</sub></span> และ <span class="math">T<sub>s,2</sub> = C<sub>1</sub>/r<sub>2</sub> + C<sub>2</sub></span> นำมาลบกันได้ <span class="math">C<sub>1</sub> = (T<sub>s,1</sub> − T<sub>s,2</sub>) / [(1/r<sub>1</sub>) − (1/r<sub>2</sub>)]</span> และ <span class="math">C<sub>2</sub> = T<sub>s,1</sub> − C<sub>1</sub>/r<sub>1</sub></span> แทนกลับลงใน <span class="math">T(r)</span> จะได้การกระจายอุณหภูมิแบบไฮเพอร์โบลิก:</p>
+                    <div class="eq-Display">
+                        <span><span class="math">T(r)</span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>s,1</sub> − T<sub>s,2</sub></span></span><span class="frac-den">(1/<span class="math">r<sub>1</sub></span>) − (1/<span class="math">r<sub>2</sub></span>)</span></span> <span class="math-rm">(</span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r</span></span></span> − <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r<sub>1</sub></span></span></span><span class="math-rm">)</span> + <span class="math">T<sub>s,1</sub></span> = <span class="math">T<sub>s,1</sub></span> − (<span class="math">T<sub>s,1</sub> − T<sub>s,2</sub></span>) <span class="math-rm">[</span><span class="frac"><span class="frac-num">1 − (<span class="math">r<sub>1</sub>/r</span>)</span><span class="frac-den">1 − (<span class="math">r<sub>1</sub>/r<sub>2</sub></span>)</span></span><span class="math-rm">]</span></span>
+                        <span class="eq-num">(สมการที่ 3.18)</span>
+                    </div>
+                </li>
+                <li><strong>3. อัตราการนำความร้อน (<span class="math">q<sub>r</sub></span>) และความต้านทานความร้อนของทรงกลม (สไลด์หน้า 71–72):</strong> แทน <span class="math">dT/dr = −C<sub>1</sub>/r<sup>2</sup></span> ลงในกฎของฟูริเยร์ <span class="math">q<sub>r</sub> = −k(4π r<sup>2</sup>)(dT/dr)</span> (ตัวแปร <span class="math">r<sup>2</sup></span> ตัดกันหมดไป):
+                    <div class="eq-Display">
+                        <span><span class="math">q<sub>r</sub></span> = <span class="frac"><span class="frac-num">4<span class="math">π k</span> (<span class="math">T<sub>s,1</sub> − T<sub>s,2</sub></span>)</span><span class="frac-den">(1/<span class="math">r<sub>1</sub></span>) − (1/<span class="math">r<sub>2</sub></span>)</span></span>     ⇒     ความต้านทานการนำความร้อนของทรงกลม:   <span class="math">R<sub>t,cond</sub></span> = <span class="frac"><span class="frac-num">(1/<span class="math">r<sub>1</sub></span>) − (1/<span class="math">r<sub>2</sub></span>)</span><span class="frac-den">4<span class="math">π k</span></span></span></span>
+                        <span class="eq-num">(สมการที่ 3.19)</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <h2>3.3 สรุปเปรียบเทียบผลลัพธ์การนำความร้อนในหนึ่งมิติ (3.3 Summary of 1D Conduction Results)</h2>
+        <p><span class="tag-src">[ต้นฉบับ: Table 3.3 สไลด์หน้า 73–74]</span> ตารางที่ 3.4 สรุปสมการสำคัญสำหรับการนำความร้อนใน 1 มิติ ภายใต้สภาวะคงตัว เมื่อ <span class="math">k</span> คงตัวและไม่มีการผลิตพลังงานความร้อนภายใน (<span class="math">q̇ = 0</span>) สำหรับรูปทรงเรขาคณิตทั้ง 3 แบบ โดยที่ <span class="math">ΔT ≡ T<sub>s,1</sub> − T<sub>s,2</sub></span></p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 22%;">หัวข้อเปรียบเทียบ</th>
+                    <th scope="col" style="width: 24%;">ผนังราบ (Plane Wall)</th>
+                    <th scope="col" style="width: 27%;">ทรงกระบอกกลวง (Cylindrical Wall)</th>
+                    <th scope="col" style="width: 27%;">ทรงกลมกลวง (Spherical Wall)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>สมการการแพร่ความร้อน</strong><br>(Heat equation)</td>
+                    <td><span class="frac"><span class="frac-num"><span class="math">d<sup>2</sup>T</span></span><span class="frac-den"><span class="math">dx<sup>2</sup></span></span></span> = 0</td>
+                    <td><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r</span></span></span> <span class="frac"><span class="frac-num"><span class="math">d</span></span><span class="frac-den"><span class="math">dr</span></span></span><span class="math-rm">(</span><span class="math">r</span> <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dr</span></span></span><span class="math-rm">)</span> = 0</td>
+                    <td><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r<sup>2</sup></span></span></span> <span class="frac"><span class="frac-num"><span class="math">d</span></span><span class="frac-den"><span class="math">dr</span></span></span><span class="math-rm">(</span><span class="math">r<sup>2</sup></span> <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dr</span></span></span><span class="math-rm">)</span> = 0</td>
+                </tr>
+                <tr>
+                    <td><strong>การกระจายอุณหภูมิ</strong><br>(Temperature distribution)</td>
+                    <td><span class="math">T<sub>s,1</sub></span> − <span class="math-rm">Δ</span><span class="math">T</span> <span class="frac"><span class="frac-num"><span class="math">x</span></span><span class="frac-den"><span class="math">L</span></span></span></td>
+                    <td><span class="math">T<sub>s,2</sub></span> + <span class="math-rm">Δ</span><span class="math">T</span> <span class="frac"><span class="frac-num"><span class="math-rm">ln</span>(<span class="math">r / r<sub>2</sub></span>)</span><span class="frac-den"><span class="math-rm">ln</span>(<span class="math">r<sub>1</sub> / r<sub>2</sub></span>)</span></span></td>
+                    <td><span class="math">T<sub>s,1</sub></span> − <span class="math-rm">Δ</span><span class="math">T</span> <span class="math-rm">[</span><span class="frac"><span class="frac-num">1 − (<span class="math">r<sub>1</sub>/r</span>)</span><span class="frac-den">1 − (<span class="math">r<sub>1</sub>/r<sub>2</sub></span>)</span></span><span class="math-rm">]</span></td>
+                </tr>
+                <tr>
+                    <td><strong>ฟลักซ์ความร้อน (<span class="math">q&#39;&#39;</span>)</strong><br>(Heat flux, <span class="math-rm">W/m<sup>2</sup></span>)</td>
+                    <td><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math-rm">Δ</span><span class="math">T</span></span><span class="frac-den"><span class="math">L</span></span></span>  (คงตัว)</td>
+                    <td><span class="frac"><span class="frac-num"><span class="math">k</span> <span class="math-rm">Δ</span><span class="math">T</span></span><span class="frac-den"><span class="math">r</span> <span class="math-rm">ln</span>(<span class="math">r<sub>2</sub> / r<sub>1</sub></span>)</span></span>  (∝ <span class="math">1/r</span>)</td>
+                    <td><span class="frac"><span class="frac-num"><span class="math">k</span> <span class="math-rm">Δ</span><span class="math">T</span></span><span class="frac-den"><span class="math">r<sup>2</sup></span>[(1/<span class="math">r<sub>1</sub></span>) − (1/<span class="math">r<sub>2</sub></span>)]</span></span>  (∝ <span class="math">1/r<sup>2</sup></span>)</td>
+                </tr>
+                <tr>
+                    <td><strong>อัตราความร้อน (<span class="math">q</span>)</strong><br>(Heat rate, <span class="math-rm">W</span>)</td>
+                    <td><span class="math">k A</span> <span class="frac"><span class="frac-num"><span class="math-rm">Δ</span><span class="math">T</span></span><span class="frac-den"><span class="math">L</span></span></span></td>
+                    <td><span class="frac"><span class="frac-num">2<span class="math">π L k</span> <span class="math-rm">Δ</span><span class="math">T</span></span><span class="frac-den"><span class="math-rm">ln</span>(<span class="math">r<sub>2</sub> / r<sub>1</sub></span>)</span></span></td>
+                    <td><span class="frac"><span class="frac-num">4<span class="math">π k</span> <span class="math-rm">Δ</span><span class="math">T</span></span><span class="frac-den">(1/<span class="math">r<sub>1</sub></span>) − (1/<span class="math">r<sub>2</sub></span>)</span></span></td>
+                </tr>
+                <tr>
+                    <td><strong>ความต้านทานการนำความร้อน</strong><br>(Thermal resistance, <span class="math">R<sub>t,cond</sub></span>)</td>
+                    <td><span class="frac"><span class="frac-num"><span class="math">L</span></span><span class="frac-den"><span class="math">k A</span></span></span></td>
+                    <td><span class="frac"><span class="frac-num"><span class="math-rm">ln</span>(<span class="math">r<sub>2</sub> / r<sub>1</sub></span>)</span><span class="frac-den">2<span class="math">π L k</span></span></span></td>
+                    <td><span class="frac"><span class="frac-num">(1/<span class="math">r<sub>1</sub></span>) − (1/<span class="math">r<sub>2</sub></span>)</span><span class="frac-den">4<span class="math">π k</span></span></span></td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 8pt; color: #475569;"><strong>ตารางที่ 3.4</strong> <span class="tag-src">[ต้นฉบับ: Table 3.3 สไลด์หน้า 74]</span> สรุปผลเฉลยการนำความร้อน 1 มิติ สภาวะคงตัว เมื่อไม่มีการผลิตพลังงานความร้อนภายใน</p>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 1/2)</span>
+        <span>หน้า 9</span>
+    </footer>
+</section>
+
+<!-- page 10 budget (Compact): box-example 280 + svg 28mm 68 + box chrome 24 + box-example 170 + box-concept 50 = 592 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <div class="box-example">
+            <h4>ตัวอย่างที่ 3.2 (Example 3.2): การคำนวณอัตราความร้อนรั่วไหลและอัตราการระเหยของไนโตรเจนเหลวในถังทรงกลม</h4>
+            <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 100–103]</span> <span class="tag-inf">[กู้คืนส่วนที่ถูกตัดขอบล่างในสไลด์หน้า 102–103]</span> <strong>โจทย์:</strong> ถังโลหะผนังบางรูปทรงกลมใช้สำหรับเก็บไนโตรเจนเหลว (Liquid nitrogen) ที่อุณหภูมิจุดเดือด <span class="math">T<sub>∞,1</sub> = 77</span> <span class="math-rm">K</span> ถังมีเส้นผ่านศูนย์กลาง <span class="math">D<sub>1</sub> = 0.5</span> <span class="math-rm">m</span> (รัศมี <span class="math">r<sub>1</sub> = 0.25</span> <span class="math-rm">m</span>) และหุ้มด้วยฉนวนผงซิลิกาสูบอากาศออกและสะท้อนรังสี (Evacuated, reflective silica powder insulation) ซึ่งมีความหนา <span class="math">25</span> <span class="math-rm">mm</span> (<span class="math">0.025</span> <span class="math-rm">m</span>) ผิวด้านนอกของฉนวนสัมผัสกับอากาศแวดล้อมที่อุณหภูมิ <span class="math">T<sub>∞,2</sub> = 300</span> <span class="math-rm">K</span> โดยมีสัมประสิทธิ์การพาความร้อน <span class="math">h = 20</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span> ความร้อนแฝงของการกลายเป็นไอและความหนาแน่นของไนโตรเจนเหลวมีค่า <span class="math">h<sub>fg</sub> = 2 × 10<sup>5</sup></span> <span class="math-rm">J/kg</span> และ <span class="math">ρ = 804</span> <span class="math-rm">kg/m<sup>3</sup></span> ตามลำดับ (จากตาราง A.3 ผงซิลิกาสูบอากาศที่ <span class="math">300</span> <span class="math-rm">K</span> มีสภาพนำความร้อน <span class="math">k = 0.0017</span> <span class="math-rm">W/(m·K)</span>)<br>
+            (1) จงหาอัตราการถ่ายเทความร้อนที่ไหลเข้าสู่ไนโตรเจนเหลว (<span class="math">q</span>)<br>
+            (2) จงหาอัตราการเดือดระเหยกลายเป็นไอของไนโตรเจนเหลว (Rate of liquid boil-off, <span class="math">ṁ</span>) ทั้งในหน่วย <span class="math-rm">kg/s</span>, <span class="math-rm">kg/day</span> และ <span class="math-rm">liters/day</span></p>
+        </div>
+
+        <figure>
+            <svg viewBox="0 0 720 95" style="width: 100%; height: 26mm;" role="img">
+                <title>แผนภาพถังทรงกลมบรรจุไนโตรเจนเหลวและวงจรความร้อนสมมูลสำหรับตัวอย่างที่ 3.2</title>
+                <!-- Left: Spherical tank schematic -->
+                <rect x="5" y="5" width="320" height="85" fill="#ffffff" stroke="#94a3b8"></rect>
+                <circle cx="95" cy="52" r="36" fill="#fed7aa" stroke="#9a3412" stroke-width="1.5"></circle>
+                <circle cx="95" cy="52" r="28" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.5"></circle>
+                <!-- Vent at top -->
+                <rect x="90" y="10" width="10" height="16" fill="#ffffff" stroke="#1e293b"></rect>
+                <text x="135" y="18" font-size="8" font-weight="bold" fill="#dc2626">ท่อระบายไอ ṁ h_fg (Vent)</text>
+                <text x="225" y="38" font-size="8" font-weight="bold" fill="#0369a1" text-anchor="middle">LN₂: T_∞,1 = 77 K, r₁ = 0.25 m</text>
+                <text x="225" y="54" font-size="8" font-weight="bold" fill="#9a3412" text-anchor="middle">ฉนวนซิลิกา: r₂ = 0.275 m, k = 0.0017</text>
+                <text x="225" y="70" font-size="8" font-weight="bold" fill="#1e293b" text-anchor="middle">อากาศนอก: T_∞,2 = 300 K, h = 20</text>
+
+                <!-- Right: Thermal circuit -->
+                <rect x="335" y="5" width="380" height="85" fill="#f0fdf4" stroke="#86efac"></rect>
+                <text x="525" y="20" font-size="8.5" font-weight="bold" fill="#166534" text-anchor="middle">วงจรความร้อนสมมูล (ความร้อน q ไหลจากอากาศนอก 300 K เข้าสู่ LN₂ 77 K)</text>
+                <text x="525" y="42" font-size="9" font-weight="bold" fill="#1e293b" text-anchor="middle">T_∞,1 (77 K) ◄──[ R_t,cond (ฉนวน) ]──●──[ R_t,conv (อากาศ) ]──◄ T_∞,2 (300 K)</text>
+                <text x="525" y="62" font-size="8.5" font-weight="bold" fill="#1e3a8a" text-anchor="middle">R_t,cond = [(1/r₁) − (1/r₂)] / (4πk) = 17.02 K/W  |  R_t,conv = 1 / (h·4πr₂²) = 0.0526 K/W</text>
+                <text x="525" y="80" font-size="8" fill="#166534" text-anchor="middle">สมดุลพลังงานของไนโตรเจนเหลว: Ė_in − Ė_out = q − ṁ h_fg = 0 ⇒ ṁ = q / h_fg</text>
+            </svg>
+            <figcaption><strong>รูปที่ 3.8</strong> <span class="tag-src">[ต้นฉบับ: สไลด์หน้า 100, 102]</span> ถังทรงกลมเก็บไนโตรเจนเหลวหุ้มฉนวนซิลิกาและวงจรความร้อนสมมูลในตัวอย่างที่ 3.2</figcaption>
+        </figure>
+
+        <div class="box-example">
+            <p><strong>วิธีทำอย่างละเอียด (กู้คืนบรรทัดการแทนค่าที่ถูกตัดขอบล่างในสไลด์หน้า 102 และ 103):</strong></p>
+            <ul>
+                <li><strong>ขั้นที่ 1 คำนวณรัศมีและสมมติฐาน (สไลด์หน้า 101):</strong> รัศมีภายในฉนวน <span class="math">r<sub>1</sub> = 0.5 / 2 = 0.25</span> <span class="math-rm">m</span>, รัศมีภายนอกฉนวน <span class="math">r<sub>2</sub> = 0.25 + 0.025 = 0.275</span> <span class="math-rm">m</span> สมมติว่าผนังโลหะของถังบางมากและความต้านทานการเดือดด้านในต่ำมากจนละทิ้งได้ ดังนั้นอุณหภูมิผิวในของฉนวนจึงเท่ากับ <span class="math">T<sub>∞,1</sub> = 77</span> <span class="math-rm">K</span></li>
+                <li><strong>ขั้นที่ 2 คำนวณข้อ (1) อัตราการถ่ายเทความร้อนเข้าสู่ถัง (<span class="math">q</span>) (กู้คืนส่วนที่ถูกตัดหลังคำว่า <code>Hence</code> ในสไลด์หน้า 102):</strong>
+                    <ul>
+                        <li>ความต้านทานการนำความร้อนของฉนวนทรงกลม: <span class="math">R<sub>t,cond</sub> = [(1/r<sub>1</sub>) − (1/r<sub>2</sub>)] / (4π k) = [(1/0.25) − (1/0.275)] / (4π × 0.0017) = 0.36364 / 0.021363 =</span> <strong>17.022 <span class="math-rm">K/W</span></strong></li>
+                        <li>ความต้านทานการพาความร้อนที่ผิวนอก: <span class="math">R<sub>t,conv</sub> = 1 / (h · 4π r<sub>2</sub><sup>2</sup>) = 1 / [20 × 4π × (0.275)<sup>2</sup>] = 1 / 19.0066 =</span> <strong>0.0526 <span class="math-rm">K/W</span></strong></li>
+                    </ul>
+                    <div class="eq-Display">
+                        <span><span class="math">q</span> = <span class="frac"><span class="frac-num"><span class="math">T<sub>∞,2</sub> − T<sub>∞,1</sub></span></span><span class="frac-den"><span class="math">R<sub>t,cond</sub> + R<sub>t,conv</sub></span></span></span> = <span class="frac"><span class="frac-num">(300 − 77) <span class="math-rm">K</span></span><span class="frac-den">(17.022 + 0.0526) <span class="math-rm">K/W</span></span></span> = <span class="frac"><span class="frac-num">223 <span class="math-rm">K</span></span><span class="frac-den">17.075 <span class="math-rm">K/W</span></span></span> = <strong>13.06 <span class="math-rm">W</span> (หรือ 13.06 <span class="math-rm">J/s</span>)</strong></span>
+                        <span class="eq-num">(3.2a)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 3 คำนวณข้อ (2) อัตราการเดือดระเหยของไนโตรเจนเหลว (<span class="math">ṁ</span>) และปริมาณการสูญเสียต่อวัน (กู้คืนส่วนที่ถูกตัดหลังคำว่า <code>The loss per day is</code> ในสไลด์หน้า 103):</strong>
+                    <p>จากสมดุลพลังงานของไนโตรเจนเหลว <span class="math">Ė<sub>in</sub> − Ė<sub>out</sub> = q − ṁ h<sub>fg</sub> = 0</span> จะได้อัตราการระเหยต่อวินาทีและต่อวัน (1 วัน = <span class="math">24 × 3,600 = 86,400</span> <span class="math-rm">s</span>) ดังนี้:</p>
+                    <div class="eq-Display">
+                        <span><span class="math">ṁ</span> = <span class="frac"><span class="frac-num"><span class="math">q</span></span><span class="frac-den"><span class="math">h<sub>fg</sub></span></span></span> = <span class="frac"><span class="frac-num">13.06 <span class="math-rm">J/s</span></span><span class="frac-den">2 × 10<sup>5</sup> <span class="math-rm">J/kg</span></span></span> = <strong>6.53 × 10<sup>−5</sup> <span class="math-rm">kg/s</span></strong>   ⇒   การสูญเสียต่อวัน: <span class="math">ṁ<sub>day</sub></span> = (6.53 × 10<sup>−5</sup> <span class="math-rm">kg/s</span>)(86,400 <span class="math-rm">s/day</span>) = <strong>5.64 <span class="math-rm">kg/day</span></strong></span>
+                        <span class="eq-num">(3.2b)</span>
+                    </div>
+                    <p>และเมื่อแปลงเป็นปริมาตรต่อวันโดยหารด้วยความหนาแน่น <span class="math">ρ = 804</span> <span class="math-rm">kg/m<sup>3</sup></span> (โดยที่ <span class="math">1</span> <span class="math-rm">m<sup>3</sup></span> = <span class="math">1,000</span> <span class="math-rm">liters</span>): <span class="math">V̇<sub>day</sub> = ṁ<sub>day</sub> / ρ = 5.64 / 804 = 0.00702</span> <span class="math-rm">m<sup>3</sup>/day</span> = <strong>7.02 ลิตรต่อวัน (<span class="math-rm">liters/day</span>)</strong> (คิดเป็น約 10.7% ของปริมาตรถังรวม <span class="math">V = (4/3)π(0.25)<sup>3</sup> = 65.45</span> ลิตร)</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="box-concept" style="font-size: 8.5pt;">
+            <h4>บันทึกสถานะการเขียนบทที่ 3 (สิ้นสุดส่วนที่ 1/2 — หัวข้อสุดท้ายที่เขียนเสร็จ: หัวข้อ 3.3 และตัวอย่างที่ 3.2)</h4>
+            <p><strong>รายการที่เขียนครบแล้วในส่วนที่ 1/2:</strong> ครอบคลุมสไลด์บทที่ 3 หน้า 1–74 และ 100–103 อย่างสมบูรณ์ (หัวข้อ 3.1 ผนังราบ, ความต้านทานความร้อน, ผนังประกอบ, ความต้านทานการสัมผัส, หัวข้อ 3.2 ทรงกระบอก ทรงกลม รัศมีวิกฤตของฉนวน, หัวข้อ 3.3 ตารางที่ 3.3, และตัวอย่างที่ 3.1–3.2)<br>
+            <strong>ขั้นตอนต่อไป:</strong> สั่ง <strong>&#34;เขียนบทที่ 3 ส่วนที่ 2/2 ต่อได้เลย&#34;</strong> เพื่อจัดทำหัวข้อ 3.4 (การนำความร้อนเมื่อมีการผลิตพลังงานความร้อนภายใน), ภาคผนวก C, ตัวอย่างที่ 3.3, และแบบฝึกหัดท้ายบทข้อ (6)–(11) พร้อมเฉลยวิธีทำละเอียดครับ</p>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 3 การนำความร้อนใน 1 มิติ สภาวะคงตัว (ส่วนที่ 1/2)</span>
+        <span>หน้า 10</span>
+    </footer>
+</section>
+
+</div>
+
+<script data-bard-injected="true">
+(function() {
+  async function fetchFifeImageBlobUsingAlr(urlString) {
+    if (urlString.startsWith('blob:') || urlString.startsWith('data:')) {
+      throw new Error('Input URL is already a blob or data URL.');
+    }
+    var url = new URL(urlString, window.location.href);
+    url.searchParams.set('alr', 'yes');
+    for (var i = 0; i < 5; i++) {
+      var response = await fetch(url.toString(), {credentials: 'include'});
+      if (!response.ok) {
+        throw new Error('Fetch received not OK response: ' + response.status);
+      }
+      var contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.startsWith('text/plain')) {
+        var blob = await response.blob();
+        if (blob.size > 0 && blob.type.startsWith('image/')) {
+          return blob;
+        }
+        throw new Error('Fetched blob is not a valid image.');
+      }
+      url = new URL(await response.text());
+    }
+    throw new Error('Exceeded maximum number of redirects.');
+  }
+
+  async function updateImageSourcesUsingAlr() {
+    var imgs = Array.from(document.querySelectorAll('img'));
+    await Promise.all(imgs.map(async function(img) {
+      if (img.src && img.src.includes('googleusercontent')) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(img.src);
+          img.src = URL.createObjectURL(blob);
+        } catch (e) {}
+      }
+    }));
+
+    var elements = document.querySelectorAll('[style*="googleusercontent"]');
+    var urlRegex = /url\((['"]?)(https?:\/\/.*?googleusercontent.*?)\1\)/;
+    await Promise.all(Array.from(elements).map(async function(el) {
+      var bg = el.style.backgroundImage;
+      var match = bg ? bg.match(urlRegex) : null;
+      if (match && match[2]) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(match[2]);
+          var blobUrl = URL.createObjectURL(blob);
+          el.style.backgroundImage = bg.replace(match[2], blobUrl);
+        } catch (e) {}
+      }
+    }));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateImageSourcesUsingAlr);
+  } else {
+    updateImageSourcesUsingAlr();
+  }
+})();
+</script></body></html>

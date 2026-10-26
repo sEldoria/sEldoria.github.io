@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ปี 3 เทอม 1 ปลายภาค</title>
+<link rel="icon" type="image/x-icon" href="https://i1.sndcdn.com/artworks-ywGjRvK57HuKsnhN-E5rhVA-t500x500.jpg">
+<style>
+*{box-sizing:border-box}
+.nav-link,
+  .nav-link:hover,
+  .nav-link:focus {
+    color: white !important;
+    text-decoration: none !important;
+  }
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#1e293b}
+.navbar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 24px;background:#172554;position:sticky;top:0;z-index:100}
+.logo{color:#fff;font-size:20px;font-weight:bold;text-decoration:none;margin-right:20px}
+.grade-nav-btn{background:#7c3aed;border:1px solid #a78bfa;color:#fff;padding:11px 14px;border-radius:7px;cursor:pointer;font-size:15px;font-weight:700;font-family:inherit;white-space:nowrap}
+.grade-nav-btn:hover,.grade-nav-btn:focus{background:#6d28d9}
+.grade-subject-picker{display:flex;flex-direction:column;gap:8px;max-width:480px;margin:0 auto 16px;text-align:left}.grade-subject-picker label{font-size:14px;color:#e9d5ff;font-weight:700}.grade-subject-picker select{width:100%;padding:12px 13px;border:1px solid #a78bfa;border-radius:9px;background:#111827;color:#fff;font:inherit;outline-offset:2px}.grade-probabilities{margin:22px auto 0;max-width:480px;text-align:left;background:#ffffff0c;border:1px solid #ffffff20;border-radius:12px;padding:14px}
+.grade-probabilities h3{margin:0 0 10px;font-size:17px;color:#e9d5ff;text-align:center}
+.grade-probability-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.grade-probability-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:8px;background:#ffffff0b;color:#e2e8f0}
+.grade-probability-item strong{color:#facc15;font-variant-numeric:tabular-nums}
+.grade-probability-note{font-size:12px;color:#c4b5fd;margin:10px 0 0;text-align:center}
+#menus{display:flex;flex-wrap:wrap;gap:5px}
+.dropdown{position:relative}
+.dropbtn{background:transparent;border:none;color:#fff;padding:12px 15px;cursor:pointer;font-size:15px;border-radius:6px;font-family:inherit}
+.dropbtn:hover,.dropbtn:focus{background:#1e40af}
+.dropbtn::after{content:" ▼";font-size:10px}
+.dropdown-content{display:none;position:absolute;top:100%;left:0;min-width:220px;max-width:320px;max-height:70vh;overflow-y:auto;background:#fff;box-shadow:0 8px 20px #0002;border-radius:8px;padding:6px;z-index:200}
+.dropdown-content.show{display:block}
+.dropdown-content a{display:block;padding:12px;color:#334155;text-decoration:none;border-radius:5px;overflow-wrap:anywhere}
+.dropdown-content a:hover{background:#dbeafe;color:#1d4ed8}
+.document-actions{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-left:auto}
+.action-btn{padding:10px 12px;background:#fff;color:#172554;border:1px solid #cbd5e1;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;white-space:nowrap}
+.action-btn:hover{background:#dbeafe}
+#otherDropdown .dropdown-content{left:auto;right:0}
+main{max-width:1200px;margin:30px auto;padding:0 20px}
+.content{background:#fff;padding:24px;border-radius:12px;min-height:300px;box-shadow:0 2px 10px #00000008}
+iframe{display:block;width:100%;height:75vh;min-height:500px;border:none;background:#fff}
+.lesson-toolbar{display:none;justify-content:flex-end;gap:8px;padding:8px 0;background:#fff;position:sticky;top:0;z-index:20}
+#viewer:not([hidden]) + .lesson-toolbar{display:flex}
+.lesson-fullscreen-btn{border:0;border-radius:8px;padding:11px 16px;background:#172554;color:#fff;font:700 14px Arial,sans-serif;cursor:pointer;box-shadow:0 2px 6px #0002}
+.lesson-fullscreen-btn:hover,.lesson-fullscreen-btn:focus{background:#1d4ed8;outline:2px solid #93c5fd;outline-offset:2px}
+.content:fullscreen{width:100%;height:100%;max-width:none;margin:0;padding:12px;border-radius:0;overflow:auto;background:#fff}
+.content:fullscreen #viewer{height:calc(100vh - 76px);min-height:0}
+.content:fullscreen .lesson-toolbar{position:sticky;top:0;background:#fff}
+@media(max-width:700px){iframe{height:70vh;min-height:400px}.lesson-fullscreen-btn{width:100%}}
+[hidden]{display:none!important}
+@media(max-width:700px){.navbar{padding:10px;gap:5px}.logo{width:100%;margin:0 0 5px}.grade-nav-btn{order:0}.document-actions{margin-left:0}main{padding:0 12px}.content{padding:14px}#otherDropdown .dropdown-content{left:0;right:auto}}
+@media print{body{background:#fff}.navbar,main>h1,main>#description,#welcome{display:none!important}main{max-width:none;margin:0;padding:0}.content{padding:0;margin:0;border-radius:0;box-shadow:none}iframe{display:block!important;width:100%;height:auto;min-height:0;overflow:visible}@page{size:A4;margin:15mm}}
+
+/* Random grade strip */
+.grade-lottery{--slot-width:100px;max-width:620px;margin:30px auto;padding:26px 18px;overflow:hidden;text-align:center;color:#f8fafc;background:linear-gradient(145deg,#111827,#25204b);border:1px solid #4f46e5;border-radius:22px;box-shadow:0 15px 40px #0004;font-family:system-ui,sans-serif}
+.grade-lottery *{box-sizing:border-box}
+.grade-lottery h2{margin:0 0 8px;font-size:26px}
+.grade-subtitle{color:#c4b5fd;margin:0 0 30px}
+.grade-machine{position:relative;padding:20px 0}
+.grade-window{position:relative;width:100%;height:120px;overflow:hidden;border:3px solid #a78bfa;border-radius:14px;background:#0b1020;box-shadow:inset 0 0 24px #0008}
+.grade-window:before,.grade-window:after{content:"";position:absolute;z-index:2;top:0;bottom:0;width:12%;pointer-events:none}
+.grade-window:before{left:0;background:linear-gradient(90deg,#0b1020,transparent)}
+.grade-window:after{right:0;background:linear-gradient(270deg,#0b1020,transparent)}
+.grade-track{display:flex;width:max-content;height:100%;will-change:transform;transform:translateX(0)}
+.grade-slot{flex:0 0 var(--slot-width);width:var(--slot-width);height:100%;display:flex;align-items:center;justify-content:center;border-right:1px solid #ffffff18;font-size:34px;font-weight:900;text-shadow:0 0 16px currentColor}
+.grade-slot.grade-F{color:#f87171}.grade-slot.grade-D{color:#fb923c}.grade-slot.grade-Dplus{color:#fbbf24}.grade-slot.grade-C{color:#a3e635}.grade-slot.grade-Cplus{color:#4ade80}.grade-slot.grade-B{color:#38bdf8}.grade-slot.grade-Bplus{color:#818cf8}.grade-slot.grade-A{color:#e879f9}
+.grade-pointer{position:absolute;left:50%;z-index:3;transform:translateX(-50%);color:#facc15;font-size:27px;line-height:1;filter:drop-shadow(0 0 7px #facc15aa)}
+.grade-pointer-top{top:-1px}.grade-pointer-bottom{bottom:-1px}
+.grade-status{min-height:28px;margin:12px 0 18px;color:#ddd6fe;font-size:15px}
+.grade-spin-btn,.grade-sound-btn{border:0;border-radius:12px;padding:13px 20px;margin:5px;font-size:16px;font-weight:750;cursor:pointer;transition:transform .2s,filter .2s}
+.grade-spin-btn{color:#fff;background:linear-gradient(100deg,#7c3aed,#db2777);box-shadow:0 5px 20px #9333ea55}
+.grade-sound-btn{color:#e9d5ff;background:#ffffff14;border:1px solid #ffffff30}
+.grade-spin-btn:hover,.grade-sound-btn:hover{filter:brightness(1.15);transform:translateY(-2px)}
+.grade-spin-btn:disabled{opacity:.6;cursor:wait;transform:none}
+.grade-result{margin:22px auto 0;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.grade-result-label{color:#c4b5fd;font-size:14px}.grade-result strong{font-size:48px;line-height:1.2;color:#facc15}
+.grade-result.is-winner strong{animation:grade-pop .55s ease-out;text-shadow:0 0 28px #facc1580}
+@keyframes grade-pop{0%{transform:scale(.3) rotate(-12deg);opacity:0}65%{transform:scale(1.25) rotate(4deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:1}}
+@media(max-width:420px){.grade-lottery{padding:22px 12px}.grade-lottery h2{font-size:22px}.grade-window{height:100px}.grade-slot{font-size:29px}.grade-result strong{font-size:42px}}
+@media(prefers-reduced-motion:reduce){.grade-spin-btn,.grade-sound-btn{transition:none}}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="#" class="logo" id="home">สรุปเอกสารปลายภาค by Prof. Gemini at Google</a>
+  <button type="button" class="grade-nav-btn" id="gradeNavBtn">🎰 สุ่มเกรด</button>
+  <div id="menus"></div>
+  <div class="document-actions">
+    <button type="button" class="action-btn" id="savePdfBtn">Save to PDF</button>
+    <button type="button" class="action-btn" id="printBtn">Print</button>
+    
+<a href="https://drive.google.com/drive/folders/19AfQaIUPERvWQ3KjjKLo0MpdVCQ_AMKj?usp=sharing"
+   target="_self"
+   rel="noopener noreferrer"
+   class="nav-link">
+  Google Drive
+</a>
+
+    <div class="dropdown" id="otherDropdown">
+      <button type="button" class="dropbtn" id="otherBtn" aria-expanded="false">Other</button>
+      <div class="dropdown-content" id="otherMenu"></div>
+    </div>
+  </div>
+</nav>
+<main>
+  <h1 id="title">สาธุ99</h1>
+  <p id="description">เลือกเอกสารที่ชอบๆได้เลยอ้ายๆ</p>
+  <section class="content">
+    <div id="welcome">
+      <h2>เอาไงดีน่อ</h2>
+      <p>เลือกเอกสารจาก Dropdown ด้านบน เพื่อเปิดบทเรียน</p>
+      <section id="grade-lottery" class="grade-lottery">
+        <h2>🎰 สุ่มเกรดของคุณ</h2>
+        <p class="grade-subtitle">เลือกวิชาที่ต้องการสุ่ม แล้วมาลุ้นกันว่าจะได้เกรดอะไร!</p>
+        <div class="grade-subject-picker"><label for="grade-subject-select">📚 เลือกวิชา</label><select id="grade-subject-select" aria-label="เลือกวิชาที่ต้องการสุ่มเกรด"></select></div>
+        <div id="grade-probabilities" class="grade-probabilities" aria-label="เปอร์เซ็นต์โอกาสออกแต่ละเกรด"></div>
+        <div class="grade-machine">
+          <div class="grade-pointer grade-pointer-top">▼</div>
+          <div class="grade-window"><div id="grade-track" class="grade-track"></div></div>
+          <div class="grade-pointer grade-pointer-bottom">▲</div>
+        </div>
+        <div id="grade-status" class="grade-status" aria-live="polite">พร้อมแล้วหรือยัง?</div>
+        <button id="grade-spin-btn" class="grade-spin-btn" type="button">🎲 เริ่มสุ่มเกรด</button>
+        <button id="grade-sound-btn" class="grade-sound-btn" type="button" aria-pressed="true">🔊 ปิดเสียง</button>
+        <div id="grade-result" class="grade-result" aria-live="polite"><span class="grade-result-label">เกรดที่ได้</span><strong id="grade-result-value">?</strong></div>
+      </section>
+    </div>
+    <iframe id="viewer" title="เนื้อหาบทเรียน" hidden></iframe>
+    <div class="lesson-toolbar" id="lessonToolbar">
+      <button type="button" class="lesson-fullscreen-btn" id="lessonFullscreenBtn" aria-label="ขยายบทเรียนเต็มจอ">⛶ ขยายบทเรียนเต็มจอ</button>
+    </div>
+  </section>
+</main>
+<script src="grade-config.js"></script>
+<script>
+// 1. กำหนดวิชาและไฟล์ HTML
+const folders = {
+  transport: {
+    pages: ["chapter1.html", "chapter2.html","chapter3-1.html","chapter3-2.html", "chapter5.html", "chapter6.html", "chapter7.html", "chapter8.html"],
+    other: ["trans-formula.pdf"]
+  },
+  kinetic: {
+    pages: ["soon..."],
+    other: ["kinetic-formula.pdf"]
+  }
+};
+
+// 2. อ้างอิงองค์ประกอบ
+const menus = document.getElementById("menus");
+const viewer = document.getElementById("viewer");
+const welcome = document.getElementById("welcome");
+const title = document.getElementById("title");
+const description = document.getElementById("description");
+const otherBtn = document.getElementById("otherBtn");
+const otherMenu = document.getElementById("otherMenu");
+let currentFolder = null;
+let currentFile = null;
+
+// 3. สร้าง Dropdown วิชาอัตโนมัติ
+Object.entries(folders).forEach(([folder, folderData]) => {
+  const dropdown = document.createElement("div");
+  dropdown.className = "dropdown";
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "dropbtn";
+  button.textContent = folder;
+  button.setAttribute("aria-expanded", "false");
+  const content = document.createElement("div");
+  content.className = "dropdown-content";
+  folderData.pages.forEach(file => {
+    const link = document.createElement("a");
+    const path = `${folder}/${file}`;
+    link.href = path;
+    link.textContent = file.replace(/\.html$/i, "").replace(/[-_]/g, " ");
+    link.addEventListener("click", event => {
+      event.preventDefault();
+      openLesson(folder, file, link.textContent);
+      closeMenus();
+      history.pushState({folder, file}, "", `?folder=${encodeURIComponent(folder)}&file=${encodeURIComponent(file)}`);
+    });
+    content.appendChild(link);
+  });
+  button.addEventListener("click", event => {
+    event.stopPropagation();
+    const opening = !content.classList.contains("show");
+    closeMenus();
+    content.classList.toggle("show", opening);
+    button.setAttribute("aria-expanded", String(opening));
+  });
+  dropdown.append(button, content);
+  menus.appendChild(dropdown);
+});
+
+// 4. เปิดบทเรียน
+function openLesson(folder, file, displayName) {
+  currentFolder = folder;
+  currentFile = file;
+  viewer.src = `${folder}/${file}`;
+  viewer.hidden = false;
+  welcome.hidden = true;
+  title.textContent = displayName;
+  description.textContent = `${folder}/${file}`;
+  renderOtherFiles(folder);
+}
+
+// 5. สร้างเมนู Other
+function renderOtherFiles(folder) {
+  otherMenu.replaceChildren();
+  const files = folders[folder]?.other || [];
+  if (!files.length) {
+    const empty = document.createElement("a");
+    empty.href = "#";
+    empty.textContent = "ไม่มีไฟล์ในโฟลเดอร์ other";
+    empty.addEventListener("click", e => e.preventDefault());
+    otherMenu.appendChild(empty);
+    return;
+  }
+  files.forEach(file => {
+    const link = document.createElement("a");
+    const path = `${folder}/other/${file}`;
+    link.href = path;
+    link.textContent = file;
+    link.download = file;
+    link.addEventListener("click", event => {
+      if (/\.html?$/i.test(file)) {
+        event.preventDefault();
+        currentFile = `other/${file}`;
+        viewer.src = path;
+        viewer.hidden = false;
+        welcome.hidden = true;
+        title.textContent = file.replace(/\.html?$/i, "");
+        description.textContent = path;
+        closeMenus();
+        history.pushState({folder, file: `other/${file}`}, "", `?folder=${encodeURIComponent(folder)}&file=${encodeURIComponent(`other/${file}`)}`);
+      }
+    });
+    otherMenu.appendChild(link);
+  });
+}
+
+// 6. เปิด / ปิด Dropdown
+function closeMenus() {
+  document.querySelectorAll(".dropdown-content").forEach(menu => menu.classList.remove("show"));
+  document.querySelectorAll(".dropbtn").forEach(button => button.setAttribute("aria-expanded", "false"));
+}
+document.addEventListener("click", event => { if (!event.target.closest(".dropdown")) closeMenus(); });
+otherBtn.addEventListener("click", event => {
+  event.stopPropagation();
+  if (!currentFolder) { alert("กรุณาเลือกวิชาหรือบทเรียนก่อน"); return; }
+  const opening = !otherMenu.classList.contains("show");
+  closeMenus();
+  otherMenu.classList.toggle("show", opening);
+  otherBtn.setAttribute("aria-expanded", String(opening));
+});
+
+// 7. Print และ Save to PDF
+function printCurrentDocument() {
+  if (viewer.hidden || !viewer.getAttribute("src")) { alert("กรุณาเปิดบทเรียนก่อนพิมพ์หรือบันทึก PDF"); return; }
+  try {
+    const printWindow = viewer.contentWindow;
+    if (!printWindow) { alert("ไม่สามารถเข้าถึงเอกสารได้"); return; }
+    printWindow.focus();
+    printWindow.print();
+  } catch (error) {
+    alert("ไม่สามารถสั่งพิมพ์เอกสารได้ กรุณาตรวจสอบว่าไฟล์อยู่บนเว็บไซต์เดียวกัน");
+  }
+}
+document.getElementById("printBtn").addEventListener("click", printCurrentDocument);
+document.getElementById("savePdfBtn").addEventListener("click", printCurrentDocument);
+
+// ขยายบทเรียนให้เต็มหน้าจอ และกดย่อเพื่อกลับสู่หน้าปกติ
+const lessonFullscreenBtn = document.getElementById("lessonFullscreenBtn");
+const lessonContent = document.querySelector("main .content");
+lessonFullscreenBtn.addEventListener("click", async () => {
+  try {
+    if (document.fullscreenElement) {
+      await document.exitFullscreen();
+    } else if (lessonContent.requestFullscreen) {
+      await lessonContent.requestFullscreen();
+    } else {
+      alert("เบราว์เซอร์นี้ไม่รองรับโหมดเต็มหน้าจอ กรุณาลองใช้ Chrome หรือ Edge");
+    }
+  } catch (error) {
+    alert("ไม่สามารถขยายเต็มจอได้ กรุณาลองกดอีกครั้ง");
+  }
+});
+function updateFullscreenButton() {
+  const isFullscreen = Boolean(document.fullscreenElement);
+  lessonFullscreenBtn.textContent = isFullscreen ? "⤢ ย่อกลับหน้าปกติ" : "⛶ ขยายบทเรียนเต็มจอ";
+  lessonFullscreenBtn.setAttribute("aria-label", isFullscreen ? "ย่อกลับหน้าปกติ" : "ขยายบทเรียนเต็มจอ");
+}
+document.addEventListener("fullscreenchange", updateFullscreenButton);
+
+// ปุ่มสุ่มเกรดในตำแหน่งแรกของ Navbar
+ document.getElementById("gradeNavBtn").addEventListener("click", () => {
+  currentFolder = null; currentFile = null;
+  viewer.hidden = true; viewer.removeAttribute("src"); welcome.hidden = false;
+  title.textContent = "สุ่มเกรด"; description.textContent = "ดูเปอร์เซ็นต์โอกาสออก แล้วกดเริ่มสุ่มได้เลย";
+  otherMenu.replaceChildren(); closeMenus();
+  history.pushState({}, "", `${location.pathname}#grade-lottery`);
+  requestAnimationFrame(() => document.getElementById("grade-lottery").scrollIntoView({behavior:"smooth", block:"start"}));
+});
+
+// 8. กลับหน้าแรก
+document.getElementById("home").addEventListener("click", event => {
+  event.preventDefault(); currentFolder = null; currentFile = null;
+  viewer.hidden = true; viewer.removeAttribute("src"); welcome.hidden = false;
+  title.textContent = "ยินดีต้อนรับ"; description.textContent = "เลือกหมวดหมู่จากเมนูด้านบน";
+  otherMenu.replaceChildren(); closeMenus(); history.pushState({}, "", location.pathname);
+});
+
+// 9. รองรับ Back / Forward
+function restorePageFromUrl() {
+  const params = new URLSearchParams(location.search);
+  const folder = params.get("folder"); const file = params.get("file");
+  if (folder && file && folders[folder]) {
+    if (folders[folder].pages.includes(file)) {
+      openLesson(folder, file, file.replace(/\.html$/i, "").replace(/[-_]/g, " ")); return;
+    }
+    if (file.startsWith("other/") && folders[folder].other.includes(file.slice(6)) && /\.html?$/i.test(file)) {
+      openLesson(folder, file, file.replace(/^other\//, "").replace(/\.html?$/i, "")); return;
+    }
+  }
+  currentFolder = null; currentFile = null; viewer.hidden = true; viewer.removeAttribute("src");
+  welcome.hidden = false; title.textContent = "ยินดีต้อนรับ"; description.textContent = "เลือกหมวดหมู่จากเมนูด้านบน";
+}
+window.addEventListener("popstate", restorePageFromUrl);
+window.addEventListener("DOMContentLoaded", restorePageFromUrl);
+
+// 10. แอนิเมชันสุ่มเกรด แถบวิ่ง 10 วินาที พร้อมเสียงติ๊กจาก Web Audio API
+(() => {
+  const root = document.getElementById("grade-lottery");
+  if (!root || root.dataset.initialized === "true") return;
+  root.dataset.initialized = "true";
+  const track = root.querySelector("#grade-track");
+  const spinBtn = root.querySelector("#grade-spin-btn");
+  const soundBtn = root.querySelector("#grade-sound-btn");
+  const probabilityBox = root.querySelector("#grade-probabilities");
+  const status = root.querySelector("#grade-status");
+  const resultBox = root.querySelector("#grade-result");
+  const resultValue = root.querySelector("#grade-result-value");
+  const win = root.querySelector(".grade-window");
+  const grades = [
+    {name:"F",cls:"grade-F"},{name:"D",cls:"grade-D"},{name:"D+",cls:"grade-Dplus"},
+    {name:"C",cls:"grade-C"},{name:"C+",cls:"grade-Cplus"},{name:"B",cls:"grade-B"},
+    {name:"B+",cls:"grade-Bplus"},{name:"A",cls:"grade-A"}
+  ];
+  const DURATION = 10000;
+  const SLOT_COUNT = 90;
+  let audioContext = null, soundEnabled = true, spinning = false, animationFrame = null;
+  function makeSlot(grade) {
+    const el = document.createElement("div");
+    el.className = `grade-slot ${grade.cls}`; el.textContent = grade.name;
+    el.setAttribute("aria-hidden", "true"); return el;
+  }
+  // สุ่มสัดส่วนเรทเฉพาะผู้ใช้และรายวิชา โดยเก็บไว้ใน localStorage ของเบราว์เซอร์นี้
+  // หมายเหตุ: ถ้าต้องการแยกผู้ใช้จริงข้ามอุปกรณ์ ต้องมีระบบบัญชีและ backend
+  const subjectSelect = root.querySelector("#grade-subject-select");
+  const subjectNames = (window.GRADE_CONFIG && window.GRADE_CONFIG.subjectNames) || {};
+  const configuredRates = (window.GRADE_CONFIG && window.GRADE_CONFIG.rates) || {};
+  const storagePrefix = "gradeLotteryRates:v1:";
+  let selectedSubject = "";
+  let gradeRates = [];
+  let totalRate = 0;
+
+  function populateSubjects() {
+    subjectSelect.replaceChildren();
+    const entries = Object.entries(folders || {});
+    entries.forEach(([key, data]) => {
+      const option = document.createElement("option");
+      option.value = key;
+      option.textContent = subjectNames[key] || key.replace(/[-_]/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+      subjectSelect.appendChild(option);
+    });
+    if (!entries.length) {
+      const option = document.createElement("option");
+      option.value = "default"; option.textContent = "วิชาทั่วไป";
+      subjectSelect.appendChild(option);
+    }
+    try {
+      const preferred = localStorage.getItem("gradeLotterySelectedSubject");
+      if (preferred && [...subjectSelect.options].some(option => option.value === preferred)) subjectSelect.value = preferred;
+    } catch (e) { /* storage blocked: use first subject */ }
+  }
+
+  function getPersonalizedRates(subjectKey) {
+    const storageKey = storagePrefix + encodeURIComponent(subjectKey);
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (grades.every(g => Number.isFinite(Number(parsed[g.name])) && Number(parsed[g.name]) >= 0) && grades.some(g => Number(parsed[g.name]) > 0)) return parsed;
+      }
+    } catch (e) { /* หาก localStorage ใช้ไม่ได้ จะสุ่มใหม่ในหน้านี้ */ }
+
+    // ใช้เรทฐานจาก config แล้วสุ่มปรับขึ้นลงเฉพาะผู้ใช้/วิชานี้
+    const baseTotal = grades.reduce((sum, g) => sum + Math.max(0, Number(configuredRates[g.name]) || 0), 0);
+    const personalized = {};
+    grades.forEach(g => {
+      const base = Math.max(0, Number(configuredRates[g.name]) || 0);
+      personalized[g.name] = baseTotal > 0
+        ? (base > 0 ? base * (0.5 + Math.random()) : 0)
+        : Math.random() * 100 + 1;
+    });
+    if (!grades.some(g => personalized[g.name] > 0)) grades.forEach(g => personalized[g.name] = 1);
+    try { localStorage.setItem(storageKey, JSON.stringify(personalized)); } catch (e) { /* private mode / storage blocked */ }
+    return personalized;
+  }
+
+  function updateRatesForSubject(subjectKey) {
+    selectedSubject = subjectKey;
+    try { localStorage.setItem("gradeLotterySelectedSubject", subjectKey); } catch (e) {}
+    const personalRates = getPersonalizedRates(subjectKey);
+    gradeRates = grades.map(grade => {
+      const rate = Number(personalRates[grade.name]);
+      return { grade, rate: Number.isFinite(rate) && rate > 0 ? rate : 0 };
+    });
+    totalRate = gradeRates.reduce((sum, item) => sum + item.rate, 0);
+    renderGradeProbabilities();
+    resultValue.textContent = "?";
+    resultBox.classList.remove("is-winner");
+    status.textContent = `เลือกวิชา ${subjectSelect.options[subjectSelect.selectedIndex]?.textContent || subjectKey} แล้ว พร้อมสุ่ม!`;
+    spinBtn.textContent = "🎲 เริ่มสุ่มเกรด";
+    track.replaceChildren(makeSlot(grades[0]));
+    requestAnimationFrame(() => { track.style.transform = `translateX(${centerAt(0)}px)`; });
+  }
+
+  // แสดงเปอร์เซ็นต์เฉพาะของผู้ใช้และวิชาที่เลือก
+  function renderGradeProbabilities() {
+    probabilityBox.replaceChildren();
+    const heading = document.createElement("h3");
+    heading.textContent = "📊 โอกาสออกแต่ละเกรดของคุณ";
+    probabilityBox.appendChild(heading);
+    const grid = document.createElement("div");
+    grid.className = "grade-probability-grid";
+    gradeRates.forEach(item => {
+      const row = document.createElement("div");
+      row.className = "grade-probability-item";
+      const gradeLabel = document.createElement("span");
+      gradeLabel.textContent = `เกรด ${item.grade.name}`;
+      const percentage = document.createElement("strong");
+      const probability = totalRate > 0 ? item.rate / totalRate * 100 : 100 / grades.length;
+      percentage.textContent = `${probability.toFixed(2)}%`;
+      row.append(gradeLabel, percentage);
+      grid.appendChild(row);
+    });
+    probabilityBox.appendChild(grid);
+    const note = document.createElement("p");
+    note.className = "grade-probability-note";
+    note.textContent = "เรทนี้สุ่มเฉพาะเบราว์เซอร์ของคุณ แยกตามวิชา และบันทึกไว้เพื่อให้เปอร์เซ็นต์คงเดิมเมื่อกลับมาใหม่";
+    probabilityBox.appendChild(note);
+  }
+
+  function randomGrade() {
+    if (totalRate <= 0) return grades[Math.floor(Math.random() * grades.length)];
+    let roll = Math.random() * totalRate;
+    for (const item of gradeRates) {
+      roll -= item.rate;
+      if (roll < 0) return item.grade;
+    }
+    return gradeRates[gradeRates.length - 1].grade;
+  }
+
+  populateSubjects();
+  updateRatesForSubject(subjectSelect.value || "default");
+  subjectSelect.addEventListener("change", () => {
+    if (spinning) { subjectSelect.value = selectedSubject; return; }
+    updateRatesForSubject(subjectSelect.value);
+  });
+  function buildTrack(finalGrade) {
+    track.replaceChildren();
+    const items = Array.from({length:SLOT_COUNT}, () => randomGrade());
+    const targetIndex = SLOT_COUNT - 5; items[targetIndex] = finalGrade;
+    items.forEach(grade => track.appendChild(makeSlot(grade)));
+    return {targetIndex};
+  }
+  function getSlotWidth() {
+    const slot = track.querySelector(".grade-slot");
+    return slot ? slot.getBoundingClientRect().width : 100;
+  }
+  function centerAt(index) { return win.clientWidth / 2 - getSlotWidth() / 2 - index * getSlotWidth(); }
+  function easeOutQuint(t) { return 1 - Math.pow(1 - t, 5); }
+  async function prepareAudio() {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return null;
+    if (!audioContext) audioContext = new AudioCtx();
+    if (audioContext.state === "suspended") await audioContext.resume();
+    return audioContext;
+  }
+  function tick() {
+    if (!soundEnabled || !audioContext || audioContext.state !== "running") return;
+    const now = audioContext.currentTime;
+    const osc = audioContext.createOscillator(), gain = audioContext.createGain();
+    osc.type = "square"; osc.frequency.setValueAtTime(1600, now);
+    osc.frequency.exponentialRampToValueAtTime(850, now + 0.018);
+    gain.gain.setValueAtTime(0.0001, now); gain.gain.exponentialRampToValueAtTime(0.10, now + 0.002);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.025);
+    osc.connect(gain); gain.connect(audioContext.destination); osc.start(now); osc.stop(now + 0.03);
+  }
+  // เสียงยินดีสำหรับเกรดสูง
+  function playGoodSound() {
+    if (!soundEnabled || !audioContext || audioContext.state !== "running") return;
+    const now = audioContext.currentTime;
+    [523.25,659.25,783.99,1046.5].forEach((frequency,i) => {
+      const osc = audioContext.createOscillator(), gain = audioContext.createGain(), start = now + i * 0.12;
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(frequency, start);
+      gain.gain.setValueAtTime(0.0001,start);
+      gain.gain.exponentialRampToValueAtTime(0.16,start+0.025);
+      gain.gain.exponentialRampToValueAtTime(0.0001,start+0.28);
+      osc.connect(gain); gain.connect(audioContext.destination); osc.start(start); osc.stop(start+0.30);
+    });
+  }
+  // เสียงผิดหวังสำหรับเกรดต่ำ
+  function playBadSound() {
+    if (!soundEnabled || !audioContext || audioContext.state !== "running") return;
+    const now = audioContext.currentTime;
+    [392,311.13,233.08,174.61].forEach((frequency,i) => {
+      const osc = audioContext.createOscillator(), gain = audioContext.createGain(), start = now + i * 0.16;
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(frequency, start);
+      osc.frequency.exponentialRampToValueAtTime(frequency * 0.72, start + 0.13);
+      gain.gain.setValueAtTime(0.0001,start);
+      gain.gain.exponentialRampToValueAtTime(0.10,start+0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001,start+0.22);
+      osc.connect(gain); gain.connect(audioContext.destination); osc.start(start); osc.stop(start+0.24);
+    });
+  }
+  // เลือกเสียงตามกลุ่มเกรดที่กำหนดไว้ใน grade-config.js
+  function playResultSound(grade) {
+    const soundTiers = (window.GRADE_CONFIG && window.GRADE_CONFIG.soundTiers) || {};
+    const goodGrades = Array.isArray(soundTiers.good) ? soundTiers.good : ["A", "B+", "B"];
+    const badGrades = Array.isArray(soundTiers.bad) ? soundTiers.bad : ["F", "D", "D+"];
+    if (goodGrades.includes(grade.name)) playGoodSound();
+    else if (badGrades.includes(grade.name)) playBadSound();
+    else tick();
+  }
+  function spin() {
+    if (spinning) return;
+    spinning = true; spinBtn.disabled = true; status.textContent = "กำลังสุ่ม... ลุ้นกันเลย!";
+    resultBox.classList.remove("is-winner"); resultValue.textContent = "?";
+    prepareAudio().then(() => {
+      const finalGrade = randomGrade(), {targetIndex} = buildTrack(finalGrade);
+      track.style.transition = "none"; track.style.transform = `translateX(${centerAt(0)}px)`;
+      track.getBoundingClientRect();
+      const startX = centerAt(0), endX = centerAt(targetIndex), startTime = performance.now(), slotWidth = getSlotWidth();
+      let lastCrossed = 0;
+      function animate(now) {
+        const elapsed = Math.min(now - startTime, DURATION), progress = elapsed / DURATION;
+        const x = startX + (endX - startX) * easeOutQuint(progress);
+        track.style.transform = `translateX(${x}px)`;
+        const passed = Math.floor(Math.max(0, (startX - x) / slotWidth));
+        while (lastCrossed < passed) { lastCrossed++; tick(); }
+        if (elapsed < DURATION) animationFrame = requestAnimationFrame(animate);
+        else {
+          track.style.transform = `translateX(${endX}px)`; animationFrame = null;
+          resultValue.textContent = finalGrade.name; resultBox.classList.remove("is-winner");
+          void resultBox.offsetWidth; resultBox.classList.add("is-winner");
+          const soundTiers = (window.GRADE_CONFIG && window.GRADE_CONFIG.soundTiers) || {};
+          const goodGrades = Array.isArray(soundTiers.good) ? soundTiers.good : ["A", "B+", "B"];
+          const badGrades = Array.isArray(soundTiers.bad) ? soundTiers.bad : ["F", "D", "D+"];
+          status.textContent = goodGrades.includes(finalGrade.name)
+            ? `🎉 ยินดีด้วย! ได้เกรด ${finalGrade.name}`
+            : badGrades.includes(finalGrade.name)
+              ? `😵 โอ๊ย! ได้เกรด ${finalGrade.name} คราวหน้าสู้ใหม่!`
+              : `ผลสุ่มออกแล้ว: เกรด ${finalGrade.name}`;
+          playResultSound(finalGrade);
+          spinning = false; spinBtn.disabled = false; spinBtn.textContent = "🔄 สุ่มอีกครั้ง";
+        }
+      }
+      animationFrame = requestAnimationFrame(animate);
+    }).catch(error => {
+      console.error("Grade lottery error:", error); status.textContent = "เริ่มสุ่มไม่สำเร็จ กรุณาลองอีกครั้ง";
+      spinning = false; spinBtn.disabled = false;
+      if (animationFrame !== null) { cancelAnimationFrame(animationFrame); animationFrame = null; }
+    });
+  }
+  soundBtn.addEventListener("click", async () => {
+    soundEnabled = !soundEnabled;
+    soundBtn.textContent = soundEnabled ? "🔊 ปิดเสียง" : "🔇 เปิดเสียง";
+    soundBtn.setAttribute("aria-pressed", String(soundEnabled));
+    if (soundEnabled) { await prepareAudio(); tick(); }
+  });
+  spinBtn.addEventListener("click", spin);
+  track.replaceChildren(makeSlot(grades[0]));
+  requestAnimationFrame(() => { track.style.transform = `translateX(${centerAt(0)}px)`; });
+  window.addEventListener("resize", () => { if (!spinning) track.style.transform = `translateX(${centerAt(0)}px)`; });
+})();
+</script>
+</body>
+</html>

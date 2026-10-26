@@ -1,0 +1,1500 @@
+<!DOCTYPE html><html lang="th"><head>
+    <meta charset="UTF-8">
+    <title>Transport Phenomena I - บทที่ 2 บทนำสู่การนำความร้อน</title>
+    <style>
+        @page { margin: 0; }
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { background-color: #ffffff; }
+        @media (prefers-color-scheme: dark) {
+            html { background-color: #1f1f1f; }
+        }
+        body {
+            padding: 24px 0;
+            margin: 0 auto;
+            max-width: 900px !important;
+            border: none !important;
+            background: transparent !important;
+            font-family: 'Sarabun', 'TH Sarabun New', 'Tahoma', 'Segoe UI', sans-serif;
+            color: #1e293b;
+        }
+        .page {
+    min-height: 297mm;
+    height: auto;
+    margin: 0 auto 12px auto;
+    padding: 18mm 18mm 12mm 18mm;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: visible;
+}
+        @media screen and (max-width: 600px) {
+            body { padding: 16px 0; }
+            .page {
+                margin: 0 auto 8px auto;
+                border: none;
+                padding: 12px 20px;
+            }
+        }
+        .page-content {
+    flex: 1 0 auto;
+    min-height: 0;
+    overflow: visible;
+}
+        .page-content > * + * {
+            margin-top: 20px;
+        }
+        .page.compact, body.compact .page {
+            font-size: 9.5pt;
+            line-height: 1.35;
+        }
+        .page.compact .page-content > * + *, body.compact .page-content > * + * {
+            margin-top: 12px;
+        }
+        .page-content > :is(h1, h2, h3, h4) + * {
+            margin-top: 8px;
+        }
+        .page-footer {
+            flex-shrink: 0;
+            margin-top: auto;
+            padding-top: 4mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 8.5pt;
+            color: #64748b;
+            border-top: 1px solid #cbd5e1;
+        }
+        @media print {
+            *, *::before, *::after {
+                box-shadow: none !important;
+                text-shadow: none !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            body { padding: 0; background: none; }
+            .page {
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        overflow: visible;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .page-content {
+        overflow: visible;
+    }
+
+    .page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+        }
+        [contenteditable]:focus { outline: none; }
+
+        /* Typography & Academic Book Theme */
+        h1 {
+            font-size: 18pt;
+            color: #0f172a;
+            margin: 0;
+            line-height: 1.25;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 13.5pt;
+            color: #1e3a8a;
+            margin: 0;
+            padding-bottom: 3px;
+            border-bottom: 1.5px solid #1e3a8a;
+            font-weight: 700;
+        }
+        h3 {
+            font-size: 11pt;
+            color: #9a3412;
+            margin: 0;
+            font-weight: 700;
+        }
+        h4 {
+            font-size: 10pt;
+            color: #0f172a;
+            margin: 0;
+            font-weight: 700;
+        }
+        p {
+            margin: 0;
+            text-align: justify;
+        }
+        ul, ol {
+            margin: 0;
+            padding-left: 18px;
+        }
+        li + li {
+            margin-top: 3px;
+        }
+        .masthead {
+            background-color: #0f172a;
+            color: #ffffff;
+            padding: 12px 16px;
+            border-left: 6px solid #1e3a8a;
+        }
+        .masthead-sub {
+            font-size: 9pt;
+            color: #cbd5e1;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .masthead h1 {
+            color: #ffffff;
+            font-size: 17pt;
+        }
+        .tag-src {
+            display: inline-block;
+            font-size: 8pt;
+            font-weight: 700;
+            padding: 1px 6px;
+            background-color: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+        .tag-sup {
+            display: inline-block;
+            font-size: 8pt;
+            font-weight: 700;
+            padding: 1px 6px;
+            background-color: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fcd34d;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+        .tag-inf {
+            display: inline-block;
+            font-size: 8pt;
+            font-weight: 700;
+            padding: 1px 6px;
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+        .box-concept {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-left: 4px solid #1e3a8a;
+            padding: 8px 12px;
+        }
+        .box-eq {
+            background-color: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-left: 4px solid #c2410c;
+            padding: 8px 12px;
+        }
+        .box-example {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-left: 4px solid #15803d;
+            padding: 8px 12px;
+        }
+        .box-warn {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            border-left: 4px solid #dc2626;
+            padding: 8px 12px;
+        }
+        .eq-Display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-size: 10.5pt;
+            padding: 4px 8px;
+            background-color: #ffffff;
+            border: 1px dashed #cbd5e1;
+            margin: 4px 0;
+        }
+        .eq-num {
+            font-family: 'Sarabun', sans-serif;
+            font-size: 8.5pt;
+            color: #475569;
+            font-weight: 700;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.5pt;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 4px 6px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #1e3a8a;
+            color: #ffffff;
+            font-weight: 700;
+        }
+        tr:nth-child(even) td {
+            background-color: #f8fafc;
+        }
+        figure {
+            margin: 0;
+            padding: 6px;
+            border: 1px solid #e2e8f0;
+            background-color: #ffffff;
+            text-align: center;
+        }
+        figcaption {
+            font-size: 8.5pt;
+            color: #475569;
+            margin-top: 4px;
+            text-align: left;
+        }
+        .math {
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-style: italic;
+        }
+        .math-rm {
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-style: normal;
+        }
+        .math-vec {
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-weight: bold;
+            font-style: italic;
+        }
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            padding: 0 2px;
+        }
+        .frac-num {
+            border-bottom: 1px solid #1e293b;
+            padding: 0 2px;
+        }
+        .frac-den {
+            padding: 0 2px;
+        }
+        .cite {
+            color: #1e40af;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+    </style>
+<style data-bard-injected="true">
+@media screen {
+    html {
+        background-color: #ffffff;
+    }
+    body {
+        padding: 8px 0 24px 0;
+    }
+}
+@media screen and (prefers-color-scheme: dark) {
+    html {
+        background-color: #1f1f1f;
+    }
+}
+@media screen and (max-width: 600px) {
+    body {
+        padding: 4px 0 16px 0;
+        margin: 0 auto;
+    }
+}
+</style></head>
+<body class="compact">
+<div contenteditable="true">
+
+<!-- page 1 budget (Compact): masthead 45 + box-concept 115 + h2 11 + prose 60 + table 10 rows 170 + h2 11 + prose 115 + 5 gaps 40 = 567 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <div class="masthead">
+            <div class="masthead-sub">ตำราเรียนวิชาการฉบับสมบูรณ์ (Self-Contained University Textbook) | ปีการศึกษา 2569</div>
+            <h1>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I)<br>บทที่ 2: บทนำสู่การนำความร้อน (Introduction to Conduction)</h1>
+        </div>
+
+        <div class="box-concept">
+            <h4>ความเชื่อมโยงจากบทที่ 1 และวัตถุประสงค์การเรียนรู้ประจำบทที่ 2</h4>
+            <p><span class="tag-sup">[เสริมพื้นฐาน]</span> ในบทที่ 1 เราได้เรียนรู้ว่า <strong>การนำความร้อน (Conduction)</strong> เกิดจากการถ่ายโอนพลังงานระดับอะตอมและโมเลกุลผ่านตัวกลางที่อยู่นิ่ง และถูกอธิบายด้วยกฎของฟูริเยร์อย่างง่ายใน 1 มิติ ในบทที่ 2 นี้ (<a class="cite" href="#ref-bergman2011" contenteditable="false">Bergman et al., 2011</a>; <a class="cite" href="#ref-archanai2017" contenteditable="false">อาชาไนย บัวศรี, 2560</a>) เราจะศึกษาธรรมชาติของการนำความร้อนอย่างลึกซึ้ง โดยเมื่อศึกษาจบบทนี้แล้ว ผู้อ่านสามารถ: (1) เขียนและตีความกฎของฟูริเยร์ในรูปเวกเตอร์ 3 มิติและความสัมพันธ์กับเส้นไอโซเทอร์มได้, (2) อธิบายกลไกทางฟิสิกส์ของสภาพนำความร้อน (<span class="math">k</span>) และสภาพแพร่ความร้อน (<span class="math">α</span>) ในของแข็ง ของเหลว และแก๊สได้, (3) พิสูจน์ที่มาและลดรูป <strong>สมการการแพร่ความร้อน (Heat Diffusion Equation)</strong> ในระบบพิกัดฉาก พิกัดทรงกระบอก และพิกัดทรงกลมได้ด้วยตนเอง, และ (4) กำหนดเงื่อนไขขอบเขต (Boundary Conditions) ทั้ง 3 ชนิดสำหรับแก้ปัญหาการนำความร้อนได้อย่างถูกต้อง</p>
+        </div>
+
+        <h2>รายการสัญลักษณ์และตัวแปรมาตรฐานประจำบทที่ 2 (Nomenclature)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 16%;">สัญลักษณ์</th>
+                    <th scope="col" style="width: 40%;">ความหมายทางกายภาพ (ภาษาไทย / ภาษาอังกฤษ)</th>
+                    <th scope="col" style="width: 18%;">หน่วย SI</th>
+                    <th scope="col" style="width: 26%;">นิยามและความสัมพันธ์สำคัญ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="math">c<sub>p</sub></span></td>
+                    <td>ความจุความร้อนจำเพาะที่ความดันคงตัว (Specific Heat)</td>
+                    <td><span class="math-rm">J/(kg·K)</span></td>
+                    <td>พลังงานที่ใช้เพิ่มอุณหภูมิมวล 1 <span class="math-rm">kg</span> ขึ้น 1 <span class="math-rm">K</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math-vec">i</span>, <span class="math-vec">j</span>, <span class="math-vec">k</span></td>
+                    <td>เวกเตอร์หนึ่งหน่วย (Unit Vectors) ในระบบพิกัดฉาก หรือพิกัดโค้ง</td>
+                    <td>ไร้มิติ</td>
+                    <td>ชี้ตามทิศทางตั้งฉากของแต่ละแกนพิกัด</td>
+                </tr>
+                <tr>
+                    <td><span class="math">k, k<sub>x</sub>, k<sub>y</sub>, k<sub>z</sub></span></td>
+                    <td>สภาพนำความร้อนของวัสดุ (Thermal Conductivity)</td>
+                    <td><span class="math-rm">W/(m·K)</span></td>
+                    <td>วัสดุไอโซทรอปิก: <span class="math">k<sub>x</sub> = k<sub>y</sub> = k<sub>z</sub> = k</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">n</span></td>
+                    <td>พิกัดในทิศทางตั้งฉากกับเส้นไอโซเทอร์ม (Normal Coordinate)</td>
+                    <td><span class="math-rm">m</span></td>
+                    <td>ทิศทางที่มีอัตราการลดลงของอุณหภูมิสูงสุด</td>
+                </tr>
+                <tr>
+                    <td><span class="math">q̇</span></td>
+                    <td>อัตราการผลิตพลังงานความร้อนต่อหนึ่งหน่วยปริมาตร</td>
+                    <td><span class="math-rm">W/m<sup>3</sup></span></td>
+                    <td><span class="math">Ė<sub>g</sub> = q̇ · dV</span> (สไลด์บางหน้าพิมพ์เป็น <span class="math">q</span>)</td>
+                </tr>
+                <tr>
+                    <td><span class="math-vec">q&#39;&#39;</span></td>
+                    <td>เวกเตอร์ฟลักซ์ความร้อน (Heat Flux Vector)</td>
+                    <td><span class="math-rm">W/m<sup>2</sup></span></td>
+                    <td><span class="math-vec">q&#39;&#39;</span> = −<span class="math">k</span> ∇<span class="math">T</span></td>
+                </tr>
+                <tr>
+                    <td>(<span class="math">x, y, z</span>), (<span class="math">r, φ, z</span>), (<span class="math">r, φ, θ</span>)</td>
+                    <td>พิกัดฉาก (Cartesian), พิกัดทรงกระบอก (Cylindrical), และพิกัดทรงกลม (Spherical)</td>
+                    <td><span class="math-rm">m, rad</span></td>
+                    <td><span class="math">φ</span> คือมุมอะซิมุท (Azimuthal), <span class="math">θ</span> คือมุมโพลาร์ (Polar/Zenith)</td>
+                </tr>
+                <tr>
+                    <td><span class="math">α</span></td>
+                    <td>สภาพแพร่ความร้อน (Thermal Diffusivity)</td>
+                    <td><span class="math-rm">m<sup>2</sup>/s</span></td>
+                    <td><span class="math">α = k / (ρ c<sub>p</sub>)</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">ρ</span>, <span class="math">ρ c<sub>p</sub></span></td>
+                    <td>ความหนาแน่นมวล (<span class="math">ρ</span>) และความจุความร้อนเชิงปริมาตร (<span class="math">ρc<sub>p</sub></span>)</td>
+                    <td><span class="math-rm">kg/m<sup>3</sup>, J/(m<sup>3</sup>·K)</span></td>
+                    <td><span class="math">ρc<sub>p</sub></span> แสดงความเฉื่อยทางความร้อนของสสาร</td>
+                </tr>
+                <tr>
+                    <td>∇</td>
+                    <td>ตัวดำเนินการเกรเดียนต์สามมิติ (Three-Dimensional Del Operator)</td>
+                    <td><span class="math-rm">m<sup>−1</sup></span></td>
+                    <td>∇<span class="math">T</span> คือเวกเตอร์เกรเดียนต์ของสนามอุณหภูมิ</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>2.1 ความรู้พื้นฐานทางคณิตศาสตร์ที่จำเป็นก่อนเรียน (Mathematical Prerequisites)</h2>
+        <p><span class="tag-sup">[เสริมพื้นฐาน]</span> เพื่อให้ผู้อ่านที่ไม่มีพื้นฐานแคลคูลัสหลายตัวแปรมาก่อนสามารถทำความเข้าใจเนื้อหาในบทนี้ได้อย่างสมบูรณ์ เราจำเป็นต้องปูพื้นฐานเครื่องมือทางคณิตศาสตร์ 3 เรื่องที่ใช้ตลอดทั้งบทดังนี้:</p>
+        <ul>
+            <li><strong>1. ความแตกต่างระหว่างอนุพันธ์สามัญ (<span class="math">dT/dx</span>) กับอนุพันธ์ย่อย (<span class="math">∂T/∂x</span>):</strong> เมื่ออุณหภูมิขึ้นกับตัวแปรตำแหน่งเพียงตัวเดียว เช่น <span class="math">T(x)</span> เราใช้สัญลักษณ์อนุพันธ์สามัญ <span class="math">dT/dx</span> แต่ในความเป็นจริง อุณหภูมิในวัตถุ 3 มิติอาจขึ้นกับทั้งพิกัด <span class="math">x, y, z</span> และเวลา <span class="math">t</span> เขียนเป็นฟังก์ชัน <span class="math">T(x, y, z, t)</span> เมื่อเราต้องการหาอัตราการเปลี่ยนแปลงของอุณหภูมิเทียบกับระยะทาง <span class="math">x</span> เพียงอย่างเดียว <em>โดยตรึงค่า <span class="math">y, z</span> และ <span class="math">t</span> ให้คงที่</em> เราจะใช้สัญลักษณ์ <strong>อนุพันธ์ย่อย (Partial Derivative, <span class="math">∂T/∂x</span>)</strong></li>
+        </ul>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 2 บทนำสู่การนำความร้อน</span>
+        <span>หน้า 1</span>
+    </footer>
+</section>
+
+<!-- page 2 budget (Compact): box-concept 125 + h2 11 + prose 125 + svg 35mm 84 + box chrome 24 + prose 140 + 5 gaps 40 = 549 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <div class="box-concept">
+            <ul>
+                <li><strong>2. สนามสเกลาร์ (Scalar Field) กับ สนามเวกเตอร์ (Vector Field):</strong>
+                    <ul>
+                        <li><strong>อุณหภูมิ <span class="math">T(x, y, z, t)</span> เป็นปริมาณสเกลาร์ (Scalar):</strong> คือ ณ จุดพิกัด <span class="math">(x, y, z)</span> ใดๆ มีเพียง &#34;ขนาด&#34; ของความร้อนหนาว (เช่น <span class="math">75</span> <span class="math-rm">°C</span>) ไม่มีทิศทาง</li>
+                        <li><strong>ฟลักซ์ความร้อน <span class="math-vec">q&#39;&#39;</span> เป็นปริมาณเวกเตอร์ (Vector):</strong> เพราะการไหลของความร้อนมีทั้ง &#34;ขนาด&#34; (กี่วัตต์ต่อตารางเมตร) และ &#34;ทิศทาง&#34; (ไหลไปทางไหนในปริภูมิ 3 มิติ) การเปลี่ยนสนามสเกลาร์ <span class="math">T</span> ให้เป็นเวกเตอร์ทำได้โดยใช้ตัวดำเนินการเดล (Del operator, ∇) กระทำกับ <span class="math">T</span> ได้เป็นเกรเดียนต์ของอุณหภูมิ ∇<span class="math">T</span> ซึ่งชี้ไปในทิศทางที่อุณหภูมิเพิ่มขึ้นเร็วที่สุด</li>
+                    </ul>
+                </li>
+                <li><strong>3. การกระจายอนุกรมเทย์เลอร์ (Taylor Series Expansion):</strong> ถ้ารู้ค่าของฟังก์ชัน <span class="math">f(x)</span> ณ ตำแหน่ง <span class="math">x</span> ใดๆ เราสามารถหาค่าของฟังก์ชันที่ตำแหน่งถัดไปเป็นระยะทางเล็กจิ๋ว <span class="math">x + dx</span> ได้จากอนุกรมเทย์เลอร์: <span class="math">f(x + dx) = f(x) + (∂f/∂x)dx + (1/2!)(∂<sup>2</sup>f/∂x<sup>2</sup>)(dx)<sup>2</sup> + ...</span> และเมื่อระยะ <span class="math">dx</span> มีขนาดเล็กเข้าใกล้ศูนย์ พจน์ที่ยกกำลังสองขึ้นไป <span class="math">(dx)<sup>2</sup></span> จะมีค่าน้อยมากจนสามารถตัดทิ้งได้ (Neglecting higher-order terms) เหลือเพียงรูปเชิงเส้น: <strong><span class="math">f(x + dx) ≈ f(x) + (∂f/∂x)dx</span></strong></li>
+            </ul>
+        </div>
+
+        <h2>2.2 สมการอัตราการนำความร้อน (2.1 The Conduction Rate Equation)</h2>
+        <h3>2.2.1 การทดลองการนำความร้อนในสภาวะคงตัวและที่มาเชิงประจักษ์ของกฎของฟูริเยร์</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 2–3]</span> แม้ว่ากฎของฟูริเยร์ (ตั้งชื่อตามนักคณิตศาสตร์และนักฟิสิกส์ชาวฝรั่งเศส Jean-Baptiste Joseph Fourier ซึ่งตีพิมพ์ทฤษฎีการวิเคราะห์ความร้อนในปี ค.ศ. 1822) จะสอดคล้องกับกลไกระดับอะตอม แต่โดยรากฐานแล้วกฎนี้เป็น <strong>กฎเชิงปรากฏการณ์วิทยา (Phenomenological law)</strong> ที่สรุปขึ้นจากผลการทดลองโดยตรง พิจารณาการทดลองการนำความร้อนภายใต้สภาวะคงตัวในรูปที่ 2.1 (ซ้าย)</p>
+
+        <figure>
+            <svg viewBox="0 0 720 130" style="width: 100%; height: 34mm;" role="img">
+                <title>การทดลองการนำความร้อนในแท่งทรงกระบอกหุ้มฉนวนและการลดรูปมิติของสนามอุณหภูมิ</title>
+                <!-- Left: Figure 2.1 Cylindrical rod experiment -->
+                <rect x="5" y="5" width="350" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="180" y="20" font-size="9.5" font-weight="bold" fill="#0f172a" text-anchor="middle">การทดลองการนำความร้อนสภาวะคงตัว (Figure 2.1)</text>
+                <!-- Insulation top and bottom -->
+                <rect x="75" y="34" width="210" height="10" fill="#e2e8f0" stroke="#64748b" stroke-dasharray="2,2"></rect>
+                <rect x="75" y="80" width="210" height="10" fill="#e2e8f0" stroke="#64748b" stroke-dasharray="2,2"></rect>
+                <text x="180" y="31" font-size="8.5" font-weight="bold" fill="#475569" text-anchor="middle">ฉนวนหุ้มผิวด้านข้าง (Insulated lateral surface)</text>
+                <!-- Rod body -->
+                <defs>
+                    <linearGradient id="rodGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#f97316" stop-opacity="0.85"></stop>
+                        <stop offset="100%" stop-color="#ffedd5" stop-opacity="0.5"></stop>
+                    </linearGradient>
+                </defs>
+                <rect x="75" y="44" width="210" height="36" fill="url(#rodGrad)" stroke="#9a3412" stroke-width="1.5"></rect>
+                <ellipse cx="75" cy="62" rx="10" ry="18" fill="#fb923c" stroke="#9a3412" stroke-width="1.5"></ellipse>
+                <ellipse cx="285" cy="62" rx="10" ry="18" fill="#ffedd5" stroke="#9a3412" stroke-width="1.5" stroke-dasharray="3,2"></ellipse>
+                <text x="38" y="55" font-size="9.5" font-weight="bold" fill="#c2410c">A, T₁</text>
+                <text x="318" y="55" font-size="9.5" font-weight="bold" fill="#1e3a8a">T₂</text>
+                <line x1="130" y1="62" x2="225" y2="62" stroke="#dc2626" stroke-width="2.5"></line>
+                <polygon points="223,58 232,62 223,66" fill="#dc2626"></polygon>
+                <text x="175" y="56" font-size="10" font-weight="bold" fill="#dc2626" text-anchor="middle">qₓ (ΔT = T₁ − T₂)</text>
+                <text x="180" y="106" font-size="9.5" font-weight="bold" fill="#1e293b" text-anchor="middle">|← ระยะความยาว Δx →|</text>
+                <text x="180" y="119" font-size="8.5" fill="#1e3a8a" text-anchor="middle">ผลการทดลอง: qₓ ∝ A (ΔT / Δx) ⇒ qₓ = k A (ΔT / Δx)</text>
+
+                <!-- Right: Figure 2.2 Coordinate system & dimensionality -->
+                <rect x="365" y="5" width="350" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="540" y="20" font-size="9.5" font-weight="bold" fill="#0f172a" text-anchor="middle">ความสัมพันธ์ของระบบพิกัดและมิติของอุณหภูมิ (Figure 2.2)</text>
+                <line x1="415" y1="105" x2="415" y2="28" stroke="#1e293b" stroke-width="1.5"></line>
+                <line x1="415" y1="105" x2="545" y2="105" stroke="#1e293b" stroke-width="1.5"></line>
+                <rect x="415" y="38" width="85" height="67" fill="url(#rodGrad)" stroke="#1e293b" stroke-width="1.2"></rect>
+                <line x1="415" y1="50" x2="500" y2="88" stroke="#dc2626" stroke-width="2"></line>
+                <line x1="395" y1="70" x2="518" y2="70" stroke="#dc2626" stroke-width="1.8"></line>
+                <polygon points="516,67 523,70 516,73" fill="#dc2626"></polygon>
+                <text x="532" y="73" font-size="9.5" font-weight="bold" fill="#dc2626">qₓ&#39;&#39;</text>
+                <!-- Hierarchy of T functions -->
+                <text x="560" y="38" font-size="9" font-weight="bold" fill="#b91c1c">ทั่วไป (3D ไม่คงตัว): T(x, y, z, t)</text>
+                <text x="560" y="54" font-size="9" font-weight="bold" fill="#15803d">สภาวะคงตัว 3 มิติ: T(x, y, z)</text>
+                <text x="560" y="70" font-size="9" font-weight="bold" fill="#d97706">สภาวะคงตัว 2 มิติ: T(x,y), T(x,z), T(y,z)</text>
+                <text x="560" y="86" font-size="9" font-weight="bold" fill="#7e22ce">สภาวะคงตัว 1 มิติ: T(x), T(y), T(z)</text>
+                <text x="560" y="104" font-size="8" fill="#475569">เมื่อ T = T(x) ความร้อนไหลเฉพาะทิศ +x</text>
+            </svg>
+            <figcaption><strong>รูปที่ 2.1</strong> <span class="tag-src">[ต้นฉบับ: Figure 2.1 &amp; 2.2 สไลด์หน้า 2–3]</span> (ซ้าย) การทดลองการนำความร้อนผ่านแท่งทรงกระบอกหุ้มฉนวนด้านข้าง และ (ขวา) ลำดับขั้นของการระบุฟังก์ชันอุณหภูมิตั้งแต่ 3 มิติที่ไม่คงตัวไปจนถึง 1 มิติสภาวะคงตัว</figcaption>
+        </figure>
+
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 2]</span> ในการทดลองรูปที่ 2.1 (ซ้าย) แท่งทรงกระบอกที่ทราบชนิดวัสดุถูกหุ้มฉนวนอย่างดีที่ผิวด้านข้าง (เพื่อบังคับไม่ให้ความร้อนรั่วออกด้านข้าง) และควบคุมอุณหภูมิที่หน้าตัดปลายทั้งสองด้านให้คงที่อยู่ที่ <span class="math">T<sub>1</sub></span> และ <span class="math">T<sub>2</sub></span> โดยที่ <span class="math">T<sub>1</sub> &gt; T<sub>2</sub></span> การวัดอัตราการถ่ายเทความร้อน <span class="math">q<sub>x</sub></span> เมื่อเปลี่ยนพื้นที่หน้าตัด <span class="math">A</span> ความยาว <span class="math">Δx</span> และผลต่างอุณหภูมิ <span class="math">ΔT = T<sub>1</sub> − T<sub>2</sub></span> แสดงให้เห็นความสัมพันธ์เชิงประจักษ์ว่า:</p>
+        <div class="eq-Display">
+            <span><span class="math">q<sub>x</sub></span> ∝ <span class="math">A</span> <span class="frac"><span class="frac-num"><span class="math-rm">Δ</span><span class="math">T</span></span><span class="frac-den"><span class="math-rm">Δ</span><span class="math">x</span></span></span>   ⇒   เมื่อใส่ค่าคงที่สัดส่วน <span class="math">k</span> และเทกลิมิต <span class="math-rm">Δ</span><span class="math">x → 0</span>:    <span class="math">q<sub>x</sub></span> = <span class="math">k A</span> <span class="frac"><span class="frac-num"><span class="math-rm">Δ</span><span class="math">T</span></span><span class="frac-den"><span class="math-rm">Δ</span><span class="math">x</span></span></span> = −<span class="math">k A</span> <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dx</span></span></span>   และ   <span class="math">q<sub>x</sub>&#39;&#39;</span> = <span class="frac"><span class="frac-num"><span class="math">q<sub>x</sub></span></span><span class="frac-den"><span class="math">A</span></span></span> = −<span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dx</span></span></span></span>
+            <span class="eq-num">(สมการที่ 2.1)</span>
+        </div>
+        <p><span class="tag-sup">[เสริมพื้นฐาน]</span> เหตุใดจึงต้องเปลี่ยนจากแปรผันตรง (∝) เป็นเครื่องหมายเท่ากับ (=) ด้วยค่า <span class="math">k</span>? เพราะเมื่อทำการทดลองซ้ำโดยใช้ขนาดแท่ง <span class="math">A</span>, <span class="math">Δx</span> และผลต่างอุณหภูมิ <span class="math">ΔT</span> เท่าเดิมทุกประการ แต่เปลี่ยนวัสดุจากแท่งทองแดงเป็นแท่งแก้วควอตซ์ พบว่าอัตราการไหลของความร้อน <span class="math">q<sub>x</sub></span> แตกต่างกันเกือบ 300 เท่า ค่าคงที่สัดส่วน <span class="math">k</span> จึงเป็นสมบัติเฉพาะตัวของวัสดุแต่ละชนิดที่เรียกว่า <strong>สภาพนำความร้อน (Thermal conductivity)</strong></p>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 2 บทนำสู่การนำความร้อน</span>
+        <span>หน้า 2</span>
+    </footer>
+</section>
+
+<!-- page 3 budget (Compact): h3 11 + prose 115 + svg 35mm 84 + box chrome 24 + box-eq 145 + prose 120 + 5 gaps 40 = 539 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h3>2.2.2 เส้นไอโซเทอร์ม (Isotherms) และกฎของฟูริเยร์ในรูปเวกเตอร์ 3 มิติ</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 4–7]</span> ในระบบพิกัดฉาก (Rectangular/Cartesian coordinates <span class="math">x, y, z</span>) หากอุณหภูมิเปลี่ยนแปลงใน 2 มิติ เช่น <span class="math">T(x, y)</span> หรือ 1 มิติ เช่น <span class="math">T(y)</span> เราสามารถวาดเส้นหรือพื้นผิวที่เชื่อมต่อจุดทุกจุดที่มีอุณหภูมิเท่ากันเข้าด้วยกัน เส้นดังกล่าวเรียกว่า <strong>เส้นอุณหภูมิคงตัว หรือ เส้นไอโซเทอร์ม (Isotherms)</strong> ดังแสดงในรูปที่ 2.2</p>
+
+        <figure>
+            <svg viewBox="0 0 720 130" style="width: 100%; height: 34mm;" role="img">
+                <title>เปรียบเทียบการนำความร้อน 2 มิติและ 1 มิติในพิกัดฉาก และเวกเตอร์ฟลักซ์ความร้อนที่ตั้งฉากกับเส้นไอโซเทอร์ม</title>
+                <!-- Left: 2D vs 1D rectangular (Slide page 4) -->
+                <rect x="5" y="5" width="375" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="192" y="19" font-size="9" font-weight="bold" fill="#0f172a" text-anchor="middle">การนำความร้อน 2 มิติ T(x,y) และ 1 มิติ T(y) (สไลด์หน้า 4)</text>
+                <!-- 2D prism -->
+                <polygon points="35,45 125,35 125,95 35,105" fill="#ffedd5" stroke="#1e293b" stroke-width="1.2"></polygon>
+                <path d="M 55 43 Q 65 75, 45 103" fill="none" stroke="#dc2626" stroke-width="1.5"></path>
+                <path d="M 85 40 Q 92 70, 75 100" fill="none" stroke="#f97316" stroke-width="1.5"></path>
+                <path d="M 110 37 Q 115 68, 102 97" fill="none" stroke="#2563eb" stroke-width="1.5"></path>
+                <text x="45" y="36" font-size="8" font-weight="bold" fill="#dc2626">90°C</text>
+                <text x="78" y="34" font-size="8" font-weight="bold" fill="#f97316">75°C</text>
+                <text x="110" y="32" font-size="8" font-weight="bold" fill="#2563eb">60°C</text>
+                <text x="80" y="116" font-size="8.5" font-weight="bold" fill="#9a3412" text-anchor="middle">2 มิติ: T(x, y)</text>
+
+                <!-- 1D prism -->
+                <polygon points="215,45 315,35 315,95 215,105" fill="#ffedd5" stroke="#1e293b" stroke-width="1.2"></polygon>
+                <line x1="245" y1="42" x2="245" y2="102" stroke="#dc2626" stroke-width="1.5"></line>
+                <line x1="270" y1="39" x2="270" y2="99" stroke="#f97316" stroke-width="1.5"></line>
+                <line x1="295" y1="37" x2="295" y2="97" stroke="#2563eb" stroke-width="1.5"></line>
+                <text x="238" y="36" font-size="8" font-weight="bold" fill="#dc2626">90°C</text>
+                <text x="266" y="34" font-size="8" font-weight="bold" fill="#f97316">75°C</text>
+                <text x="295" y="32" font-size="8" font-weight="bold" fill="#2563eb">60°C</text>
+                <text x="265" y="116" font-size="8.5" font-weight="bold" fill="#1e3a8a" text-anchor="middle">1 มิติ: T(y) (ระนาบขนานกัน)</text>
+
+                <!-- Right: Figure 2.3 Heat flux vector normal to isotherm -->
+                <rect x="390" y="5" width="325" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="552" y="19" font-size="9" font-weight="bold" fill="#0f172a" text-anchor="middle">เวกเตอร์ฟลักซ์ความร้อนตั้งฉากกับเส้น Isotherm (Figure 2.3)</text>
+                <!-- Curved Isotherm -->
+                <path d="M 435 32 Q 495 65, 515 112" fill="none" stroke="#dc2626" stroke-width="3"></path>
+                <text x="548" y="114" font-size="9.5" font-weight="bold" fill="#dc2626">Isotherm (T คงที่)</text>
+                <!-- Normal direction n -->
+                <line x1="430" y1="90" x2="482" y2="64" stroke="#1e293b" stroke-width="1.5"></line>
+                <polygon points="478,62 486,62 481,68" fill="#1e293b"></polygon>
+                <text x="420" y="96" font-size="10" font-weight="bold" fill="#1e293b">n</text>
+                <!-- Vector decomposition -->
+                <line x1="495" y1="68" x2="625" y2="68" stroke="#dc2626" stroke-width="2"></line>
+                <polygon points="623,64 631,68 623,72" fill="#dc2626"></polygon>
+                <text x="642" y="72" font-size="10" font-weight="bold" fill="#dc2626">qₓ&#39;&#39;</text>
+
+                <line x1="495" y1="68" x2="495" y2="28" stroke="#dc2626" stroke-width="2"></line>
+                <polygon points="491,30 495,22 499,30" fill="#dc2626"></polygon>
+                <text x="480" y="34" font-size="10" font-weight="bold" fill="#dc2626">qᵧ&#39;&#39;</text>
+
+                <line x1="495" y1="68" x2="625" y2="28" stroke="#b91c1c" stroke-width="2.5"></line>
+                <polygon points="621,25 631,26 624,32" fill="#b91c1c"></polygon>
+                <text x="642" y="32" font-size="10" font-weight="bold" fill="#b91c1c">qₙ&#39;&#39;</text>
+                <line x1="495" y1="28" x2="625" y2="28" stroke="#64748b" stroke-dasharray="3,3"></line>
+                <line x1="625" y1="28" x2="625" y2="68" stroke="#64748b" stroke-dasharray="3,3"></line>
+            </svg>
+            <figcaption><strong>รูปที่ 2.2</strong> <span class="tag-src">[ต้นฉบับ: สไลด์หน้า 4 และ Figure 2.3 หน้า 5]</span> (ซ้าย) พื้นผิวไอโซเทอร์มในกรณี 2 มิติและ 1 มิติ และ (ขวา) การแตกเวกเตอร์ฟลักซ์ความร้อนลัพธ์ <span class="math">q<sub>n</sub>&#39;&#39;</span> ที่ตั้งฉากกับเส้นไอโซเทอร์มออกเป็นองค์ประกอบ <span class="math">q<sub>x</sub>&#39;&#39;</span> และ <span class="math">q<sub>y</sub>&#39;&#39;</span></figcaption>
+        </figure>
+
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 5–7]</span> <span class="tag-sup">[เสริมพื้นฐาน]</span> ในรูปที่ 2.2 (ขวา) เนื่องจากบนเส้นไอโซเทอร์มมีอุณหภูมิเท่ากันทุกจุด จึงไม่มีความแตกต่างของอุณหภูมิในแนวขนานกับเส้นไอโซเทอร์ม (<span class="math">∂T/∂s = 0</span>) ส่งผลให้ไม่มีการไหลของความร้อนในแนวขนานกับเส้นไอโซเทอร์ม ดังนั้น <strong>ในตัวกลางไอโซทรอปิก เวกเตอร์ฟลักซ์ความร้อนลัพธ์ (<span class="math">q<sub>n</sub>&#39;&#39;</span>) จะต้องมีทิศทางตั้งฉาก (Normal, <span class="math">n</span>) กับเส้นหรือพื้นผิวไอโซเทอร์มเสมอ</strong> โดยมีทิศชี้ไปทางด้านที่อุณหภูมิลดลง:</p>
+
+        <div class="box-eq">
+            <h4>กฎของฟูริเยร์ในรูปทั่วไป 3 มิติ (General Vector Form of Fourier&#39;s Law)</h4>
+            <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 5–7]</span> ฟลักซ์ความร้อนในทิศทางตั้งฉาก <span class="math">n</span> และรูปเวกเตอร์ทั่วไปในระบบพิกัดฉาก 3 มิติ เขียนได้เป็น:</p>
+            <div class="eq-Display">
+                <span><span class="math">q<sub>n</sub>&#39;&#39;</span> = −<span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂n</span></span></span>     และในรูปเวกเตอร์ 3 มิติ:     <span class="math-vec">q&#39;&#39;</span> = −<span class="math">k</span> ∇<span class="math">T</span> = −<span class="math">k</span> <span class="math-rm">(</span><span class="math-vec">i</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂x</span></span></span> + <span class="math-vec">j</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂y</span></span></span> + <span class="math-vec">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math-rm">)</span></span>
+                <span class="eq-num">(สมการที่ 2.2)</span>
+            </div>
+            <p>เมื่อแยกพิจารณาองค์ประกอบของเวกเตอร์ฟลักซ์ความร้อน <span class="math-vec">q&#39;&#39;</span> = <span class="math-vec">i</span><span class="math">q<sub>x</sub>&#39;&#39;</span> + <span class="math-vec">j</span><span class="math">q<sub>y</sub>&#39;&#39;</span> + <span class="math-vec">k</span><span class="math">q<sub>z</sub>&#39;&#39;</span> ในแต่ละแกนพิกัดฉาก จะได้:</p>
+            <div class="eq-Display">
+                <span><span class="math">q<sub>x</sub>&#39;&#39;</span> = −<span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂x</span></span></span> ,      <span class="math">q<sub>y</sub>&#39;&#39;</span> = −<span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂y</span></span></span> ,      <span class="math">q<sub>z</sub>&#39;&#39;</span> = −<span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂z</span></span></span>     (ขนาดลัพธ์: |<span class="math-vec">q&#39;&#39;</span>| = <span class="math-rm">√(</span><span class="math">q<sub>x</sub>&#39;&#39;<sup>2</sup> + q<sub>y</sub>&#39;&#39;<sup>2</sup> + q<sub>z</sub>&#39;&#39;<sup>2</sup></span><span class="math-rm">)</span>)</span>
+                <span class="eq-num">(สมการที่ 2.3)</span>
+            </div>
+        </div>
+
+        <p><span class="tag-sup">[เสริมพื้นฐาน: ตัวอย่างความเข้าใจ]</span> สมมติว่าสนามอุณหภูมิ 2 มิติในแผ่นโลหะที่ <span class="math">k = 50</span> <span class="math-rm">W/(m·K)</span> มีสมการเป็น <span class="math">T(x, y) = 100 − 20x − 15y<sup>2</sup></span> (หน่วย <span class="math-rm">°C</span>) เราสามารถหาอนุพันธ์ย่อยได้ทันทีคือ <span class="math">∂T/∂x = −20</span> <span class="math-rm">°C/m</span> และ <span class="math">∂T/∂y = −30y</span> <span class="math-rm">°C/m</span> ดังนั้นที่จุด <span class="math">(x=1, y=1)</span> จะมี <span class="math">q<sub>x</sub>&#39;&#39; = −50(−20) = 1,000</span> <span class="math-rm">W/m<sup>2</sup></span> และ <span class="math">q<sub>y</sub>&#39;&#39; = −50(−30×1) = 1,500</span> <span class="math-rm">W/m<sup>2</sup></span> เขียนเป็นเวกเตอร์ได้ <span class="math-vec">q&#39;&#39;</span> = <span class="math">1,000</span><span class="math-vec">i</span> + <span class="math">1,500</span><span class="math-vec">j</span> <span class="math-rm">W/m<sup>2</sup></span></p>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 2 บทนำสู่การนำความร้อน</span>
+        <span>หน้า 3</span>
+    </footer>
+</section>
+
+<!-- page 4 budget (Compact): h2 11 + h3 11 + box-eq 95 + prose 140 + svg 35mm 84 + box chrome 24 + prose 130 + 5 gaps 40 = 535 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h2>2.3 สมบัติทางความร้อนของสสาร (2.2 The Thermal Properties of Matter)</h2>
+        <h3>2.3.1 สภาพนำความร้อน (2.2.1 Thermal Conductivity, <span class="math">k</span>) และวัสดุไอโซทรอปิก</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 8–9]</span> <span class="tag-inf">[เติมเต็มสไลด์]</span> จากกฎของฟูริเยร์ สภาพนำความร้อนที่เกี่ยวข้องกับการนำความร้อนในทิศทาง <span class="math">x, y, z</span> ถูกนิยามไว้ว่า (เติมช่องว่างในสไลด์หน้า 8):</p>
+
+        <div class="box-eq">
+            <div class="eq-Display">
+                <span><span class="math">k<sub>x</sub></span> ≡ − <span class="frac"><span class="frac-num"><span class="math">q<sub>x</sub>&#39;&#39;</span></span><span class="frac-den">(<span class="math">∂T/∂x</span>)</span></span> ,     <span class="math">k<sub>y</sub></span> ≡ − <span class="frac"><span class="frac-num"><span class="math">q<sub>y</sub>&#39;&#39;</span></span><span class="frac-den">(<span class="math">∂T/∂y</span>)</span></span> ,     <span class="math">k<sub>z</sub></span> ≡ − <span class="frac"><span class="frac-num"><span class="math">q<sub>z</sub>&#39;&#39;</span></span><span class="frac-den">(<span class="math">∂T/∂z</span>)</span></span>    ⇒    สำหรับวัสดุไอโซทรอปิก: <span class="math">k<sub>x</sub> = k<sub>y</sub> = k<sub>z</sub> ≡ k</span></span>
+                <span class="eq-num">(สมการที่ 2.4)</span>
+            </div>
+        </div>
+
+        <p><span class="tag-sup">[เสริมพื้นฐาน]</span> <strong>วัสดุไอโซทรอปิก (Isotropic material)</strong> คือวัสดุที่มีสมบัติทางกายภาพเหมือนกันทุกทิศทาง (เช่น โลหะทั่วไป แก้ว พลาสติก ของเหลว และแก๊ส) ทำให้ <span class="math">k</span> ไม่ขึ้นกับทิศทางการไหลของความร้อน ในทางตรงกันข้าม วัสดุที่มีโครงสร้างเป็นเส้นใยหรือเป็นชั้นๆ เช่น ไม้ (นำความร้อนตามแนวเสี้ยนไม้ได้ดีกว่าแนวตั้งฉากกับเสี้ยนไม้) หรือวัสดุคอมโพสิตคาร์บอนไฟเบอร์ จะเรียกว่า <strong>วัสดุแอนไอโซทรอปิก (Anisotropic material)</strong> ซึ่งจะมี <span class="math">k<sub>x</sub> ≠ k<sub>y</sub></span></p>
+
+        <figure>
+            <svg viewBox="0 0 720 130" style="width: 100%; height: 34mm;" role="img">
+                <title>ช่วงค่าสภาพนำความร้อนของสสารในสถานะต่างๆ บนสเกลลอการิทึม (Figure 2.4)</title>
+                <rect x="5" y="5" width="710" height="120" fill="#fff7ed" stroke="#9a3412" stroke-width="1.2"></rect>
+                <text x="360" y="19" font-size="9.5" font-weight="bold" fill="#0f172a" text-anchor="middle">ช่วงค่าสภาพนำความร้อน (Thermal Conductivity, k) ของสสารที่อุณหภูมิและความดันปกติ (Figure 2.4)</text>
+                <!-- Log axis at bottom: 0.01, 0.1, 1, 10, 100, 1000 -->
+                <line x1="45" y1="102" x2="675" y2="102" stroke="#1e293b" stroke-width="1.5"></line>
+                <!-- Ticks -->
+                <line x1="45" y1="98" x2="45" y2="106" stroke="#1e293b" stroke-width="1.5"></line><text x="45" y="116" font-size="8.5" font-weight="bold" text-anchor="middle">0.01</text>
+                <line x1="171" y1="98" x2="171" y2="106" stroke="#1e293b" stroke-width="1.5"></line><text x="171" y="116" font-size="8.5" font-weight="bold" text-anchor="middle">0.1</text>
+                <line x1="297" y1="98" x2="297" y2="106" stroke="#1e293b" stroke-width="1.5"></line><text x="297" y="116" font-size="8.5" font-weight="bold" text-anchor="middle">1</text>
+                <line x1="423" y1="98" x2="423" y2="106" stroke="#1e293b" stroke-width="1.5"></line><text x="423" y="116" font-size="8.5" font-weight="bold" text-anchor="middle">10</text>
+                <line x1="549" y1="98" x2="549" y2="106" stroke="#1e293b" stroke-width="1.5"></line><text x="549" y="116" font-size="8.5" font-weight="bold" text-anchor="middle">100</text>
+                <line x1="675" y1="98" x2="675" y2="106" stroke="#1e293b" stroke-width="1.5"></line><text x="675" y="116" font-size="8.5" font-weight="bold" text-anchor="middle">1000 W/(m·K)</text>
+
+                <!-- Bars for states of matter -->
+                <!-- Pure Metals -->
+                <rect x="490" y="25" width="130" height="12" fill="#dc2626" rx="2"></rect>
+                <text x="555" y="34" font-size="8" font-weight="bold" fill="#ffffff" text-anchor="middle">PURE METALS (Zn → Ag)</text>
+                <!-- Alloys -->
+                <rect x="435" y="39" width="120" height="12" fill="#ea580c" rx="2"></rect>
+                <text x="495" y="48" font-size="8" font-weight="bold" fill="#ffffff" text-anchor="middle">ALLOYS (Ni, Al alloys)</text>
+                <!-- Nonmetallic solids -->
+                <rect x="200" y="53" width="290" height="12" fill="#d97706" rx="2"></rect>
+                <text x="345" y="62" font-size="8" font-weight="bold" fill="#ffffff" text-anchor="middle">NONMETALLIC SOLIDS (Plastics, Ice, Oxides)</text>
+                <!-- Insulation -->
+                <rect x="85" y="67" width="160" height="12" fill="#15803d" rx="2"></rect>
+                <text x="165" y="76" font-size="8" font-weight="bold" fill="#ffffff" text-anchor="middle">INSULATION (Foams, Fibers)</text>
+                <!-- Liquids -->
+                <rect x="165" y="81" width="225" height="12" fill="#0284c7" rx="2"></rect>
+                <text x="277" y="90" font-size="8" font-weight="bold" fill="#ffffff" text-anchor="middle">LIQUIDS (Oils, Water, Mercury)</text>
+                <!-- Gases -->
+                <rect x="52" y="83" width="105" height="12" fill="#4f46e5" rx="2"></rect>
+                <text x="104" y="92" font-size="8" font-weight="bold" fill="#ffffff" text-anchor="middle">GASES (CO₂ → H₂)</text>
+            </svg>
+            <figcaption><strong>รูปที่ 2.3</strong> <span class="tag-src">[ต้นฉบับ: Figure 2.4 สไลด์หน้า 10]</span> การเปรียบเทียบช่วงค่าสภาพนำความร้อน (<span class="math">k</span>) ของสสารสถานะต่างๆ ที่อุณหภูมิและความดันปกติ</figcaption>
+        </figure>
+
+        <p><span class="tag-src">[ต้นฉบับ: Figure 2.4 สไลด์หน้า 10]</span> <span class="tag-sup">[เสริมพื้นฐาน: การตีความแผนภูมิ Figure 2.4]</span> จากรูปที่ 2.3 สังเกตว่าแกนนอนเป็น <strong>สเกลลอการิทึม (Logarithmic scale)</strong> ซึ่งครอบคลุมค่า <span class="math">k</span> กว้างถึง 5 อันดับขนาด (ตั้งแต่ <span class="math">0.01</span> ถึง <span class="math">1,000</span> <span class="math-rm">W/(m·K)</span>) โดยทั่วไป <span class="math">k<sub>ของแข็ง</sub> &gt; k<sub>ของเหลว</sub> &gt; k<sub>แก๊ส</sub></span> เพราะระยะห่างระหว่างโมเลกุลในของแข็งน้อยกว่าในของเหลวและแก๊สมาก:</p>
+        <ul>
+            <li><strong>ของแข็ง (Solids):</strong> สภาพนำความร้อนประกอบด้วย 2 ส่วนคือ <span class="math">k = k<sub>e</sub> + k<sub>ph</sub></span> โดยที่ <span class="math">k<sub>e</sub></span> เกิดจากการเคลื่อนที่ของอิเล็กตรอนอิสระ และ <span class="math">k<sub>ph</sub></span> เกิดจากคลื่นการสั่นของโครงผลึก (โฟนอน, Phonons) ใน <strong>โลหะบริสุทธิ์ (Pure metals)</strong> เช่น เงิน (<span class="math-rm">Ag</span>, <span class="math">k ≈ 429</span>) และทองแดง (<span class="math-rm">Cu</span>, <span class="math">k ≈ 401</span>) มีความหนาแน่นของอิเล็กตรอนอิสระสูงมาก จึงมีค่า <span class="math">k</span> สูงที่สุด แต่ใน <strong>โลหะผสม (Alloys)</strong> อะตอมเจือปนจะเข้าไปขัดขวางและกระเจิงอิเล็กตรอน ทำให้ค่า <span class="math">k</span> ลดลงอย่างมาก ส่วนใน <strong>ของแข็งอโลหะ (Nonmetallic solids)</strong> เช่น ออกไซด์ (<span class="math-rm">Al<sub>2</sub>O<sub>3</sub></span>) น้ำแข็ง และพลาสติก ไม่มีอิเล็กตรอนอิสระ การนำความร้อนเกิดจากโฟนอน (<span class="math">k<sub>ph</sub></span>) เพียงอย่างเดียว ยิ่งโครงสร้างผลึกเป็นระเบียบ (Crystalline เช่น ผลึกควอตซ์หรือเพชร) จะนำความร้อนได้ดีกว่าโครงสร้างอสัณฐาน (Amorphous เช่น แก้วหรือพลาสติก)</li>
+            <li><strong>ระบบฉนวนความร้อน (Insulation systems):</strong> เช่น โฟม (Foams) และเส้นใยแก้ว (Fibers) มีค่า <span class="math">k</span> ต่ำมาก (<span class="math">0.025 – 0.05</span> <span class="math-rm">W/(m·K)</span>) เพราะวัสดุเหล่านี้กักเก็บช่องว่างของอากาศนิ่งไว้ภายในเป็นจำนวนมาก ป้องกันไม่ให้อากาศเกิดการหมุนเวียนพาความร้อน</li>
+        </ul>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 2 บทนำสู่การนำความร้อน</span>
+        <span>หน้า 4</span>
+    </footer>
+</section>
+
+<!-- page 5 budget (Compact): h3 11 + svg 35mm 84 + box chrome 24 + prose 230 + box-concept 125 + 4 gaps 32 = 506 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h3>2.3.2 อิทธิพลของอุณหภูมิต่อสภาพนำความร้อนของของแข็ง แก๊ส และของเหลว (Figures 2.5 – 2.7)</h3>
+        <figure>
+            <svg viewBox="0 0 720 130" style="width: 100%; height: 34mm;" role="img">
+                <title>กราฟความสัมพันธ์ระหว่างสภาพนำความร้อน k กับอุณหภูมิ T ของของแข็ง แก๊ส และของเหลว (Figures 2.5, 2.6, 2.7)</title>
+                <!-- Graph 1: Solids (Fig 2.5) -->
+                <rect x="5" y="5" width="230" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="120" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">1. ของแข็ง (Solids - Figure 2.5)</text>
+                <line x1="32" y1="102" x2="32" y2="24" stroke="#1e293b" stroke-width="1.2"></line>
+                <line x1="32" y1="102" x2="220" y2="102" stroke="#1e293b" stroke-width="1.2"></line>
+                <text x="18" y="65" font-size="7.5" fill="#1e293b" transform="rotate(-90 18,65)" text-anchor="middle">k [W/(m·K)] (Log)</text>
+                <text x="125" y="115" font-size="7.5" fill="#1e293b" text-anchor="middle">T [K] (100 → 4000 K, Log)</text>
+                <!-- Curves -->
+                <path d="M 35 28 Q 120 30, 175 36" fill="none" stroke="#dc2626" stroke-width="1.8"></path>
+                <text x="195" y="36" font-size="7.5" font-weight="bold" fill="#dc2626">Ag, Cu, Al</text>
+                <path d="M 35 45 L 155 72" fill="none" stroke="#b91c1c" stroke-width="1.5"></path>
+                <text x="172" y="74" font-size="7.5" font-weight="bold" fill="#b91c1c">Fe (Iron)</text>
+                <path d="M 35 78 L 160 56" fill="none" stroke="#15803d" stroke-width="1.8"></path>
+                <text x="185" y="56" font-size="7.5" font-weight="bold" fill="#15803d">AISI 304</text>
+                <path d="M 40 42 Q 110 82, 165 88" fill="none" stroke="#d97706" stroke-width="1.5"></path>
+                <text x="190" y="88" font-size="7.5" font-weight="bold" fill="#d97706">Al₂O₃</text>
+                <path d="M 55 100 Q 130 92, 165 72" fill="none" stroke="#2563eb" stroke-width="1.5"></path>
+                <text x="165" y="99" font-size="7.5" font-weight="bold" fill="#2563eb">Fused quartz</text>
+
+                <!-- Graph 2: Gases (Fig 2.6) -->
+                <rect x="245" y="5" width="230" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="360" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">2. แก๊สที่ความดันปกติ (Gases - Figure 2.6)</text>
+                <line x1="272" y1="102" x2="272" y2="24" stroke="#1e293b" stroke-width="1.2"></line>
+                <line x1="272" y1="102" x2="460" y2="102" stroke="#1e293b" stroke-width="1.2"></line>
+                <text x="258" y="65" font-size="7.5" fill="#1e293b" transform="rotate(-90 258,65)" text-anchor="middle">k (0 → 0.3 W/m·K)</text>
+                <text x="365" y="115" font-size="7.5" fill="#1e293b" text-anchor="middle">T [K] (0 → 1000 K)</text>
+                <path d="M 285 88 Q 335 45, 390 26" fill="none" stroke="#dc2626" stroke-width="2"></path>
+                <text x="422" y="30" font-size="7.5" font-weight="bold" fill="#dc2626">H₂ (M=2.016)</text>
+                <path d="M 292 82 Q 340 52, 390 40" fill="none" stroke="#ea580c" stroke-width="1.8"></path>
+                <text x="422" y="44" font-size="7.5" font-weight="bold" fill="#ea580c">He (M=4.003)</text>
+                <line x1="288" y1="96" x2="435" y2="78" stroke="#2563eb" stroke-width="1.6"></line>
+                <text x="415" y="73" font-size="7.5" font-weight="bold" fill="#2563eb">Air (M=28.97)</text>
+                <line x1="305" y1="99" x2="420" y2="86" stroke="#4f46e5" stroke-width="1.5"></line>
+                <text x="425" y="94" font-size="7.5" font-weight="bold" fill="#4f46e5">CO₂ (M=44.01)</text>
+
+                <!-- Graph 3: Liquids (Fig 2.7) -->
+                <rect x="485" y="5" width="230" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="600" y="18" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">3. ของเหลวอิ่มตัว (Liquids - Figure 2.7)</text>
+                <line x1="512" y1="102" x2="512" y2="24" stroke="#1e293b" stroke-width="1.2"></line>
+                <line x1="512" y1="102" x2="700" y2="102" stroke="#1e293b" stroke-width="1.2"></line>
+                <text x="498" y="65" font-size="7.5" fill="#1e293b" transform="rotate(-90 498,65)" text-anchor="middle">k (0 → 0.8 W/m·K)</text>
+                <text x="605" y="115" font-size="7.5" fill="#1e293b" text-anchor="middle">T [K] (200 → 500 K)</text>
+                <!-- Water dome curve -->
+                <path d="M 550 48 Q 625 22, 695 46" fill="none" stroke="#0284c7" stroke-width="2"></path>
+                <text x="625" y="30" font-size="8" font-weight="bold" fill="#0284c7">Water (น้ำ)</text>
+                <!-- Ammonia dropping -->
+                <path d="M 512 36 Q 585 68, 615 90" fill="none" stroke="#dc2626" stroke-width="1.8"></path>
+                <text x="580" y="55" font-size="7.5" font-weight="bold" fill="#dc2626">Ammonia</text>
+                <!-- Glycerine & Engine oil -->
+                <line x1="560" y1="74" x2="695" y2="68" stroke="#15803d" stroke-width="1.6"></line>
+                <text x="655" y="65" font-size="7.5" font-weight="bold" fill="#15803d">Glycerine</text>
+                <line x1="550" y1="88" x2="665" y2="88" stroke="#64748b" stroke-width="1.5"></line>
+                <text x="645" y="98" font-size="7.5" font-weight="bold" fill="#475569">Engine oil</text>
+            </svg>
+            <figcaption><strong>รูปที่ 2.4</strong> <span class="tag-src">[ต้นฉบับ: Figures 2.5, 2.6, 2.7 สไลด์หน้า 11–13]</span> แนวโน้มการเปลี่ยนแปลงของสภาพนำความร้อน (<span class="math">k</span>) ตามอุณหภูมิ (<span class="math">T</span>) สำหรับของแข็ง แก๊ส และของเหลวอโลหะ</figcaption>
+        </figure>
+
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 11–13]</span> <span class="tag-sup">[เสริมพื้นฐาน: การวิเคราะห์กราฟทั้ง 3 รูปอย่างละเอียด]</span></p>
+        <ul>
+            <li><strong>1. การวิเคราะห์กราฟของแข็ง (Figure 2.5 - สไลด์หน้า 11):</strong> แกนตั้งเป็น <span class="math">k</span> (<span class="math">1–500</span> <span class="math-rm">W/(m·K)</span>) และแกนนอนเป็น <span class="math">T</span> (<span class="math">100–4,000</span> <span class="math-rm">K</span>) บนสเกล Log-Log ข้อสรุปสำคัญที่อนุมานได้จากกราฟคือ:
+                <ul>
+                    <li><em>โลหะบริสุทธิ์และผลึกออกไซด์ (เช่น <span class="math-rm">Ag, Cu, Au, W, Fe, Al<sub>2</sub>O<sub>3</sub></span>):</em> เมื่ออุณหภูมิสูงขึ้น ค่า <span class="math">k</span> จะ <strong>ลดลง</strong> เพราะอะตอมสั่นแรงขึ้นจนเกิดการกระเจิงของอิเล็กตรอนและโฟนอนมากขึ้น (ขัดขวางการเคลื่อนที่)</li>
+                    <li><em>เหล็กกล้าไร้สนิม (Stainless steel AISI 304) และวัสดุอสัณฐาน (Fused quartz):</em> มีแนวโน้มตรงกันข้าม คือเมื่ออุณหภูมิสูงขึ้น ค่า <span class="math">k</span> จะ <strong>เพิ่มขึ้น</strong> เพราะโครงสร้างที่ไร้ระเบียบหรือมีอะตอมเจือปนสูงจำกัดระยะทางเดินอิสระไว้แล้ว เมื่ออุณหภูมิสูงขึ้นความจุความร้อนและพลังงานการสั่นเพิ่มขึ้นจึงส่งผลให้ <span class="math">k</span> สูงขึ้น</li>
+                </ul>
+            </li>
+            <li><strong>2. การวิเคราะห์กราฟแก๊ส (Figure 2.6 - สไลด์หน้า 12):</strong> แกนตั้งเป็น <span class="math">k</span> (<span class="math">0–0.3</span> <span class="math-rm">W/(m·K)</span>) แกนนอนเป็น <span class="math">T</span> (<span class="math">0–1,000</span> <span class="math-rm">K</span>) จากทฤษฎีจลน์ของแก๊ส (Kinetic theory of gases) สภาพนำความร้อนแปรผันตรงกับอัตราเร็วเฉลี่ยของโมเลกุล <span class="math">c̄</span> และความจุความร้อน <span class="math">c<sub>v</sub></span> โดยที่ <span class="math">k ∝ √(T / ℳ)</span> (เมื่อ <span class="math">ℳ</span> คือมวลโมเลกุล และ <span class="math">d</span> คือเส้นผ่านศูนย์กลางโมเลกุลที่ระบุในกราฟ) ดังนั้น: (ก) <strong>สำหรับแก๊สทุกชนิด เมื่ออุณหภูมิ <span class="math">T</span> เพิ่มขึ้น ค่า <span class="math">k</span> จะเพิ่มขึ้นเสมอ</strong> เพราะโมเลกุลเคลื่อนที่และชนกันถี่ขึ้น และ (ข) <strong>แก๊สที่มีมวลโมเลกุล <span class="math">ℳ</span> ต่ำที่สุด</strong> เช่น ไฮโดรเจน (<span class="math-rm">H<sub>2</sub></span>, <span class="math">ℳ = 2.016</span>) และฮีเลียม (<span class="math-rm">He</span>, <span class="math">ℳ = 4.003</span>) จะมีค่า <span class="math">k</span> สูงกว่าอากาศ (<span class="math">ℳ = 28.97</span>) และ <span class="math-rm">CO<sub>2</sub></span> (<span class="math">ℳ = 44.01</span>) อย่างมาก</li>
+            <li><strong>3. การวิเคราะห์กราฟของเหลวอโลหะอิ่มตัว (Figure 2.7 - สไลด์หน้า 13):</strong> แกนตั้งเป็น <span class="math">k</span> (<span class="math">0–0.8</span> <span class="math-rm">W/(m·K)</span>) แกนนอนเป็น <span class="math">T</span> (<span class="math">200–500</span> <span class="math-rm">K</span>) ของเหลวส่วนใหญ่ (เช่น แอมโมเนีย และสารทำความเย็น Freon 12) จะมีค่า <span class="math">k</span> ลดลงเมื่ออุณหภูมิสูงขึ้น (เพราะของเหลวขยายตัวความหนาแน่นลดลง) <strong>ยกเว้น น้ำ (Water) และกลีเซอรีน</strong> โดยน้ำมีค่า <span class="math">k</span> สูงที่สุดในกลุ่มของเหลวอโลหะ และกราฟมีลักษณะโค้งขึ้นจนถึงค่าสูงสุดที่ประมาณ <span class="math">400</span> <span class="math-rm">K</span> (<span class="math">≈ 0.68</span> <span class="math-rm">W/(m·K)</span>) ก่อนจะลดลงที่อุณหภูมิสูงกว่านั้น</li>
+        </ul>
+
+        <div class="box-concept">
+            <h4>เหตุผลทางวิศวกรรม: ทำไมน้ำจึงเป็นของไหลถ่ายเทความร้อนที่ดีเยี่ยม และทำไมจึงใช้แก๊ส <span class="math-rm">H<sub>2</sub></span> หล่อเย็นเครื่องกำเนิดไฟฟ้า?</h4>
+            <p>จากกราฟ Figure 2.6 และ 2.7: (1) ในโรงไฟฟ้าขนาดใหญ่ นิยมใช้แก๊สไฮโดรเจน (<span class="math-rm">H<sub>2</sub></span>) แทนอากาศในการระบายความร้อนของขดลวดเครื่องกำเนิดไฟฟ้า (Hydrogen-cooled turbo generator) เพราะ <span class="math-rm">H<sub>2</sub></span> มีค่า <span class="math">k</span> สูงกว่าอากาศถึง 7 เท่า และมีความหนาแน่นต่ำช่วยลดแรงเสียดทานลมหมุน และ (2) น้ำมีค่า <span class="math">k</span> สูงกว่าน้ำมันเครื่อง (Engine oil, <span class="math">k ≈ 0.14</span>) ถึง 4.5 เท่า จึงระบายความร้อนได้ดีกว่ามาก</p>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 2 บทนำสู่การนำความร้อน</span>
+        <span>หน้า 5</span>
+    </footer>
+</section>
+
+<!-- page 6 budget (Compact): h3 11 + box-eq 100 + table 5 rows 85 + box-example 280 + 4 gaps 32 = 508 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h3>2.3.3 สมบัติทางความร้อนอื่นๆ ที่เกี่ยวข้อง: สภาพแพร่ความร้อน (2.2.2 Other Relevant Properties: Thermal Diffusivity, <span class="math">α</span>)</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 14]</span> <span class="tag-inf">[เติมเต็มสไลด์]</span> ในการวิเคราะห์การถ่ายเทความร้อน อัตราส่วนระหว่างสภาพนำความร้อน (<span class="math">k</span>) ต่อความจุความร้อนเชิงปริมาตร (<span class="math">ρ c<sub>p</sub></span>) เป็นสมบัติที่สำคัญอย่างยิ่ง เรียกว่า <strong>สภาพแพร่ความร้อน (Thermal diffusivity, <span class="math">α</span>)</strong>:</p>
+
+        <div class="box-eq">
+            <div class="eq-Display">
+                <span><span class="math">α</span> = <span class="frac"><span class="frac-num"><span class="math">k</span></span><span class="frac-den"><span class="math">ρ c<sub>p</sub></span></span></span> = <span class="frac"><span class="frac-num">ความสามารถในการนำความร้อนผ่านเนื้อวัสดุ (<span class="math-rm">W/(m·K)</span>)</span><span class="frac-den">ความสามารถในการกักเก็บความร้อนต่อหน่วยปริมาตร (<span class="math-rm">J/(m<sup>3</sup>·K)</span>)</span></span>     (หน่วย: <span class="math-rm">m<sup>2</sup>/s</span>)</span>
+                <span class="eq-num">(สมการที่ 2.5)</span>
+            </div>
+            <p><strong>ความหมายทางกายภาพ:</strong> สภาพแพร่ความร้อน (<span class="math">α</span>) คือสมบัติการถ่ายโอนที่ควบคุมกระบวนการนำความร้อนในสภาวะไม่คงตัว (Transient conduction) วัสดุที่มีค่า <span class="math">α</span> สูง (เช่น โลหะ หรือแก๊สที่มี <span class="math">ρ</span> ต่ำมาก) จะตอบสนองต่อการเปลี่ยนแปลงอุณหภูมิของสิ่งแวดล้อมได้อย่างรวดเร็ว ในขณะที่วัสดุที่มีค่า <span class="math">α</span> ต่ำ (เช่น ดิน อิฐ พลาสติก หรือน้ำ) จะใช้เวลานานกว่าคลื่นความร้อนจะแพร่เข้าไปถึงด้านใน</p>
+        </div>
+
+        <p><span class="tag-src">[ต้นฉบับ: Table A.1 สไลด์หน้า 15]</span> ตารางที่ 2.1 แสดงข้อมูลจากตารางภาคผนวก A.1 สำหรับอะลูมิเนียมบริสุทธิ์ (Pure Aluminum) ที่ใช้ในตัวอย่างที่ 2.1</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col" rowspan="2">วัสดุ (Composition)</th>
+                    <th scope="col" rowspan="2">จุดหลอมเหลว (<span class="math-rm">K</span>)</th>
+                    <th scope="col" colspan="4" style="text-align: center;">สมบัติที่อุณหภูมิ 300 K</th>
+                    <th scope="col" colspan="5" style="text-align: center;">สมบัติที่อุณหภูมิต่างๆ: แถวบน <span class="math">k</span> [<span class="math-rm">W/(m·K)</span>] / แถวล่าง <span class="math">c<sub>p</sub></span> [<span class="math-rm">J/(kg·K)</span>]</th>
+                </tr>
+                <tr>
+                    <th scope="col"><span class="math">ρ</span> (<span class="math-rm">kg/m<sup>3</sup></span>)</th>
+                    <th scope="col"><span class="math">c<sub>p</sub></span> (<span class="math-rm">J/kg·K</span>)</th>
+                    <th scope="col"><span class="math">k</span> (<span class="math-rm">W/m·K</span>)</th>
+                    <th scope="col"><span class="math">α·10<sup>6</sup></span> (<span class="math-rm">m<sup>2</sup>/s</span>)</th>
+                    <th scope="col">100 K</th>
+                    <th scope="col">200 K</th>
+                    <th scope="col">400 K</th>
+                    <th scope="col">600 K</th>
+                    <th scope="col">800 K</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2"><strong>Aluminum, Pure</strong></td>
+                    <td rowspan="2">933</td>
+                    <td rowspan="2">2,702</td>
+                    <td rowspan="2">903</td>
+                    <td rowspan="2">237</td>
+                    <td rowspan="2">97.1</td>
+                    <td><span class="math">k</span> = 302</td>
+                    <td>237</td>
+                    <td>240</td>
+                    <td><strong>231</strong></td>
+                    <td><strong>218</strong></td>
+                </tr>
+                <tr>
+                    <td><span class="math">c<sub>p</sub></span> = 482</td>
+                    <td>798</td>
+                    <td>949</td>
+                    <td><strong>1,033</strong></td>
+                    <td><strong>1,146</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 8pt; color: #475569;"><strong>ตารางที่ 2.1</strong> <span class="tag-src">[ต้นฉบับ: Table A.1 สไลด์หน้า 15]</span> สมบัติทางเทอร์โมฟิสิกส์ของอะลูมิเนียมบริสุทธิ์ที่อุณหภูมิต่างๆ</p>
+
+        <div class="box-example">
+            <h4>ตัวอย่างที่ 2.1 (Example 2.1): การคำนวณสภาพแพร่ความร้อนและการประมาณค่าในช่วงเชิงเส้น (Linear Interpolation)</h4>
+            <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 15–16]</span> <span class="tag-inf">[เติมเต็มสไลด์]</span> <strong>โจทย์:</strong> จงคำนวณหาค่าสภาพแพร่ความร้อน (<span class="math">α</span>) ของอะลูมิเนียมบริสุทธิ์ (Pure aluminum) ที่อุณหภูมิ <span class="math">300</span> <span class="math-rm">K</span> และ <span class="math">700</span> <span class="math-rm">K</span></p>
+            <hr style="border: 0; border-top: 1px dashed #86efac; margin: 6px 0;">
+            <p><strong>วิธีทำอย่างละเอียด (พร้อมแสดงขั้นตอนการทำ Linear Interpolation ที่สไลด์ละไว้):</strong></p>
+            <ul>
+                <li><strong>กรณีที่ 1 ที่อุณหภูมิ <span class="math">T = 300</span> <span class="math-rm">K</span>:</strong> อ่านค่าจากตารางที่ 2.1 โดยตรงได้ <span class="math">ρ = 2,702</span> <span class="math-rm">kg/m<sup>3</sup></span>, <span class="math">c<sub>p</sub> = 903</span> <span class="math-rm">J/(kg·K)</span>, และ <span class="math">k = 237</span> <span class="math-rm">W/(m·K)</span> แทนค่าในสมการที่ 2.5 (เติมคำตอบในสไลด์หน้า 16):
+                    <div class="eq-Display">
+                        <span><span class="math">α</span>(300 <span class="math-rm">K</span>) = <span class="frac"><span class="frac-num"><span class="math">k</span></span><span class="frac-den"><span class="math">ρ c<sub>p</sub></span></span></span> = <span class="frac"><span class="frac-num">237 <span class="math-rm">W/(m·K)</span></span><span class="frac-den">2,702 <span class="math-rm">kg/m<sup>3</sup></span> × 903 <span class="math-rm">J/(kg·K)</span></span></span> = <span class="frac"><span class="frac-num">237 <span class="math-rm">J/(s·m·K)</span></span><span class="frac-den">2,439,906 <span class="math-rm">J/(m<sup>3</sup>·K)</span></span></span> = <strong>9.71 × 10<sup>−5</sup> <span class="math-rm">m<sup>2</sup>/s</span> (หรือ 97.1 × 10<sup>−6</sup> <span class="math-rm">m<sup>2</sup>/s</span>)</strong></span>
+                        <span class="eq-num">(2.1a)</span>
+                    </div>
+                </li>
+                <li><strong>กรณีที่ 2 ที่อุณหภูมิ <span class="math">T = 700</span> <span class="math-rm">K</span>:</strong> ในตารางที่ 2.1 ไม่มีคอลัมน์ <span class="math">700</span> <span class="math-rm">K</span> แต่มีข้อมูลที่ <span class="math">T<sub>1</sub> = 600</span> <span class="math-rm">K</span> และ <span class="math">T<sub>2</sub> = 800</span> <span class="math-rm">K</span> เราจึงต้องใช้สูตร <strong>การประมาณค่าในช่วงเชิงเส้น (Linear Interpolation)</strong> คือ <span class="math">y(T) = y<sub>1</sub> + [(T − T<sub>1</sub>)/(T<sub>2</sub> − T<sub>1</sub>)] × (y<sub>2</sub> − y<sub>1</sub>)</span> (เนื่องจาก <span class="math">700</span> <span class="math-rm">K</span> อยู่กึ่งกลางพอดีระหว่าง <span class="math">600</span> กับ <span class="math">800</span> <span class="math-rm">K</span> จึงเท่ากับค่าเฉลี่ยเลขคณิต):
+                    <ul>
+                        <li>ความหนาแน่น <span class="math">ρ</span> (สมมติว่าเปลี่ยนแปลงน้อยมาก ใช้ค่าที่ <span class="math">300</span> <span class="math-rm">K</span>): <span class="math">ρ ≈ 2,702</span> <span class="math-rm">kg/m<sup>3</sup></span></li>
+                        <li>ประมาณค่า <span class="math">k</span> ที่ <span class="math">700</span> <span class="math-rm">K</span>: <span class="math">k = 231 + [(700 − 600)/(800 − 600)] × (218 − 231) = 231 − 6.5 = 224.5 ≈</span> <strong>225 <span class="math-rm">W/(m·K)</span></strong></li>
+                        <li>ประมาณค่า <span class="math">c<sub>p</sub></span> ที่ <span class="math">700</span> <span class="math-rm">K</span>: <span class="math">c<sub>p</sub> = 1,033 + [(700 − 600)/(800 − 600)] × (1,146 − 1,033) = 1,033 + 56.5 = 1,089.5 ≈</span> <strong>1,090 <span class="math-rm">J/(kg·K)</span></strong></li>
+                    </ul>
+                    <div class="eq-Display">
+                        <span><span class="math">α</span>(700 <span class="math-rm">K</span>) = <span class="frac"><span class="frac-num"><span class="math">k</span></span><span class="frac-den"><span class="math">ρ c<sub>p</sub></span></span></span> = <span class="frac"><span class="frac-num">225 <span class="math-rm">W/(m·K)</span></span><span class="frac-den">2,702 <span class="math-rm">kg/m<sup>3</sup></span> × 1,090 <span class="math-rm">J/(kg·K)</span></span></span> = <span class="frac"><span class="frac-num">225</span><span class="frac-den">2,945,180</span></span> = <strong>7.64 × 10<sup>−5</sup> <span class="math-rm">m<sup>2</sup>/s</span> (หรือ 76.4 × 10<sup>−6</sup> <span class="math-rm">m<sup>2</sup>/s</span>)</strong></span>
+                        <span class="eq-num">(2.1b)</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 2 บทนำสู่การนำความร้อน</span>
+        <span>หน้า 6</span>
+    </footer>
+</section>
+
+<!-- page 7 budget (Compact): h2 11 + prose 110 + svg 35mm 84 + box chrome 24 + prose 140 + box-eq 140 + 5 gaps 40 = 549 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h2>2.4 สมการการแพร่ความร้อน (2.3 The Heat Diffusion Equation)</h2>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 17–18]</span> เป้าหมายหลักของการวิเคราะห์การนำความร้อนคือการหา <strong>สนามอุณหภูมิ (Temperature field)</strong> หรือการกระจายของอุณหภูมิ <span class="math">T(x, y, z, t)</span> ภายในตัวกลาง เพราะเมื่อเราทราบฟังก์ชัน <span class="math">T</span> แล้ว เราจะสามารถใช้กฎของฟูริเยร์คำนวณหาฟลักซ์ความร้อน ณ จุดใดๆ ได้ทันที สมการเชิงอนุพันธ์ย่อยที่ใช้หาการกระจายอุณหภูมิเรียกว่า <strong>สมการการแพร่ความร้อน (Heat Diffusion Equation หรือ Heat Equation)</strong></p>
+
+        <h3>2.4.1 การพิสูจน์สมการการแพร่ความร้อนในระบบพิกัดฉาก (2.3.1 Cartesian Coordinates)</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 17–25]</span> พิจารณาตัวกลางเนื้อเดียว (Homogeneous medium) ที่ไม่มีการเคลื่อนที่ของกลุ่มก้อนมวล (No bulk motion) และมีการกระจายอุณหภูมิ <span class="math">T(x, y, z, t)</span> เรากำหนด <strong>ปริมาตรควบคุมเชิงอนุพันธ์ขนาดเล็กจิ๋ว (Differential control volume)</strong> ที่มีขนาด <span class="math">dx · dy · dz</span> ดังแสดงในรูปที่ 2.5</p>
+
+        <figure>
+            <svg viewBox="0 0 720 130" style="width: 100%; height: 34mm;" role="img">
+                <title>ปริมาตรควบคุมเชิงอนุพันธ์ dx dy dz สำหรับการวิเคราะห์การนำความร้อนในระบบพิกัดฉาก (Figure 2.8)</title>
+                <!-- Left: Macroscopic block with differential element inside -->
+                <rect x="5" y="5" width="245" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="127" y="19" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">1. การเลือกปริมาตรควบคุมเชิงอนุพันธ์ (สไลด์หน้า 18)</text>
+                <polygon points="45,45 145,45 145,105 45,105" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.2"></polygon>
+                <polygon points="45,45 75,28 175,28 145,45" fill="#bae6fd" stroke="#0369a1" stroke-width="1.2"></polygon>
+                <polygon points="145,45 175,28 175,88 145,105" fill="#7dd3fc" stroke="#0369a1" stroke-width="1.2"></polygon>
+                <!-- Tiny red cube inside -->
+                <rect x="92" y="62" width="22" height="22" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="2,1"></rect>
+                <circle cx="103" cy="73" r="24" fill="none" stroke="#1e293b" stroke-dasharray="3,2"></circle>
+                <text x="127" y="118" font-size="8" fill="#334155" text-anchor="middle">ตัวกลางเนื้อเดียว T(x, y, z, t) → ซูมขยาย dx·dy·dz</text>
+
+                <!-- Right: Figure 2.8 Differential control volume -->
+                <rect x="260" y="5" width="455" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="487" y="19" font-size="9" font-weight="bold" fill="#0f172a" text-anchor="middle">2. ปริมาตรควบคุมเชิงอนุพันธ์ dV = dx·dy·dz (Figure 2.8 สไลด์หน้า 19–22)</text>
+                <!-- Cube -->
+                <polygon points="415,48 525,48 525,102 415,102" fill="#fff7ed" stroke="#9a3412" stroke-width="1.5"></polygon>
+                <polygon points="415,48 455,28 565,28 525,48" fill="#ffedd5" stroke="#9a3412" stroke-width="1.5"></polygon>
+                <polygon points="525,48 565,28 565,82 525,102" fill="#fed7aa" stroke="#9a3412" stroke-width="1.5"></polygon>
+                <text x="470" y="74" font-size="10" font-weight="bold" fill="#9a3412" text-anchor="middle">Ė_g , Ė_st</text>
+                <text x="470" y="114" font-size="9" font-weight="bold" fill="#1e293b" text-anchor="middle">|← dx →|</text>
+                <text x="556" y="98" font-size="9" font-weight="bold" fill="#1e293b">dy</text>
+                <text x="402" y="78" font-size="9" font-weight="bold" fill="#1e293b">dz</text>
+
+                <!-- Heat rates in and out -->
+                <!-- x direction -->
+                <line x1="350" y1="75" x2="410" y2="75" stroke="#dc2626" stroke-width="2"></line><polygon points="408,72 414,75 408,78" fill="#dc2626"></polygon>
+                <text x="335" y="78" font-size="9.5" font-weight="bold" fill="#dc2626">qₓ</text>
+                <line x1="550" y1="68" x2="615" y2="68" stroke="#dc2626" stroke-width="2"></line><polygon points="613,65 619,68 613,71" fill="#dc2626"></polygon>
+                <text x="622" y="70" font-size="8.5" font-weight="bold" fill="#dc2626">q_(x+dx) = qₓ + (∂qₓ/∂x)dx</text>
+
+                <!-- z direction -->
+                <line x1="485" y1="118" x2="485" y2="96" stroke="#2563eb" stroke-width="1.8"></line><polygon points="482,98 485,92 488,98" fill="#2563eb"></polygon>
+                <text x="500" y="116" font-size="9" font-weight="bold" fill="#2563eb">q_z</text>
+                <line x1="485" y1="36" x2="485" y2="18" stroke="#2563eb" stroke-width="1.8"></line><polygon points="482,20 485,14 488,20" fill="#2563eb"></polygon>
+                <text x="518" y="24" font-size="8.5" font-weight="bold" fill="#2563eb">q_(z+dz)</text>
+
+                <!-- y direction -->
+                <line x1="375" y1="108" x2="420" y2="86" stroke="#15803d" stroke-width="1.8"></line>
+                <text x="362" y="114" font-size="9" font-weight="bold" fill="#15803d">q_y</text>
+            </svg>
+            <figcaption><strong>รูปที่ 2.5</strong> <span class="tag-src">[ต้นฉบับ: Figure 2.8 สไลด์หน้า 18–22]</span> ปริมาตรควบคุมเชิงอนุพันธ์ <span class="math">dx·dy·dz</span> แสดงอัตราการนำความร้อนที่ไหลเข้าและไหลออกผ่านพื้นผิวทั้ง 6 ด้านในระบบพิกัดฉาก</figcaption>
+        </figure>
+
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 20–25]</span> เราพิจารณาแต่ละพจน์ในสมการอนุรักษ์พลังงาน <span class="math">Ė<sub>in</sub> + Ė<sub>g</sub> − Ė<sub>out</sub> = Ė<sub>st</sub></span> อย่างเป็นลำดับขั้นดังนี้:</p>
+        <ol>
+            <li><strong>อัตราพลังงานความร้อนที่ไหลเข้า (<span class="math">Ė<sub>in</sub></span> - สไลด์หน้า 20–21):</strong> ความร้อนนำเข้าสู่ผิวทั้งสามด้านที่พิกัด <span class="math">x, y, z</span> โดยจากกฎของฟูริเยร์ อัตราความร้อนคือผลคูณของฟลักซ์ความร้อนกับพื้นที่ผิวตั้งฉากของแต่ละด้าน (ด้านตั้งฉากแกน <span class="math">x</span> มีพื้นที่ <span class="math">dy·dz</span>, ด้านตั้งฉากแกน <span class="math">y</span> มีพื้นที่ <span class="math">dx·dz</span>, และด้านตั้งฉากแกน <span class="math">z</span> มีพื้นที่ <span class="math">dx·dy</span>):
+                <div class="eq-Display">
+                    <span><span class="math">Ė<sub>in</sub></span> = <span class="math">q<sub>x</sub> + q<sub>y</sub> + q<sub>z</sub></span>   โดยที่   <span class="math">q<sub>x</sub></span> = −<span class="math">k</span> (<span class="math">dy dz</span>) <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂x</span></span></span> ,   <span class="math">q<sub>y</sub></span> = −<span class="math">k</span> (<span class="math">dx dz</span>) <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂y</span></span></span> ,   <span class="math">q<sub>z</sub></span> = −<span class="math">k</span> (<span class="math">dx dy</span>) <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂z</span></span></span></span>
+                    <span class="eq-num">(สมการที่ 2.6)</span>
+                </div>
+            </li>
+            <li><strong>อัตราพลังงานความร้อนที่ไหลออก (<span class="math">Ė<sub>out</sub></span> - สไลด์หน้า 22–23):</strong> ที่พื้นผิวฝั่งตรงข้าม (<span class="math">x+dx, y+dy, z+dz</span>) เราใช้การกระจายอนุกรมเทย์เลอร์ (Taylor series expansion) โดยตัดพจน์อันดับสูงทิ้ง:
+                <div class="eq-Display">
+                    <span><span class="math">q<sub>x+dx</sub></span> = <span class="math">q<sub>x</sub></span> + <span class="frac"><span class="frac-num"><span class="math">∂q<sub>x</sub></span></span><span class="frac-den"><span class="math">∂x</span></span></span><span class="math">dx</span> ,     <span class="math">q<sub>y+dy</sub></span> = <span class="math">q<sub>y</sub></span> + <span class="frac"><span class="frac-num"><span class="math">∂q<sub>y</sub></span></span><span class="frac-den"><span class="math">∂y</span></span></span><span class="math">dy</span> ,     <span class="math">q<sub>z+dz</sub></span> = <span class="math">q<sub>z</sub></span> + <span class="frac"><span class="frac-num"><span class="math">∂q<sub>z</sub></span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math">dz</span>   ⇒   <span class="math">Ė<sub>out</sub></span> = <span class="math">q<sub>x+dx</sub> + q<sub>y+dy</sub> + q<sub>z+dz</sub></span></span>
+                    <span class="eq-num">(สมการที่ 2.7)</span>
+                </div>
+            </li>
+            <li><strong>อัตราการผลิตพลังงาน (<span class="math">Ė<sub>g</sub></span>) และอัตราการสะสมพลังงาน (<span class="math">Ė<sub>st</sub></span>) เชิงปริมาตร (สไลด์หน้า 24–25):</strong> คูณด้วยปริมาตร <span class="math">dV = dx dy dz</span>:
+                <div class="eq-Display">
+                    <span><span class="math">Ė<sub>g</sub></span> = <span class="math">q̇ dx dy dz</span>     และ     <span class="math">Ė<sub>st</sub></span> = <span class="math">ρ c<sub>p</sub></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂t</span></span></span> <span class="math">dx dy dz</span></span>
+                    <span class="eq-num">(สมการที่ 2.8)</span>
+                </div>
+            </li>
+        </ol>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 2 บทนำสู่การนำความร้อน</span>
+        <span>หน้า 7</span>
+    </footer>
+</section>
+
+<!-- page 8 budget (Compact): prose 100 + box-eq 180 + box-concept 220 + 3 gaps 24 = 524 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 26–27]</span> <strong>ขั้นตอนที่ 4 แทนค่าทุกพจน์ลงในสมการอนุรักษ์พลังงานและจัดรูปพีชคณิต:</strong> แทนสมการที่ 2.6, 2.7 และ 2.8 ลงใน <span class="math">Ė<sub>in</sub> − Ė<sub>out</sub> + Ė<sub>g</sub> = Ė<sub>st</sub></span> จะเห็นว่าพจน์ <span class="math">(q<sub>x</sub> + q<sub>y</sub> + q<sub>z</sub>)</span> หักล้างกันหมดไป เหลือเพียง:</p>
+
+        <div class="box-eq">
+            <div class="eq-Display">
+                <span>− <span class="frac"><span class="frac-num"><span class="math">∂q<sub>x</sub></span></span><span class="frac-den"><span class="math">∂x</span></span></span><span class="math">dx</span> − <span class="frac"><span class="frac-num"><span class="math">∂q<sub>y</sub></span></span><span class="frac-den"><span class="math">∂y</span></span></span><span class="math">dy</span> − <span class="frac"><span class="frac-num"><span class="math">∂q<sub>z</sub></span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math">dz</span> + <span class="math">q̇ dx dy dz</span> = <span class="math">ρ c<sub>p</sub></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂t</span></span></span> <span class="math">dx dy dz</span></span>
+                <span class="eq-num">(2.9a)</span>
+            </div>
+            <p>แทนค่า <span class="math">q<sub>x</sub>, q<sub>y</sub>, q<sub>z</sub></span> จากสมการที่ 2.6 แล้วหารตลอดทั้งสมการด้วยปริมาตร <span class="math">dx dy dz</span> (ซึ่งไม่เท่ากับศูนย์) เครื่องหมายลบคูณลบกลายเป็นบวก จะได้ <strong>สมการการแพร่ความร้อนรูปทั่วไปในระบบพิกัดฉาก (General Heat Diffusion Equation in Cartesian Coordinates)</strong>:</p>
+            <div class="eq-Display">
+                <span><span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂x</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂x</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂y</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂y</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math-rm">)</span> + <span class="math">q̇</span> = <span class="math">ρ c<sub>p</sub></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂t</span></span></span>    (หน่วยของทุกพจน์คือ <span class="math-rm">W/m<sup>3</sup></span>)</span>
+                <span class="eq-num">(สมการที่ 2.9)</span>
+            </div>
+            <p><em>ข้อสังเกตสำคัญ:</em> ในกรณีทั่วไป สภาพนำความร้อน <span class="math">k</span> อาจขึ้นกับอุณหภูมิหรือตำแหน่ง จึงต้องติดไว้ข้างในเครื่องหมายอนุพันธ์ <span class="math">∂/∂x(k ∂T/∂x)</span> ห้ามดึง <span class="math">k</span> ออกนอกอนุพันธ์จนกว่าจะกำหนดสมมติฐานว่า <span class="math">k</span> มีค่าคงตัว!</p>
+        </div>
+
+        <div class="box-concept">
+            <h4>การลดรูปสมการการแพร่ความร้อนภายใต้สมมติฐานเฉพาะ (Simplifications - สไลด์หน้า 28–29)</h4>
+            <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 28–29]</span> <span class="tag-inf">[เติมเต็มสไลด์]</span> ในการแก้ปัญหาทางวิศวกรรม เราสามารถลดรูปสมการที่ 2.9 ให้เรียบง่ายขึ้นตามเงื่อนไขของปัญหาได้ 3 กรณีหลัก:</p>
+            <ol>
+                <li><strong>กรณีที่ 1 สภาพนำความร้อน <span class="math">k</span> มีค่าคงตัว (Constant thermal conductivity):</strong> เราสามารถดึง <span class="math">k</span> ออกมานอกอนุพันธ์แล้วหารตลอดทั้งสมการด้วย <span class="math">k</span> โดยใช้สมบัติ <span class="math">α = k / (ρ c<sub>p</sub>)</span> จะได้:
+                    <div class="eq-Display">
+                        <span><span class="frac"><span class="frac-num"><span class="math">∂<sup>2</sup>T</span></span><span class="frac-den"><span class="math">∂x<sup>2</sup></span></span></span> + <span class="frac"><span class="frac-num"><span class="math">∂<sup>2</sup>T</span></span><span class="frac-den"><span class="math">∂y<sup>2</sup></span></span></span> + <span class="frac"><span class="frac-num"><span class="math">∂<sup>2</sup>T</span></span><span class="frac-den"><span class="math">∂z<sup>2</sup></span></span></span> + <span class="frac"><span class="frac-num"><span class="math">q̇</span></span><span class="frac-den"><span class="math">k</span></span></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">α</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂t</span></span></span>    หรือเขียนย่อด้วยตัวดำเนินการลาปลาเซียน: ∇<sup>2</sup><span class="math">T</span> + <span class="frac"><span class="frac-num"><span class="math">q̇</span></span><span class="frac-den"><span class="math">k</span></span></span> = <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">α</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂t</span></span></span></span>
+                        <span class="eq-num">(สมการที่ 2.10)</span>
+                    </div>
+                </li>
+                <li><strong>กรณีที่ 2 สภาวะคงตัว (Steady-state conditions, <span class="math">∂T/∂t = 0</span>):</strong> ไม่มีการเปลี่ยนแปลงพลังงานสะสมตามเวลา พจน์ขวาสุดเป็นศูนย์:
+                    <div class="eq-Display">
+                        <span><span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂x</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂x</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂y</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂y</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math-rm">)</span> + <span class="math">q̇</span> = 0    (ถ้า <span class="math">k</span> คงตัว เรียกว่า <em>สมการปัวซง, Poisson&#39;s equation</em>)</span>
+                        <span class="eq-num">(สมการที่ 2.11)</span>
+                    </div>
+                </li>
+                <li><strong>กรณีที่ 3 การนำความร้อน 1 มิติ (ทิศทาง <span class="math">x</span>) สภาวะคงตัว และไม่มีการผลิตความร้อน (<span class="math">q̇ = 0</span>):</strong> (เติมช่องว่างทั้งสองจุดในสไลด์หน้า 29) อนุพันธ์ย่อยเปลี่ยนเป็นอนุพันธ์สามัญ และเนื่องจาก <span class="math">q<sub>x</sub>&#39;&#39; = −k(dT/dx)</span> จึงได้ว่าฟลักซ์ความร้อนมีค่าคงตัวไม่ขึ้นกับตำแหน่ง <span class="math">x</span>:
+                    <div class="eq-Display">
+                        <span><span class="frac"><span class="frac-num"><span class="math">d</span></span><span class="frac-den"><span class="math">dx</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dx</span></span></span><span class="math-rm">)</span> = 0    ⇒    − <span class="frac"><span class="frac-num"><span class="math">dq<sub>x</sub>&#39;&#39;</span></span><span class="frac-den"><span class="math">dx</span></span></span> = 0    ⇒    <span class="math">q<sub>x</sub>&#39;&#39;</span> = −<span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">dT</span></span><span class="frac-den"><span class="math">dx</span></span></span> = <span class="math-rm">constant (ค่าคงตัว)</span></span>
+                        <span class="eq-num">(สมการที่ 2.12)</span>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 2 บทนำสู่การนำความร้อน</span>
+        <span>หน้า 8</span>
+    </footer>
+</section>
+
+<!-- page 9 budget (Compact): h3 11 + prose 115 + svg 35mm 84 + box chrome 24 + box-eq 145 + prose 130 + 5 gaps 40 = 549 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h3>2.4.2 ระบบพิกัดทรงกระบอก (2.3.2 Cylindrical Coordinates) และการพิสูจน์สมการ</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 30–31]</span> สำหรับวัตถุที่มีรูปทรงกระบอก เช่น ท่อกลม ลวดตัวนำ หรือแท่งเชื้อเพลิงนิวเคลียร์ การใช้ระบบพิกัดฉากจะทำให้การกำหนดเงื่อนไขขอบเขตยุ่งยากมาก เราจึงเปลี่ยนมาใช้ <strong>ระบบพิกัดทรงกระบอก (Cylindrical coordinates: <span class="math">r, φ, z</span>)</strong> โดยที่ <span class="math">r</span> คือรัศมีตามแนวราบ, <span class="math">φ</span> คือมุมตามแนวเส้นรอบวง (Circumferential/Azimuthal angle), และ <span class="math">z</span> คือระยะตามแนวแกนยาวของทรงกระบอก ดังรูปที่ 2.6</p>
+
+        <figure>
+            <svg viewBox="0 0 720 130" style="width: 100%; height: 34mm;" role="img">
+                <title>ระบบพิกัดทรงกระบอก (r, φ, z) และปริมาตรควบคุมเชิงอนุพันธ์ dr · r dφ · dz (Figure 2.9)</title>
+                <!-- Left: Coordinate definition -->
+                <rect x="5" y="5" width="265" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="137" y="19" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">1. นิยามพิกัดทรงกระบอก T(r, φ, z) (สไลด์หน้า 30)</text>
+                <!-- Axes -->
+                <line x1="95" y1="88" x2="95" y2="25" stroke="#1e293b" stroke-width="1.5"></line><text x="88" y="30" font-size="9.5" font-weight="bold">z</text>
+                <line x1="95" y1="88" x2="215" y2="88" stroke="#1e293b" stroke-width="1.5"></line><text x="220" y="91" font-size="9.5" font-weight="bold">y</text>
+                <line x1="95" y1="88" x2="45" y2="115" stroke="#1e293b" stroke-width="1.5"></line><text x="35" y="118" font-size="9.5" font-weight="bold">x</text>
+                <!-- Point P(r, phi, z) -->
+                <line x1="95" y1="88" x2="155" y2="105" stroke="#dc2626" stroke-width="1.5"></line>
+                <line x1="155" y1="105" x2="155" y2="52" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3,2"></line>
+                <line x1="95" y1="35" x2="155" y2="52" stroke="#dc2626" stroke-width="1.8"></line>
+                <circle cx="155" cy="52" r="4" fill="#dc2626"></circle>
+                <text x="192" y="52" font-size="9" font-weight="bold" fill="#dc2626">T(r, φ, z)</text>
+                <text x="128" y="40" font-size="9.5" font-weight="bold" fill="#dc2626">r</text>
+                <path d="M 75 99 Q 95 104, 115 94" fill="none" stroke="#1e3a8a" stroke-width="1.5"></path>
+                <text x="95" y="112" font-size="9.5" font-weight="bold" fill="#1e3a8a">φ</text>
+
+                <!-- Right: Figure 2.9 Differential cylindrical element -->
+                <rect x="280" y="5" width="435" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="497" y="19" font-size="9" font-weight="bold" fill="#0f172a" text-anchor="middle">2. ปริมาตรควบคุมเชิงอนุพันธ์ dV = dr · (r dφ) · dz (Figure 2.9 สไลด์หน้า 31)</text>
+                <!-- Wedge element -->
+                <path d="M 415 55 Q 455 42, 495 52 L 525 38 Q 465 24, 395 42 Z" fill="#ffedd5" stroke="#9a3412" stroke-width="1.5"></path>
+                <path d="M 415 55 L 415 98 Q 455 85, 495 95 L 495 52 Q 455 42, 415 55 Z" fill="#fff7ed" stroke="#9a3412" stroke-width="1.5"></path>
+                <path d="M 495 52 L 495 95 L 525 81 L 525 38 Z" fill="#fed7aa" stroke="#9a3412" stroke-width="1.5"></path>
+                <!-- Labels of lengths -->
+                <text x="452" y="46" font-size="9" font-weight="bold" fill="#1e3a8a">ความยาวส่วนโค้ง = r dφ</text>
+                <text x="542" y="65" font-size="9" font-weight="bold" fill="#1e3a8a">หนา = dr</text>
+                <text x="398" y="80" font-size="9" font-weight="bold" fill="#1e3a8a">สูง = dz</text>
+                <!-- Heat flows -->
+                <line x1="455" y1="68" x2="455" y2="22" stroke="#dc2626" stroke-width="1.8"></line>
+                <text x="345" y="42" font-size="9" font-weight="bold" fill="#dc2626">q_r (เข้าผิวใน r dφ dz)</text>
+                <text x="585" y="34" font-size="9" font-weight="bold" fill="#dc2626">q_(r+dr) (ออกผิวนอก)</text>
+                <text x="345" y="102" font-size="9" font-weight="bold" fill="#15803d">q_φ (เข้าผิวข้าง dr dz)</text>
+                <text x="595" y="95" font-size="9" font-weight="bold" fill="#15803d">q_(φ+dφ)</text>
+                <text x="497" y="116" font-size="8.5" fill="#334155" text-anchor="middle">ข้อควรระวัง: ความยาวส่วนโค้งในทิศ φ คือ r dφ ไม่ใช่ dφ เพียงอย่างเดียว!</text>
+            </svg>
+            <figcaption><strong>รูปที่ 2.6</strong> <span class="tag-src">[ต้นฉบับ: Figure 2.9 สไลด์หน้า 30–31]</span> ระบบพิกัดทรงกระบอก (<span class="math">r, φ, z</span>) และปริมาตรควบคุมเชิงอนุพันธ์ <span class="math">dV = dr · r dφ · dz</span></figcaption>
+        </figure>
+
+        <div class="box-eq">
+            <h4>เวกเตอร์ฟลักซ์ความร้อนและสมการการแพร่ความร้อนในพิกัดทรงกระบอก</h4>
+            <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 30–31]</span> เนื่องจากระยะทางตามแนวเส้นรอบวงเมื่อมุมเปลี่ยนไป <span class="math">dφ</span> คือ <span class="math">ds<sub>φ</sub> = r dφ</span> เกรเดียนต์อุณหภูมิในแนวเส้นรอบวงจึงต้องมี <span class="math">r</span> เป็นตัวหาร (<span class="math">∂T / (r ∂φ)</span>) เวกเตอร์ฟลักซ์ความร้อนในพิกัดทรงกระบอกคือ:</p>
+            <div class="eq-Display">
+                <span><span class="math-vec">q&#39;&#39;</span> = −<span class="math">k</span> ∇<span class="math">T</span> = −<span class="math">k</span> <span class="math-rm">(</span><span class="math-vec">i</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂r</span></span></span> + <span class="math-vec">j</span> <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂φ</span></span></span> + <span class="math-vec">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math-rm">)</span>   ⇒   <span class="math">q<sub>r</sub>&#39;&#39;</span> = −<span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂r</span></span></span> ,   <span class="math">q<sub>φ</sub>&#39;&#39;</span> = −<span class="frac"><span class="frac-num"><span class="math">k</span></span><span class="frac-den"><span class="math">r</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂φ</span></span></span> ,   <span class="math">q<sub>z</sub>&#39;&#39;</span> = −<span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂z</span></span></span></span>
+                <span class="eq-num">(สมการที่ 2.13)</span>
+            </div>
+            <p>และเมื่อตั้งสมดุลพลังงานกับปริมาตรควบคุมเชิงอนุพันธ์ <span class="math">dV = r dr dφ dz</span> จะได้ <strong>สมการการแพร่ความร้อนในระบบพิกัดทรงกระบอก</strong>:</p>
+            <div class="eq-Display">
+                <span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">(</span><span class="math">k r</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r<sup>2</sup></span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math-rm">)</span> + <span class="math">q̇</span> = <span class="math">ρ c<sub>p</sub></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂t</span></span></span></span>
+                <span class="eq-num">(สมการที่ 2.14)</span>
+            </div>
+        </div>
+
+        <p><span class="tag-sup">[เสริมพื้นฐาน: ที่มาของพจน์ (1/r) ∂/∂r(kr ∂T/∂r)]</span> (การพิสูจน์เต็มรูปแบบทุกพจน์แสดงไว้ในหัวข้อ 2.9 เฉลยแบบฝึกหัดข้อ 4) เหตุผลที่ในแนวรัศมีมีตัวแปร <span class="math">r</span> คูณอยู่ข้างในอนุพันธ์ เป็นเพราะเมื่อความร้อนไหลออกไปตามแนวรัศมี พื้นที่ผิวโค้งตั้งฉาก <span class="math">A<sub>r</sub> = (r dφ) dz</span> จะ <strong>ขยายใหญ่ขึ้นตามรัศมี <span class="math">r</span></strong> ดังนั้นอัตราความร้อนที่เข้าผิวในคือ <span class="math">q<sub>r</sub> = −k (r dφ dz)(∂T/∂r)</span> เมื่อหาผลต่าง <span class="math">q<sub>r</sub> − q<sub>r+dr</sub> = −(∂q<sub>r</sub>/∂r)dr = ∂/∂r[k r (∂T/∂r)] dr dφ dz</span> แล้วหารด้วยปริมาตร <span class="math">dV = r dr dφ dz</span> จึงเกิดเป็นพจน์ <span class="math">(1/r) ∂/∂r(k r ∂T/∂r)</span> ขึ้นมา</p>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 2 บทนำสู่การนำความร้อน</span>
+        <span>หน้า 9</span>
+    </footer>
+</section>
+
+<!-- page 10 budget (Compact): h3 11 + prose 110 + svg 35mm 84 + box chrome 24 + box-eq 155 + prose 120 + 5 gaps 40 = 544 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h3>2.4.3 ระบบพิกัดทรงกลม (2.3.3 Spherical Coordinates) และการพิสูจน์สมการ</h3>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 32–33]</span> สำหรับระบบที่มีรูปทรงกลม เช่น ถังเก็บแก๊สเหลวทรงกลม เม็ดตัวเร่งปฏิกิริยาเคมี หรือหยดของเหลว เราใช้ <strong>ระบบพิกัดทรงกลม (Spherical coordinates: <span class="math">r, φ, θ</span>)</strong> โดยที่ <span class="math">r</span> คือรัศมีจากจุดกำเนิด, <span class="math">θ</span> คือมุมโพลาร์หรือมุมเซนิทที่วัดกางลงมาจากแกนตั้ง <span class="math">z</span> (<span class="math">0 ≤ θ ≤ π</span>), และ <span class="math">φ</span> คือมุมอะซิมุทในระนาบ <span class="math">x-y</span> (<span class="math">0 ≤ φ ≤ 2π</span>) ดังรูปที่ 2.7</p>
+
+        <figure>
+            <svg viewBox="0 0 720 130" style="width: 100%; height: 34mm;" role="img">
+                <title>ระบบพิกัดทรงกลม (r, φ, θ) และปริมาตรควบคุมเชิงอนุพันธ์ dr · r sinθ dφ · r dθ (Figure 2.10)</title>
+                <!-- Left: Spherical coordinates definition -->
+                <rect x="5" y="5" width="265" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="137" y="19" font-size="8.5" font-weight="bold" fill="#0f172a" text-anchor="middle">1. นิยามพิกัดทรงกลม T(r, φ, θ) (สไลด์หน้า 32)</text>
+                <line x1="95" y1="88" x2="95" y2="25" stroke="#1e293b" stroke-width="1.5"></line><text x="88" y="30" font-size="9.5" font-weight="bold">z</text>
+                <line x1="95" y1="88" x2="215" y2="88" stroke="#1e293b" stroke-width="1.5"></line><text x="220" y="91" font-size="9.5" font-weight="bold">y</text>
+                <line x1="95" y1="88" x2="45" y2="115" stroke="#1e293b" stroke-width="1.5"></line><text x="35" y="118" font-size="9.5" font-weight="bold">x</text>
+                <!-- Vector r -->
+                <line x1="95" y1="88" x2="155" y2="45" stroke="#dc2626" stroke-width="2"></line>
+                <circle cx="155" cy="45" r="4" fill="#dc2626"></circle>
+                <text x="195" y="45" font-size="9" font-weight="bold" fill="#dc2626">T(r, φ, θ)</text>
+                <text x="132" y="72" font-size="9.5" font-weight="bold" fill="#dc2626">r</text>
+                <!-- Projection to xy -->
+                <line x1="155" y1="45" x2="155" y2="102" stroke="#64748b" stroke-dasharray="2,2"></line>
+                <line x1="95" y1="88" x2="155" y2="102" stroke="#64748b" stroke-dasharray="2,2"></line>
+                <text x="108" y="52" font-size="9.5" font-weight="bold" fill="#15803d">θ</text>
+                <text x="95" y="112" font-size="9.5" font-weight="bold" fill="#1e3a8a">φ</text>
+
+                <!-- Right: Figure 2.10 Differential spherical element -->
+                <rect x="280" y="5" width="435" height="120" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="497" y="19" font-size="9" font-weight="bold" fill="#0f172a" text-anchor="middle">2. ปริมาตรควบคุมเชิงอนุพันธ์ dV = dr · (r sinθ dφ) · (r dθ) (Figure 2.10)</text>
+                <polygon points="415,52 495,42 535,58 445,70" fill="#ffedd5" stroke="#9a3412" stroke-width="1.5"></polygon>
+                <polygon points="415,52 445,70 445,105 415,88" fill="#fff7ed" stroke="#9a3412" stroke-width="1.5"></polygon>
+                <polygon points="445,70 535,58 535,95 445,105" fill="#fed7aa" stroke="#9a3412" stroke-width="1.5"></polygon>
+                <text x="455" y="36" font-size="9" font-weight="bold" fill="#1e3a8a">ด้านทิศ φ = r sinθ dφ</text>
+                <text x="368" y="72" font-size="9" font-weight="bold" fill="#15803d">ด้านทิศ θ = r dθ</text>
+                <text x="392" y="104" font-size="9" font-weight="bold" fill="#c2410c">หนา = dr</text>
+                <text x="615" y="55" font-size="8.5" font-weight="bold" fill="#dc2626">q_r → q_(r+dr)</text>
+                <text x="615" y="75" font-size="8.5" font-weight="bold" fill="#1e3a8a">q_φ → q_(φ+dφ)</text>
+                <text x="615" y="95" font-size="8.5" font-weight="bold" fill="#15803d">q_θ → q_(θ+dθ)</text>
+                <text x="497" y="118" font-size="8.5" fill="#334155" text-anchor="middle">ปริมาตร dV = r² sinθ dr dθ dφ | พื้นที่ตั้งฉากแนวรัศมี A_r = r² sinθ dθ dφ</text>
+            </svg>
+            <figcaption><strong>รูปที่ 2.7</strong> <span class="tag-src">[ต้นฉบับ: Figure 2.10 สไลด์หน้า 32–33]</span> ระบบพิกัดทรงกลม (<span class="math">r, φ, θ</span>) และปริมาตรควบคุมเชิงอนุพันธ์ <span class="math">dV = dr · r sinθ dφ · r dθ</span></figcaption>
+        </figure>
+
+        <div class="box-eq">
+            <h4>เวกเตอร์ฟลักซ์ความร้อนและสมการการแพร่ความร้อนในพิกัดทรงกลม</h4>
+            <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 32–33]</span> ในระบบพิกัดทรงกลม ระยะทางเชิงเส้นตามแนวทั้งสามแกนคือ <span class="math">ds<sub>r</sub> = dr</span>, <span class="math">ds<sub>φ</sub> = r sinθ dφ</span>, และ <span class="math">ds<sub>θ</sub> = r dθ</span> ดังนั้นเวกเตอร์ฟลักซ์ความร้อนในแนวรัศมี (<span class="math">r</span>), แนวอะซิมุท (<span class="math">φ</span>), และแนวโพลาร์ (<span class="math">θ</span>) คือ:</p>
+            <div class="eq-Display">
+                <span><span class="math-vec">q&#39;&#39;</span> = −<span class="math">k</span> ∇<span class="math">T</span> = −<span class="math">k</span> <span class="math-rm">(</span><span class="math-vec">i</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂r</span></span></span> + <span class="math-vec">j</span> <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r sinθ</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂φ</span></span></span> + <span class="math-vec">k</span> <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂θ</span></span></span><span class="math-rm">)</span>  ⇒  <span class="math">q<sub>r</sub>&#39;&#39;</span> = −<span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂r</span></span></span> ,   <span class="math">q<sub>φ</sub>&#39;&#39;</span> = −<span class="frac"><span class="frac-num"><span class="math">k</span></span><span class="frac-den"><span class="math">r sinθ</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂φ</span></span></span> ,   <span class="math">q<sub>θ</sub>&#39;&#39;</span> = −<span class="frac"><span class="frac-num"><span class="math">k</span></span><span class="frac-den"><span class="math">r</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂θ</span></span></span></span>
+                <span class="eq-num">(สมการที่ 2.15)</span>
+            </div>
+            <p>และเมื่อตั้งสมดุลพลังงานกับปริมาตรควบคุมเชิงอนุพันธ์ <span class="math">dV = r<sup>2</sup> sinθ dr dθ dφ</span> จะได้ <strong>สมการการแพร่ความร้อนในระบบพิกัดทรงกลม</strong>:</p>
+            <div class="eq-Display">
+                <span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r<sup>2</sup></span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">(</span><span class="math">k r<sup>2</sup></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r<sup>2</sup> sin<sup>2</sup>θ</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r<sup>2</sup> sinθ</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂θ</span></span></span><span class="math-rm">(</span><span class="math">k sinθ</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂θ</span></span></span><span class="math-rm">)</span> + <span class="math">q̇</span> = <span class="math">ρ c<sub>p</sub></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂t</span></span></span></span>
+                <span class="eq-num">(สมการที่ 2.16)</span>
+            </div>
+        </div>
+
+        <p><span class="tag-sup">[เสริมพื้นฐาน: สูตรลัดรวมทั้ง 3 ระบบพิกัดสำหรับการนำความร้อน 1 มิติตามแนวรัศมี]</span> สังเกตความคล้ายคลึงกันอย่างน่าทึ่งของพจน์แรกสุดในสมการที่ 2.9, 2.14, และ 2.16 เมื่อมีการนำความร้อนใน 1 มิติตามแนวพิกัดหลัก <span class="math">r</span> (โดยให้ <span class="math">r = x</span> สำหรับพิกัดฉาก) เราสามารถเขียนสมการเดียวที่ครอบคลุมทั้ง 3 ระบบพิกัดได้คือ: <strong><span class="math">(1/r<sup>n</sup>) ∂/∂r [k r<sup>n</sup> (∂T/∂r)] + q̇ = ρ c<sub>p</sub> (∂T/∂t)</span></strong> โดยที่ <span class="math">n = 0</span> สำหรับผนังราบ (พื้นที่คงที่), <span class="math">n = 1</span> สำหรับทรงกระบอก (พื้นที่แปรผันกับ <span class="math">r<sup>1</sup></span>), และ <span class="math">n = 2</span> สำหรับทรงกลม (พื้นที่แปรผันกับ <span class="math">r<sup>2</sup></span>)</p>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 2 บทนำสู่การนำความร้อน</span>
+        <span>หน้า 10</span>
+    </footer>
+</section>
+
+<!-- page 11 budget (Compact): box-example 480 + 2 gaps 16 = 496 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <div class="box-example">
+            <h4>ตัวอย่างที่ 2.2 (Example 2.2): การประยุกต์ใช้กฎของฟูริเยร์และสมการการแพร่ความร้อนในสภาวะไม่คงตัว</h4>
+            <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 34–36]</span> <span class="tag-inf">[เติมเต็มสไลด์]</span> <strong>โจทย์:</strong> ณ ขณะเวลาหนึ่ง การกระจายของอุณหภูมิภายในผนังหนา <span class="math">L = 1</span> <span class="math-rm">m</span> มีความสัมพันธ์เป็นฟังก์ชันพาราโบลาดังนี้:</p>
+            <div class="eq-Display">
+                <span><span class="math">T(x)</span> = <span class="math">a + b x + c x<sup>2</sup></span></span>
+                <span class="eq-num">(สมการโจทย์ 2.2)</span>
+            </div>
+            <p>โดยที่ <span class="math">T</span> มีหน่วยเป็นองศาเซลเซียส (<span class="math-rm">°C</span>) และ <span class="math">x</span> มีหน่วยเป็นเมตร (<span class="math-rm">m</span>) ค่าคงที่คือ <span class="math">a = 900</span> <span class="math-rm">°C</span>, <span class="math">b = −300</span> <span class="math-rm">°C/m</span>, และ <span class="math">c = −50</span> <span class="math-rm">°C/m<sup>2</sup></span> ภายในผนังมีการผลิตความร้อนอย่างสม่ำเสมอด้วยอัตรา <span class="math">q̇ = 1,000</span> <span class="math-rm">W/m<sup>3</sup></span> ผนังมีพื้นที่หน้าตัด <span class="math">A = 10</span> <span class="math-rm">m<sup>2</sup></span> และมีสมบัติของวัสดุคือ <span class="math">ρ = 1,600</span> <span class="math-rm">kg/m<sup>3</sup></span>, <span class="math">k = 40</span> <span class="math-rm">W/(m·K)</span>, และ <span class="math">c<sub>p</sub> = 4</span> <span class="math-rm">kJ/(kg·K)</span> = <span class="math">4,000</span> <span class="math-rm">J/(kg·K)</span><br>
+            (1) จงหาอัตราการถ่ายเทความร้อนที่ไหลเข้าสู่ผนัง (<span class="math">x = 0</span>) และที่ไหลออกจากผนัง (<span class="math">x = 1</span> <span class="math-rm">m</span>)<br>
+            (2) จงหาอัตราการเปลี่ยนแปลงพลังงานที่สะสมอยู่ภายในผนัง (<span class="math">Ė<sub>st</sub></span>)<br>
+            (3) จงหาอัตราการเปลี่ยนแปลงของอุณหภูมิเทียบกับเวลา (<span class="math">∂T/∂t</span>) ที่ตำแหน่ง <span class="math">x = 0</span>, <span class="math">0.25</span>, และ <span class="math">0.5</span> <span class="math-rm">m</span></p>
+            <hr style="border: 0; border-top: 1px dashed #86efac; margin: 6px 0;">
+            <p><strong>วิธีทำอย่างละเอียด (เติมช่องว่างและส่วนที่ถูกตัดในสไลด์หน้า 35–36 ให้สมบูรณ์):</strong></p>
+            <ul>
+                <li><strong>ขั้นที่ 1 หาอนุพันธ์ของฟังก์ชันอุณหภูมิเทียบกับตำแหน่ง <span class="math">x</span>:</strong>
+                    <div class="eq-Display">
+                        <span><span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂x</span></span></span> = <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂x</span></span></span>(<span class="math">a + bx + cx<sup>2</sup></span>) = <span class="math">b + 2cx</span>    และอนุพันธ์อันดับสอง:    <span class="frac"><span class="frac-num"><span class="math">∂<sup>2</sup>T</span></span><span class="frac-den"><span class="math">∂x<sup>2</sup></span></span></span> = <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂x</span></span></span>(<span class="math">b + 2cx</span>) = 2<span class="math">c</span></span>
+                        <span class="eq-num">(2.2a)</span>
+                    </div>
+                </li>
+                <li><strong>คำนวณข้อ (1) อัตราความร้อนไหลเข้าที่ <span class="math">x = 0</span> (<span class="math">q<sub>in</sub></span>) และไหลออกที่ <span class="math">x = L = 1</span> <span class="math-rm">m</span> (<span class="math">q<sub>out</sub></span>):</strong>
+                    <p>ใช้กฎของฟูริเยร์ <span class="math">q<sub>x</sub>(x) = −k A (∂T/∂x) = −k A (b + 2cx)</span> แทนค่าที่ขอบเขตทั้งสองด้าน (เติมคำตอบในสไลด์หน้า 35):</p>
+                    <div class="eq-Display">
+                        <span><span class="math">q<sub>in</sub></span> = <span class="math">q<sub>x</sub></span>(0) = −<span class="math">k A</span> (<span class="math">b</span> + 0) = −<span class="math">b k A</span> = −(−300 <span class="math-rm">°C/m</span>)(40 <span class="math-rm">W/(m·K)</span>)(10 <span class="math-rm">m<sup>2</sup></span>) = <strong>120,000 <span class="math-rm">W</span> = 120 <span class="math-rm">kW</span></strong></span>
+                        <span class="eq-num">(2.2b)</span>
+                    </div>
+                    <div class="eq-Display">
+                        <span><span class="math">q<sub>out</sub></span> = <span class="math">q<sub>x</sub></span>(<span class="math">L</span>) = −<span class="math">k A</span> (<span class="math">b + 2cL</span>) = −[−300 + 2(−50)(1)] × 40 × 10 = −(−400) × 400 = <strong>160,000 <span class="math-rm">W</span> = 160 <span class="math-rm">kW</span></strong></span>
+                        <span class="eq-num">(2.2c)</span>
+                    </div>
+                </li>
+                <li><strong>คำนวณข้อ (2) อัตราการเปลี่ยนแปลงพลังงานสะสมในผนังทั้งก้อน (<span class="math">Ė<sub>st</sub></span>):</strong>
+                    <p>กำหนดปริมาตรควบคุมครอบคลุมผนังทั้งก้อน (ปริมาตร <span class="math">V = A L = 10 × 1 = 10</span> <span class="math-rm">m<sup>3</sup></span>) จากสมการอนุรักษ์พลังงาน (กู้คืนบรรทัดล่างสุดของสไลด์หน้า 35 ที่ถูกตัดข้อความ <code>Est = -30...</code>):</p>
+                    <div class="eq-Display">
+                        <span><span class="math">Ė<sub>st</sub></span> = <span class="math">Ė<sub>in</sub> + Ė<sub>g</sub> − Ė<sub>out</sub></span> = <span class="math">q<sub>in</sub> + q̇ A L − q<sub>out</sub></span> = 120 <span class="math-rm">kW</span> + <span class="frac"><span class="frac-num">(1,000 <span class="math-rm">W/m<sup>3</sup></span>)(10 <span class="math-rm">m<sup>2</sup></span>)(1 <span class="math-rm">m</span>)</span><span class="frac-den">1,000 <span class="math-rm">W/kW</span></span></span> − 160 <span class="math-rm">kW</span> = 120 + 10 − 160 = <strong>−30 <span class="math-rm">kW</span> (−30,000 <span class="math-rm">W</span>)</strong></span>
+                        <span class="eq-num">(2.2d)</span>
+                    </div>
+                    <p><em>ความหมายของเครื่องหมายลบ:</em> เนื่องจากความร้อนไหลออก (<span class="math">160</span> <span class="math-rm">kW</span>) มีค่ามากกว่าผลรวมของความร้อนที่ไหลเข้ากับที่ผลิตขึ้นภายใน (<span class="math">120 + 10 = 130</span> <span class="math-rm">kW</span>) พลังงานความร้อนสะสมภายในผนังจึงกำลังลดลงในอัตรา <span class="math">30</span> <span class="math-rm">kJ</span> ต่อวินาที (ผนังกำลังเย็นตัวลง)</p>
+                </li>
+                <li><strong>คำนวณข้อ (3) อัตราการเปลี่ยนแปลงอุณหภูมิเทียบกับเวลา (<span class="math">∂T/∂t</span>) ณ ตำแหน่ง <span class="math">x = 0, 0.25, 0.5</span> <span class="math-rm">m</span>:</strong>
+                    <p>สำหรับการนำความร้อน 1 มิติที่มี <span class="math">k</span> คงตัว จากสมการการแพร่ความร้อน (สมการที่ 2.9 และสไลด์หน้า 36):</p>
+                    <div class="eq-Display">
+                        <span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂<sup>2</sup>T</span></span><span class="frac-den"><span class="math">∂x<sup>2</sup></span></span></span> + <span class="math">q̇</span> = <span class="math">ρ c<sub>p</sub></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂t</span></span></span>    ⇒    <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂t</span></span></span> = <span class="frac"><span class="frac-num"><span class="math">k</span></span><span class="frac-den"><span class="math">ρ c<sub>p</sub></span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂<sup>2</sup>T</span></span><span class="frac-den"><span class="math">∂x<sup>2</sup></span></span></span> + <span class="frac"><span class="frac-num"><span class="math">q̇</span></span><span class="frac-den"><span class="math">ρ c<sub>p</sub></span></span></span> = <span class="frac"><span class="frac-num"><span class="math">k</span> (2<span class="math">c</span>) + <span class="math">q̇</span></span><span class="frac-den"><span class="math">ρ c<sub>p</sub></span></span></span></span>
+                        <span class="eq-num">(2.2e)</span>
+                    </div>
+                    <p>เนื่องจากอนุพันธ์อันดับสองมีค่าคงตัวคือ <span class="math">∂<sup>2</sup>T/∂x<sup>2</sup> = 2c = 2(−50</span> <span class="math-rm">°C/m<sup>2</sup></span>) = <strong>−100 <span class="math-rm">°C/m<sup>2</sup></span> (หรือ −100 <span class="math-rm">K/m<sup>2</sup></span>)</strong> ซึ่งไม่ขึ้นกับตำแหน่ง <span class="math">x</span> เลย ดังนั้น <strong>อัตราการเปลี่ยนแปลงอุณหภูมิเทียบกับเวลา (<span class="math">∂T/∂t</span>) จึงมีค่าเท่ากันทุกจุดในผนัง (ทั้งที่ <span class="math">x = 0, 0.25</span> และ <span class="math">0.5</span> <span class="math-rm">m</span>)</strong> โดยมีค่าเท่ากับ:</p>
+                    <div class="eq-Display">
+                        <span><span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂t</span></span></span> = <span class="frac"><span class="frac-num">40 <span class="math-rm">W/(m·K)</span> × (−100 <span class="math-rm">K/m<sup>2</sup></span>) + 1,000 <span class="math-rm">W/m<sup>3</sup></span></span><span class="frac-den">1,600 <span class="math-rm">kg/m<sup>3</sup></span> × 4,000 <span class="math-rm">J/(kg·K)</span></span></span> = <span class="frac"><span class="frac-num">−4,000 + 1,000</span><span class="frac-den">6.4 × 10<sup>6</sup></span></span> = <span class="frac"><span class="frac-num">−3,000</span><span class="frac-den">6.4 × 10<sup>6</sup></span></span> = <strong>−4.69 × 10<sup>−4</sup> <span class="math-rm">°C/s</span> (หรือ −4.69 × 10<sup>−4</sup> <span class="math-rm">K/s</span>)</strong></span>
+                        <span class="eq-num">(ตอบ)</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 2 บทนำสู่การนำความร้อน</span>
+        <span>หน้า 11</span>
+    </footer>
+</section>
+
+<!-- page 12 budget (Compact): h2 11 + prose 115 + svg 35mm 84 + box chrome 24 + table 5 rows 85 + box-warn 140 + 5 gaps 40 = 499 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h2>2.5 เงื่อนไขขอบเขตและเงื่อนไขเริ่มต้น (2.4 Boundary and Initial Conditions)</h2>
+        <p><span class="tag-src">[ต้นฉบับ: สไลด์หน้า 37–39]</span> <span class="tag-sup">[เสริมพื้นฐาน]</span> สมการการแพร่ความร้อน (สมการที่ 2.9) เป็นสมการเชิงอนุพันธ์ย่อยที่มีอนุพันธ์อันดับสองเทียบกับตำแหน่งพิกัด (<span class="math">∂<sup>2</sup>T/∂x<sup>2</sup></span>) และอนุพันธ์อันดับหนึ่งเทียบกับเวลา (<span class="math">∂T/∂t</span>) ในทางคณิตศาสตร์ เมื่อเราอินทิเกรตสมการนี้เพื่อหาฟังก์ชันอุณหภูมิ <span class="math">T(x, t)</span> จะเกิดค่าคงที่ของการอินทิเกรตติดอยู่เสมอ ดังนั้น เพื่อให้ได้ผลเฉลยที่เจาะจงสำหรับปัญหาหนึ่งๆ เราจำเป็นต้องระบุ: (1) <strong>เงื่อนไขขอบเขต (Boundary Conditions, B.C.) จำนวน 2 เงื่อนไขต่อ 1 พิกัดตำแหน่ง</strong> (เพราะเป็นอนุพันธ์อันดับสอง) เพื่ออธิบายสภาวะทางกายภาพที่พื้นผิวขอบเขตของวัตถุ และ (2) <strong>เงื่อนไขเริ่มต้น (Initial Condition, I.C.) จำนวน 1 เงื่อนไข</strong> (เช่น <span class="math">T(x, 0) = T<sub>i</sub></span>) หากเป็นปัญหาสภาวะไม่คงตัวที่ขึ้นกับเวลา</p>
+
+        <figure>
+            <svg viewBox="0 0 720 125" style="width: 100%; height: 33mm;" role="img">
+                <title>เงื่อนไขขอบเขตทั้ง 3 ชนิดสำหรับสมการการแพร่ความร้อนที่พื้นผิว x = 0 (Table 2.1)</title>
+                <!-- 1. Constant surface temperature -->
+                <rect x="5" y="5" width="172" height="115" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="91" y="18" font-size="8" font-weight="bold" fill="#0f172a" text-anchor="middle">1. อุณหภูมิพื้นผิวคงตัว (Dirichlet)</text>
+                <rect x="45" y="28" width="95" height="62" fill="url(#rodGrad)" stroke="#64748b" stroke-dasharray="2,2"></rect>
+                <line x1="45" y1="26" x2="45" y2="92" stroke="#1e293b" stroke-width="2"></line>
+                <circle cx="45" cy="40" r="4.5" fill="#dc2626"></circle>
+                <text x="26" y="44" font-size="9.5" font-weight="bold" fill="#dc2626">Tₛ</text>
+                <path d="M 45 40 Q 85 68, 130 78" fill="none" stroke="#dc2626" stroke-width="2"></path>
+                <text x="115" y="68" font-size="8.5" font-weight="bold" fill="#dc2626">T(x, t)</text>
+                <text x="91" y="108" font-size="8.5" font-weight="bold" fill="#1e3a8a" text-anchor="middle">T(0, t) = Tₛ</text>
+
+                <!-- 2a. Finite heat flux -->
+                <rect x="184" y="5" width="172" height="115" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="270" y="18" font-size="8" font-weight="bold" fill="#0f172a" text-anchor="middle">2(a) ฟลักซ์ความร้อนคงตัว (Neumann)</text>
+                <rect x="235" y="28" width="95" height="62" fill="url(#rodGrad)" stroke="#64748b" stroke-dasharray="2,2"></rect>
+                <line x1="235" y1="26" x2="235" y2="92" stroke="#1e293b" stroke-width="2"></line>
+                <line x1="195" y1="58" x2="230" y2="58" stroke="#dc2626" stroke-width="2"></line>
+                <polygon points="228,55 234,58 228,61" fill="#dc2626"></polygon>
+                <text x="208" y="52" font-size="9" font-weight="bold" fill="#dc2626">qₛ&#39;&#39;</text>
+                <path d="M 235 38 Q 275 68, 320 78" fill="none" stroke="#dc2626" stroke-width="2"></path>
+                <!-- Tangent slope line -->
+                <line x1="222" y1="28" x2="285" y2="76" stroke="#1e293b" stroke-width="1.2" stroke-dasharray="3,2"></line>
+                <text x="270" y="108" font-size="8.5" font-weight="bold" fill="#1e3a8a" text-anchor="middle">−k (∂T/∂x)|_(x=0) = qₛ&#39;&#39;</text>
+
+                <!-- 2b. Adiabatic surface -->
+                <rect x="363" y="5" width="172" height="115" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="449" y="18" font-size="8" font-weight="bold" fill="#0f172a" text-anchor="middle">2(b) พื้นผิวหุ้มฉนวน/อะเดียแบติก</text>
+                <rect x="398" y="28" width="12" height="62" fill="#e2e8f0" stroke="#64748b"></rect>
+                <rect x="410" y="28" width="95" height="62" fill="url(#rodGrad)" stroke="#64748b" stroke-dasharray="2,2"></rect>
+                <line x1="410" y1="26" x2="410" y2="92" stroke="#1e293b" stroke-width="2"></line>
+                <!-- Zero slope horizontal tangent -->
+                <line x1="375" y1="45" x2="465" y2="45" stroke="#1e293b" stroke-width="1.2" stroke-dasharray="4,2"></line>
+                <path d="M 410 45 Q 455 45, 495 75" fill="none" stroke="#dc2626" stroke-width="2"></path>
+                <text x="449" y="108" font-size="8.5" font-weight="bold" fill="#1e3a8a" text-anchor="middle">(∂T/∂x)|_(x=0) = 0 (ความชัน = 0)</text>
+
+                <!-- 3. Convection surface condition -->
+                <rect x="542" y="5" width="173" height="115" fill="#ffffff" stroke="#94a3b8"></rect>
+                <text x="628" y="18" font-size="8" font-weight="bold" fill="#0f172a" text-anchor="middle">3. การพาความร้อนที่พื้นผิว (Robin)</text>
+                <rect x="605" y="28" width="95" height="62" fill="url(#rodGrad)" stroke="#64748b" stroke-dasharray="2,2"></rect>
+                <line x1="605" y1="26" x2="605" y2="92" stroke="#1e293b" stroke-width="2"></line>
+                <ellipse cx="574" cy="52" rx="24" ry="12" fill="#ffedd5" stroke="#fdba74"></ellipse>
+                <text x="574" y="55" font-size="8" font-weight="bold" fill="#9a3412" text-anchor="middle">T_∞ , h</text>
+                <circle cx="605" cy="48" r="3.5" fill="#1e293b"></circle>
+                <text x="580" y="34" font-size="8" font-weight="bold" fill="#1e293b">T(0, t)</text>
+                <path d="M 605 48 Q 645 72, 690 80" fill="none" stroke="#dc2626" stroke-width="2"></path>
+                <text x="628" y="108" font-size="8" font-weight="bold" fill="#1e3a8a" text-anchor="middle">−k (∂T/∂x)|_(x=0) = h[T_∞ − T(0,t)]</text>
+            </svg>
+            <figcaption><strong>รูปที่ 2.8</strong> <span class="tag-src">[ต้นฉบับ: Table 2.1 สไลด์หน้า 37–39]</span> แผนภาพและสมการของเงื่อนไขขอบเขตทั้ง 3 ชนิดที่พื้นผิว <span class="math">x = 0</span></figcaption>
+        </figure>
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 28%;">ชนิดของเงื่อนไขขอบเขต (ที่ <span class="math">x = 0</span>)</th>
+                    <th scope="col" style="width: 28%;">สมการคณิตศาสตร์ (Mathematical Form)</th>
+                    <th scope="col" style="width: 44%;">ความหมายทางกายภาพและสถานการณ์ที่พบจริง <span class="tag-sup">[เสริมพื้นฐาน]</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1. อุณหภูมิพื้นผิวคงตัว</strong><br>(Constant surface temperature / เงื่อนไขชนิดที่ 1 หรือ Dirichlet condition)</td>
+                    <td><span class="math">T</span>(0, <span class="math">t</span>) = <span class="math">T<sub>s</sub></span></td>
+                    <td>พื้นผิวสัมผัสกับแหล่งความร้อนที่มีการเปลี่ยนสถานะ (เช่น ไอน้ำควบแน่น หรือน้ำแข็งกำลังละลาย) หรือถูกควบคุมอุณหภูมิให้คงตัวที่ค่า <span class="math">T<sub>s</sub></span></td>
+                </tr>
+                <tr>
+                    <td><strong>2(a) ฟลักซ์ความร้อนที่พื้นผิวคงตัว</strong><br>(Finite surface heat flux / เงื่อนไขชนิดที่ 2 หรือ Neumann condition)</td>
+                    <td>−<span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂x</span></span></span><span class="math-rm">|</span><sub><span class="math">x</span>=0</sub> = <span class="math">q<sub>s</sub>&#39;&#39;</span></td>
+                    <td>พื้นผิวถูกติดตั้งแผ่นทำความร้อนไฟฟ้าแบบบาง (Electric strip heater) หรือรับรังสีความร้อนที่มีความเข้มคงตัว <span class="math">q<sub>s</sub>&#39;&#39;</span> (ทำให้ความชันของกราฟที่ผิวมีค่าคงตัว)</td>
+                </tr>
+                <tr>
+                    <td><strong>2(b) พื้นผิวอะเดียแบติกหรือหุ้มฉนวน</strong><br>(Adiabatic or insulated surface)</td>
+                    <td><span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂x</span></span></span><span class="math-rm">|</span><sub><span class="math">x</span>=0</sub> = 0</td>
+                    <td>เป็นกรณีพิเศษของข้อ 2(a) เมื่อ <span class="math">q<sub>s</sub>&#39;&#39; = 0</span> เกิดขึ้นเมื่อพื้นผิวถูกหุ้มด้วยฉนวนสมบูรณ์ หรือเป็น <strong>ระนาบสมมาตร (Plane of symmetry)</strong> ความชันของกราฟ <span class="math">T(x)</span> ที่จุดนี้จะอยู่ในแนวราบ (ความชัน = 0)</td>
+                </tr>
+                <tr>
+                    <td><strong>3. การพาความร้อนที่พื้นผิว</strong><br>(Convection surface condition / เงื่อนไขชนิดที่ 3 หรือ Robin condition)</td>
+                    <td>−<span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂x</span></span></span><span class="math-rm">|</span><sub><span class="math">x</span>=0</sub> = <span class="math">h</span>[<span class="math">T<sub>∞</sub> − T</span>(0, <span class="math">t</span>)]</td>
+                    <td>ได้จากการตั้งสมดุลพลังงานที่พื้นผิว (<span class="math">q<sub>cond</sub>&#39;&#39; = q<sub>conv</sub>&#39;&#39;</span>) เมื่อของไหลที่อุณหภูมิ <span class="math">T<sub>∞</sub></span> พาความร้อนเข้าสู่พื้นผิวที่ <span class="math">x = 0</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 8pt; color: #475569;"><strong>ตารางที่ 2.2</strong> <span class="tag-src">[ต้นฉบับ: Table 2.1 สไลด์หน้า 37–39]</span> สรุปเงื่อนไขขอบเขตสำหรับสมการการแพร่ความร้อนที่พื้นผิว <span class="math">x = 0</span></p>
+
+        <div class="box-warn">
+            <h4>2.6 ข้อผิดพลาดที่พบบ่อยในการใช้สมการการแพร่ความร้อนและเงื่อนไขขอบเขต</h4>
+            <ul>
+                <li><strong>ข้อผิดพลาดที่ 1 ดึง <span class="math">k</span> ออกนอกอนุพันธ์เมื่อ <span class="math">k</span> ไม่คงตัว:</strong> หากโจทย์กำหนดให้สภาพนำความร้อนขึ้นกับอุณหภูมิ เช่น <span class="math">k(T) = k<sub>0</sub>(1 + βT)</span> ห้ามใช้สมการ <span class="math">∂<sup>2</sup>T/∂x<sup>2</sup> = 0</span> อย่างเด็ดขาด ต้องใช้รูปตั้งต้น <span class="math">d/dx[k(T) dT/dx] = 0</span> เสมอ</li>
+                <li><strong>ข้อผิดพลาดที่ 2 เครื่องหมายบวก/ลบในเงื่อนไขขอบเขตการพาความร้อนที่ผิว <span class="math">x = 0</span> กับ <span class="math">x = L</span>:</strong> ที่ผิวซ้าย (<span class="math">x = 0</span>) ความร้อนไหลเข้าในทิศ <span class="math">+x</span> สมดุลพลังงานคือ <span class="math">h[T<sub>∞,1</sub> − T(0)] = −k(∂T/∂x)|<sub>x=0</sub></span> แต่ที่ผิวขวา (<span class="math">x = L</span>) ความร้อนนำมาในทิศ <span class="math">+x</span> แล้วพาออกสู่ของไหล สมดุลพลังงานคือ <span class="math">−k(∂T/∂x)|<sub>x=L</sub> = h[T(L) − T<sub>∞,2</sub>]</span> สังเกตลำดับการลบของอุณหภูมิให้ตรงกับทิศทางการไหลของความร้อนเสมอ!</li>
+            </ul>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 2 บทนำสู่การนำความร้อน</span>
+        <span>หน้า 12</span>
+    </footer>
+</section>
+
+<!-- page 13 budget (Compact): h2 11 + prose 75 + h2 11 + ol 100 + h2 11 + ul 280 + 5 gaps 40 = 528 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h2>2.7 สรุปท้ายบทและความเชื่อมโยงสู่บทที่ 3 (Summary and Connection to Chapter 3)</h2>
+        <p><span class="tag-sup">[เสริมพื้นฐาน]</span> ในบทที่ 2 นี้ เราได้สร้างรากฐานทางทฤษฎีที่สมบูรณ์ของการนำความร้อน ได้แก่ กฎของฟูริเยร์ในรูปเวกเตอร์ 3 มิติ (<span class="math-vec">q&#39;&#39;</span> = −<span class="math">k</span>∇<span class="math">T</span>) สมบัติทางเทอร์โมฟิสิกส์ของสสาร (<span class="math">k</span> และ <span class="math">α = k/ρc<sub>p</sub></span>) สมการการแพร่ความร้อนในระบบพิกัดฉาก พิกัดทรงกระบอก และพิกัดทรงกลม ตลอดจนเงื่อนไขขอบเขตทั้ง 3 ชนิด ใน <strong>บทที่ 3 (One-Dimensional, Steady-State Conduction)</strong> เราจะนำสมการการแพร่ความร้อนและเงื่อนไขขอบเขตในบทนี้ไปอินทิเกรตหาผลเฉลยของการกระจายอุณหภูมิ <span class="math">T(x)</span> และ <span class="math">T(r)</span> ในผนังราบ ท่อทรงกระบอก และถังทรงกลม ทั้งกรณีที่ไม่มีการผลิตความร้อนและกรณีที่มีการผลิตความร้อนภายใน</p>
+
+        <h2>2.8 คำถามทบทวนแนวคิดท้ายบท (Review Questions)</h2>
+        <ol>
+            <li>เหตุใดเวกเตอร์ฟลักซ์ความร้อน (<span class="math-vec">q&#39;&#39;</span>) ในวัสดุไอโซทรอปิกจึงตั้งฉากกับเส้นไอโซเทอร์ม (Isotherms) เสมอ?</li>
+            <li>จงอธิบายด้วยกลไกระดับจุลภาค (อิเล็กตรอนอิสระและโฟนอน) ว่าเหตุใดโลหะบริสุทธิ์จึงมีค่า <span class="math">k</span> ลดลงเมื่ออุณหภูมิสูงขึ้น ในขณะที่แก๊สทุกชนิดกลับมีค่า <span class="math">k</span> เพิ่มขึ้นเมื่ออุณหภูมิสูงขึ้น?</li>
+            <li>ระหว่างท่อนเหล็กกล้าไร้สนิมกับท่อนอะลูมิเนียมที่มีขนาดเท่ากัน หากจุ่มปลายด้านหนึ่งลงในน้ำเดือดพร้อมกัน วัสดุชนิดใดจะมีอุณหภูมิที่ปลายอีกด้านหนึ่งสูงขึ้นเร็วกว่ากัน? สมบัติใดเป็นตัวควบคุมปรากฏการณ์นี้?</li>
+            <li>ที่ระนาบสมมาตร (Plane of symmetry) ของผนังที่มีการให้ความร้อนอย่างสมมาตรทั้งสองด้าน เหตุใดเราจึงสามารถแทนระนาบสมมาตรนั้นด้วยเงื่อนไขขอบเขตพื้นผิวอะเดียแบติก (<span class="math">∂T/∂x = 0</span>) ได้?</li>
+        </ol>
+
+        <h2>2.9 แบบฝึกหัดท้ายบท 5 ระดับ (รวมโจทย์ต้นฉบับของอาจารย์ ข้อ 4–5)</h2>
+        <h4>【ระดับที่ 1 และ 2: ตรวจสอบความเข้าใจพื้นฐานและอธิบายหลักการ】</h4>
+        <ul>
+            <li><strong>ข้อ 2.A (ระดับ 1 — เวกเตอร์ฟลักซ์ความร้อน 2 มิติ):</strong> แผ่นวัสดุไอโซทรอปิกที่มีสภาพนำความร้อน <span class="math">k = 25</span> <span class="math-rm">W/(m·K)</span> มีสนามอุณหภูมิ 2 มิติในสภาวะคงตัวเป็น <span class="math">T(x, y) = 300 + 40x<sup>2</sup> − 60xy</span> (เมื่อ <span class="math">T</span> มีหน่วยเป็น <span class="math-rm">K</span> และ <span class="math">x, y</span> มีหน่วยเป็น <span class="math-rm">m</span>) จงหาองค์ประกอบของฟลักซ์ความร้อน <span class="math">q<sub>x</sub>&#39;&#39;</span> และ <span class="math">q<sub>y</sub>&#39;&#39;</span> ตลอดจนขนาดของเวกเตอร์ฟลักซ์ความร้อนลัพธ์ |<span class="math-vec">q&#39;&#39;</span>| ณ จุดพิกัด <span class="math">(x = 1</span> <span class="math-rm">m</span>, <span class="math">y = 0.5</span> <span class="math-rm">m)</span></li>
+            <li><strong>ข้อ 2.B (ระดับ 2 — การประมาณค่าสมบัติวัสดุและคำนวณ <span class="math">α</span>):</strong> จากตารางที่ 2.1 (Table A.1 สำหรับอะลูมิเนียมบริสุทธิ์) จงใช้วิธีประมาณค่าในช่วงเชิงเส้น (Linear interpolation) เพื่อหาค่า <span class="math">k</span>, <span class="math">c<sub>p</sub></span>, และคำนวณสภาพแพร่ความร้อน <span class="math">α</span> ของอะลูมิเนียมบริสุทธิ์ที่อุณหภูมิ <span class="math">500</span> <span class="math-rm">K</span></li>
+        </ul>
+
+        <h4>【ระดับที่ 3 และ 4: โจทย์ต้นฉบับในเอกสารประกอบการสอนของอาจารย์ (การพิสูจน์สมการจากปริมาตรควบคุมเชิงอนุพันธ์)】</h4>
+        <ul>
+            <li><strong>แบบฝึกหัดข้อ (4) <span class="tag-src">[ต้นฉบับ: สไลด์หน้า 40]</span>:</strong> จากระบบพิกัดทรงกระบอก จงพิสูจน์ที่มาของสมการ
+                <div class="eq-Display">
+                    <span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">(</span><span class="math">k r</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r<sup>2</sup></span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math-rm">)</span> + <span class="math">q̇</span> = <span class="math">ρ c<sub>p</sub></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂t</span></span></span></span>
+                    <span class="eq-num">(โจทย์ข้อ 4)</span>
+                </div>
+                โดยพิจารณาจากปริมาตรควบคุมเชิงอนุพันธ์ และเขียนสมการการแพร่ความร้อนในกรณีที่มีการนำความร้อน 1 มิติ
+            </li>
+            <li><strong>แบบฝึกหัดข้อ (5) <span class="tag-src">[ต้นฉบับ: สไลด์หน้า 40]</span>:</strong> จากระบบพิกัดทรงกลม จงพิสูจน์ที่มาของสมการ
+                <div class="eq-Display">
+                    <span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r<sup>2</sup></span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">(</span><span class="math">k r<sup>2</sup></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r<sup>2</sup> sin<sup>2</sup>θ</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r<sup>2</sup> sinθ</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂θ</span></span></span><span class="math-rm">(</span><span class="math">k sinθ</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂θ</span></span></span><span class="math-rm">)</span> + <span class="math">q̇</span> = <span class="math">ρ c<sub>p</sub></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂t</span></span></span></span>
+                    <span class="eq-num">(โจทย์ข้อ 5)</span>
+                </div>
+                โดยพิจารณาจากปริมาตรควบคุมเชิงอนุพันธ์ และเขียนสมการการแพร่ความร้อนในกรณีที่มีการนำความร้อน 1 มิติ
+            </li>
+        </ul>
+
+        <h4>【ระดับที่ 5: โจทย์บูรณาการระดับมหาวิทยาลัย】</h4>
+        <ul>
+            <li><strong>ข้อ 2.C (ระดับ 5 — การวิเคราะห์สมการการแพร่ความร้อนและเงื่อนไขขอบเขต):</strong> ผนังราบหนา <span class="math">L = 0.2</span> <span class="math-rm">m</span> มีค่า <span class="math">k = 20</span> <span class="math-rm">W/(m·K)</span> คงตัว ภายใต้สภาวะคงตัว (<span class="math">∂T/∂t = 0</span>) มีการกระจายอุณหภูมิเป็น <span class="math">T(x) = 400 − 2,500x<sup>2</sup></span> (หน่วย <span class="math-rm">°C</span>) โดยที่ผิวด้าน <span class="math">x = L</span> สัมผัสกับของไหลที่มีอุณหภูมิ <span class="math">T<sub>∞</sub> = 50</span> <span class="math-rm">°C</span> จงหา: (ก) อัตราการผลิตความร้อนต่อหน่วยปริมาตร <span class="math">q̇</span> ภายในผนัง, (ข) สภาวะทางกายภาพที่ผิว <span class="math">x = 0</span> คือเงื่อนไขขอบเขตชนิดใด, และ (ค) สัมประสิทธิ์การพาความร้อน <span class="math">h</span> ที่ผิว <span class="math">x = L</span> มีค่าเท่าใด?</li>
+        </ul>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 2 บทนำสู่การนำความร้อน</span>
+        <span>หน้า 13</span>
+    </footer>
+</section>
+
+<!-- page 14 budget (Compact): h2 11 + box-example 155 + box-example 370 + 3 gaps 24 = 560 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <h2>2.10 เฉลยแบบฝึกหัดท้ายบทอย่างละเอียด (Detailed Solutions)</h2>
+
+        <div class="box-example">
+            <h4>เฉลยข้อ 2.A และ 2.B (ระดับที่ 1 และ 2)</h4>
+            <ul>
+                <li><strong>เฉลยข้อ 2.A:</strong> จาก <span class="math">T(x, y) = 300 + 40x<sup>2</sup> − 60xy</span> หาอนุพันธ์ย่อยเทียบกับ <span class="math">x</span> และ <span class="math">y</span> ได้ <span class="math">∂T/∂x = 80x − 60y</span> และ <span class="math">∂T/∂y = −60x</span> แทนค่าที่จุด <span class="math">(x = 1, y = 0.5)</span> ได้ <span class="math">(∂T/∂x) = 80(1) − 60(0.5) = +50</span> <span class="math-rm">K/m</span> และ <span class="math">(∂T/∂y) = −60(1) = −60</span> <span class="math-rm">K/m</span> จากสมการที่ 2.3:
+                    <ul>
+                        <li><span class="math">q<sub>x</sub>&#39;&#39; = −k(∂T/∂x) = −25 × 50 =</span> <strong>−1,250 <span class="math-rm">W/m<sup>2</sup></span></strong> (ไหลในทิศ <span class="math">−x</span>)</li>
+                        <li><span class="math">q<sub>y</sub>&#39;&#39; = −k(∂T/∂y) = −25 × (−60) =</span> <strong>+1,500 <span class="math-rm">W/m<sup>2</sup></span></strong> (ไหลในทิศ <span class="math">+y</span>)</li>
+                        <li>ขนาดเวกเตอร์ฟลักซ์ความร้อนลัพธ์: |<span class="math-vec">q&#39;&#39;</span>| = <span class="math-rm">√[</span><span class="math">(−1,250)<sup>2</sup> + (1,500)<sup>2</sup></span><span class="math-rm">]</span> = <span class="math-rm">√(</span><span class="math">1.5625 × 10<sup>6</sup> + 2.25 × 10<sup>6</sup></span><span class="math-rm">)</span> = <strong>1,952.6 <span class="math-rm">W/m<sup>2</sup></span></strong></li>
+                    </ul>
+                </li>
+                <li><strong>เฉลยข้อ 2.B:</strong> ที่อุณหภูมิ <span class="math">T = 500</span> <span class="math-rm">K</span> (อยู่กึ่งกลางระหว่าง <span class="math">400</span> <span class="math-rm">K</span> กับ <span class="math">600</span> <span class="math-rm">K</span> ในตารางที่ 2.1) ประมาณค่าในช่วงเชิงเส้นได้: <span class="math">k(500</span> <span class="math-rm">K</span>) = <span class="math">(240 + 231)/2 =</span> <strong>235.5 <span class="math-rm">W/(m·K)</span></strong> และ <span class="math">c<sub>p</sub>(500</span> <span class="math-rm">K</span>) = <span class="math">(949 + 1,033)/2 =</span> <strong>991 <span class="math-rm">J/(kg·K)</span></strong> ดังนั้นสภาพแพร่ความร้อนคือ <span class="math">α = k / (ρ c<sub>p</sub>) = 235.5 / (2,702 × 991) = 235.5 / 2,677,682 =</span> <strong>8.79 × 10<sup>−5</sup> <span class="math-rm">m<sup>2</sup>/s</span> (หรือ 87.9 × 10<sup>−6</sup> <span class="math-rm">m<sup>2</sup>/s</span>)</strong></li>
+            </ul>
+        </div>
+
+        <div class="box-example">
+            <h4>เฉลยแบบฝึกหัดข้อ (4) <span class="tag-src">[โจทย์ต้นฉบับ สไลด์หน้า 40]</span> <span class="tag-inf">[เฉลยการพิสูจน์ทีละขั้นตอน]</span></h4>
+            <p><strong>การพิสูจน์สมการการแพร่ความร้อนในระบบพิกัดทรงกระบอก (<span class="math">r, φ, z</span>):</strong></p>
+            <ul>
+                <li><strong>ขั้นที่ 1 กำหนดปริมาตรควบคุมเชิงอนุพันธ์และพื้นที่ผิวตั้งฉากทั้ง 3 ทิศทาง:</strong>
+                    <p>พิจารณาปริมาตรควบคุมเชิงอนุพันธ์ในรูปที่ 2.6 (Figure 2.9) ซึ่งมีความยาวด้านในแนวรัศมี = <span class="math">dr</span>, ความยาวส่วนโค้งในแนวเส้นรอบวง = <span class="math">r dφ</span>, และความสูงตามแนวแกน = <span class="math">dz</span> ดังนั้นปริมาตรของก้อนธาตุนี้คือ:</p>
+                    <div class="eq-Display">
+                        <span><span class="math">dV</span> = <span class="math">dr · (r dφ) · dz</span> = <span class="math">r dr dφ dz</span></span>
+                        <span class="eq-num">(เฉลย 4.1)</span>
+                    </div>
+                    <p>พื้นที่ผิวที่ตั้งฉากกับทิศทางการไหลของความร้อนแต่ละแกนคือ: (ก) พื้นที่ตั้งฉากแนวรัศมีที่ตำแหน่ง <span class="math">r</span> คือ <span class="math">A<sub>r</sub> = r dφ dz</span>, (ข) พื้นที่ตั้งฉากแนวเส้นรอบวง <span class="math">φ</span> คือ <span class="math">A<sub>φ</sub> = dr dz</span>, และ (ค) พื้นที่ตั้งฉากแนวแกน <span class="math">z</span> คือ <span class="math">A<sub>z</sub> = r dφ dr</span></p>
+                </li>
+                <li><strong>ขั้นที่ 2 เขียนอัตราการนำความร้อนที่ไหลเข้า (<span class="math">q<sub>r</sub>, q<sub>φ</sub>, q<sub>z</sub></span>) จากกฎของฟูริเยร์ (สมการที่ 2.13):</strong>
+                    <div class="eq-Display">
+                        <span><span class="math">q<sub>r</sub></span> = <span class="math">q<sub>r</sub>&#39;&#39; A<sub>r</sub></span> = −<span class="math">k</span> (<span class="math">r dφ dz</span>) <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂r</span></span></span> ,    <span class="math">q<sub>φ</sub></span> = <span class="math">q<sub>φ</sub>&#39;&#39; A<sub>φ</sub></span> = −<span class="frac"><span class="frac-num"><span class="math">k</span></span><span class="frac-den"><span class="math">r</span></span></span> (<span class="math">dr dz</span>) <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂φ</span></span></span> ,    <span class="math">q<sub>z</sub></span> = <span class="math">q<sub>z</sub>&#39;&#39; A<sub>z</sub></span> = −<span class="math">k</span> (<span class="math">r dφ dr</span>) <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂z</span></span></span></span>
+                        <span class="eq-num">(เฉลย 4.2)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 3 กระจายอนุกรมเทย์เลอร์สำหรับอัตราความร้อนไหลออก แล้วหาผลต่างสุทธิ (<span class="math">Ė<sub>in</sub> − Ė<sub>out</sub></span>):</strong>
+                    <p>จาก <span class="math">q<sub>r+dr</sub> = q<sub>r</sub> + (∂q<sub>r</sub>/∂r)dr</span>, <span class="math">q<sub>φ+dφ</sub> = q<sub>φ</sub> + (∂q<sub>φ</sub>/∂φ)dφ</span>, และ <span class="math">q<sub>z+dz</sub> = q<sub>z</sub> + (∂q<sub>z</sub>/∂z)dz</span> ดังนั้นผลต่างสุทธิของการนำความร้อนเข้าลบออกคือ:</p>
+                    <div class="eq-Display">
+                        <span><span class="math">Ė<sub>in</sub> − Ė<sub>out</sub></span> = − <span class="frac"><span class="frac-num"><span class="math">∂q<sub>r</sub></span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math">dr</span> − <span class="frac"><span class="frac-num"><span class="math">∂q<sub>φ</sub></span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math">dφ</span> − <span class="frac"><span class="frac-num"><span class="math">∂q<sub>z</sub></span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math">dz</span> = <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">(</span><span class="math">k r</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">)</span><span class="math">dr dφ dz</span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">)</span><span class="math">dr dφ dz</span> + <span class="math">r</span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math-rm">)</span><span class="math">dr dφ dz</span></span>
+                        <span class="eq-num">(เฉลย 4.3)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 4 แทนค่าลงในสมการอนุรักษ์พลังงาน <span class="math">(Ė<sub>in</sub> − Ė<sub>out</sub>) + Ė<sub>g</sub> = Ė<sub>st</sub></span> และหารตลอดด้วยปริมาตร <span class="math">dV = r dr dφ dz</span>:</strong>
+                    <p>เนื่องจาก <span class="math">Ė<sub>g</sub> = q̇ (r dr dφ dz)</span> และ <span class="math">Ė<sub>st</sub> = ρ c<sub>p</sub> (∂T/∂t)(r dr dφ dz)</span> เมื่อนำสมการ (เฉลย 4.3) มาบวก <span class="math">Ė<sub>g</sub></span> จับเท่ากับ <span class="math">Ė<sub>st</sub></span> แล้วหารทุกพจน์ด้วย <span class="math">r dr dφ dz</span> จะได้สมการตามที่โจทย์ต้องการพิสูจน์ทุกประการ:</p>
+                    <div class="eq-Display">
+                        <span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">(</span><span class="math">k r</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r<sup>2</sup></span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂z</span></span></span><span class="math-rm">)</span> + <span class="math">q̇</span> = <span class="math">ρ c<sub>p</sub></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂t</span></span></span>    <em>(ซ.ต.พ.)</em></span>
+                        <span class="eq-num">(เฉลย 4.4)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 5 สมการการแพร่ความร้อนในกรณีที่มีการนำความร้อน 1 มิติ (ตามแนวรัศมี <span class="math">r</span>):</strong>
+                    <p>เมื่ออุณหภูมิขึ้นกับรัศมี <span class="math">r</span> เพียงมิติเดียว (ไม่ขึ้นกับมุม <span class="math">φ</span> และความยาว <span class="math">z</span> ทำให้ <span class="math">∂T/∂φ = 0</span> และ <span class="math">∂T/∂z = 0</span>) สมการจะลดรูปเหลือ: <strong><span class="math">(1/r) ∂/∂r(k r ∂T/∂r) + q̇ = ρ c<sub>p</sub> (∂T/∂t)</span></strong> (และหากเป็นสภาวะคงตัวไร้การผลิตความร้อน จะได้ <span class="math">(1/r) d/dr(k r dT/dr) = 0</span>)</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 2 บทนำสู่การนำความร้อน</span>
+        <span>หน้า 14</span>
+    </footer>
+</section>
+
+<!-- page 15 budget (Compact): box-example 330 + box-example 145 + h2 11 + ul 60 + box-concept 50 = 596 / 600 words -->
+<section class="page compact">
+    <div class="page-content">
+        <div class="box-example">
+            <h4>เฉลยแบบฝึกหัดข้อ (5) <span class="tag-src">[โจทย์ต้นฉบับ สไลด์หน้า 40]</span> <span class="tag-inf">[เฉลยการพิสูจน์ทีละขั้นตอน]</span></h4>
+            <p><strong>การพิสูจน์สมการการแพร่ความร้อนในระบบพิกัดทรงกลม (<span class="math">r, φ, θ</span>):</strong></p>
+            <ul>
+                <li><strong>ขั้นที่ 1 กำหนดปริมาตรควบคุมเชิงอนุพันธ์และพื้นที่ผิวตั้งฉากทั้ง 3 ทิศทาง:</strong>
+                    <p>จากรูปที่ 2.7 (Figure 2.10) ความยาวด้านของปริมาตรควบคุมในแนวรัศมีคือ <span class="math">dr</span>, แนวโพลาร์คือ <span class="math">r dθ</span>, และแนวอะซิมุทคือ <span class="math">r sinθ dφ</span> ดังนั้นปริมาตรและพื้นที่ผิวตั้งฉากแต่ละด้านคือ:</p>
+                    <div class="eq-Display">
+                        <span><span class="math">dV</span> = <span class="math">r<sup>2</sup> sinθ dr dθ dφ</span>   |   <span class="math">A<sub>r</sub></span> = (<span class="math">r dθ</span>)(<span class="math">r sinθ dφ</span>) = <span class="math">r<sup>2</sup> sinθ dθ dφ</span> ,   <span class="math">A<sub>φ</sub></span> = <span class="math">r dr dθ</span> ,   <span class="math">A<sub>θ</sub></span> = <span class="math">r sinθ dr dφ</span></span>
+                        <span class="eq-num">(เฉลย 5.1)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 2 เขียนอัตราการนำความร้อนที่ไหลเข้า (<span class="math">q<sub>r</sub>, q<sub>φ</sub>, q<sub>θ</sub></span>) จากกฎของฟูริเยร์ (สมการที่ 2.15):</strong>
+                    <div class="eq-Display">
+                        <span><span class="math">q<sub>r</sub></span> = −<span class="math">k</span> (<span class="math">r<sup>2</sup> sinθ dθ dφ</span>) <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂r</span></span></span> ,    <span class="math">q<sub>φ</sub></span> = −<span class="frac"><span class="frac-num"><span class="math">k</span></span><span class="frac-den"><span class="math">r sinθ</span></span></span> (<span class="math">r dr dθ</span>) <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂φ</span></span></span> ,    <span class="math">q<sub>θ</sub></span> = −<span class="frac"><span class="frac-num"><span class="math">k</span></span><span class="frac-den"><span class="math">r</span></span></span> (<span class="math">r sinθ dr dφ</span>) <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂θ</span></span></span></span>
+                        <span class="eq-num">(เฉลย 5.2)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 3 กระจายอนุกรมเทย์เลอร์หาผลต่างสุทธิ (<span class="math">Ė<sub>in</sub> − Ė<sub>out</sub></span>) แทนในสมดุลพลังงาน แล้วหารตลอดด้วย <span class="math">dV = r<sup>2</sup> sinθ dr dθ dφ</span>:</strong>
+                    <div class="eq-Display">
+                        <span><span class="math">Ė<sub>in</sub> − Ė<sub>out</sub></span> = − <span class="frac"><span class="frac-num"><span class="math">∂q<sub>r</sub></span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math">dr</span> − <span class="frac"><span class="frac-num"><span class="math">∂q<sub>φ</sub></span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math">dφ</span> − <span class="frac"><span class="frac-num"><span class="math">∂q<sub>θ</sub></span></span><span class="frac-den"><span class="math">∂θ</span></span></span><span class="math">dθ</span> = <span class="math-rm">[</span><span class="math">sinθ</span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">(</span><span class="math">k r<sup>2</sup></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">sinθ</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂θ</span></span></span><span class="math-rm">(</span><span class="math">k sinθ</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂θ</span></span></span><span class="math-rm">)]</span><span class="math">dr dθ dφ</span></span>
+                        <span class="eq-num">(เฉลย 5.3)</span>
+                    </div>
+                    <p>เมื่อบวกด้วย <span class="math">Ė<sub>g</sub> = q̇ (r<sup>2</sup> sinθ dr dθ dφ)</span> จับเท่ากับ <span class="math">Ė<sub>st</sub> = ρ c<sub>p</sub> (∂T/∂t)(r<sup>2</sup> sinθ dr dθ dφ)</span> แล้วหารทุกพจน์ด้วย <span class="math">r<sup>2</sup> sinθ dr dθ dφ</span> จะได้:</p>
+                    <div class="eq-Display">
+                        <span><span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r<sup>2</sup></span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">(</span><span class="math">k r<sup>2</sup></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂r</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r<sup>2</sup> sin<sup>2</sup>θ</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">(</span><span class="math">k</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂φ</span></span></span><span class="math-rm">)</span> + <span class="frac"><span class="frac-num">1</span><span class="frac-den"><span class="math">r<sup>2</sup> sinθ</span></span></span> <span class="frac"><span class="frac-num"><span class="math">∂</span></span><span class="frac-den"><span class="math">∂θ</span></span></span><span class="math-rm">(</span><span class="math">k sinθ</span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂θ</span></span></span><span class="math-rm">)</span> + <span class="math">q̇</span> = <span class="math">ρ c<sub>p</sub></span> <span class="frac"><span class="frac-num"><span class="math">∂T</span></span><span class="frac-den"><span class="math">∂t</span></span></span>    <em>(ซ.ต.พ.)</em></span>
+                        <span class="eq-num">(เฉลย 5.4)</span>
+                    </div>
+                </li>
+                <li><strong>ขั้นที่ 4 สมการในกรณีที่มีการนำความร้อน 1 มิติ (ตามแนวรัศมี <span class="math">r</span>):</strong> เมื่ออุณหภูมิขึ้นกับรัศมี <span class="math">r</span> เพียงตัวเดียว (<span class="math">∂T/∂φ = 0, ∂T/∂θ = 0</span>) สมการลดรูปเป็น: <strong><span class="math">(1/r<sup>2</sup>) ∂/∂r(k r<sup>2</sup> ∂T/∂r) + q̇ = ρ c<sub>p</sub> (∂T/∂t)</span></strong> (และในสภาวะคงตัวไร้การผลิตความร้อนคือ <span class="math">(1/r<sup>2</sup>) d/dr(k r<sup>2</sup> dT/dr) = 0</span>)</li>
+            </ul>
+        </div>
+
+        <div class="box-example">
+            <h4>เฉลยข้อ 2.C (ระดับที่ 5 — โจทย์บูรณาการ)</h4>
+            <p>จาก <span class="math">T(x) = 400 − 2,500x<sup>2</sup></span> จะได้ <span class="math">dT/dx = −5,000x</span> และ <span class="math">d<sup>2</sup>T/dx<sup>2</sup> = −5,000</span> <span class="math-rm">°C/m<sup>2</sup></span>: (ก) จากสมการการแพร่ความร้อนสภาวะคงตัว <span class="math">k(d<sup>2</sup>T/dx<sup>2</sup>) + q̇ = 0</span> จะได้ <span class="math">q̇ = −k(d<sup>2</sup>T/dx<sup>2</sup>) = −20 × (−5,000) =</span> <strong>100,000 <span class="math-rm">W/m<sup>3</sup></span> (100 <span class="math-rm">kW/m<sup>3</sup></span>)</strong>, (ข) ที่ผิว <span class="math">x = 0</span> มี <span class="math">(dT/dx)|<sub>x=0</sub> = −5,000(0) = 0</span> แสดงว่าเป็น <strong>พื้นผิวหุ้มฉนวน/อะเดียแบติก (Adiabatic surface)</strong>, และ (ค) ที่ผิว <span class="math">x = L = 0.2</span> <span class="math-rm">m</span> มีอุณหภูมิผิว <span class="math">T(0.2) = 400 − 2,500(0.2)<sup>2</sup> = 300</span> <span class="math-rm">°C</span> และฟลักซ์ความร้อนนำมาที่ผิวคือ <span class="math">q<sub>x</sub>&#39;&#39;(0.2) = −k(dT/dx)|<sub>x=0.2</sub> = −20 × (−5,000 × 0.2) = 20,000</span> <span class="math-rm">W/m<sup>2</sup></span> จากเงื่อนไขขอบเขตการพาความร้อน <span class="math">q<sub>x</sub>&#39;&#39;(L) = h[T(L) − T<sub>∞</sub>]</span> จะได้ <span class="math">20,000 = h(300 − 50)</span> ดังนั้น <span class="math">h = 20,000 / 250 =</span> <strong>80 <span class="math-rm">W/(m<sup>2</sup>·K)</span></strong></p>
+        </div>
+
+        <h2>2.11 เอกสารอ้างอิงประจำบท (References)</h2>
+        <ul style="font-size: 8.5pt;">
+            <li id="ref-bergman2011">Bergman, T. L., Lavine, A. S., Incropera, F. P., &amp; DeWitt, D. P. (2011). <em>Introduction to Heat Transfer</em> (6th ed., Chapter 2, pp. 62–100). John Wiley &amp; Sons Inc.</li>
+            <li id="ref-cengel2020">Çengel, Y. A., &amp; Ghajar, A. J. (2020). <em>Heat and Mass Transfer: Fundamentals &amp; Applications</em> (6th ed. in SI Units, Chapter 2). McGraw-Hill Education.</li>
+            <li id="ref-archanai2017">อาชาไนย บัวศรี. (2560). <em>การถ่ายเทความร้อน (Heat Transfer)</em> (พิมพ์ครั้งที่ 1, บทที่ 2). ภาควิชาวิทยาการและวิศวกรรมวัสดุ คณะวิศวกรรมศาสตร์และเทคโนโลยีอุตสาหกรรม มหาวิทยาลัยศิลปากร.</li>
+        </ul>
+
+        <div class="box-concept" style="font-size: 8.5pt;">
+            <h4>บันทึกการตรวจสอบความครบถ้วนของบทที่ 2 (Verification Checklist)</h4>
+            <p><strong>1. รายการที่เขียนครบถ้วนแล้ว (100%):</strong> ครอบคลุมสไลด์บทที่ 2 ทั้ง 40 หน้า (หัวข้อ 2.1–2.4, รูปที่ 2.1–2.10, ตาราง A.1 และ 2.1, ตัวอย่าง 2.1–2.2 พร้อมเติมคำนวณทุกช่องว่าง และแสดงการพิสูจน์แบบฝึกหัดข้อ 4 และ 5 อย่างละเอียดทุกขั้นตอน)<br>
+            <strong>2. สถานะปัจจุบัน:</strong> <strong>จบเนื้อหาบทที่ 2 อย่างสมบูรณ์</strong> พร้อมรับคำสั่งเพื่อเริ่มเขียน <strong>บทที่ 3 (One-Dimensional, Steady-State Conduction)</strong> ในขั้นตอนถัดไป</p>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 2 บทนำสู่การนำความร้อน</span>
+        <span>หน้า 15</span>
+    </footer>
+</section>
+
+</div>
+
+<script data-bard-injected="true">
+(function() {
+  async function fetchFifeImageBlobUsingAlr(urlString) {
+    if (urlString.startsWith('blob:') || urlString.startsWith('data:')) {
+      throw new Error('Input URL is already a blob or data URL.');
+    }
+    var url = new URL(urlString, window.location.href);
+    url.searchParams.set('alr', 'yes');
+    for (var i = 0; i < 5; i++) {
+      var response = await fetch(url.toString(), {credentials: 'include'});
+      if (!response.ok) {
+        throw new Error('Fetch received not OK response: ' + response.status);
+      }
+      var contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.startsWith('text/plain')) {
+        var blob = await response.blob();
+        if (blob.size > 0 && blob.type.startsWith('image/')) {
+          return blob;
+        }
+        throw new Error('Fetched blob is not a valid image.');
+      }
+      url = new URL(await response.text());
+    }
+    throw new Error('Exceeded maximum number of redirects.');
+  }
+
+  async function updateImageSourcesUsingAlr() {
+    var imgs = Array.from(document.querySelectorAll('img'));
+    await Promise.all(imgs.map(async function(img) {
+      if (img.src && img.src.includes('googleusercontent')) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(img.src);
+          img.src = URL.createObjectURL(blob);
+        } catch (e) {}
+      }
+    }));
+
+    var elements = document.querySelectorAll('[style*="googleusercontent"]');
+    var urlRegex = /url\((['"]?)(https?:\/\/.*?googleusercontent.*?)\1\)/;
+    await Promise.all(Array.from(elements).map(async function(el) {
+      var bg = el.style.backgroundImage;
+      var match = bg ? bg.match(urlRegex) : null;
+      if (match && match[2]) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(match[2]);
+          var blobUrl = URL.createObjectURL(blob);
+          el.style.backgroundImage = bg.replace(match[2], blobUrl);
+        } catch (e) {}
+      }
+    }));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateImageSourcesUsingAlr);
+  } else {
+    updateImageSourcesUsingAlr();
+  }
+})();
+</script></body></html>
