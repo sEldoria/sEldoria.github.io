@@ -1,0 +1,1552 @@
+<!DOCTYPE html><html lang="th"><head>
+<meta charset="UTF-8">
+<title>ปรากฏการณ์การถ่ายโอน 1: บทที่ 1 พื้นฐานของการถ่ายเทความร้อน</title>
+<style>
+    @page { margin: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { background-color: #ffffff; }
+    @media (prefers-color-scheme: dark) {
+        html { background-color: #1f1f1f; }
+    }
+    body {
+        padding: 24px 0;
+        margin: 0 auto;
+        max-width: 900px !important;
+        border: none !important;
+        background: transparent !important;
+        font-family: 'Sarabun', 'TH Sarabun New', 'Tahoma', 'Segoe UI', sans-serif;
+        color: #1e293b;
+    }
+    .page {
+    min-height: 297mm;
+    height: auto;
+    margin: 0 auto 12px auto;
+    padding: 18mm 18mm 12mm 18mm;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: visible;
+}
+    @media screen and (max-width: 600px) {
+        body {
+            padding: 16px 0;
+        }
+        .page {
+            margin: 0 auto 8px auto;
+            border: none;
+            padding: 12px 20px;
+        }
+    }
+    .page-content {
+    flex: 1 0 auto;
+    min-height: 0;
+    overflow: visible;
+}
+    .page-content > * + * {
+        margin-top: 20px;
+    }
+    .page.compact, body.compact .page {
+        font-size: 9.5pt;
+        line-height: 1.35;
+    }
+    .page.compact .page-content > * + *, body.compact .page-content > * + * {
+        margin-top: 12px;
+    }
+    .page-content > :is(h1, h2, h3, h4) + * {
+        margin-top: 8px;
+    }
+    .page-footer {
+        flex-shrink: 0;
+        margin-top: auto;
+        padding-top: 3mm;
+        border-top: 1px solid #cbd5e1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 8.5pt;
+        color: #64748b;
+    }
+    @media print {
+        *, *::before, *::after {
+            box-shadow: none !important;
+            text-shadow: none !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        body { padding: 0; background: none; }
+        .page {
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        overflow: visible;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .page-content {
+        overflow: visible;
+    }
+
+    .page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+    }
+    [contenteditable]:focus { outline: none; }
+
+    /* Academic Textbook Typography & Custom Components */
+    h1, h2, h3, h4, p, ul, ol, table, figure { margin: 0; }
+    p { text-align: justify; }
+    ul, ol { padding-left: 18px; }
+    li + li { margin-top: 3px; }
+
+    .book-banner {
+        background: #0f172a;
+        color: #ffffff;
+        padding: 14px 18px;
+        border-left: 6px solid #c2410c;
+    }
+    .book-banner .super {
+        font-size: 8.5pt;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #fdba74;
+        font-weight: 700;
+    }
+    .book-banner h1 {
+        font-size: 17pt;
+        line-height: 1.25;
+        margin-top: 3px;
+        color: #ffffff;
+    }
+    .book-banner .sub {
+        font-size: 9.5pt;
+        color: #cbd5e1;
+        margin-top: 4px;
+    }
+
+    h2 {
+        font-size: 12.5pt;
+        color: #0f172a;
+        border-bottom: 2px solid #0f172a;
+        padding-bottom: 3px;
+        font-weight: 700;
+    }
+    h3 {
+        font-size: 10.5pt;
+        color: #9a3412;
+        font-weight: 700;
+    }
+    h4 {
+        font-size: 9.5pt;
+        color: #1e3a8a;
+        font-weight: 700;
+    }
+
+    .tag-src {
+        display: inline-block;
+        background: #e0f2fe;
+        color: #0369a1;
+        border: 1px solid #7dd3fc;
+        font-size: 8pt;
+        font-weight: 700;
+        padding: 0 5px;
+        border-radius: 3px;
+        margin-right: 4px;
+    }
+    .tag-sup {
+        display: inline-block;
+        background: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fcd34d;
+        font-size: 8pt;
+        font-weight: 700;
+        padding: 0 5px;
+        border-radius: 3px;
+        margin-right: 4px;
+    }
+    .tag-inf {
+        display: inline-block;
+        background: #dcfce7;
+        color: #166534;
+        border: 1px solid #86efac;
+        font-size: 8pt;
+        font-weight: 700;
+        padding: 0 5px;
+        border-radius: 3px;
+        margin-right: 4px;
+    }
+
+    .eq-block {
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-left: 4px solid #1e3a8a;
+        padding: 6px 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: 'Cambria Math', 'Times New Roman', serif;
+        font-size: 10.5pt;
+    }
+    .eq-num {
+        font-family: 'Sarabun', sans-serif;
+        font-size: 8.5pt;
+        color: #475569;
+        font-weight: 700;
+    }
+    .math {
+        font-family: 'Cambria Math', 'Times New Roman', serif;
+        font-style: italic;
+    }
+    .math-rm {
+        font-family: 'Cambria Math', 'Times New Roman', serif;
+        font-style: normal;
+    }
+
+    .box-concept {
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-left: 4px solid #0284c7;
+        padding: 8px 12px;
+    }
+    .box-example {
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-left: 4px solid #d97706;
+        padding: 8px 12px;
+    }
+    .box-warn {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-left: 4px solid #dc2626;
+        padding: 8px 12px;
+    }
+
+    table.std-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 8.5pt;
+    }
+    table.std-table th {
+        background: #0f172a;
+        color: #ffffff;
+        padding: 4px 7px;
+        text-align: left;
+        border: 1px solid #0f172a;
+        font-weight: 700;
+    }
+    table.std-table td {
+        padding: 4px 7px;
+        border: 1px solid #cbd5e1;
+        vertical-align: top;
+    }
+    table.std-table tr:nth-child(even) td {
+        background: #f8fafc;
+    }
+
+    figure.fig-box {
+        border: 1px solid #cbd5e1;
+        background: #ffffff;
+        padding: 6px 10px;
+        text-align: center;
+    }
+    figure.fig-box figcaption {
+        font-size: 8.5pt;
+        color: #334155;
+        margin-top: 4px;
+        text-align: left;
+    }
+    .cite {
+        color: #0369a1;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    li:target {
+        background-color: #fef3c7;
+    }
+</style>
+<style data-bard-injected="true">
+@media screen {
+    html {
+        background-color: #ffffff;
+    }
+    body {
+        padding: 8px 0 24px 0;
+    }
+}
+@media screen and (prefers-color-scheme: dark) {
+    html {
+        background-color: #1f1f1f;
+    }
+}
+@media screen and (max-width: 600px) {
+    body {
+        padding: 4px 0 16px 0;
+        margin: 0 auto;
+    }
+}
+</style></head>
+<body class="compact">
+<div contenteditable="true">
+
+<!-- page 1 budget (Compact): banner 60 + h2 11 + prose 150 + box 90 + table 9 rows 153 + 5 gaps 40 = 504 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="book-banner">
+      <div class="super">ตำราเรียนวิชาการระดับมหาวิทยาลัย • TRANSPORT PHENOMENA I (ปีการศึกษา 2569)</div>
+      <h1>ปรากฏการณ์การถ่ายโอน 1: พื้นฐานการถ่ายเทความร้อนและการนำความร้อน</h1>
+      <div class="sub">เรียบเรียงจากเอกสารการสอนของ รศ.ดร.อาชาไนย บัวศรี พร้อมเนื้อหาอธิบายเชิงลึกและเฉลยวิธีทำครบทุกขั้นตอนสำหรับศึกษาด้วยตนเอง</div>
+    </div>
+
+    <h2>ส่วนนำ: คำนำ วิธีใช้หนังสือ และรายการสัญลักษณ์มาตรฐาน (Front Matter)</h2>
+    <p>ตำราเรียนเล่มนี้จัดทำขึ้นเพื่อเป็นหนังสือเรียนฉบับสมบูรณ์สำหรับรายวิชา <strong>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I)</strong> โดยออกแบบให้ผู้อ่านที่ไม่มีพื้นฐานในวิชานี้มาก่อนสามารถศึกษาทำความเข้าใจได้ด้วยตนเองตั้งแต่แนวคิดรากฐาน กลไกระดับอะตอมและโมเลกุล ที่มาของสมการทางคณิตศาสตร์ ไปจนถึงการวิเคราะห์และออกแบบระบบทางวิศวกรรมจริง เนื้อหาในบทที่ 1 นี้ครอบคลุมรากฐานทั้งหมดของการถ่ายเทความร้อนตามโครงสร้างตำรามาตรฐานสากลของ <a class="cite" href="#ref-bergman2011" contenteditable="false">Bergman et al. (2011)</a>, <a class="cite" href="#ref-cengel2020" contenteditable="false">Çengel &amp; Ghajar (2020)</a> และตำราภาษาไทยของ <a class="cite" href="#ref-archanai2017" contenteditable="false">อาชาไนย บัวศรี (2560)</a></p>
+
+    <div class="box-concept">
+      <h4>ระบบป้ายกำกับแหล่งที่มาของเนื้อหา (Source Classification System)</h4>
+      <p>เพื่อให้ผู้เรียนแยกแยะได้อย่างชัดเจนระหว่างเนื้อหาในสไลด์ของอาจารย์กับเนื้อหาที่เขียนอธิบายเพิ่มเติม ตำราเล่มนี้จึงใช้ป้ายกำกับ 3 ประเภทตลอดทั้งเล่ม ได้แก่:
+      <span class="tag-src">[ต้นฉบับ]</span> เนื้อหา สมการ รูปภาพ ตาราง และโจทย์ที่ปรากฏในเอกสารของอาจารย์โดยตรง |
+      <span class="tag-sup">[เสริมพื้นฐาน]</span> คำอธิบายปูพื้นฐาน ที่มาทางฟิสิกส์และคณิตศาสตร์ทีละขั้นเพื่อให้ผู้เรียนเข้าใจอย่างถ่องแท้ |
+      <span class="tag-inf">[เติมเต็มสไลด์]</span> การคำนวณเติมช่องว่างในสไลด์ที่เว้นไว้ (`= ...`) การแก้ไขจุดพิมพ์คลาดเคลื่อน และเฉลยแบบฝึกหัดท้ายบท</p>
+    </div>
+
+    <h3>รายการสัญลักษณ์ ตัวแปร และคำย่อมาตรฐาน (Nomenclature)</h3>
+    <table class="std-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:14%;">สัญลักษณ์</th>
+          <th scope="col" style="width:42%;">ความหมายทางกายภาพ (ภาษาไทย / ภาษาอังกฤษ)</th>
+          <th scope="col" style="width:18%;">หน่วย SI</th>
+          <th scope="col" style="width:26%;">หมายเหตุ / เงื่อนไข</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="math">A</span></td>
+          <td>พื้นที่ผิวตั้งฉากกับทิศทางการถ่ายเทความร้อน (Normal surface area)</td>
+          <td><span class="math-rm">m<sup>2</sup></span></td>
+          <td>พื้นที่หน้าตัดที่ความร้อนไหลผ่าน</td>
+        </tr>
+        <tr>
+          <td><span class="math">c<sub>p</sub></span></td>
+          <td>ความจุความร้อนจำเพาะที่ความดันคงตัว (Specific heat capacity)</td>
+          <td><span class="math-rm">J/(kg·K)</span></td>
+          <td>พลังงานที่ทำให้มวล 1 kg ร้อนขึ้น 1 K</td>
+        </tr>
+        <tr>
+          <td><span class="math">E, E<sub>b</sub></span></td>
+          <td>อำนาจการเปล่งรังสีของผิวจริง และของวัตถุดำ (Emissive power)</td>
+          <td><span class="math-rm">W/m<sup>2</sup></span></td>
+          <td>อัตราการแผ่รังสีต่อหน่วยพื้นที่ผิว</td>
+        </tr>
+        <tr>
+          <td><span class="math">E<sub>in</sub>, E<sub>out</sub>, E<sub>g</sub>, E<sub>st</sub></span></td>
+          <td>ปริมาณพลังงานที่ไหลเข้า ไหลออก ผลิตขึ้น และสะสมในปริมาตรควบคุม</td>
+          <td><span class="math-rm">J</span></td>
+          <td>พิจารณาในช่วงเวลา <span class="math">Δt</span></td>
+        </tr>
+        <tr>
+          <td><span class="math">Ė<sub>in</sub>, Ė<sub>out</sub>, Ė<sub>g</sub>, Ė<sub>st</sub></span></td>
+          <td>อัตราพลังงานที่ไหลเข้า ไหลออก ผลิตขึ้น และสะสมในปริมาตรควบคุม</td>
+          <td><span class="math-rm">W (J/s)</span></td>
+          <td>จุดด้านบน (<span class="math-rm">˙</span>) แทนอนุพันธ์เทียบกับเวลา <span class="math">d/dt</span></td>
+        </tr>
+        <tr>
+          <td><span class="math">h, h<sub>r</sub></span></td>
+          <td>สัมประสิทธิ์การพาความร้อน และสัมประสิทธิ์การแผ่รังสีความร้อน</td>
+          <td><span class="math-rm">W/(m<sup>2</sup>·K)</span></td>
+          <td><span class="math">h</span> เป็นสมบัติการไหล, <span class="math">h<sub>r</sub></span> ขึ้นกับ <span class="math">T<sup>3</sup></span></td>
+        </tr>
+        <tr>
+          <td><span class="math">k</span></td>
+          <td>สภาพนำความร้อน (Thermal conductivity)</td>
+          <td><span class="math-rm">W/(m·K)</span></td>
+          <td>สมบัติการถ่ายโอนของตัวกลาง</td>
+        </tr>
+        <tr>
+          <td><span class="math">L, x, D, r</span></td>
+          <td>ความหนา พิกัดระยะทาง เส้นผ่านศูนย์กลาง และรัศมี</td>
+          <td><span class="math-rm">m</span></td>
+          <td>แปลงจาก mm หรือ cm เป็น m เสมอ</td>
+        </tr>
+        <tr>
+          <td><span class="math">q, q′, q″, q̇</span></td>
+          <td>อัตราความร้อน (<span class="math">q</span>), อัตราต่อความยาว (<span class="math">q′</span>), ฟลักซ์ความร้อน (<span class="math">q″</span>), อัตราผลิตต่อปริมาตร (<span class="math">q̇</span>)</td>
+          <td><span class="math-rm">W, W/m, W/m<sup>2</sup>, W/m<sup>3</sup></span></td>
+          <td>ระวังสับสนระหว่าง <span class="math">q</span>, <span class="math">q″</span> และ <span class="math">q̇</span></td>
+        </tr>
+        <tr>
+          <td><span class="math">T, T<sub>s</sub>, T<sub>∞</sub>, T<sub>sur</sub></span></td>
+          <td>อุณหภูมิ อุณหภูมิพื้นผิว อุณหภูมิของไหล และอุณหภูมิสิ่งแวดล้อมที่ห้อมรอบ</td>
+          <td><span class="math-rm">K หรือ °C</span></td>
+          <td>การแผ่รังสีต้องใช้หน่วยสัมบูรณ์ (<span class="math-rm">K</span>) เท่านั้น</td>
+        </tr>
+        <tr>
+          <td><span class="math">ε, σ, ρ</span></td>
+          <td>สภาพเปล่งรังสี (<span class="math">ε</span>), ค่าคงที่สเตฟาน-โบลต์ซมันน์ (<span class="math">σ</span>), ความหนาแน่นมวล (<span class="math">ρ</span>)</td>
+          <td><span class="math-rm">-, W/(m<sup>2</sup>·K<sup>4</sup>), kg/m<sup>3</sup></span></td>
+          <td><span class="math">σ = 5.67 × 10<sup>−8</sup> W/(m<sup>2</sup>·K<sup>4</sup>)</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — ส่วนนำและบทที่ 1</span>
+    <span>หน้า 1</span>
+  </footer>
+</section>
+
+<!-- page 2 budget (Compact): h2 11 + prose 230 + box 110 + table 6 rows 102 + 5 gaps 40 = 493 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>บทที่ 1: พื้นฐานของการถ่ายเทความร้อน (Chapter 1: Fundamentals of Heat Transfer)</h2>
+
+    <h3>1.1 บทนำและวัตถุประสงค์การเรียนรู้ (Introduction and Learning Objectives)</h3>
+    <p><span class="tag-sup">[เสริมพื้นฐาน]</span> ในชีวิตประจำวันและในงานวิศวกรรม เราพบปรากฏการณ์ที่เกี่ยวข้องกับการเคลื่อนที่ของความร้อนอยู่ตลอดเวลา ตั้งแต่วิศวกรผู้ออกแบบระบบระบายความร้อนของไมโครโปรเซสเซอร์ในคอมพิวเตอร์ การออกแบบผนังเตาหลอมอุตสาหกรรมที่ต้องทนอุณหภูมิสูงกว่าพันองศาเซลเซียส การคำนวณฉนวนหุ้มท่อไอน้ำในโรงไฟฟ้า ไปจนถึงการออกแบบภาชนะเก็บความเย็นสำหรับก๊าซเหลวทางการแพทย์ คำถามสำคัญทางวิศวกรรมไม่ได้มีเพียงว่า <em>&#34;ต้องใช้พลังงานความร้อนทั้งหมดกี่จูล&#34;</em> แต่คือคำถามที่ว่า <strong>&#34;ความร้อนไหลผ่านวัสดุนี้ด้วยอัตราเร็วกี่วัตต์ (จูลต่อวินาที) และเราจะต้องใช้พื้นที่ผิวหรือความหนาของฉนวนเท่าใดจึงจะควบคุมอุณหภูมิให้อยู่ในเกณฑ์ที่ปลอดภัยได้&#34;</strong></p>
+
+    <div class="box-concept">
+      <h4>วัตถุประสงค์การเรียนรู้ประจำบทที่ 1 (Learning Objectives)</h4>
+      <ol>
+        <li>อธิบายความหมายของการถ่ายเทความร้อน แรงขับเคลื่อน และความแตกต่างระหว่างวิชาอุณหพลศาสตร์ (Thermodynamics) กับการถ่ายเทความร้อน (Heat Transfer) ได้อย่างชัดเจน</li>
+        <li>เปรียบเทียบกลไกการถ่ายโอนทั้ง 3 ประเภทในวิชา Transport Phenomena ได้แก่ การถ่ายโอนพลังงาน (ความร้อน) การถ่ายโอนมวล และการถ่ายโอนโมเมนตัม (การไหลแบบราบเรียบและแบบปั่นป่วน) ได้</li>
+        <li>อธิบายกลไกระดับจุลภาคและเลือกใช้สมการอัตรา (Rate Equations) ของการนำความร้อน (กฎของฟูริเยร์) การพาความร้อน (กฎการเย็นตัวของนิวตัน) และการแผ่รังสีความร้อน (กฎของสเตฟาน-โบลต์ซมันน์) ได้อย่างถูกต้อง</li>
+        <li>ตั้งสมการการอนุรักษ์พลังงานสำหรับปริมาตรควบคุม (Control Volume) และสมดุลพลังงานที่พื้นผิว (Surface Energy Balance) เพื่อแก้โจทย์ปัญหาที่มีหลายโหมดความร้อนเกิดขึ้นพร้อมกันได้</li>
+      </ol>
+    </div>
+
+    <h3>1.2 ความรู้พื้นฐานที่จำเป็นก่อนเข้าสู่เนื้อหาหลัก (Essential Prerequisites)</h3>
+    <p><span class="tag-sup">[เสริมพื้นฐาน]</span> สำหรับผู้อ่านที่เพิ่งเริ่มต้นศึกษาวิชานี้ มีหลักการพื้นฐาน 4 ประการที่ต้องทำความเข้าใจให้แม่นยำก่อนเริ่มคำนวณ:</p>
+    <ul>
+      <li><strong>1. ความแตกต่างระหว่างอุณหพลศาสตร์ (Thermodynamics) กับการถ่ายเทความร้อน (Heat Transfer):</strong> วิชาอุณหพลศาสตร์ศึกษาสภาวะสมดุล (Equilibrium states) โดยบอกได้เพียงว่าเมื่อระบบเปลี่ยนจากสภาวะสมดุลที่ 1 ไปยังสภาวะสมดุลที่ 2 จะมีพลังงานเปลี่ยนไปทั้งหมดกี่จูล (<span class="math-rm">J</span>) แต่อุณหพลศาสตร์ <em>ไม่สามารถบอกได้ว่ากระบวนการนั้นใช้เวลานานเท่าใด</em> ในขณะที่วิชาการถ่ายเทความร้อนศึกษาสภาวะไม่สมดุล (Non-equilibrium) ที่มีผลต่างของอุณหภูมิ เพื่อคำนวณหา <strong>อัตราการถ่ายโอนพลังงานต่อหน่วยเวลา (<span class="math-rm">J/s = W</span>)</strong> และหาการกระจายตัวของอุณหภูมิในตัวกลาง</li>
+      <li><strong>2. ความแตกต่างระหว่าง &#34;อุณหภูมิ (<span class="math">T</span>)&#34; กับ &#34;ความร้อน (<span class="math">q</span>)&#34;:</strong> อุณหภูมิคือสมบัติที่วัดระดับพลังงานจลน์เฉลี่ยของการเคลื่อนที่ระดับจุลภาคของอะตอมหรือโมเลกุลในสสาร (มีหน่วยเป็น <span class="math-rm">K</span> หรือ <span class="math-rm">°C</span>) ส่วนความร้อนคือพลังงานความร้อนที่กำลังเคลื่อนที่ข้ามขอบเขตเนื่องจากมีความแตกต่างของอุณหภูมิ (มีหน่วยเป็น <span class="math-rm">J</span> หรือในรูปอัตราคือ <span class="math-rm">W</span>) สสารไม่ได้ &#34;บรรจุความร้อน&#34; แต่บรรจุ &#34;พลังงานภายใน (Internal Energy)&#34; และเมื่อพลังงานนั้นเคลื่อนที่เพราะผลต่างอุณหภูมิ เราจึงเรียกว่าการถ่ายเทความร้อน</li>
+      <li><strong>3. กฎเหล็กของการใช้หน่วยอุณหภูมิ (<span class="math-rm">K</span> เทียบกับ <span class="math-rm">°C</span>):</strong> ความสัมพันธ์ระหว่างหน่วยเคลวินและองศาเซลเซียสคือ <span class="math">T</span>(<span class="math-rm">K</span>) = <span class="math">T</span>(<span class="math-rm">°C</span>) + 273.15 (ในการคำนวณทางวิศวกรรมทั่วไปและในเอกสารของอาจารย์นิยมใช้ค่าประมาณ +273)
+        <br>• หากสมการอยู่ในรูป <strong>ผลต่างอุณหภูมิกำลังหนึ่ง (<span class="math">ΔT = T<sub>1</sub> − T<sub>2</sub></span>)</strong> เช่น ในการนำความร้อนและการพาความร้อน ค่า <span class="math">ΔT</span> ในหน่วย <span class="math-rm">K</span> และ <span class="math-rm">°C</span> จะมีค่าเท่ากันทุกประการ เพราะเลข 273 หักล้างกันเอง: (<span class="math">T<sub>1</sub></span> + 273) − (<span class="math">T<sub>2</sub></span> + 273) = <span class="math">T<sub>1</sub> − T<sub>2</sub></span>
+        <br>• หากสมการอยู่ในรูป <strong>อุณหภูมิยกกำลังสี่ (<span class="math">T<sup>4</sup></span>)</strong> ในการแผ่รังสีความร้อน <strong>ต้องแปลงอุณหภูมิเป็นหน่วยเคลวินสัมบูรณ์ (<span class="math-rm">K</span>) ก่อนยกกำลังสี่เสมอ</strong> เพราะ <span class="math">T<sub>1</sub><sup>4</sup> − T<sub>2</sub><sup>4</sup></span> ในหน่วยเคลวินไม่เท่ากับในหน่วยองศาเซลเซียสอย่างเด็ดขาด</li>
+      <li><strong>4. ปริมาณรวม (<span class="math">Q</span>) อัตรา (<span class="math">q</span>) อัตราต่อความยาว (<span class="math">q′</span>) และฟลักซ์ (<span class="math">q″</span>):</strong> สรุปเปรียบเทียบได้ดังตารางที่ 1.0 ด้านล่าง</li>
+    </ul>
+
+    <table class="std-table">
+      <thead>
+        <tr>
+          <th scope="col">ชื่อปริมาณ</th>
+          <th scope="col">สัญลักษณ์และนิยาม</th>
+          <th scope="col">หน่วย SI</th>
+          <th scope="col">ความหมายทางกายภาพ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ปริมาณความร้อน (Amount of heat)</td>
+          <td><span class="math">Q = q · Δt</span> (เมื่อ <span class="math">q</span> คงตัว)</td>
+          <td><span class="math-rm">J</span> (จูล)</td>
+          <td>พลังงานความร้อนสะสมทั้งหมดที่ถ่ายโอนในช่วงเวลา <span class="math">Δt</span> วินาที</td>
+        </tr>
+        <tr>
+          <td>อัตราการถ่ายเทความร้อน (Heat rate)</td>
+          <td><span class="math">q</span> (หรือ <span class="math">Q̇</span>)</td>
+          <td><span class="math-rm">W</span> (<span class="math-rm">J/s</span>)</td>
+          <td>พลังงานความร้อนที่ไหลผ่านพื้นที่ผิวทั้งหมด <span class="math">A</span> ในเวลา 1 วินาที</td>
+        </tr>
+        <tr>
+          <td>อัตราความร้อนต่อหน่วยความยาว</td>
+          <td><span class="math">q′ = q / L</span></td>
+          <td><span class="math-rm">W/m</span></td>
+          <td>อัตราความร้อนที่ไหลผ่านท่อหรือทรงกระบอกต่อความยาวท่อ 1 เมตร</td>
+        </tr>
+        <tr>
+          <td>ฟลักซ์ความร้อน (Heat flux)</td>
+          <td><span class="math">q″ = q / A</span></td>
+          <td><span class="math-rm">W/m<sup>2</sup></span></td>
+          <td>ความหนาแน่นของอัตราความร้อนที่ไหลตั้งฉากผ่านพื้นที่ผิว 1 ตารางเมตร</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 1 พื้นฐานของการถ่ายเทความร้อน</span>
+    <span>หน้า 2</span>
+  </footer>
+</section>
+
+<!-- page 3 budget (Compact): h2 11 + prose 200 + svg 84 + box chrome 24 + table 5 rows 85 + 5 gaps 40 = 444 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>1.3 การถ่ายเทความร้อนคืออะไรและเกิดขึ้นได้อย่างไร? (1.1 What and How?)</h2>
+
+    <h3>1.3.1 นิยามของการถ่ายเทความร้อนและแรงขับเคลื่อน</h3>
+    <p><span class="tag-src">[ต้นฉบับ]</span> ในสไลด์หน้า 5 ของเอกสารบทที่ 1 ได้ให้นิยามพื้นฐานที่สำคัญที่สุดของวิชานี้ไว้ว่า: <strong>&#34;การถ่ายเทความร้อน (Heat transfer) คือ พลังงานความร้อนที่กำลังเคลื่อนที่เนื่องจากความแตกต่างของอุณหภูมิ (Thermal energy in transit due to a temperature difference) และเมื่อใดก็ตามที่มีความแตกต่างของอุณหภูมิเกิดขึ้นภายในตัวกลางหนึ่งๆ หรือระหว่างตัวกลางต่างๆ การถ่ายเทความร้อนจะต้องเกิดขึ้นเสมอ&#34;</strong></p>
+    <p><span class="tag-sup">[เสริมพื้นฐาน]</span> กฎข้อที่สองของอุณหพลศาสตร์ (Second Law of Thermodynamics) กำหนดทิศทางตามธรรมชาติของการถ่ายเทความร้อนไว้ว่า พลังงานความร้อนจะไหลได้เองตามธรรมชาติจากบริเวณที่มี <strong>อุณหภูมิสูงกว่า (<span class="math">T<sub>1</sub></span>)</strong> ไปยังบริเวณที่มี <strong>อุณหภูมิต่ำกว่า (<span class="math">T<sub>2</sub></span>)</strong> เท่านั้น โดยความแตกต่างของอุณหภูมิ (<span class="math">ΔT = T<sub>1</sub> − T<sub>2</sub></span>) ทำหน้าที่เป็น <strong>แรงขับเคลื่อน (Driving force หรือ Driving potential)</strong> หากจุดสองจุดมีอุณหภูมิเท่ากัน (<span class="math">T<sub>1</sub> = T<sub>2</sub></span> หรือ <span class="math">ΔT = 0</span>) ระบบจะอยู่ในสภาวะสมดุลความร้อน (Thermal equilibrium) และจะไม่มีการถ่ายเทความร้อนสุทธิเกิดขึ้น</p>
+
+    <h3>1.3.2 กลไกการถ่ายโอนพลังงาน มวล และโมเมนตัม (Transport Mechanisms)</h3>
+    <p><span class="tag-src">[ต้นฉบับ]</span> ในสไลด์หน้า 6–8 อาจารย์ได้เชื่อมโยงการถ่ายเทความร้อนเข้ากับภาพรวมของวิชา <strong>ปรากฏการณ์การถ่ายโอน (Transport Phenomena)</strong> ซึ่งประกอบด้วยกระบวนการถ่ายโอนหลัก 3 ประเภทที่มีลักษณะทางกายภาพและคณิตศาสตร์คล้ายคลึงกันอย่างยิ่ง ได้แก่:</p>
+    <ol>
+      <li><strong>การถ่ายโอนพลังงาน (Energy Transport / Heat Transfer):</strong> มี <em>ความแตกต่างของอุณหภูมิ (Temperature difference, <span class="math">ΔT</span>)</em> เป็นแรงขับเคลื่อนทำให้พลังงานความร้อนเคลื่อนที่จากบริเวณที่ร้อนกว่าไปยังบริเวณที่เย็นกว่า</li>
+      <li><strong>การถ่ายโอนมวล (Mass Transport / Mass Diffusion):</strong> ดังแสดงในรูปที่ 1.1(ข) เมื่อมีกระเปาะก๊าซไนโตรเจน (<span class="math-rm">N<sub>2</sub></span>) และออกซิเจน (<span class="math-rm">O<sub>2</sub></span>) เชื่อมต่อกันผ่านวาล์ว ทันทีที่เปิดวาล์วออก โมเลกุลของ <span class="math-rm">N<sub>2</sub></span> จะแพร่ไปยังฝั่ง <span class="math-rm">O<sub>2</sub></span> และ <span class="math-rm">O<sub>2</sub></span> จะแพร่ไปยังฝั่ง <span class="math-rm">N<sub>2</sub></span> โดยมี <em>ความแตกต่างของความเข้มข้น (Concentration difference, <span class="math">ΔC</span>)</em> เป็นแรงขับเคลื่อนสำหรับการถ่ายโอนมวล</li>
+      <li><strong>การถ่ายโอนโมเมนตัม (Momentum Transport / Fluid Flow):</strong> มี <em>ความแตกต่างของความดัน (Pressure difference, <span class="math">ΔP</span>)</em> เป็นแรงขับเคลื่อนทำให้ของไหลเกิดการไหล ซึ่งจำแนกตามขนาดของความดันลดได้เป็น 2 ลักษณะ (รูปที่ 1.1(ค)):
+        <br>• <strong>การไหลแบบราบเรียบ (Laminar Flow):</strong> เกิดขึ้นเมื่อความดันลดคร่อมวัตถุมีค่าน้อย การเคลื่อนที่ของของไหลจะเรียบเป็นระเบียบและไหลแยกกันเป็นชั้นๆ (Fluid flows in layers) การถ่ายโอนโมเมนตัมเกิดขึ้นในระดับโมเลกุล (Molecular transfer) คือส่งผ่านโมเมนตัมจากโมเลกุลหนึ่งไปยังอีกโมเลกุลหนึ่งที่อยู่ติดกัน
+        <br>• <strong>การไหลแบบปั่นป่วน (Turbulent Flow):</strong> เกิดขึ้นเมื่อความดันลดมีค่ามาก อัตราการไหลสูง การเคลื่อนที่ของของไหลจะไร้ระเบียบ (Chaotic) และเกิดการถ่ายโอนโมเมนตัมด้วยกลุ่มก้อนของโมเลกุล (Blocks of molecules) ที่เคลื่อนที่ไปในทุกทิศทาง ก่อให้เกิดกระแสวนปั่นป่วน (Eddy currents) ซึ่งช่วยเร่งอัตราการผสมและการถ่ายโอนให้สูงขึ้นอย่างมาก</li>
+    </ol>
+
+    <figure class="fig-box">
+      <svg viewBox="0 0 760 115" style="width:100%; height:30mm;" role="img">
+        <title>กลไกการถ่ายโอนพลังงาน มวล และโมเมนตัม</title>
+        <!-- Panel A: Energy -->
+        <rect x="5" y="5" width="235" height="105" fill="#fff7ed" stroke="#fdba74" rx="4"></rect>
+        <text x="122" y="20" font-size="10" font-weight="bold" text-anchor="middle" fill="#9a3412">(ก) การถ่ายโอนพลังงาน (Energy)</text>
+        <circle cx="45" cy="58" r="22" fill="#ef4444"></circle>
+        <text x="45" y="62" font-size="10" font-weight="bold" text-anchor="middle" fill="#fff">T สูง</text>
+        <line x1="72" y1="58" x2="165" y2="58" stroke="#dc2626" stroke-width="3"></line>
+        <polygon points="165,52 178,58 165,64" fill="#dc2626"></polygon>
+        <text x="122" y="48" font-size="9" text-anchor="middle" fill="#b91c1c">ความร้อนไหล</text>
+        <circle cx="202" cy="58" r="18" fill="#3b82f6"></circle>
+        <text x="202" y="62" font-size="9" font-weight="bold" text-anchor="middle" fill="#fff">T ต่ำ</text>
+        <text x="122" y="98" font-size="9" text-anchor="middle" fill="#475569">แรงขับเคลื่อน: ผลต่างอุณหภูมิ (ΔT)</text>
+
+        <!-- Panel B: Mass -->
+        <rect x="250" y="5" width="245" height="105" fill="#f0fdf4" stroke="#86efac" rx="4"></rect>
+        <text x="372" y="20" font-size="10" font-weight="bold" text-anchor="middle" fill="#166534">(ข) การถ่ายโอนมวล (Mass)</text>
+        <circle cx="290" cy="58" r="22" fill="#dcfce7" stroke="#15803d" stroke-width="2"></circle>
+        <text x="290" y="62" font-size="11" font-weight="bold" text-anchor="middle" fill="#14532d">N₂</text>
+        <rect x="312" y="51" width="120" height="14" fill="#e2e8f0" stroke="#475569"></rect>
+        <line x1="362" y1="45" x2="382" y2="71" stroke="#0f172a" stroke-width="2"></line>
+        <line x1="382" y1="45" x2="362" y2="71" stroke="#0f172a" stroke-width="2"></line>
+        <text x="372" y="82" font-size="9" font-weight="bold" text-anchor="middle" fill="#0f172a">Valve</text>
+        <circle cx="454" cy="58" r="22" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"></circle>
+        <text x="454" y="62" font-size="11" font-weight="bold" text-anchor="middle" fill="#1e3a8a">O₂</text>
+        <text x="372" y="98" font-size="9" text-anchor="middle" fill="#475569">แรงขับเคลื่อน: ผลต่างความเข้มข้น (ΔC)</text>
+
+        <!-- Panel C: Momentum -->
+        <rect x="505" y="5" width="250" height="105" fill="#f8fafc" stroke="#94a3b8" rx="4"></rect>
+        <text x="630" y="20" font-size="10" font-weight="bold" text-anchor="middle" fill="#1e3a8a">(ค) การถ่ายโอนโมเมนตัม (Momentum)</text>
+        <!-- Laminar -->
+        <line x1="520" y1="36" x2="610" y2="36" stroke="#0284c7" stroke-width="1.5"></line>
+        <line x1="520" y1="44" x2="610" y2="44" stroke="#0284c7" stroke-width="1.5"></line>
+        <line x1="520" y1="52" x2="610" y2="52" stroke="#0284c7" stroke-width="1.5"></line>
+        <text x="682" y="46" font-size="8.5" text-anchor="middle" fill="#0369a1">Laminar (เป็นชั้น)</text>
+        <!-- Turbulent -->
+        <path d="M 520 70 Q 540 60 555 75 T 590 68 T 615 74" fill="none" stroke="#dc2626" stroke-width="1.5"></path>
+        <path d="M 520 80 Q 545 88 565 72 T 600 82 T 615 76" fill="none" stroke="#dc2626" stroke-width="1.5"></path>
+        <text x="682" y="77" font-size="8.5" text-anchor="middle" fill="#b91c1c">Turbulent (ปั่นป่วน)</text>
+        <text x="630" y="98" font-size="9" text-anchor="middle" fill="#475569">แรงขับเคลื่อน: ผลต่างความดัน (ΔP)</text>
+      </svg>
+      <figcaption><strong>รูปที่ 1.1</strong> <span class="tag-src">[ต้นฉบับ]</span> การเปรียบเทียบกลไกและแรงขับเคลื่อนของการถ่ายโอนพลังงาน (ความร้อน) การถ่ายโอนมวล และการถ่ายโอนโมเมนตัม (อ้างอิงจากสไลด์หน้า 6–8)</figcaption>
+    </figure>
+
+    <table class="std-table">
+      <thead>
+        <tr>
+          <th scope="col">ประเภทการถ่ายโอน</th>
+          <th scope="col">ปริมาณที่ถูกถ่ายโอน</th>
+          <th scope="col">แรงขับเคลื่อน (Driving Force)</th>
+          <th scope="col">กฎพื้นฐานในระดับโมเลกุล <span class="tag-sup">[เสริมพื้นฐาน]</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>การถ่ายโอนพลังงาน (Heat)</strong></td>
+          <td>พลังงานความร้อน (Thermal energy)</td>
+          <td>เกรเดียนต์ของอุณหภูมิ (<span class="math">dT/dx</span>)</td>
+          <td>กฎของฟูริเยร์: <span class="math">q<sub>x</sub>″ = −k (dT/dx)</span></td>
+        </tr>
+        <tr>
+          <td><strong>การถ่ายโอนมวล (Mass)</strong></td>
+          <td>มวลของสารองค์ประกอบ A</td>
+          <td>เกรเดียนต์ความเข้มข้น (<span class="math">dC<sub>A</sub>/dx</span>)</td>
+          <td>กฎของฟิกส์ (Fick&#39;s law): <span class="math">J<sub>A,x</sub> = −D<sub>AB</sub> (dC<sub>A</sub>/dx)</span></td>
+        </tr>
+        <tr>
+          <td><strong>การถ่ายโอนโมเมนตัม (Momentum)</strong></td>
+          <td>โมเมนตัมเชิงเส้นของของไหล</td>
+          <td>ความดันลด (<span class="math">ΔP</span>) / เกรเดียนต์ความเร็ว (<span class="math">du/dy</span>)</td>
+          <td>กฎความหนืดของนิวตัน: <span class="math">τ<sub>yx</sub> = −μ (du/dy)</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 1 พื้นฐานของการถ่ายเทความร้อน</span>
+    <span>หน้า 3</span>
+  </footer>
+</section>
+
+<!-- page 4 budget (Compact): h3 11 + prose 230 + svg 84 + box chrome 24 + box-concept 110 + 5 gaps 40 = 499 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h3>1.3.3 ภาพรวมของโหมดการถ่ายเทความร้อนทั้ง 3 รูปแบบ (Modes of Heat Transfer)</h3>
+    <p><span class="tag-src">[ต้นฉบับ]</span> ในสไลด์หน้า 3, 9–13 และ 55 อาจารย์ได้ยกตัวอย่างสถานการณ์จริง 2 สถานการณ์ที่แสดงให้เห็นว่าโหมดการถ่ายเทความร้อนทั้ง 3 รูปแบบเกิดขึ้นพร้อมกันเสมอในธรรมชาติและในชีวิตประจำวัน ได้แก่:</p>
+    <ul>
+      <li><strong>สถานการณ์ที่ 1 (ภาพริมชายหาดยามอาทิตย์อัสดง — สไลด์หน้า 3 และ 55):</strong> พ่อและลูกที่ยืนอยู่บนหาดทรายได้รับความร้อนจากดวงอาทิตย์โดยตรงผ่านอวกาศและชั้นบรรยากาศด้วย <strong>การแผ่รังสีความร้อน (Thermal radiation — ลูกศรสีแดง)</strong> ในขณะเดียวกัน ลมทะเลที่พัดผ่านร่างกายทำให้เกิดการแลกเปลี่ยนความร้อนระหว่างผิวหนังกับอากาศที่เคลื่อนที่ด้วย <strong>การพาความร้อน (Convection — ลูกศรสีเหลือง)</strong> และฝ่าเท้าที่สัมผัสกับเม็ดทรายอุ่นๆ บนชายหาดโดยตรงได้รับความร้อนผ่าน <strong>การนำความร้อน (Conduction — ลูกศรสีส้ม)</strong></li>
+      <li><strong>สถานการณ์ที่ 2 (หม้อต้มน้ำบนเตาแก๊ส — สไลด์หน้า 9):</strong> เปลวไฟและเตาที่ร้อนส่งความร้อนสู่อากาศรอบข้างและก้นหม้อด้วย <strong>การแผ่รังสี (Radiation)</strong> ความร้อนจากก้นหม้อเคลื่อนที่ผ่านเนื้อโลหะของตัวหม้อไปยังด้ามจับหม้อด้วย <strong>การนำความร้อน (Conduction)</strong> และน้ำที่อยู่ก้นหม้อเมื่อได้รับความร้อนจะขยายตัวมีความหนาแน่นลดลงจึงลอยตัวขึ้นด้านบน ส่วนน้ำเย็นด้านบนที่หนาแน่นกว่าจะจมลงมาแทนที่ เกิดการหมุนเวียนถ่ายเทความร้อนภายในน้ำด้วย <strong>การพาความร้อน (Convection)</strong></li>
+    </ul>
+
+    <figure class="fig-box">
+      <svg viewBox="0 0 760 120" style="width:100%; height:32mm;" role="img">
+        <title>โหมดการถ่ายเทความร้อนทั้งสามรูปแบบตาม Figure 1.1</title>
+        <!-- Mode 1: Conduction -->
+        <rect x="5" y="5" width="240" height="110" fill="#ffffff" stroke="#94a3b8" rx="3"></rect>
+        <text x="125" y="19" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#0f172a">1. การนำความร้อน (Conduction)</text>
+        <text x="125" y="31" font-size="8.5" text-anchor="middle" fill="#475569">ผ่านของแข็งหรือของไหลที่อยู่นิ่ง (T₁ &gt; T₂)</text>
+        <defs>
+          <linearGradient id="gradCond" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#f97316;stop-opacity:0.85"></stop>
+            <stop offset="100%" style="stop-color:#ffedd5;stop-opacity:0.85"></stop>
+          </linearGradient>
+        </defs>
+        <rect x="75" y="38" width="95" height="68" fill="url(#gradCond)" stroke="#334155" stroke-width="1.5"></rect>
+        <text x="55" y="52" font-size="10" font-weight="bold" fill="#c2410c">T₁</text>
+        <text x="182" y="52" font-size="10" font-weight="bold" fill="#0369a1">T₂</text>
+        <line x1="50" y1="74" x2="195" y2="74" stroke="#dc2626" stroke-width="2.5"></line>
+        <polygon points="195,69 207,74 195,79" fill="#dc2626"></polygon>
+        <text x="216" y="78" font-size="10" font-weight="bold" font-style="italic" fill="#dc2626">q″</text>
+
+        <!-- Mode 2: Convection -->
+        <rect x="260" y="5" width="240" height="110" fill="#ffffff" stroke="#94a3b8" rx="3"></rect>
+        <text x="380" y="19" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#0f172a">2. การพาความร้อน (Convection)</text>
+        <text x="380" y="31" font-size="8.5" text-anchor="middle" fill="#475569">จากพื้นผิวสู่ของไหลที่กำลังเคลื่อนที่ (Tₛ &gt; T∞)</text>
+        <rect x="285" y="92" width="190" height="12" fill="#fdba74" stroke="#9a3412"></rect>
+        <text x="455" y="88" font-size="10" font-weight="bold" fill="#9a3412">Tₛ</text>
+        <ellipse cx="365" cy="48" rx="65" ry="11" fill="#e0f2fe" stroke="#7dd3fc"></ellipse>
+        <text x="365" y="52" font-size="9" font-weight="bold" text-anchor="middle" fill="#0369a1">Moving fluid, T∞</text>
+        <line x1="290" y1="64" x2="330" y2="64" stroke="#0f172a" stroke-width="1.5"></line>
+        <polygon points="330,61 337,64 330,67" fill="#0f172a"></polygon>
+        <line x1="290" y1="74" x2="330" y2="74" stroke="#0f172a" stroke-width="1.5"></line>
+        <polygon points="330,71 337,74 330,77" fill="#0f172a"></polygon>
+        <line x1="290" y1="84" x2="330" y2="84" stroke="#0f172a" stroke-width="1.5"></line>
+        <polygon points="330,81 337,84 330,87" fill="#0f172a"></polygon>
+        <line x1="385" y1="92" x2="400" y2="63" stroke="#dc2626" stroke-width="2.5"></line>
+        <polygon points="395,63 403,56 404,66" fill="#dc2626"></polygon>
+        <text x="412" y="65" font-size="10" font-weight="bold" font-style="italic" fill="#dc2626">q″</text>
+
+        <!-- Mode 3: Radiation -->
+        <rect x="515" y="5" width="240" height="110" fill="#ffffff" stroke="#94a3b8" rx="3"></rect>
+        <text x="635" y="19" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#0f172a">3. การแผ่รังสีความร้อน (Radiation)</text>
+        <text x="635" y="31" font-size="8.5" text-anchor="middle" fill="#475569">แลกเปลี่ยนสุทธิระหว่างสองพื้นผิวโดยไม่ต้องมีตัวกลาง</text>
+        <line x1="540" y1="80" x2="610" y2="38" stroke="#c2410c" stroke-width="5"></line>
+        <text x="645" y="45" font-size="9" font-weight="bold" fill="#c2410c">Surface, T₁</text>
+        <line x1="575" y1="60" x2="605" y2="75" stroke="#dc2626" stroke-width="1.5"></line>
+        <line x1="585" y1="54" x2="618" y2="64" stroke="#dc2626" stroke-width="1.5"></line>
+        <text x="558" y="88" font-size="9.5" font-weight="bold" font-style="italic" fill="#dc2626">q₁″</text>
+        <line x1="620" y1="104" x2="710" y2="74" stroke="#0369a1" stroke-width="5"></line>
+        <text x="705" y="68" font-size="9" font-weight="bold" text-anchor="end" fill="#0369a1">Surface, T₂</text>
+        <line x1="655" y1="90" x2="635" y2="70" stroke="#2563eb" stroke-width="1.5"></line>
+        <line x1="670" y1="85" x2="658" y2="64" stroke="#2563eb" stroke-width="1.5"></line>
+        <text x="605" y="102" font-size="9.5" font-weight="bold" font-style="italic" fill="#2563eb">q₂″</text>
+      </svg>
+      <figcaption><strong>รูปที่ 1.2 (Figure 1.1 ในสไลด์หน้า 10–13)</strong> <span class="tag-src">[ต้นฉบับ]</span> แผนภาพเปรียบเทียบโหมดการถ่ายเทความร้อนทั้ง 3 รูปแบบ: การนำความร้อน การพาความร้อน และการแผ่รังสีความร้อน</figcaption>
+    </figure>
+
+    <div class="box-concept">
+      <h4>สรุปนิยามมาตรฐานของโหมดการถ่ายเทความร้อนทั้ง 3 รูปแบบ (สไลด์หน้า 11–13)</h4>
+      <ol>
+        <li><span class="tag-src">[ต้นฉบับ]</span> <strong>การนำความร้อน (Conduction):</strong> เมื่อมีเกรเดียนต์ของอุณหภูมิ (Temperature gradient — อัตราการเปลี่ยนแปลงอุณหภูมิเทียบกับระยะทาง) เกิดขึ้นใน <em>ตัวกลางที่อยู่นิ่ง (Stationary medium)</em> ซึ่งอาจเป็นของแข็งหรือของไหลที่อยู่นิ่งก็ได้ เราใช้คำว่า &#34;การนำความร้อน&#34; เพื่อกล่าวถึงการถ่ายเทความร้อนที่เกิดขึ้นข้ามตัวกลางนั้น</li>
+        <li><span class="tag-src">[ต้นฉบับ]</span> <strong>การพาความร้อน (Convection):</strong> หมายถึงการถ่ายเทความร้อนที่เกิดขึ้นระหว่าง <em>พื้นผิวของแข็ง (Surface) กับของไหลที่กำลังเคลื่อนที่ (Moving fluid)</em> เมื่อทั้งสองมีอุณหภูมิแตกต่างกัน (<span class="math">T<sub>s</sub> ≠ T<sub>∞</sub></span>)</li>
+        <li><span class="tag-src">[ต้นฉบับ]</span> <strong>การแผ่รังสีความร้อน (Thermal Radiation):</strong> พื้นผิวทุกชนิดที่มีอุณหภูมิสูงกว่าศูนย์สัมบูรณ์ (<span class="math">T &gt; 0</span> <span class="math-rm">K</span>) จะเปล่งพลังงานออกมาในรูปของคลื่นแม่เหล็กไฟฟ้า (Electromagnetic waves) ดังนั้น <em>แม้ในสภาวะที่ไม่มีตัวกลางคั่นกลาง (เช่น ในสุญญากาศ)</em> ก็ยังคงมีการถ่ายเทความร้อนสุทธิด้วยการแผ่รังสีระหว่างพื้นผิวสองพื้นผิวที่มีอุณหภูมิแตกต่างกัน</li>
+      </ol>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 1 พื้นฐานของการถ่ายเทความร้อน</span>
+    <span>หน้า 4</span>
+  </footer>
+</section>
+
+<!-- page 5 budget (Compact): h2 11 + prose 220 + svg 84 + box chrome 24 + 2 eq-blocks 60 + 5 gaps 40 = 439 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>1.4 ต้นกำเนิดทางกายภาพและสมการอัตรา: การนำความร้อน (1.2.1 Conduction)</h2>
+
+    <h3>1.4.1 กลไกระดับอะตอมและโมเลกุลของการนำความร้อน</h3>
+    <p><span class="tag-src">[ต้นฉบับ]</span> ในสไลด์หน้า 14–16 ได้อธิบายไว้ว่า ในฐานะวิศวกร สิ่งสำคัญคือเราต้องเข้าใจกลไกทางกายภาพที่อยู่เบื้องหลังโหมดการถ่ายเทความร้อน และสามารถใช้ <strong>สมการอัตรา (Rate equations)</strong> เพื่อคำนวณหาปริมาณพลังงานที่ถูกถ่ายโอนต่อหนึ่งหน่วยเวลาได้ เมื่อกล่าวถึงการนำความร้อน ให้เรานึกถึงกิจกรรมในระดับอะตอมและโมเลกุลทันที โดย <strong>การนำความร้อนคือการถ่ายโอนพลังงานจากอนุภาคที่มีพลังงานสูงกว่า (More energetic particles) ไปยังอนุภาคที่มีพลังงานต่ำกว่า (Less energetic particles) ของสสาร อันเนื่องมาจากอันตรกิริยาระหว่างอนุภาคเหล่านั้น</strong></p>
+    <p><span class="tag-sup">[เสริมพื้นฐาน]</span> เพื่อทำความเข้าใจรูปที่ 1.3(ก) (Figure 1.2 ในสไลด์หน้า 16) ให้ชัดเจนขึ้น เราสามารถแยกอธิบายกลไกระดับจุลภาคตามสถานะของตัวกลางได้ดังนี้:</p>
+    <ul>
+      <li><strong>ในก๊าซและของเหลวที่อยู่นิ่ง:</strong> โมเลกุลเคลื่อนที่แบบสุ่มตลอดเวลา (Random translational motion) โมเลกุลที่อยู่ด้านบนซึ่งมีอุณหภูมิสูงกว่า (<span class="math">T<sub>1</sub></span>) จะมีพลังงานจลน์ของการเคลื่อนที่ การหมุน และการสั่นสูงกว่า เมื่อโมเลกุลเหล่านี้เคลื่อนที่ข้ามระนาบสมมติ <span class="math">x<sub>0</sub></span> ลงมาชนกับโมเลกุลด้านล่างที่มีอุณหภูมิต่ำกว่า (<span class="math">T<sub>2</sub></span>) โมเลกุลที่มีพลังงานสูงจะถ่ายโอนพลังงานจลน์ให้กับโมเลกุลที่มีพลังงานต่ำกว่า กระบวนการนี้เรียกว่า <strong>การแพร่ของพลังงานเนื่องจากกิจกรรมระดับโมเลกุล (Diffusion of energy due to molecular activity)</strong></li>
+      <li><strong>ในของแข็ง (Solids):</strong> อะตอมถูกยึดไว้ในโครงผลึก (Crystal lattice) การนำความร้อนจึงเกิดขึ้นจาก 2 กลไกหลัก คือ (1) การสั่นของโครงผลึกที่ส่งผ่านเป็นคลื่นพลังงานที่เรียกว่า <strong>โฟนอน (Phonons / Lattice waves)</strong> ซึ่งเกิดในของแข็งทุกชนิด และ (2) การเคลื่อนที่อย่างอิสระของ <strong>อิเล็กตรอนอิสระ (Free electrons)</strong> ในโลหะ ซึ่งเป็นเหตุผลว่าทำไมโลหะบริสุทธิ์จึงนำความร้อนได้ดีกว่าอโลหะหลายร้อยเท่า</li>
+    </ul>
+
+    <figure class="fig-box">
+      <svg viewBox="0 0 760 120" style="width:100%; height:31mm;" role="img">
+        <title>กลไกการนำความร้อนระดับโมเลกุลและการนำความร้อนหนึ่งมิติผ่านผนังราบ</title>
+        <!-- Left: Fig 1.2 Molecular diffusion -->
+        <rect x="5" y="5" width="365" height="110" fill="#f8fafc" stroke="#94a3b8" rx="3"></rect>
+        <text x="187" y="19" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#0f172a">(ก) Figure 1.2: การแพร่พลังงานระดับโมเลกุล</text>
+        <rect x="20" y="25" width="310" height="8" fill="#ef4444"></rect>
+        <text x="335" y="33" font-size="9" font-weight="bold" fill="#b91c1c">T₁ &gt; T₂</text>
+        <!-- Energetic particles -->
+        <circle cx="65" cy="48" r="6" fill="#dc2626"></circle><line x1="65" y1="48" x2="82" y2="58" stroke="#dc2626" stroke-width="1.5"></line>
+        <circle cx="135" cy="45" r="6" fill="#dc2626"></circle><line x1="135" y1="45" x2="145" y2="62" stroke="#dc2626" stroke-width="1.5"></line>
+        <circle cx="210" cy="50" r="6" fill="#dc2626"></circle><line x1="210" y1="50" x2="200" y2="65" stroke="#dc2626" stroke-width="1.5"></line>
+        <circle cx="275" cy="46" r="6" fill="#dc2626"></circle><line x1="275" y1="46" x2="290" y2="60" stroke="#dc2626" stroke-width="1.5"></line>
+        <!-- Midplane x0 -->
+        <line x1="20" y1="66" x2="315" y2="66" stroke="#334155" stroke-width="1.2" stroke-dasharray="5,4"></line>
+        <text x="32" y="62" font-size="9" font-style="italic" fill="#0f172a">x₀</text>
+        <line x1="305" y1="50" x2="305" y2="85" stroke="#dc2626" stroke-width="2"></line>
+        <polygon points="301,85 305,93 309,85" fill="#dc2626"></polygon>
+        <text x="318" y="80" font-size="9.5" font-weight="bold" font-style="italic" fill="#dc2626">qₓ″</text>
+        <!-- Less energetic particles -->
+        <circle cx="80" cy="85" r="6" fill="#fdba74"></circle><line x1="80" y1="85" x2="90" y2="75" stroke="#ea580c" stroke-width="1.2"></line>
+        <circle cx="165" cy="88" r="6" fill="#fdba74"></circle><line x1="165" y1="88" x2="178" y2="88" stroke="#ea580c" stroke-width="1.2"></line>
+        <circle cx="245" cy="84" r="6" fill="#fdba74"></circle><line x1="245" y1="84" x2="235" y2="74" stroke="#ea580c" stroke-width="1.2"></line>
+        <rect x="20" y="102" width="310" height="8" fill="#fed7aa"></rect>
+        <text x="335" y="109" font-size="9" font-weight="bold" fill="#0369a1">T₂</text>
+
+        <!-- Right: Fig 1.3 1D Plane Wall -->
+        <rect x="385" y="5" width="370" height="110" fill="#ffffff" stroke="#94a3b8" rx="3"></rect>
+        <text x="570" y="19" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#0f172a">(ข) Figure 1.3: การนำความร้อน 1 มิติในผนังราบ</text>
+        <!-- Axes & Wall -->
+        <rect x="490" y="34" width="110" height="64" fill="url(#gradCond)" stroke="#0f172a" stroke-width="1.5"></rect>
+        <!-- 3D depth -->
+        <polygon points="600,34 640,22 640,86 600,98" fill="#cbd5e1" stroke="#0f172a" stroke-width="1.2"></polygon>
+        <polygon points="490,34 530,22 640,22 600,34" fill="#e2e8f0" stroke="#0f172a" stroke-width="1.2"></polygon>
+        <!-- Temperature line T(x) -->
+        <line x1="490" y1="45" x2="600" y2="85" stroke="#dc2626" stroke-width="2.5"></line>
+        <text x="472" y="50" font-size="10" font-weight="bold" fill="#b91c1c">T₁</text>
+        <text x="608" y="90" font-size="10" font-weight="bold" fill="#0369a1">T₂</text>
+        <text x="550" y="58" font-size="9.5" font-weight="bold" font-style="italic" fill="#991b1b">T(x)</text>
+        <!-- Heat flux arrow -->
+        <line x1="425" y1="68" x2="480" y2="68" stroke="#dc2626" stroke-width="2.5"></line>
+        <polygon points="480,63 488,68 480,73" fill="#dc2626"></polygon>
+        <text x="405" y="72" font-size="10" font-weight="bold" font-style="italic" fill="#dc2626">qₓ″</text>
+        <!-- Dimension L -->
+        <line x1="490" y1="108" x2="600" y2="108" stroke="#0f172a" stroke-width="1.2"></line>
+        <text x="545" y="106" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#0f172a">ความหนา L</text>
+        <line x1="600" y1="98" x2="675" y2="98" stroke="#0f172a" stroke-width="1.2"></line>
+        <text x="683" y="102" font-size="9.5" font-style="italic" fill="#0f172a">x</text>
+      </svg>
+      <figcaption><strong>รูปที่ 1.3 (Figure 1.2 และ Figure 1.3 ในสไลด์หน้า 16, 19–20)</strong> <span class="tag-src">[ต้นฉบับ]</span> (ก) การแพร่พลังงานจากการชนกันของโมเลกุลข้ามระนาบ <span class="math">x<sub>0</sub></span> และ (ข) การกระจายอุณหภูมิเชิงเส้น <span class="math">T(x)</span> ในผนังราบหนา <span class="math">L</span> ภายใต้สภาวะคงตัว</figcaption>
+    </figure>
+
+    <h3>1.4.2 กฎของฟูริเยร์ (Fourier&#39;s Law) และการนำความร้อนผ่านผนังราบ</h3>
+    <p><span class="tag-src">[ต้นฉบับ]</span> <span class="tag-inf">[เติมเต็มสไลด์]</span> ในสไลด์หน้า 17–18 ได้ระบุสมการอัตราสำหรับการนำความร้อน ซึ่งเรียกว่า <strong>กฎของฟูริเยร์ (Fourier&#39;s law)</strong> สำหรับการนำความร้อนใน 1 มิติตามแนวแกน <span class="math">x</span> เขียนได้เป็น:</p>
+
+    <div class="eq-block">
+      <div><span class="math">q<sub>x</sub>″</span> = −<span class="math">k</span> <span class="math">dT</span> / <span class="math">dx</span></div>
+      <div class="eq-num">(สมการที่ 1.1)</div>
+    </div>
+
+    <p>โดยที่ <span class="math">q<sub>x</sub>″</span> คือ <strong>ฟลักซ์ความร้อน (Heat flux, <span class="math-rm">W/m<sup>2</sup></span>)</strong> คืออัตราการถ่ายเทความร้อนในทิศทาง <span class="math">x</span> ต่อหนึ่งหน่วยพื้นที่ที่ตั้งฉากกับทิศทางการถ่ายโอน, <span class="math">k</span> คือ <strong>สภาพนำความร้อน (Thermal conductivity, <span class="math-rm">W/(m·K)</span>)</strong> ซึ่งเป็นสมบัติการถ่ายโอน (Transport property) เฉพาะตัวของวัสดุผนัง และ <span class="math">dT/dx</span> คือ <strong>เกรเดียนต์ของอุณหภูมิ (Temperature gradient, <span class="math-rm">K/m</span>)</strong> คือความชันของกราฟอุณหภูมิเทียบกับระยะทาง
+    <br><span class="tag-sup">[เสริมพื้นฐาน]</span> <strong>เหตุใดจึงต้องมีเครื่องหมายลบ (−) ในกฎของฟูริเยร์?</strong> เนื่องจากความร้อนไหลไปในทิศทางที่อุณหภูมิลดลงเสมอ เมื่อ <span class="math">x</span> เพิ่มขึ้นจาก <span class="math">0</span> ไปยัง <span class="math">L</span> อุณหภูมิจะลดลงจาก <span class="math">T<sub>1</sub></span> ไปเป็น <span class="math">T<sub>2</sub></span> (โดยที่ <span class="math">T<sub>1</sub> &gt; T<sub>2</sub></span>) ทำให้ความชัน <span class="math">dT/dx</span> มีค่าเป็นลบเสมอ ดังนั้นการใส่เครื่องหมายลบไว้หน้าสมการจึงทำให้ผลคูณ <span class="math">−k(dT/dx)</span> มีค่าเป็นบวกเมื่อความร้อนไหลไปในทิศทาง <span class="math">+x</span></p>
+
+    <p><span class="tag-src">[ต้นฉบับ]</span> <span class="tag-inf">[เติมเต็มสไลด์หน้า 20]</span> สำหรับผนังราบหนา <span class="math">L</span> และมีพื้นที่หน้าตัด <span class="math">A</span> (รูปที่ 1.3(ข)) ภายใต้สภาวะคงตัว (Steady-state) ที่การกระจายอุณหภูมิ <span class="math">T(x)</span> เป็นเส้นตรง เกรเดียนต์ของอุณหภูมิจะมีค่าคงตัวเท่ากับ <span class="math">dT/dx = (T<sub>2</sub> − T<sub>1</sub>)/(L − 0) = (T<sub>2</sub> − T<sub>1</sub>)/L</span> เมื่อแทนลงในสมการที่ 1.1 และคูณด้วยพื้นที่ผิว <span class="math">A</span> จะได้สมการคำนวณฟลักซ์ความร้อนและอัตราการนำความร้อน (<span class="math">q<sub>x</sub></span>, หน่วย <span class="math-rm">W</span>) ดังนี้:</p>
+
+    <div class="eq-block">
+      <div><span class="math">q<sub>x</sub>″</span> = −<span class="math">k</span> (<span class="math">T<sub>2</sub> − T<sub>1</sub></span>) / <span class="math">L</span> = <span class="math">k</span> (<span class="math">T<sub>1</sub> − T<sub>2</sub></span>) / <span class="math">L</span> = <span class="math">k</span> <span class="math">ΔT</span> / <span class="math">L</span>    และ    <span class="math">q<sub>x</sub></span> = <span class="math">q<sub>x</sub>″</span> · <span class="math">A</span> = <span class="math">k A</span> (<span class="math">T<sub>1</sub> − T<sub>2</sub></span>) / <span class="math">L</span></div>
+      <div class="eq-num">(สมการที่ 1.2)</div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 1 พื้นฐานของการถ่ายเทความร้อน</span>
+    <span>หน้า 5</span>
+  </footer>
+</section>
+
+<!-- page 6 budget (Compact): h3 11 + box-example 260 + svg 75 + box chrome 24 + box-example 120 + 5 gaps 40 = 530 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h3>1.4.3 ตัวอย่างการคำนวณการนำความร้อนผ่านผนังราบ</h3>
+
+    <div class="box-example">
+      <h4>ตัวอย่างที่ 1.1 (Example 1.1 — สไลด์หน้า 21–23) <span class="tag-src">[ต้นฉบับ]</span> <span class="tag-inf">[เติมเต็มสไลด์]</span></h4>
+      <p><strong>โจทย์:</strong> ผนังของเตาอุตสาหกรรมแห่งหนึ่งสร้างขึ้นจากอิฐทนไฟ (Fireclay brick) มีความหนา <span class="math">L = 0.15</span> <span class="math-rm">m</span> และมีสภาพนำความร้อน <span class="math">k = 1.7</span> <span class="math-rm">W/(m·K)</span> จากการวัดอุณหภูมิในระหว่างการทำงานภายใต้สภาวะคงตัว (Steady-state operation) พบว่าอุณหภูมิที่พื้นผิวด้านในและด้านนอกมีค่าเท่ากับ <span class="math">1,400</span> <span class="math-rm">K</span> และ <span class="math">1,150</span> <span class="math-rm">K</span> ตามลำดับ จงคำนวณหาอัตราการสูญเสียความร้อนผ่านผนังที่มีขนาดความสูง <span class="math">H = 0.5</span> <span class="math-rm">m</span> และความกว้าง <span class="math">W = 1.2</span> <span class="math-rm">m</span></p>
+      <p style="margin-top:4px;"><strong>วิธีทำอย่างละเอียด:</strong>
+      <br><strong>ขั้นที่ 1 กำหนดตัวแปรที่ทราบค่าและสมมติฐาน:</strong>
+      <br>• ความหนาของผนังอิฐทนไฟ: <span class="math">L = 0.15</span> <span class="math-rm">m</span> | สภาพนำความร้อนของอิฐทนไฟ: <span class="math">k = 1.7</span> <span class="math-rm">W/(m·K)</span> (สมมติให้คงตัวตลอดความหนา)
+      <br>• อุณหภูมิผิวด้านใน: <span class="math">T<sub>1</sub> = 1,400</span> <span class="math-rm">K</span> | อุณหภูมิผิวด้านนอก: <span class="math">T<sub>2</sub> = 1,150</span> <span class="math-rm">K</span>
+      <br>• ขนาดของผนัง: สูง <span class="math">H = 0.5</span> <span class="math-rm">m</span>, กว้าง <span class="math">W = 1.2</span> <span class="math-rm">m</span> (การนำความร้อนเกิดขึ้นใน 1 มิติตามแนวความหนา <span class="math">x</span> ภายใต้สภาวะคงตัว)
+      <br><strong>ขั้นที่ 2 คำนวณฟลักซ์ความร้อน (<span class="math">q<sub>x</sub>″</span>) จากกฎของฟูริเยร์ (เติมคำตอบที่เว้นว่างในสไลด์หน้า 23):</strong>
+      <br>จากสมการที่ 1.2 เนื่องจากความร้อนถ่ายเทผ่านผนังด้วยการนำความร้อน เราสามารถหาฟลักซ์ความร้อนได้จาก:
+      <br><span class="math">q<sub>x</sub>″</span> = <span class="math">k</span> (<span class="math">ΔT</span> / <span class="math">L</span>) = <span class="math">k</span> (<span class="math">T<sub>1</sub> − T<sub>2</sub></span>) / <span class="math">L</span> = [1.7 <span class="math-rm">W/(m·K)</span> × (1,400 − 1,150) <span class="math-rm">K</span>] / 0.15 <span class="math-rm">m</span> = (1.7 × 250) / 0.15 = <strong>2,833.33 <span class="math-rm">W/m<sup>2</sup></span></strong>
+      <br><strong>ขั้นที่ 3 คำนวณพื้นที่ผิวตั้งฉาก (<span class="math">A</span>) และอัตราการสูญเสียความร้อน (<span class="math">q<sub>x</sub></span>):</strong>
+      <br>พื้นที่ผนังที่ตั้งฉากกับทิศทางการไหลของความร้อนคือ <span class="math">A = H × W = 0.5</span> <span class="math-rm">m</span> × <span class="math">1.2</span> <span class="math-rm">m</span> = <span class="math">0.60</span> <span class="math-rm">m<sup>2</sup></span>
+      <br><span class="math">q<sub>x</sub></span> = (<span class="math">H W</span>) <span class="math">q<sub>x</sub>″</span> = 0.60 <span class="math-rm">m<sup>2</sup></span> × 2,833.33 <span class="math-rm">W/m<sup>2</sup></span> = <strong>1,700 <span class="math-rm">W</span> (หรือ 1.70 <span class="math-rm">kW</span>)</strong>
+      <br><strong>การตรวจสอบความสมเหตุสมผลและหน่วย:</strong> หน่วย <span class="math-rm">[W/(m·K)] × [K] / [m] = W/m<sup>2</sup></span> เมื่อคูณพื้นที่ <span class="math-rm">[m<sup>2</sup>]</span> จึงได้หน่วย <span class="math-rm">W</span> ถูกต้องตามมิติทางฟิสิกส์</p>
+    </div>
+
+    <figure class="fig-box">
+      <svg viewBox="0 0 760 105" style="width:100%; height:27mm;" role="img">
+        <title>แผนภาพผนังเตาอุตสาหกรรมตามตัวอย่างที่ 1.1</title>
+        <!-- Left: Cross section -->
+        <rect x="75" y="15" width="75" height="72" fill="url(#gradCond)" stroke="#0f172a" stroke-width="1.5"></rect>
+        <text x="68" y="30" font-size="9.5" font-weight="bold" text-anchor="end" fill="#b91c1c">T₁ = 1400 K</text>
+        <text x="157" y="30" font-size="9.5" font-weight="bold" fill="#0369a1">T₂ = 1150 K</text>
+        <text x="112" y="11" font-size="9" font-weight="bold" text-anchor="middle" fill="#0f172a">k = 1.7 W/(m·K)</text>
+        <line x1="45" y1="52" x2="180" y2="52" stroke="#dc2626" stroke-width="2.5"></line>
+        <polygon points="180,47 190,52 180,57" fill="#dc2626"></polygon>
+        <text x="196" y="56" font-size="10" font-weight="bold" font-style="italic" fill="#dc2626">qₓ″ = 2,833.3 W/m²</text>
+        <text x="112" y="99" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#0f172a">L = 0.15 m</text>
+
+        <!-- Right: 3D Wall -->
+        <polygon points="410,32 590,8 590,68 410,92" fill="#cbd5e1" stroke="#0f172a" stroke-width="1.5"></polygon>
+        <rect x="375" y="32" width="35" height="60" fill="url(#gradCond)" stroke="#0f172a" stroke-width="1.5"></rect>
+        <polygon points="375,32 555,8 590,8 410,32" fill="#e2e8f0" stroke="#0f172a" stroke-width="1.5"></polygon>
+        <text x="480" y="16" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#0f172a">W = 1.2 m</text>
+        <text x="635" y="45" font-size="9.5" font-weight="bold" fill="#0f172a">H = 0.5 m</text>
+        <text x="505" y="55" font-size="9.5" font-weight="bold" fill="#1e293b">A = 0.60 m²</text>
+        <line x1="510" y1="62" x2="575" y2="75" stroke="#dc2626" stroke-width="2.5"></line>
+        <polygon points="574,70 584,77 572,80" fill="#dc2626"></polygon>
+        <text x="645" y="82" font-size="10" font-weight="bold" fill="#dc2626">qₓ = 1,700 W</text>
+      </svg>
+      <figcaption><strong>รูปที่ 1.4 (Schematic ของ Example 1.1 ในสไลด์หน้า 22–23)</strong> <span class="tag-src">[ต้นฉบับ]</span> มิติและการถ่ายเทความร้อนผ่านผนังอิฐทนไฟของเตาอุตสาหกรรม</figcaption>
+    </figure>
+
+    <div class="box-example">
+      <h4>ตัวอย่างเสริมที่ 1.1B (การคำนวณย้อนกลับหาเกรเดียนต์อุณหภูมิและอุณหภูมิพื้นผิว) <span class="tag-sup">[เสริมพื้นฐาน]</span></h4>
+      <p><strong>โจทย์:</strong> กระจกหน้าต่างบานหนึ่งมีความหนา <span class="math">L = 6</span> <span class="math-rm">mm</span> (<span class="math">0.006</span> <span class="math-rm">m</span>) และมีสภาพนำความร้อน <span class="math">k = 1.4</span> <span class="math-rm">W/(m·K)</span> ในวันที่มีอากาศหนาว วัดฟลักซ์ความร้อนที่ไหลออกจากห้องผ่านกระจกได้ <span class="math">q<sub>x</sub>″ = 350</span> <span class="math-rm">W/m<sup>2</sup></span> หากอุณหภูมิผิวกระจกด้านในห้องเท่ากับ <span class="math">T<sub>1</sub> = 22.0</span> <span class="math-rm">°C</span> จงหา (1) เกรเดียนต์ของอุณหภูมิ <span class="math">dT/dx</span> ในเนื้อกระจก และ (2) อุณหภูมิผิวกระจกด้านนอก <span class="math">T<sub>2</sub></span></p>
+      <p style="margin-top:4px;"><strong>วิธีทำ:</strong> (1) จากกฎของฟูริเยร์ (สมการที่ 1.1): <span class="math">q<sub>x</sub>″ = −k (dT/dx)</span> ดังนั้น <span class="math">dT/dx = −q<sub>x</sub>″ / k = −350 / 1.4 =</span> <strong>−250 <span class="math-rm">K/m</span> (หรือ −0.25 <span class="math-rm">°C/mm</span>)</strong> เครื่องหมายลบแสดงว่าอุณหภูมิลดลง <span class="math">0.25</span> <span class="math-rm">°C</span> ทุกๆ ความหนา <span class="math">1</span> <span class="math-rm">mm</span> ในทิศทางที่ความร้อนไหลออก
+      <br>(2) จาก <span class="math">dT/dx = (T<sub>2</sub> − T<sub>1</sub>)/L</span> จะได้ <span class="math">T<sub>2</sub> = T<sub>1</sub> + (dT/dx)·L = 22.0</span> <span class="math-rm">°C</span> + (<span class="math">−250</span> <span class="math-rm">°C/m</span>)(<span class="math">0.006</span> <span class="math-rm">m</span>) = <span class="math">22.0 − 1.5 =</span> <strong>20.5 <span class="math-rm">°C</span></strong> (สังเกตว่ากระจกบางและนำความร้อนได้ดี จึงเกิดผลต่างอุณหภูมิคร่อมเนื้อกระจกเพียง <span class="math">1.5</span> <span class="math-rm">°C</span> เท่านั้น)</p>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 1 พื้นฐานของการถ่ายเทความร้อน</span>
+    <span>หน้า 6</span>
+  </footer>
+</section>
+
+<!-- page 7 budget (Compact): h2 11 + prose 190 + svg 84 + box chrome 24 + eq-block 30 + table 7 rows 119 + 5 gaps 40 = 498 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>1.5 ต้นกำเนิดทางกายภาพและสมการอัตรา: การพาความร้อน (1.2.2 Convection)</h2>
+
+    <h3>1.5.1 กลไกทางกายภาพและการจำแนกประเภทของการพาความร้อน</h3>
+    <p><span class="tag-src">[ต้นฉบับ]</span> ในสไลด์หน้า 24–28 ได้อธิบายว่า โหมดการพาความร้อน (Convection heat transfer mode) ประกอบด้วยกลไก 2 ส่วนที่ทำงานร่วมกัน คือ (1) การถ่ายโอนพลังงานเนื่องจากการเคลื่อนที่แบบสุ่มของโมเลกุล (Random molecular motion / Diffusion) บริเวณใกล้ผิวสัมผัส และ (2) การถ่ายโอนพลังงานเนื่องจากการเคลื่อนที่ในระดับมหภาคเป็นกลุ่มก้อนของของไหล (Bulk, macroscopic motion of fluid หรือ Advection) ซึ่งเป็นการเคลื่อนที่ของโมเลกุลจำนวนมหาศาลพร้อมกัน เราสามารถจำแนกการพาความร้อนตามธรรมชาติของการไหลออกเป็นรูปแบบต่างๆ ดังแสดงในรูปที่ 1.5 (Figure 1.4a–d ในสไลด์หน้า 25–28):</p>
+    <ul>
+      <li><strong>(a) การพาความร้อนแบบบังคับ (Forced Convection — สไลด์หน้า 26):</strong> เกิดขึ้นเมื่อการไหลของของไหลถูกทำให้เกิดขึ้นโดยปัจจัยหรืออุปกรณ์ภายนอก (External means) เช่น พัดลม (Fan) ปั๊มน้ำ (Pump) หรือลมในบรรยากาศ ตัวอย่างเช่น การใช้พัดลมเป่าอากาศระบายความร้อนให้กับชิ้นส่วนอิเล็กทรอนิกส์ที่ร้อนบนแผงวงจรพิมพ์ (Printed circuit boards)</li>
+      <li><strong>(b) การพาความร้อนแบบอิสระ หรือแบบธรรมชาติ (Free or Natural Convection — สไลด์หน้า 27):</strong> เกิดขึ้นเมื่อการไหลถูกเหนี่ยวนำโดย <strong>แรงลอยตัว (Buoyancy forces)</strong> ซึ่งมีสาเหตุมาจากความแตกต่างของความหนาแน่น (Density differences) อันเนื่องมาจากการแปรผันของอุณหภูมิในของไหล ตัวอย่างเช่น อากาศนิ่งที่สัมผัสกับชิ้นส่วนอิเล็กทรอนิกส์ที่ร้อนบนแผงวงจรแนวตั้งจะมีอุณหภูมิสูงขึ้น ความหนาแน่นลดลง จึงลอยตัวสูงขึ้นไปด้านบนโดยไม่ต้องมีพัดลมเป่า</li>
+      <li><strong>(c) และ (d) การพาความร้อนที่มีการเปลี่ยนสถานะ (Convection with Phase Change — สไลด์หน้า 28):</strong> ได้แก่ <strong>การเดือด (Boiling)</strong> ซึ่งเกิดฟองไอ (Vapor bubbles) ลอยตัวขึ้นจากแผ่นความร้อน และการ <strong>ควบแน่น (Condensation)</strong> ของไอน้ำชื้น (Moist air) ที่กลายเป็นหยดน้ำ (Water droplets) บนผิวท่อน้ำเย็น กระบวนการทั้งสองนี้เกี่ยวข้องกับความร้อนแฝงของการกลายเป็นไอ (<span class="math">h<sub>fg</sub></span>) จึงให้อัตราการถ่ายเทความร้อนสูงมาก</li>
+    </ul>
+
+    <figure class="fig-box">
+      <svg viewBox="0 0 760 110" style="width:100%; height:29mm;" role="img">
+        <title>กระบวนการพาความร้อนทั้ง 4 ลักษณะตาม Figure 1.4</title>
+        <!-- (a) Forced -->
+        <rect x="5" y="5" width="182" height="100" fill="#ffffff" stroke="#94a3b8" rx="3"></rect>
+        <text x="96" y="18" font-size="8.5" font-weight="bold" text-anchor="middle" fill="#0f172a">(a) Forced Convection</text>
+        <ellipse cx="28" cy="45" rx="5" ry="16" fill="#cbd5e1" stroke="#334155"></ellipse>
+        <ellipse cx="28" cy="77" rx="5" ry="16" fill="#cbd5e1" stroke="#334155"></ellipse>
+        <circle cx="28" cy="61" r="4" fill="#334155"></circle>
+        <line x1="42" y1="50" x2="72" y2="50" stroke="#0284c7" stroke-width="1.5"></line>
+        <line x1="42" y1="62" x2="72" y2="62" stroke="#0284c7" stroke-width="1.5"></line>
+        <line x1="42" y1="74" x2="72" y2="74" stroke="#0284c7" stroke-width="1.5"></line>
+        <line x1="85" y1="52" x2="170" y2="52" stroke="#0f172a" stroke-width="1.5"></line>
+        <rect x="95" y="42" width="12" height="10" fill="#f97316" stroke="#9a3412"></rect>
+        <rect x="120" y="42" width="12" height="10" fill="#f97316" stroke="#9a3412"></rect>
+        <rect x="145" y="42" width="12" height="10" fill="#f97316" stroke="#9a3412"></rect>
+        <line x1="85" y1="78" x2="170" y2="78" stroke="#0f172a" stroke-width="1.5"></line>
+        <rect x="95" y="68" width="12" height="10" fill="#f97316" stroke="#9a3412"></rect>
+        <rect x="120" y="68" width="12" height="10" fill="#f97316" stroke="#9a3412"></rect>
+        <rect x="145" y="68" width="12" height="10" fill="#f97316" stroke="#9a3412"></rect>
+        <text x="96" y="97" font-size="8" text-anchor="middle" fill="#475569">พัดลมบังคับให้อากาศไหลผ่าน</text>
+
+        <!-- (b) Natural -->
+        <rect x="195" y="5" width="182" height="100" fill="#ffffff" stroke="#94a3b8" rx="3"></rect>
+        <text x="286" y="18" font-size="8.5" font-weight="bold" text-anchor="middle" fill="#0f172a">(b) Natural Convection</text>
+        <line x1="250" y1="28" x2="250" y2="85" stroke="#0f172a" stroke-width="1.5"></line>
+        <rect x="250" y="34" width="12" height="10" fill="#f97316" stroke="#9a3412"></rect>
+        <rect x="250" y="52" width="12" height="10" fill="#f97316" stroke="#9a3412"></rect>
+        <rect x="250" y="70" width="12" height="10" fill="#f97316" stroke="#9a3412"></rect>
+        <line x1="295" y1="28" x2="295" y2="85" stroke="#0f172a" stroke-width="1.5"></line>
+        <rect x="295" y="34" width="12" height="10" fill="#f97316" stroke="#9a3412"></rect>
+        <rect x="295" y="52" width="12" height="10" fill="#f97316" stroke="#9a3412"></rect>
+        <rect x="295" y="70" width="12" height="10" fill="#f97316" stroke="#9a3412"></rect>
+        <line x1="278" y1="86" x2="278" y2="26" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3,2"></line>
+        <polygon points="275,28 278,21 281,28" fill="#dc2626"></polygon>
+        <text x="286" y="97" font-size="8" text-anchor="middle" fill="#475569">ลอยตัวขึ้นเองจากผลต่างความหนาแน่น</text>
+
+        <!-- (c) Boiling -->
+        <rect x="385" y="5" width="182" height="100" fill="#ffffff" stroke="#94a3b8" rx="3"></rect>
+        <text x="476" y="18" font-size="8.5" font-weight="bold" text-anchor="middle" fill="#0f172a">(c) Boiling (การเดือด)</text>
+        <polygon points="425,38 525,38 515,78 435,78" fill="#fed7aa" stroke="#0f172a" stroke-width="1.5"></polygon>
+        <rect x="440" y="78" width="70" height="7" fill="#dc2626"></rect>
+        <circle cx="460" cy="68" r="3" fill="#ffffff" stroke="#ea580c"></circle>
+        <circle cx="485" cy="58" r="4" fill="#ffffff" stroke="#ea580c"></circle>
+        <circle cx="470" cy="48" r="4.5" fill="#ffffff" stroke="#ea580c"></circle>
+        <line x1="476" y1="78" x2="476" y2="48" stroke="#dc2626" stroke-width="2"></line>
+        <polygon points="472,50 476,42 480,50" fill="#dc2626"></polygon>
+        <text x="476" y="97" font-size="8" text-anchor="middle" fill="#475569">เกิดฟองไอลอยตัวจากแผ่นความร้อน</text>
+
+        <!-- (d) Condensation -->
+        <rect x="575" y="5" width="180" height="100" fill="#ffffff" stroke="#94a3b8" rx="3"></rect>
+        <text x="665" y="18" font-size="8.5" font-weight="bold" text-anchor="middle" fill="#0f172a">(d) Condensation (การควบแน่น)</text>
+        <rect x="605" y="45" width="120" height="24" fill="#e2e8f0" stroke="#334155" stroke-width="1.5" rx="6"></rect>
+        <text x="665" y="60" font-size="8.5" font-weight="bold" text-anchor="middle" fill="#0369a1">ท่อน้ำเย็น (Cold water)</text>
+        <circle cx="635" cy="76" r="3.5" fill="#38bdf8"></circle>
+        <circle cx="665" cy="79" r="3.5" fill="#38bdf8"></circle>
+        <circle cx="695" cy="76" r="3.5" fill="#38bdf8"></circle>
+        <text x="665" y="97" font-size="8" text-anchor="middle" fill="#475569">ไอน้ำควบแน่นเป็นหยดน้ำข้างท่อ</text>
+      </svg>
+      <figcaption><strong>รูปที่ 1.5 (Figure 1.4 ในสไลด์หน้า 25–28)</strong> <span class="tag-src">[ต้นฉบับ]</span> กระบวนการถ่ายเทความร้อนด้วยการพาความร้อนทั้ง 4 ลักษณะ</figcaption>
+    </figure>
+
+    <h3>1.5.2 กฎการเย็นตัวของนิวตัน (Newton&#39;s Law of Cooling)</h3>
+    <p><span class="tag-src">[ต้นฉบับ]</span> <span class="tag-inf">[เติมเต็มสไลด์หน้า 29]</span> ไม่ว่ากระบวนการพาความร้อนจะเป็นแบบใด สมการอัตราที่ใช้คำนวณฟลักซ์ความร้อนและอัตราการพาความร้อนจะอยู่ในรูปของ <strong>กฎการเย็นตัวของนิวตัน (Newton&#39;s law of cooling)</strong> เสมอ ดังนี้:</p>
+
+    <div class="eq-block">
+      <div>เมื่อพื้นผิวร้อนกว่าของไหล (<span class="math">T<sub>s</sub> &gt; T<sub>∞</sub></span>): <span class="math">q″ = h</span> (<span class="math">T<sub>s</sub> − T<sub>∞</sub></span>)   และเมื่อของไหลร้อนกว่าพื้นผิว (<span class="math">T<sub>∞</sub> &gt; T<sub>s</sub></span>): <span class="math">q″ = h</span> (<span class="math">T<sub>∞</sub> − T<sub>s</sub></span>)   โดย <span class="math">q = q″ · A</span></div>
+      <div class="eq-num">(สมการที่ 1.3)</div>
+    </div>
+
+    <p><span class="tag-src">[ต้นฉบับ]</span> โดยที่ <span class="tag-sup">[เสริมพื้นฐาน]</span> <span class="math">h</span> คือ <strong>สัมประสิทธิ์การพาความร้อน (Convection heat transfer coefficient, หน่วย <span class="math-rm">W/(m<sup>2</sup>·K)</span>)</strong> ข้อควรระวังสำคัญคือ <span class="math">h</span> <em>ไม่ใช่สมบัติทางเทอร์โมฟิสิกส์ของของไหลเพียงอย่างเดียว</em> แต่ขึ้นอยู่กับสภาวะในชั้นชิดผิว (Boundary layer) รูปร่างเรขาคณิตของพื้นผิว ลักษณะการไหล (Laminar หรือ Turbulent) และสมบัติของของไหล ดังแสดงช่วงค่ามาตรฐานในตารางที่ 1.1</p>
+
+    <table class="std-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:38%;">กระบวนการ (Process) <span class="tag-src">[ต้นฉบับ: Table 1.1 หน้า 30]</span></th>
+          <th scope="col" style="width:22%;">ช่วงค่า <span class="math">h</span> [<span class="math-rm">W/(m<sup>2</sup>·K)</span>]</th>
+          <th scope="col" style="width:40%;">การตีความและเหตุผลทางกายภาพ <span class="tag-sup">[เสริมพื้นฐาน]</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>การพาความร้อนแบบอิสระ (Free convection)</strong> — ก๊าซ (Gases)</td>
+          <td><span class="math-rm">2 – 25</span></td>
+          <td>ก๊าซมีความหนาแน่นและค่า <span class="math">k</span> ต่ำมาก และความเร็วจากแรงลอยตัวต่ำ</td>
+        </tr>
+        <tr>
+          <td><strong>การพาความร้อนแบบอิสระ (Free convection)</strong> — ของเหลว (Liquids)</td>
+          <td><span class="math-rm">50 – 1,000</span></td>
+          <td>ของเหลวมีโมเลกุลอยู่ชิดกันและมีความจุความร้อนเชิงปริมาตรสูงกว่าก๊าซมาก</td>
+        </tr>
+        <tr>
+          <td><strong>การพาความร้อนแบบบังคับ (Forced convection)</strong> — ก๊าซ (Gases)</td>
+          <td><span class="math-rm">25 – 250</span></td>
+          <td>การใช้พัดลมช่วยลดความหนาของชั้นชิดผิว ทำให้ค่า <span class="math">h</span> สูงขึ้นประมาณ 10 เท่า</td>
+        </tr>
+        <tr>
+          <td><strong>การพาความร้อนแบบบังคับ (Forced convection)</strong> — ของเหลว (Liquids)</td>
+          <td><span class="math-rm">100 – 20,000</span></td>
+          <td>ปั๊มของเหลวให้ไหลเร็ว (เช่น น้ำหล่อเย็นในเครื่องยนต์) ระบายความร้อนได้ดีเยี่ยม</td>
+        </tr>
+        <tr>
+          <td><strong>การพาความร้อนที่มีการเปลี่ยนสถานะ (Boiling / Condensation)</strong></td>
+          <td><span class="math-rm">2,500 – 100,000</span></td>
+          <td>มีพลังงานความร้อนแฝงของการเปลี่ยนสถานะและการกวนตัวของฟองไอช่วยเร่งการถ่ายโอน</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 1 พื้นฐานของการถ่ายเทความร้อน</span>
+    <span>หน้า 7</span>
+  </footer>
+</section>
+
+<!-- page 8 budget (Compact): h2 11 + prose 220 + 3 eq-blocks 90 + box-example 170 + 5 gaps 40 = 531 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>1.6 ต้นกำเนิดทางกายภาพและสมการอัตรา: การแผ่รังสีความร้อน (1.2.3 Radiation)</h2>
+
+    <h3>1.6.1 กฎของสเตฟาน-โบลต์ซมันน์ (Stefan-Boltzmann Law) และสภาพเปล่งรังสี</h3>
+    <p><span class="tag-src">[ต้นฉบับ]</span> ในสไลด์หน้า 31–33 อธิบายว่า การแผ่รังสีความร้อน (Thermal radiation) คือพลังงานที่ถูกเปล่งออกมาโดยสสารที่มีอุณหภูมิสูงกว่าศูนย์สัมบูรณ์ อันเนื่องมาจากการเปลี่ยนแปลงการจัดเรียงตัวทางอิเล็กตรอนของอะตอมหรือโมเลกุล พลังงานนี้ถูกส่งผ่านโดยคลื่นแม่เหล็กไฟฟ้า (หรือโฟตอน) จึงไม่ต้องอาศัยตัวกลางใดๆ และมีประสิทธิภาพสูงสุดในสุญญากาศ
+    <br><span class="tag-src">[ต้นฉบับ]</span> <span class="tag-inf">[เติมเต็มสไลด์หน้า 32–33]</span> อัตราที่พลังงานรังสีถูกปลดปล่อยออกมาต่อหนึ่งหน่วยพื้นที่ผิว เรียกว่า <strong>อำนาจการเปล่งรังสีของพื้นผิว (Surface emissive power, <span class="math">E</span>, หน่วย <span class="math-rm">W/m<sup>2</sup></span>)</strong> โดยมีขีดจำกัดสูงสุดตาม <strong>กฎของสเตฟาน-โบลต์ซมันน์ (Stefan-Boltzmann law)</strong> สำหรับพื้นผิวในอุดมคติที่เรียกว่า <strong>วัตถุดำ (Blackbody, <span class="math">E<sub>b</sub></span>)</strong> ส่วนพื้นผิวจริง (Real surface) จะเปล่งฟลักซ์ความร้อนออกมาน้อยกว่าวัตถุดำที่อุณหภูมิเดียวกัน ดังสมการ:</p>
+
+    <div class="eq-block">
+      <div>สำหรับวัตถุดำ: <span class="math">E<sub>b</sub> = σ T<sub>s</sub><sup>4</sup></span>     และสำหรับพื้นผิวจริง: <span class="math">q″ = E = ε σ T<sub>s</sub><sup>4</sup></span></div>
+      <div class="eq-num">(สมการที่ 1.4)</div>
+    </div>
+
+    <p>โดยที่ <span class="math">T<sub>s</sub></span> คือ <strong>อุณหภูมิสัมบูรณ์ของพื้นผิว (Absolute temperature, ต้องใช้หน่วยเคลวิน <span class="math-rm">K</span> เท่านั้น)</strong>, <span class="math">σ = 5.67 × 10<sup>−8</sup></span> <span class="math-rm">W/(m<sup>2</sup>·K<sup>4</sup>)</span> คือ <strong>ค่าคงที่สเตฟาน-โบลต์ซมันน์</strong> และ <span class="math">ε</span> คือ <strong>สภาพเปล่งรังสี (Emissivity)</strong> ซึ่งเป็นสมบัติทางรังสีของพื้นผิวที่มีค่าระหว่าง <span class="math">0 ≤ ε ≤ 1</span> แสดงสัดส่วนการเปล่งรังสีของผิวจริงเทียบกับวัตถุดำ (เช่น โลหะขัดมันมีค่า <span class="math">ε ≈ 0.02–0.1</span> ส่วนพื้นผิวอโลหะหรือผิวทาสีมีค่า <span class="math">ε ≈ 0.8–0.95</span>)</p>
+
+    <h3>1.6.2 การแลกเปลี่ยนรังสีความร้อนสุทธิและสัมประสิทธิ์การแผ่รังสี (<span class="math">h<sub>r</sub></span>)</h3>
+    <p><span class="tag-src">[ต้นฉบับ]</span> ในสไลด์หน้า 34–35 ได้พิจารณากรณีสำคัญที่พบบ่อยในทางวิศวกรรม คือ เมื่อพื้นผิวขนาดเล็กมีอุณหภูมิ <span class="math">T<sub>s</sub></span> และพื้นที่ <span class="math">A</span> ถูกล้อมรอบอย่างสมบูรณ์ด้วยพื้นผิวขนาดใหญ่กว่ามากที่มีอุณหภูมิสม่ำเสมอ <span class="math">T<sub>sur</sub></span> (เช่น ท่อไอน้ำที่อยู่ภายในห้องขนาดใหญ่ หรือผนังเตาที่อยู่ในโรงงาน) หากสมมติให้พื้นผิวเป็นผิวเทา (Gray surface ที่อัตราส่วนการดูดกลืนรังสี <span class="math">α</span> เท่ากับสภาพเปล่งรังสี <span class="math">ε</span>) อัตราการถ่ายเทความร้อนสุทธิด้วยการแผ่รังสีออกจากพื้นผิวต่อหนึ่งหน่วยพื้นที่ (<span class="math">q<sub>rad</sub>″</span>) คือผลต่างระหว่างพลังงานที่เปล่งออกไปกับพลังงานที่ดูดกลืนเข้ามา:</p>
+
+    <div class="eq-block">
+      <div><span class="math">q<sub>rad</sub>″</span> = <span class="math">q<sub>rad</sub></span> / <span class="math">A</span> = <span class="math">ε σ</span> (<span class="math">T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup></span>)    หรือ    <span class="math">q<sub>rad</sub></span> = <span class="math">h<sub>r</sub> A</span> (<span class="math">T<sub>s</sub> − T<sub>sur</sub></span>)</div>
+      <div class="eq-num">(สมการที่ 1.5)</div>
+    </div>
+
+    <p><span class="tag-sup">[เสริมพื้นฐาน]</span> <strong>ที่มาทางคณิตศาสตร์ของสัมประสิทธิ์การแผ่รังสี (<span class="math">h<sub>r</sub></span>):</strong> เพื่อให้สมการการแผ่รังสีอยู่ในรูปเชิงเส้นคล้ายกับกฎการเย็นตัวของนิวตัน (<span class="math">q = h A ΔT</span>) สำหรับนำไปสร้างวงจรความร้อนในบทที่ 3 เราใช้เอกลักษณ์การแยกตัวประกอบพหุนามผลต่างกำลังสี่ คือ:
+    <br><span class="math">T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup></span> = (<span class="math">T<sub>s</sub><sup>2</sup> − T<sub>sur</sub><sup>2</sup></span>)(<span class="math">T<sub>s</sub><sup>2</sup> + T<sub>sur</sub><sup>2</sup></span>) = (<span class="math">T<sub>s</sub> − T<sub>sur</sub></span>)(<span class="math">T<sub>s</sub> + T<sub>sur</sub></span>)(<span class="math">T<sub>s</sub><sup>2</sup> + T<sub>sur</sub><sup>2</sup></span>)
+    <br>เมื่อแทนลงในสมการที่ 1.5 จึงนิยาม <strong>สัมประสิทธิ์การถ่ายเทความร้อนด้วยการแผ่รังสี (Radiation heat transfer coefficient, <span class="math">h<sub>r</sub></span>, หน่วย <span class="math-rm">W/(m<sup>2</sup>·K)</span>)</strong> ได้ดังนี้:</p>
+
+    <div class="eq-block">
+      <div><span class="math">h<sub>r</sub></span> ≡ <span class="math">ε σ</span> (<span class="math">T<sub>s</sub> + T<sub>sur</sub></span>)(<span class="math">T<sub>s</sub><sup>2</sup> + T<sub>sur</sub><sup>2</sup></span>)    และเมื่อเกิดร่วมกับการพาความร้อน:    <span class="math">q = q<sub>conv</sub> + q<sub>rad</sub> = h A</span> (<span class="math">T<sub>s</sub> − T<sub>∞</sub></span>) + <span class="math">ε A σ</span> (<span class="math">T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup></span>)</div>
+      <div class="eq-num">(สมการที่ 1.6)</div>
+    </div>
+
+    <div class="box-example">
+      <h4>ตัวอย่างที่ 1.2 (Example 1.2 — สไลด์หน้า 36–38) <span class="tag-src">[ต้นฉบับ]</span> <span class="tag-inf">[เติมเต็มสไลด์]</span></h4>
+      <p><strong>โจทย์:</strong> ท่อไอน้ำที่ไม่หุ้มฉนวนวางพาดผ่านห้องซึ่งมีอากาศและผนังห้องอยู่ที่อุณหภูมิ <span class="math">25</span> <span class="math-rm">°C</span> เส้นผ่านศูนย์กลางภายนอกของท่อเท่ากับ <span class="math">D = 70</span> <span class="math-rm">mm</span> อุณหภูมิพื้นผิวท่อและสภาพเปล่งรังสีมีค่าเท่ากับ <span class="math">200</span> <span class="math-rm">°C</span> และ <span class="math">ε = 0.8</span> ตามลำดับ (1) จงหาอำนาจการเปล่งรังสีของพื้นผิวท่อ (<span class="math">E</span>) และ (2) ถ้าสัมประสิทธิ์การพาความร้อนแบบอิสระจากผิวท่อสู่อากาศมีค่า <span class="math">h = 15</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span> จงหาอัตราการสูญเสียความร้อนจากผิวท่อต่อหนึ่งหน่วยความยาวของท่อ (<span class="math">q′</span>)</p>
+      <p style="margin-top:4px;"><strong>วิธีทำอย่างละเอียด (เติมคำตอบที่เว้นว่างในสไลด์หน้า 38):</strong>
+      <br><strong>ขั้นที่ 1 แปลงหน่วยเป็น SI มาตรฐานและหน่วยเคลวินสัมบูรณ์:</strong>
+      <br>• เส้นผ่านศูนย์กลางท่อ: <span class="math">D = 70</span> <span class="math-rm">mm</span> = <span class="math">0.070</span> <span class="math-rm">m</span> | พื้นที่ผิวข้างของท่อทรงกระบอกยาว <span class="math">L</span> คือ <span class="math">A = π D L</span>
+      <br>• อุณหภูมิพื้นผิวท่อ: <span class="math">T<sub>s</sub> = 200 + 273 = 473</span> <span class="math-rm">K</span> | อุณหภูมิอากาศและผนังห้อง: <span class="math">T<sub>∞</sub> = T<sub>sur</sub> = 25 + 273 = 298</span> <span class="math-rm">K</span>
+      <br><strong>ขั้นที่ 2 คำนวณ (1) อำนาจการเปล่งรังสีของพื้นผิวท่อ (<span class="math">E</span>):</strong>
+      <br>จากสมการที่ 1.4: <span class="math">E = ε σ T<sub>s</sub><sup>4</sup></span> = 0.8 × (5.67 × 10<sup>−8</sup> <span class="math-rm">W/(m<sup>2</sup>·K<sup>4</sup>)</span>) × (473 <span class="math-rm">K</span>)<sup>4</sup> = 4.536 × 10<sup>−8</sup> × 5.0055 × 10<sup>10</sup> = <strong>2,270.5 <span class="math-rm">W/m<sup>2</sup></span> (หรือ ≈ 2,270 <span class="math-rm">W/m<sup>2</sup></span>)</strong>
+      <br><strong>ขั้นที่ 3 คำนวณ (2) อัตราการสูญเสียความร้อนต่อหน่วยความยาวท่อ (<span class="math">q′ = q / L</span>):</strong>
+      <br>จากสมการที่ 1.6 ความร้อนสูญเสียออกจากผิวท่อผ่าน 2 ช่องทางขนานกัน คือ การพาความร้อนสู่อากาศในห้อง และการแผ่รังสีแลกเปลี่ยนสุทธิกับผนังห้อง:
+      <br><span class="math">q = h (π D L)(T<sub>s</sub> − T<sub>∞</sub>) + ε (π D L) σ (T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup>)</span>  หารด้วย <span class="math">L</span> ตลอดทั้งสมการ จะได้:
+      <br><span class="math">q′ = q / L = h (π D)(T<sub>s</sub> − T<sub>∞</sub>) + ε (π D) σ (T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup>)</span>
+      <br>• พจน์การพาความร้อน: <span class="math">q<sub>conv</sub>′</span> = 15 <span class="math-rm">W/(m<sup>2</sup>·K)</span> × (π × 0.070 <span class="math-rm">m</span>) × (473 − 298) <span class="math-rm">K</span> = 15 × 0.21991 × 175 = <strong>577.27 <span class="math-rm">W/m</span></strong>
+      <br>• พจน์การแผ่รังสีสุทธิ: <span class="math">q<sub>rad</sub>′</span> = 0.8 × (π × 0.070 <span class="math-rm">m</span>) × (5.67 × 10<sup>−8</sup> <span class="math-rm">W/(m<sup>2</sup>·K<sup>4</sup>)</span>) × (473<sup>4</sup> − 298<sup>4</sup>) <span class="math-rm">K<sup>4</sup></span> = 0.9975 × 10<sup>−8</sup> × (5.0055 × 10<sup>10</sup> − 0.7880 × 10<sup>10</sup>) = <strong>420.69 <span class="math-rm">W/m</span></strong>
+      <br>• รวมอัตราการสูญเสียความร้อนต่อความยาวท่อ: <span class="math">q′</span> = 577.27 + 420.69 = <strong>997.96 <span class="math-rm">W/m</span> (หรือ ≈ 998 <span class="math-rm">W/m</span>)</strong>
+      <br><em>ข้อสังเกตสำคัญทางวิศวกรรม:</em> ในกรณีการพาความร้อนแบบอิสระในอากาศ (<span class="math">h = 15</span>) อัตราความร้อนที่สูญเสียด้วยการแผ่รังสี (<span class="math">421</span> <span class="math-rm">W/m</span> หรือ 42% ของทั้งหมด) มีขนาดใกล้เคียงกับการพาความร้อนมาก จึงห้ามตัดพจน์การแผ่รังสีทิ้งโดยเด็ดขาด</p>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 1 พื้นฐานของการถ่ายเทความร้อน</span>
+    <span>หน้า 8</span>
+  </footer>
+</section>
+
+<!-- page 9 budget (Compact): h2 11 + prose 220 + svg 84 + box chrome 24 + 2 eq-blocks 60 + 5 gaps 40 = 439 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>1.7 ข้อกำหนดการอนุรักษ์พลังงาน (1.3 The Conservation of Energy Requirement)</h2>
+
+    <h3>1.7.1 การอนุรักษ์พลังงานสำหรับปริมาตรควบคุม (1.3.1 Conservation of Energy for a Control Volume)</h3>
+    <p><span class="tag-src">[ต้นฉบับ]</span> ในสไลด์หน้า 39–44 ได้ระบุว่า กฎข้อที่หนึ่งของอุณหพลศาสตร์ (First Law of Thermodynamics หรือ Law of Conservation of Energy) เป็นเครื่องมือที่จำเป็นอย่างยิ่งในการแก้ปัญหาการถ่ายเทความร้อน ขั้นตอนแรกในการใช้กฎนี้คือการกำหนด <strong>ปริมาตรควบคุม (Control Volume, CV)</strong> ซึ่งเป็นอาณาเขตในปริภูมิที่เราสนใจล้อมรอบด้วย <strong>พื้นผิวควบคุม (Control Surface, CS — แสดงด้วยเส้นประในรูปที่ 1.6(ก))</strong> โดยเราสามารถเขียนสมการสมดุลพลังงานของปริมาตรควบคุมได้ใน 2 รูปแบบ คือ:</p>
+    <p><strong>1. พิจารณา ณ ขณะเวลาใดๆ (<span class="math">t</span>) ในรูปของอัตรา (On a rate basis — สไลด์หน้า 40–41):</strong> อัตราที่พลังงานความร้อนไหลเข้าสู่ปริมาตรควบคุม (<span class="math">Ė<sub>in</sub></span>) บวกกับอัตราที่พลังงานความร้อนถูกผลิตขึ้นภายในปริมาตรควบคุม (<span class="math">Ė<sub>g</sub></span>) ลบด้วยอัตราที่พลังงานความร้อนไหลออกจากปริมาตรควบคุม (<span class="math">Ė<sub>out</sub></span>) จะต้องเท่ากับอัตราการเพิ่มขึ้นของพลังงานที่สะสมอยู่ภายในปริมาตรควบคุม (<span class="math">Ė<sub>st</sub></span>):</p>
+
+    <div class="eq-block">
+      <div>ณ เวลา <span class="math">t</span> ใดๆ (หน่วย <span class="math-rm">W</span> หรือ <span class="math-rm">J/s</span>):     <span class="math">Ė<sub>in</sub> + Ė<sub>g</sub> − Ė<sub>out</sub></span> = <span class="math">dE<sub>st</sub></span> / <span class="math">dt</span> ≡ <span class="math">Ė<sub>st</sub></span></div>
+      <div class="eq-num">(สมการที่ 1.7a)</div>
+    </div>
+
+    <p><strong>2. พิจารณาในช่วงเวลา (<span class="math">Δt</span>) ในรูปของปริมาณพลังงานรวม (Over a time interval — สไลด์หน้า 42):</strong> เมื่ออินทิเกรตสมการที่ 1.7a เทียบกับเวลาตลอดช่วง <span class="math">Δt</span> จะได้สมการในหน่วยจูล (<span class="math-rm">J</span>):</p>
+
+    <div class="eq-block">
+      <div>ในช่วงเวลา <span class="math">Δt</span> (หน่วย <span class="math-rm">J</span>):     <span class="math">E<sub>in</sub> + E<sub>g</sub> − E<sub>out</sub> = ΔE<sub>st</sub></span></div>
+      <div class="eq-num">(สมการที่ 1.7b)</div>
+    </div>
+
+    <p><span class="tag-src">[ต้นฉบับ]</span> <strong>ความแตกต่างเชิงกายภาพของพจน์ต่างๆ ในสมการสมดุลพลังงาน (สไลด์หน้า 43–44):</strong>
+    <br>• <strong>พจน์การไหลเข้าและไหลออก (<span class="math">Ė<sub>in</sub></span> และ <span class="math">Ė<sub>out</sub></span>) เป็นปรากฏการณ์ที่พื้นผิว (Surface phenomena):</strong> เกิดขึ้นเฉพาะที่ขอบเขตพื้นผิวควบคุม (Control surface) เท่านั้น และมีค่าแปรผันตรงกับพื้นที่ผิว <span class="math">A</span> (ได้แก่ การนำ การพา และการแผ่รังสีที่ข้ามเส้นประขอบเขต)
+    <br>• <strong>พจน์การผลิตพลังงาน (<span class="math">Ė<sub>g</sub></span>) และการสะสมพลังงาน (<span class="math">Ė<sub>st</sub></span>) เป็นปรากฏการณ์เชิงปริมาตร (Volumetric phenomena):</strong> เกิดขึ้นภายในเนื้อปริมาตรควบคุมและแปรผันตรงกับปริมาตร <span class="math">V</span> โดย <span class="math">Ė<sub>g</sub> = q̇ · V</span> เกิดจากการเปลี่ยนรูปพลังงานอื่น (เช่น พลังงานไฟฟ้าในลวดความร้อน <span class="math">I<sup>2</sup>R<sub>e</sub></span> ปฏิกิริยาเคมีคายความร้อน หรือฟิชชันนิวเคลียร์) มาเป็นพลังงานความร้อน ส่วน <span class="math">Ė<sub>st</sub> = ρ c<sub>p</sub> V (dT/dt)</span> คืออัตราการเปลี่ยนแปลงพลังงานภายในของสสารเมื่ออุณหภูมิเปลี่ยนแปลงตามเวลา (หากระบบอยู่ใน <strong>สภาวะคงตัว Steady-state</strong> อุณหภูมิไม่เปลี่ยนตามเวลา ดังนั้น <span class="math">Ė<sub>st</sub> = 0</span>)</p>
+
+    <figure class="fig-box">
+      <svg viewBox="0 0 760 120" style="width:100%; height:31mm;" role="img">
+        <title>การอนุรักษ์พลังงานสำหรับปริมาตรควบคุมและสมดุลพลังงานที่พื้นผิว</title>
+        <!-- Left: Fig 1.5 Control Volume -->
+        <rect x="5" y="5" width="355" height="110" fill="#ffffff" stroke="#94a3b8" rx="3"></rect>
+        <text x="182" y="19" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#0f172a">(ก) Figure 1.5: ปริมาตรควบคุม (Control Volume)</text>
+        <path d="M 95 45 Q 110 28 190 32 T 275 55 Q 290 85 230 95 T 115 88 Q 80 75 95 45 Z" fill="#ffedd5" stroke="#dc2626" stroke-width="2" stroke-dasharray="6,4"></path>
+        <text x="185" y="65" font-size="11" font-weight="bold" text-anchor="middle" fill="#9a3412">Ėg , Ėst</text>
+        <text x="185" y="79" font-size="8.5" text-anchor="middle" fill="#7c2d12">(ปรากฏการณ์เชิงปริมาตร V)</text>
+        <line x1="35" y1="58" x2="102" y2="58" stroke="#dc2626" stroke-width="2.5"></line>
+        <polygon points="102,53 112,58 102,63" fill="#dc2626"></polygon>
+        <text x="28" y="62" font-size="10.5" font-weight="bold" text-anchor="end" fill="#dc2626">Ėin</text>
+        <line x1="258" y1="68" x2="318" y2="75" stroke="#dc2626" stroke-width="2.5"></line>
+        <polygon points="317,70 327,76 316,80" fill="#dc2626"></polygon>
+        <text x="332" y="80" font-size="10.5" font-weight="bold" fill="#dc2626">Ėout</text>
+        <text x="182" y="108" font-size="8.5" text-anchor="middle" fill="#475569">เส้นประสีแดง = พื้นผิวควบคุม (Control Surface)</text>
+
+        <!-- Right: Fig 1.6 Surface Energy Balance -->
+        <rect x="375" y="5" width="380" height="110" fill="#ffffff" stroke="#94a3b8" rx="3"></rect>
+        <text x="565" y="19" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#0f172a">(ข) Figure 1.6: สมดุลพลังงานที่พื้นผิว (Surface Balance)</text>
+        <rect x="420" y="28" width="90" height="75" fill="url(#gradCond)" stroke="#0f172a" stroke-width="1.5"></rect>
+        <!-- Infinitesimal control surface straddling boundary -->
+        <rect x="504" y="26" width="12" height="79" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="4,3"></rect>
+        <line x1="420" y1="42" x2="510" y2="72" stroke="#b91c1c" stroke-width="2.2"></line>
+        <path d="M 510 72 Q 525 94 565 95" fill="none" stroke="#b91c1c" stroke-width="2.2"></path>
+        <text x="412" y="46" font-size="9.5" font-weight="bold" text-anchor="end" fill="#b91c1c">T₁</text>
+        <text x="522" y="75" font-size="9.5" font-weight="bold" fill="#9a3412">T₂</text>
+        <text x="572" y="98" font-size="9.5" font-weight="bold" fill="#0369a1">T∞</text>
+        <!-- Heat fluxes -->
+        <line x1="465" y1="54" x2="500" y2="54" stroke="#dc2626" stroke-width="2"></line>
+        <polygon points="500,50 507,54 500,58" fill="#dc2626"></polygon>
+        <text x="462" y="58" font-size="9" font-weight="bold" text-anchor="end" fill="#dc2626">q″cond</text>
+        <line x1="518" y1="42" x2="575" y2="34" stroke="#dc2626" stroke-width="2"></line>
+        <polygon points="574,30 582,33 575,38" fill="#dc2626"></polygon>
+        <text x="586" y="37" font-size="9" font-weight="bold" fill="#dc2626">q″rad (สู่ Tsur)</text>
+        <line x1="518" y1="58" x2="575" y2="68" stroke="#dc2626" stroke-width="2"></line>
+        <polygon points="575,64 582,69 574,72" fill="#dc2626"></polygon>
+        <text x="586" y="72" font-size="9" font-weight="bold" fill="#dc2626">q″conv (สู่ T∞)</text>
+        <text x="645" y="106" font-size="8.5" text-anchor="middle" fill="#475569">ปริมาตร V = 0 → Ėg = 0, Ėst = 0 เสมอ</text>
+      </svg>
+      <figcaption><strong>รูปที่ 1.6 (Figure 1.5 และ Figure 1.6 ในสไลด์หน้า 40, 45–46)</strong> <span class="tag-src">[ต้นฉบับ]</span> (ก) การอนุรักษ์พลังงานของปริมาตรควบคุม และ (ข) สมดุลพลังงานที่พื้นผิวของตัวกลาง</figcaption>
+    </figure>
+  </div>
+  <footer class="page-footer">
+    <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 1 พื้นฐานของการถ่ายเทความร้อน</span>
+    <span>หน้า 9</span>
+  </footer>
+</section>
+
+<!-- page 10 budget (Compact): h3 11 + prose 150 + eq-block 30 + box-example 280 + 4 gaps 32 = 503 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h3>1.7.2 สมดุลพลังงานที่พื้นผิว (1.3.2 The Surface Energy Balance)</h3>
+    <p><span class="tag-src">[ต้นฉบับ]</span> ในสไลด์หน้า 45–46 ได้นำเสนอแนวคิดที่มีประโยชน์อย่างยิ่งในการเชื่อมโยงความร้อนภายในของแข็งเข้ากับของไหลภายนอก คือการสร้าง <strong>พื้นผิวควบคุม (Control surface)</strong> ที่ประกบคร่อมพื้นผิวขอบเขตของตัวกลางโดยไม่มีความหนา (ความหนา <span class="math">Δx → 0</span> ดังแสดงในรูปที่ 1.6(ข)) เนื่องจากพื้นผิวควบคุมนี้ <strong>ไม่มีปริมาตรและไม่มีมวล (<span class="math">V = 0, m = 0</span>)</strong> พจน์การผลิตพลังงานเชิงปริมาตร (<span class="math">Ė<sub>g</sub></span>) และพจน์การสะสมพลังงาน (<span class="math">Ė<sub>st</sub></span>) จึงมีค่าเป็นศูนย์เสมอ (<span class="math">Ė<sub>g</sub> = 0</span> และ <span class="math">Ė<sub>st</sub> = 0</span>)
+    <br><span class="tag-sup">[เสริมพื้นฐาน]</span> จุดเด่นสำคัญของสมดุลพลังงานที่พื้นผิวคือ <strong>สมการนี้เป็นจริงเสมอไม่ว่าระบบจะอยู่ในสภาวะคงตัว (Steady-state) หรือสภาวะไม่คงตัว (Transient/Unsteady state) และไม่ว่าภายในเนื้อผนังจะมีการผลิตความร้อนหรือไม่ก็ตาม!</strong> สำหรับกรณีในรูปที่ 1.6(ข) ที่ความร้อนนำมาถึงผิว (<span class="math">q<sub>cond</sub>″</span>) แล้วระบายออกด้วยการพาความร้อน (<span class="math">q<sub>conv</sub>″</span>) และการแผ่รังสี (<span class="math">q<sub>rad</sub>″</span>) สมการอนุรักษ์พลังงานจะลดรูปเหลือเพียง:</p>
+
+    <div class="eq-block">
+      <div><span class="math">Ė<sub>in</sub> − Ė<sub>out</sub> = 0</span>   ⇒   <span class="math">q<sub>cond</sub>″ − (q<sub>conv</sub>″ + q<sub>rad</sub>″) = 0</span>   หรือ   <span class="math">q<sub>cond</sub>″ = q<sub>conv</sub>″ + q<sub>rad</sub>″</span></div>
+      <div class="eq-num">(สมการที่ 1.8)</div>
+    </div>
+
+    <div class="box-example">
+      <h4>ตัวอย่างที่ 1.3 (Example 1.3 — สไลด์หน้า 47–50) <span class="tag-src">[ต้นฉบับ]</span> <span class="tag-inf">[เติมเต็มสไลด์และแก้ไขจุดพิมพ์คลาดเคลื่อน]</span></h4>
+      <p><strong>โจทย์:</strong> ก๊าซเผาไหม้ที่ร้อนภายในเตาถูกกั้นแยกออกจากอากาศแวดล้อมและผนังสิ่งแวดล้อมซึ่งมีอุณหภูมิ <span class="math">25</span> <span class="math-rm">°C</span> ด้วยผนังอิฐหนา <span class="math">L = 0.15</span> <span class="math-rm">m</span> อิฐมีสภาพนำความร้อน <span class="math">k = 1.2</span> <span class="math-rm">W/(m·K)</span> และมีสภาพเปล่งรังสีของพื้นผิว <span class="math">ε = 0.8</span> ภายใต้สภาวะคงตัว วัดอุณหภูมิพื้นผิวด้านนอกของผนังอิฐได้ <span class="math">T<sub>2</sub> = 100</span> <span class="math-rm">°C</span> การพาความร้อนแบบอิสระสู่อากาศที่อยู่ติดกับผิวด้านนอกมีสัมประสิทธิ์การพาความร้อน <span class="math">h = 20</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span> จงคำนวณหาอุณหภูมิพื้นผิวด้านในของผนังอิฐ (<span class="math">T<sub>1</sub></span>)</p>
+      <p style="margin-top:4px;"><strong>วิธีทำอย่างละเอียด (เติมคำตอบสุดท้ายที่ขาดหายในสไลด์หน้า 50):</strong>
+      <br><strong>ขั้นที่ 1 กำหนดตัวแปรและแปลงอุณหภูมิเป็นหน่วยเคลวินสัมบูรณ์ (<span class="math-rm">K</span>):</strong>
+      <br>• ความหนาผนังอิฐ: <span class="math">L = 0.15</span> <span class="math-rm">m</span> | สภาพนำความร้อน: <span class="math">k = 1.2</span> <span class="math-rm">W/(m·K)</span> | สภาพเปล่งรังสี: <span class="math">ε = 0.8</span> | สัมประสิทธิ์การพา: <span class="math">h = 20</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span>
+      <br>• อุณหภูมิผิวด้านนอก: <span class="math">T<sub>2</sub> = 100</span> <span class="math-rm">°C</span> + 273 = <span class="math">373</span> <span class="math-rm">K</span>
+      <br>• อุณหภูมิอากาศและสิ่งแวดล้อม: <span class="math">T<sub>∞</sub> = T<sub>sur</sub> = 25</span> <span class="math-rm">°C</span> + 273 = <span class="math">298</span> <span class="math-rm">K</span>
+      <br><strong>ขั้นที่ 2 ตั้งสมการสมดุลพลังงานที่พื้นผิวด้านนอกของผนังอิฐ (สไลด์หน้า 49):</strong>
+      <br>สร้างพื้นผิวควบคุมคร่อมผิวด้านนอกของผนังอิฐ (<span class="math">x = L</span>) จากสมการที่ 1.8 ฟลักซ์ความร้อนที่นำผ่านเนื้ออิฐมาถึงผิวด้านนอกจะต้องเท่ากับผลรวมของฟลักซ์ความร้อนที่ระบายออกด้วยการพาความร้อนสู่อากาศและการแผ่รังสีสู่สิ่งแวดล้อม:
+      <br><span class="math">q<sub>cond</sub>″ = q<sub>conv</sub>″ + q<sub>rad</sub>″</span>   ⇒   <span class="math">k</span> (<span class="math">T<sub>1</sub> − T<sub>2</sub></span>) / <span class="math">L</span> = <span class="math">h</span> (<span class="math">T<sub>2</sub> − T<sub>∞</sub></span>) + <span class="math">ε σ</span> (<span class="math">T<sub>2</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup></span>)
+      <br><strong>ขั้นที่ 3 แทนค่าตัวเลขและแก้สมการหา <span class="math">T<sub>1</sub></span>:</strong>
+      <br><span class="tag-inf">[หมายเหตุชี้แจงจุดพิมพ์คลาดเคลื่อนในสไลด์หน้า 50]</span> ในสไลด์หน้า 50 พิมพ์สมการแทนค่าเป็น:
+      <br><span class="math-rm">1.2 W/(m·K) × (T<sub>1</sub> − 373) K / 0.15 m = 20 W/(m<sup>2</sup>·K) × (373 − 298) K + 0.8 × (5.67 × 10<sup>−8</sup> W/(m<sup>2</sup>·K<sup>4</sup>)) × (374<sup>4</sup> − 298<sup>4</sup>) K<sup>4</sup></span>
+      <br>สังเกตว่าในวงเล็บสุดท้ายของสไลด์พิมพ์ตัวเลขเป็น <span class="math-rm">374<sup>4</sup></span> แทนที่จะเป็น <span class="math-rm">373<sup>4</sup></span> (เนื่องจาก <span class="math">T<sub>2</sub> = 373</span> <span class="math-rm">K</span>) เพื่อให้ผู้อ่านได้คำตอบที่ถูกต้องตามมาตรฐานวิชาการและทราบผลของการพิมพ์คลาดเคลื่อน เราจะแสดงผลการคำนวณทั้งสองกรณีดังนี้:
+      <br>• <strong>คำนวณด้วยค่าที่ถูกต้อง (<span class="math">T<sub>2</sub> = 373</span> <span class="math-rm">K</span>):</strong>
+      <br>  – ด้านซ้ายของสมการ: (<span class="math">1.2 / 0.15</span>)(<span class="math">T<sub>1</sub> − 373</span>) = <span class="math">8.0</span> (<span class="math">T<sub>1</sub> − 373</span>) <span class="math-rm">W/m<sup>2</sup></span>
+      <br>  – พจน์การพาความร้อนด้านขวา: <span class="math">q<sub>conv</sub>″</span> = 20 × (373 − 298) = 20 × 75 = <strong>1,500 <span class="math-rm">W/m<sup>2</sup></span></strong>
+      <br>  – พจน์การแผ่รังสีด้านขวา: <span class="math">q<sub>rad</sub>″</span> = 0.8 × 5.67 × 10<sup>−8</sup> × (373<sup>4</sup> − 298<sup>4</sup>) = 4.536 × 10<sup>−8</sup> × (1.9349 × 10<sup>10</sup> − 0.7880 × 10<sup>10</sup>) = <strong>520.23 <span class="math-rm">W/m<sup>2</sup></span></strong>
+      <br>  – รวมฟลักซ์ความร้อนด้านขวา: <span class="math">q<sub>cond</sub>″</span> = 1,500 + 520.23 = <strong>2,020.23 <span class="math-rm">W/m<sup>2</sup></span></strong>
+      <br>  – แก้สมการหา <span class="math">T<sub>1</sub></span>: <span class="math">8.0</span> (<span class="math">T<sub>1</sub> − 373</span>) = 2,020.23  ⇒  <span class="math">T<sub>1</sub> − 373</span> = 2,020.23 / 8.0 = 252.53 <span class="math-rm">K</span>
+      <br>  – ดังนั้น <span class="math">T<sub>1</sub></span> = 373 + 252.53 = <strong>625.5 <span class="math-rm">K</span> (หรือเท่ากับ 625.5 − 273 = 352.5 <span class="math-rm">°C</span>)</strong>
+      <br>• <em>(กรณีคำนวณตามตัวเลข <span class="math-rm">374<sup>4</sup></span> ที่พิมพ์ในสไลด์หน้า 50: จะได้ <span class="math">q<sub>rad</sub>″ = 529.7</span> <span class="math-rm">W/m<sup>2</sup></span> และได้ <span class="math">T<sub>1</sub> = 626.7</span> <span class="math-rm">K</span> หรือ <span class="math">353.7</span> <span class="math-rm">°C</span>)</em></p>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 1 พื้นฐานของการถ่ายเทความร้อน</span>
+    <span>หน้า 10</span>
+  </footer>
+</section>
+
+<!-- page 11 budget (Compact): h2 11 + prose 150 + table 10 rows 170 + table 7 rows 119 + 4 gaps 32 = 482 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>1.8 มิติและระบบหน่วย (1.4 Units and Dimensions)</h2>
+    <p><span class="tag-src">[ต้นฉบับ]</span> ในสไลด์หน้า 51–53 ได้ทบทวนเรื่องมิติพื้นฐาน (Fundamental dimensions) ได้แก่ ความยาว (<span class="math">L</span>), มวล (<span class="math">M</span>), เวลา (<span class="math">t</span>) และอุณหภูมิ (<span class="math">T</span>) พร้อมเปรียบเทียบระหว่าง <strong>ระบบหน่วยอังกฤษ (English system of units — Table 1.2)</strong> กับ <strong>ระบบหน่วยสากล (SI units — Table 1.3 และ 1.4)</strong> และคำอุปสรรค (Multiplying prefixes — Table 1.5)</p>
+    <p><span class="tag-src">[ต้นฉบับ]</span> <span class="tag-sup">[เสริมพื้นฐาน]</span> <strong>ความหมายของค่าคงที่ความโน้มถ่วง <span class="math">g<sub>c</sub></span> ในสไลด์หน้า 51:</strong> ในระบบหน่วย SI แรง 1 นิวตัน (<span class="math-rm">N</span>) ถูกนิยามจากกฎข้อที่สองของนิวตัน <span class="math">F = m a</span> ให้มีค่าเท่ากับ <span class="math-rm">1 kg·m/s<sup>2</sup></span> พอดี ทำให้ตัวแปรแปลงหน่วย <span class="math">g<sub>c</sub> = 1</span> <span class="math-rm">kg·m/(N·s<sup>2</sup>)</span> แต่ในระบบหน่วยอังกฤษ ซึ่งกำหนดหน่วยมวลเป็นปอนด์มวล (<span class="math-rm">lb<sub>m</sub></span>) และหน่วยแรงเป็นปอนด์แรง (<span class="math-rm">lb<sub>f</sub></span>) โดยที่มวล <span class="math-rm">1 lb<sub>m</sub></span> เมื่ออยู่ในสนามโน้มถ่วงโลก (<span class="math">g = 32.17</span> <span class="math-rm">ft/s<sup>2</sup></span>) จะมีน้ำหนักเท่ากับ <span class="math-rm">1 lb<sub>f</sub></span> ดังนั้นเมื่อใช้สมการ <span class="math">F = m a / g<sub>c</sub></span> ในระบบอังกฤษ จึงต้องหารด้วยค่าคงที่แปลงหน่วย <span class="math">g<sub>c</sub> = 32.17</span> <span class="math-rm">lb<sub>m</sub>·ft/(lb<sub>f</sub>·s<sup>2</sup>)</span> เสมอ อย่างไรก็ตาม ในรายวิชานี้เราจะใช้ระบบหน่วย SI เป็นหลักทั้งหมด</p>
+
+    <table class="std-table">
+      <thead>
+        <tr>
+          <th scope="col">ปริมาณ (Quantity)</th>
+          <th scope="col">หน่วยพื้นฐานและอนุพันธ์ SI (Table 1.3 &amp; 1.4)</th>
+          <th scope="col">นิยาม / สูตรความสัมพันธ์</th>
+          <th scope="col">รูปหน่วยฐาน SI (SI Base Units)</th>
+          <th scope="col">หน่วยระบบอังกฤษ (Table 1.2)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ความยาว (Length, <span class="math">L</span>)</td>
+          <td>เมตร (meter, <span class="math-rm">m</span>)</td>
+          <td>หน่วยฐาน (Base unit)</td>
+          <td><span class="math-rm">m</span></td>
+          <td>ฟุต (foot, <span class="math-rm">ft</span>)</td>
+        </tr>
+        <tr>
+          <td>มวล (Mass, <span class="math">M</span>)</td>
+          <td>กิโลกรัม (kilogram, <span class="math-rm">kg</span>)</td>
+          <td>หน่วยฐาน (Base unit)</td>
+          <td><span class="math-rm">kg</span></td>
+          <td>ปอนด์มวล (<span class="math-rm">lb<sub>m</sub></span>)</td>
+        </tr>
+        <tr>
+          <td>เวลา (Time, <span class="math">t</span>)</td>
+          <td>วินาที (second, <span class="math-rm">s</span>)</td>
+          <td>หน่วยฐาน (Base unit)</td>
+          <td><span class="math-rm">s</span></td>
+          <td>วินาที (second, <span class="math-rm">s</span>)</td>
+        </tr>
+        <tr>
+          <td>อุณหภูมิ (Temperature, <span class="math">T</span>)</td>
+          <td>เคลวิน (kelvin, <span class="math-rm">K</span>)</td>
+          <td>หน่วยฐาน (Base unit)</td>
+          <td><span class="math-rm">K</span></td>
+          <td>องศาฟาเรนไฮต์ (<span class="math-rm">°F</span>) / แรงคิน (<span class="math-rm">°R</span>)</td>
+        </tr>
+        <tr>
+          <td>แรง (Force)</td>
+          <td>นิวตัน (newton, <span class="math-rm">N</span>)</td>
+          <td><span class="math">F = m a</span></td>
+          <td><span class="math-rm">m·kg/s<sup>2</sup></span></td>
+          <td>ปอนด์แรง (<span class="math-rm">lb<sub>f</sub></span>)</td>
+        </tr>
+        <tr>
+          <td>ความดันและความเค้น (Pressure)</td>
+          <td>พาสคัล (pascal, <span class="math-rm">Pa</span>)</td>
+          <td><span class="math">P = F / A</span> (<span class="math-rm">N/m<sup>2</sup></span>)</td>
+          <td><span class="math-rm">kg/(m·s<sup>2</sup>)</span></td>
+          <td><span class="math-rm">lb<sub>f</sub>/ft<sup>2</sup></span> หรือ <span class="math-rm">psi (lb<sub>f</sub>/in<sup>2</sup>)</span></td>
+        </tr>
+        <tr>
+          <td>พลังงานและงาน (Energy)</td>
+          <td>จูล (joule, <span class="math-rm">J</span>)</td>
+          <td><span class="math">W = F · s</span> (<span class="math-rm">N·m</span>)</td>
+          <td><span class="math-rm">m<sup>2</sup>·kg/s<sup>2</sup></span></td>
+          <td><span class="math-rm">Btu</span> หรือ <span class="math-rm">ft·lb<sub>f</sub></span></td>
+        </tr>
+        <tr>
+          <td>กำลังและอัตราความร้อน (Power)</td>
+          <td>วัตต์ (watt, <span class="math-rm">W</span>)</td>
+          <td><span class="math">P = W / t</span> (<span class="math-rm">J/s</span>)</td>
+          <td><span class="math-rm">m<sup>2</sup>·kg/s<sup>3</sup></span></td>
+          <td><span class="math-rm">Btu/h</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="std-table">
+      <thead>
+        <tr>
+          <th scope="col" colspan="5">ตารางที่ 1.3 คำอุปสรรคสำหรับตัวคูณสิบยกกำลัง (Table 1.5 Multiplying Prefixes — สไลด์หน้า 53) <span class="tag-src">[ต้นฉบับ]</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>pico (p):</strong> <span class="math-rm">10<sup>−12</sup></span></td>
+          <td><strong>nano (n):</strong> <span class="math-rm">10<sup>−9</sup></span></td>
+          <td><strong>micro (μ):</strong> <span class="math-rm">10<sup>−6</sup></span></td>
+          <td><strong>milli (m):</strong> <span class="math-rm">10<sup>−3</sup></span></td>
+          <td><strong>centi (c):</strong> <span class="math-rm">10<sup>−2</sup></span></td>
+        </tr>
+        <tr>
+          <td><strong>hecto (h):</strong> <span class="math-rm">10<sup>2</sup></span></td>
+          <td><strong>kilo (k):</strong> <span class="math-rm">10<sup>3</sup></span></td>
+          <td><strong>mega (M):</strong> <span class="math-rm">10<sup>6</sup></span></td>
+          <td><strong>giga (G):</strong> <span class="math-rm">10<sup>9</sup></span></td>
+          <td><strong>tera (T):</strong> <span class="math-rm">10<sup>12</sup></span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>1.9 สรุปสมการอัตราและกรณีศึกษาการออกแบบทางวิศวกรรม (1.5 Summary)</h2>
+    <table class="std-table">
+      <thead>
+        <tr>
+          <th scope="col" style="width:14%;">โหมด (Mode)</th>
+          <th scope="col" style="width:32%;">กลไกทางกายภาพ (Mechanism)</th>
+          <th scope="col" style="width:32%;">สมการอัตรา (Rate Equation)</th>
+          <th scope="col" style="width:22%;">สมบัติหรือสัมประสิทธิ์</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>การนำความร้อน (Conduction)</strong></td>
+          <td>การแพร่ของพลังงานเนื่องจากการเคลื่อนที่แบบสุ่มของอะตอม/โมเลกุล</td>
+          <td><span class="math">q<sub>x</sub>″</span> (<span class="math-rm">W/m<sup>2</sup></span>) = −<span class="math">k</span> (<span class="math">dT/dx</span>)</td>
+          <td><span class="math">k</span> [<span class="math-rm">W/(m·K)</span>]</td>
+        </tr>
+        <tr>
+          <td><strong>การพาความร้อน (Convection)</strong></td>
+          <td>การแพร่ของพลังงานระดับโมเลกุล บวกกับการถ่ายโอนพลังงานจากการเคลื่อนที่ของกลุ่มก้อนของไหล (Bulk motion)</td>
+          <td><span class="math">q″</span> (<span class="math-rm">W/m<sup>2</sup></span>) = <span class="math">h</span> (<span class="math">T<sub>s</sub> − T<sub>∞</sub></span>)</td>
+          <td><span class="math">h</span> [<span class="math-rm">W/(m<sup>2</sup>·K)</span>]</td>
+        </tr>
+        <tr>
+          <td><strong>การแผ่รังสี (Radiation)</strong></td>
+          <td>การถ่ายโอนพลังงานโดยคลื่นแม่เหล็กไฟฟ้า (ไม่ต้องอาศัยตัวกลาง)</td>
+          <td><span class="math">q″</span> (<span class="math-rm">W/m<sup>2</sup></span>) = <span class="math">ε σ</span> (<span class="math">T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup></span>) <br>หรือ <span class="math">q</span> (<span class="math-rm">W</span>) = <span class="math">h<sub>r</sub> A</span> (<span class="math">T<sub>s</sub> − T<sub>sur</sub></span>)</td>
+          <td><span class="math">ε</span> [-], <span class="math">h<sub>r</sub></span> [<span class="math-rm">W/(m<sup>2</sup>·K)</span>]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 1 พื้นฐานของการถ่ายเทความร้อน</span>
+    <span>หน้า 11</span>
+  </footer>
+</section>
+
+<!-- page 12 budget (Compact): box-example 240 + svg 84 + box chrome 24 + box-warn 160 + 4 gaps 32 = 540 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="box-example">
+      <h4>ตัวอย่างที่ 1.4: การวิเคราะห์ระบบกระติกเก็บกาแฟร้อนและการออกแบบ (Example 1.4 — สไลด์หน้า 56–58) <span class="tag-src">[ต้นฉบับ]</span> <span class="tag-inf">[เติมเต็มสไลด์]</span></h4>
+      <p><strong>โจทย์:</strong> ภาชนะปิดสนิทบรรจุกาแฟร้อนวางอยู่ในห้องที่มีอุณหภูมิอากาศและผนังห้องคงตัว จงระบุกระบวนการถ่ายเทความร้อนทั้งหมด (<span class="math">q<sub>1</sub></span> ถึง <span class="math">q<sub>8</sub></span> ตามรูปที่ 1.7) ที่ทำให้กาแฟเย็นตัวลง และจงเสนอแนะคุณลักษณะที่จะช่วยให้การออกแบบภาชนะเก็บความร้อนนี้มีประสิทธิภาพเหนือกว่าเดิม</p>
+      <p style="margin-top:4px;"><strong>วิธีทำอย่างละเอียด (เติมคำอธิบาย <span class="math">q<sub>1</sub></span> ถึง <span class="math">q<sub>8</sub></span> ที่เว้นว่างไว้ในสไลด์หน้า 58):</strong>
+      <br>เส้นทางการถ่ายโอนพลังงานจากกาแฟร้อนออกสู่ห้องและสิ่งแวดล้อมประกอบด้วยกระบวนการย่อย 8 กระบวนการ ดังนี้:
+      <br>• <strong><span class="math">q<sub>1</sub></span> : การพาความร้อนแบบอิสระ (Free convection)</strong> จากน้ำกาแฟร้อนมายังพื้นผิวด้านในของขวดพลาสติกชั้นใน (Plastic flask)
+      <br>• <strong><span class="math">q<sub>2</sub></span> : การนำความร้อน (Conduction)</strong> ผ่านเนื้อผนังของขวดพลาสติกชั้นในจากผิวด้านในมายังผิวด้านนอก
+      <br>• <strong><span class="math">q<sub>3</sub></span> : การพาความร้อนแบบอิสระ (Free convection)</strong> จากพื้นผิวด้านนอกของขวดพลาสติกชั้นในเข้าสู่อากาศในช่องว่างปิด (Air space)
+      <br>• <strong><span class="math">q<sub>4</sub></span> : การพาความร้อนแบบอิสระ (Free convection)</strong> จากอากาศในช่องว่างปิดไปยังพื้นผิวด้านในของปลอกหุ้มชั้นนอก (Cover)
+      <br>• <strong><span class="math">q<sub>5</sub></span> : การแลกเปลี่ยนความร้อนสุทธิด้วยการแผ่รังสี (Net radiation exchange)</strong> ข้ามช่องว่างอากาศระหว่างพื้นผิวด้านนอกของขวดพลาสติกชั้นในกับพื้นผิวด้านในของปลอกหุ้มชั้นนอก
+      <br>• <strong><span class="math">q<sub>6</sub></span> : การนำความร้อน (Conduction)</strong> ผ่านเนื้อผนังของปลอกหุ้มชั้นนอก (Cover)
+      <br>• <strong><span class="math">q<sub>7</sub></span> : การพาความร้อนแบบอิสระ (Free convection)</strong> จากพื้นผิวด้านนอกของปลอกหุ้มออกสู่อากาศภายในห้อง (Room air)
+      <br>• <strong><span class="math">q<sub>8</sub></span> : การแลกเปลี่ยนความร้อนสุทธิด้วยการแผ่รังสี (Net radiation exchange)</strong> ระหว่างพื้นผิวด้านนอกของปลอกหุ้มกับผนังห้องที่ห้อมรอบ (Surroundings)
+      <br><strong>ข้อเสนอแนะในการปรับปรุงการออกแบบให้เป็นกระติกสุญญากาศคุณภาพสูง (Design Improvements):</strong>
+      <br>(1) <strong>ดูดอากาศออกจากช่องว่างระหว่างผนังทั้งสองชั้นให้เป็นสุญญากาศ (Evacuated space):</strong> เพื่อกำจัดการถ่ายเทความร้อนด้วยการพาความร้อน <span class="math">q<sub>3</sub></span> และ <span class="math">q<sub>4</sub></span> ออกไปอย่างสมบูรณ์ และ (2) <strong>เคลือบผิวสะท้อนรังสีด้วยเงินหรืออะลูมิเนียมขัดเงา (Low-emissivity reflective coating, <span class="math">ε ≈ 0.02</span>):</strong> ที่ผนังด้านที่หันเข้าหากันเพื่อลดการแผ่รังสี <span class="math">q<sub>5</sub></span> และที่ผิวด้านนอกเพื่อลด <span class="math">q<sub>8</sub></span> (หลักการของกระติก Dewar flask)</p>
+    </div>
+
+    <figure class="fig-box">
+      <svg viewBox="0 0 760 110" style="width:100%; height:29mm;" role="img">
+        <title>แผนภาพเส้นทางการถ่ายเทความร้อนจากกระติกกาแฟร้อนตามตัวอย่างที่ 1.4</title>
+        <!-- Flask schematic on left -->
+        <rect x="20" y="18" width="60" height="82" fill="#e2e8f0" stroke="#0f172a" stroke-width="1.5" rx="12"></rect>
+        <rect x="30" y="28" width="40" height="64" fill="#fed7aa" stroke="#9a3412" stroke-width="1.2" rx="8"></rect>
+        <rect x="40" y="8" width="20" height="18" fill="#64748b" stroke="#0f172a"></rect>
+        <text x="50" y="62" font-size="8.5" font-weight="bold" text-anchor="middle" fill="#7c2d12">Hot coffee</text>
+
+        <!-- Zoomed layers -->
+        <ellipse cx="165" cy="72" rx="38" ry="14" fill="#ffedd5" stroke="#fb923c"></ellipse>
+        <text x="165" y="76" font-size="9" font-weight="bold" text-anchor="middle" fill="#9a3412">Coffee</text>
+        <!-- Plastic flask wall -->
+        <polygon points="235,25 265,15 265,95 235,85" fill="#fdba74" stroke="#9a3412" stroke-width="1.5"></polygon>
+        <text x="250" y="106" font-size="8.5" font-weight="bold" text-anchor="middle" fill="#0f172a">Plastic flask</text>
+        <!-- Air space -->
+        <ellipse cx="350" cy="74" rx="42" ry="14" fill="#e0f2fe" stroke="#7dd3fc"></ellipse>
+        <text x="350" y="78" font-size="9" font-weight="bold" text-anchor="middle" fill="#0369a1">Air space</text>
+        <!-- Cover wall -->
+        <polygon points="435,15 470,25 470,85 435,95" fill="#fdba74" stroke="#9a3412" stroke-width="1.5"></polygon>
+        <text x="452" y="106" font-size="8.5" font-weight="bold" text-anchor="middle" fill="#0f172a">Cover</text>
+        <!-- Room air & Surroundings -->
+        <ellipse cx="570" cy="74" rx="45" ry="14" fill="#f1f5f9" stroke="#94a3b8"></ellipse>
+        <text x="570" y="78" font-size="9" font-weight="bold" text-anchor="middle" fill="#334155">Room air</text>
+        <line x1="715" y1="8" x2="715" y2="98" stroke="#334155" stroke-width="3"></line>
+        <text x="695" y="106" font-size="8.5" font-weight="bold" text-anchor="end" fill="#0f172a">Surroundings</text>
+
+        <!-- Arrows q1 to q8 -->
+        <line x1="185" y1="44" x2="230" y2="44" stroke="#dc2626" stroke-width="2"></line><text x="172" y="48" font-size="9.5" font-weight="bold" fill="#dc2626">q₁</text>
+        <line x1="225" y1="54" x2="278" y2="54" stroke="#dc2626" stroke-width="2"></line><text x="290" y="58" font-size="9.5" font-weight="bold" fill="#dc2626">q₂</text>
+        <line x1="275" y1="64" x2="320" y2="72" stroke="#dc2626" stroke-width="2"></line><text x="330" y="75" font-size="9.5" font-weight="bold" fill="#dc2626">q₃</text>
+        <line x1="380" y1="72" x2="428" y2="60" stroke="#dc2626" stroke-width="2"></line><text x="398" y="82" font-size="9.5" font-weight="bold" fill="#dc2626">q₄</text>
+        <line x1="275" y1="36" x2="428" y2="24" stroke="#dc2626" stroke-width="2"></line><text x="350" y="25" font-size="9.5" font-weight="bold" fill="#dc2626">q₅ (Radiation)</text>
+        <line x1="425" y1="52" x2="485" y2="52" stroke="#dc2626" stroke-width="2"></line><text x="412" y="55" font-size="9.5" font-weight="bold" fill="#dc2626">q₆</text>
+        <line x1="480" y1="62" x2="540" y2="70" stroke="#dc2626" stroke-width="2"></line><text x="550" y="72" font-size="9.5" font-weight="bold" fill="#dc2626">q₇</text>
+        <line x1="480" y1="38" x2="705" y2="20" stroke="#dc2626" stroke-width="2"></line><text x="590" y="24" font-size="9.5" font-weight="bold" fill="#dc2626">q₈ (Radiation)</text>
+      </svg>
+      <figcaption><strong>รูปที่ 1.7 (Schematic ของ Example 1.4 ในสไลด์หน้า 57)</strong> <span class="tag-src">[ต้นฉบับ]</span> การแยกวิเคราะห์เส้นทางการถ่ายโอนความร้อน <span class="math">q<sub>1</sub></span> ถึง <span class="math">q<sub>8</sub></span> ออกจากกระติกกาแฟร้อน</figcaption>
+    </figure>
+
+    <div class="box-warn">
+      <h4>1.10 ข้อผิดพลาดและความเข้าใจผิดที่พบบ่อย (Common Pitfalls &amp; Misconceptions) <span class="tag-sup">[เสริมพื้นฐาน]</span></h4>
+      <ol>
+        <li><strong>การแทนค่าอุณหภูมิเป็นองศาเซลเซียส (<span class="math-rm">°C</span>) ในสมการการแผ่รังสีความร้อน:</strong> นี่คือข้อผิดพลาดอันดับหนึ่งในการสอบ! ในพจน์ <span class="math">ε σ (T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup>)</span> ต้องแปลงเป็นเคลวิน (<span class="math-rm">K</span>) ก่อนยกกำลังสี่เสมอ และห้ามนำผลต่างอุณหภูมิมายกกำลังสี่เด็ดขาด เพราะ <span class="math">(T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup>) ≠ (T<sub>s</sub> − T<sub>sur</sub>)<sup>4</sup></span></li>
+        <li><strong>ความสับสนระหว่างพื้นที่ผิวรับการแผ่รังสี (ในแบบฝึกหัดข้อ 3):</strong> หากแผ่นโลหะวางอยู่ในภาชนะ โดยด้านล่างหุ้มฉนวนกันความร้อนสนิท พื้นที่ผิวที่แลกเปลี่ยนความร้อนด้านบนจะมีเพียงด้านเดียว (<span class="math">A = W × L</span>) แต่หากเป็นแผ่นโลหะแขวนลอยในอากาศโดยไม่มีฉนวนหุ้ม พื้นที่ผิวแลกเปลี่ยนความร้อนจะเป็นสองด้าน (<span class="math">A = 2 × W × L</span>)</li>
+        <li><strong>การนำพจน์การผลิตความร้อนเชิงปริมาตร (<span class="math">Ė<sub>g</sub></span>) ไปใส่ในสมดุลพลังงานที่พื้นผิว:</strong> พื้นผิวควบคุมไม่มีปริมาตร (<span class="math">V = 0</span>) จึงไม่มี <span class="math">Ė<sub>g</sub></span> และ <span class="math">Ė<sub>st</sub></span> ที่พื้นผิว พลังงานที่ผลิตขึ้นภายในเนื้อของแข็งจะปรากฏในสมดุลพื้นผิวผ่านทางฟลักซ์การนำความร้อน <span class="math">q<sub>cond</sub>″</span> ที่ไหลมาถึงผิวนั้นแทน</li>
+      </ol>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 1 พื้นฐานของการถ่ายเทความร้อน</span>
+    <span>หน้า 12</span>
+  </footer>
+</section>
+
+<!-- page 13 budget (Compact): h2 11 + prose 150 + h2 11 + review questions 120 + h2 11 + exercises 220 + 5 gaps 40 = 563 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>1.11 สรุปท้ายบทและการเชื่อมโยงสู่บทที่ 2 (Chapter Summary &amp; Connection)</h2>
+    <p><strong>สรุปแก่นสำคัญที่ต้องเข้าใจ (Key Takeaways):</strong>
+    <br>1. การถ่ายเทความร้อนเกิดขึ้นเมื่อมีความแตกต่างของอุณหภูมิ (<span class="math">ΔT</span>) โดยมีทิศทางจากอุณหภูมิสูงไปยังอุณหภูมิต่ำเสมอ
+    <br>2. การนำความร้อน (<span class="math">q<sub>x</sub>″ = −k dT/dx</span>) อาศัยการชนกันของโมเลกุลหรือการเคลื่อนที่ของโฟนอนและอิเล็กตรอนอิสระในตัวกลางที่อยู่นิ่ง การพาความร้อน (<span class="math">q″ = h(T<sub>s</sub> − T<sub>∞</sub>)</span>) อาศัยการแพร่ระดับโมเลกุลร่วมกับการเคลื่อนที่ของกลุ่มก้อนของไหล และการแผ่รังสีความร้อน (<span class="math">q<sub>rad</sub>″ = εσ(T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup>)</span>) อาศัยคลื่นแม่เหล็กไฟฟ้าโดยไม่ต้องมีตัวกลาง
+    <br>3. สมการสมดุลพลังงานของปริมาตรควบคุม (<span class="math">Ė<sub>in</sub> + Ė<sub>g</sub> − Ė<sub>out</sub> = Ė<sub>st</sub></span>) และสมดุลพลังงานที่พื้นผิว (<span class="math">Ė<sub>in</sub> − Ė<sub>out</sub> = 0</span>) คือหัวใจหลักในการเชื่อมโยงโหมดความร้อนต่างๆ เข้าด้วยกัน
+    <br><strong>การเชื่อมโยงสู่บทที่ 2 (Introduction to Conduction):</strong> ในบทที่ 1 เราสมมติให้การกระจายอุณหภูมิในผนังเป็นเส้นตรง (<span class="math">dT/dx = ΔT/L</span>) แต่ถ้าผนังเป็นรูปทรงกระบอก ทรงกลม มีการผลิตความร้อนภายใน หรืออุณหภูมิเปลี่ยนตามเวลา กราฟอุณหภูมิจะไม่เป็นเส้นตรงอีกต่อไป ในบทที่ 2 เราจะนำสมการอนุรักษ์พลังงานของปริมาตรควบคุม (<span class="math">Ė<sub>in</sub> + Ė<sub>g</sub> − Ė<sub>out</sub> = Ė<sub>st</sub></span>) ไปประยุกต์กับก้อนปริมาตรขนาดเล็กจิ๋ว (<span class="math">dx dy dz</span>) เพื่อพิสูจน์ <strong>สมการการแพร่ความร้อน (Heat Diffusion Equation)</strong> ซึ่งเป็นสมการแม่บทของการนำความร้อนทั้งหมด</p>
+
+    <h2>1.12 คำถามทบทวนความเข้าใจ (Review Questions)</h2>
+    <ol>
+      <li>เหตุใดการใส่เสื้อกันหนาวไหมพรมหนาๆ จึงช่วยให้ร่างกายอบอุ่น ทั้งที่เส้นใยไหมพรมมีรูพรุนให้อากาศแทรกอยู่ภายในจำนวนมาก? จงอธิบายด้วยกลไกการนำและการพาความร้อน</li>
+      <li>จงอธิบายว่าเหตุใดสัมประสิทธิ์การพาความร้อน (<span class="math">h</span>) ของน้ำที่กำลังเดือดจึงมีค่าสูงกว่าการพาความร้อนแบบอิสระของอากาศถึงกว่า 1,000 เท่า?</li>
+      <li>หากนำวัตถุร้อนก้อนหนึ่งไปแขวนไว้ในห้องสุญญากาศสมบูรณ์ วัตถุนั้นจะเย็นตัวลงได้หรือไม่? ด้วยกลไกใด และมีสมการอัตราอย่างไร?</li>
+      <li>เหตุใดในสมการสมดุลพลังงานที่พื้นผิว (<span class="math">Ė<sub>in</sub> − Ė<sub>out</sub> = 0</span>) จึงไม่มีพจน์ <span class="math">Ė<sub>st</sub></span> แม้ในขณะที่ผนังกำลังร้อนขึ้นหรือเย็นลงอย่างรวดเร็ว?</li>
+    </ol>
+
+    <h2>1.13 แบบฝึกหัดท้ายบท (Exercises — แบ่งตามระดับความยาก 5 ระดับ)</h2>
+    <p><em>คำชี้แจง: โจทย์ข้อ (1), (2) และ (3) คือโจทย์ต้นฉบับจากสไลด์ของอาจารย์หน้า 59–60 ส่วนข้อ (4) ถึง (8) เป็นโจทย์เสริมเพื่อพัฒนาทักษะให้ครบทั้ง 5 ระดับ</em></p>
+
+    <h4>ส่วนที่ 1: โจทย์แบบฝึกหัดจากเอกสารต้นฉบับของอาจารย์ (สไลด์หน้า 59–60) <span class="tag-src">[ต้นฉบับ]</span></h4>
+    <ul>
+      <li><strong>ข้อ (1) [ระดับ 3 - การประยุกต์ใช้กฎของฟูริเยร์]:</strong> แผ่นฉนวนทำจาก Fiber Glass มีสภาพนำความร้อน <span class="math">0.05</span> <span class="math-rm">W/(m·K)</span> สามารถกันความร้อนสูญเสียให้เหลือเพียง <span class="math">80</span> <span class="math-rm">W/m<sup>2</sup></span> โดยมีอุณหภูมิแตกต่างระหว่างผิวทั้งสองด้านของแผ่นฉนวนเป็น <span class="math">160</span> <span class="math-rm">°C</span> จงคำนวณหาความหนาของแผ่นฉนวนดังกล่าว</li>
+      <li><strong>ข้อ (2) [ระดับ 3 - การประยุกต์ใช้กฎการเย็นตัวของนิวตัน]:</strong> อากาศอุณหภูมิ <span class="math">350</span> <span class="math-rm">°C</span> ไหลผ่านแผ่นระนาบซึ่งมีขนาด <span class="math">0.5</span> <span class="math-rm">m</span> × <span class="math">0.3</span> <span class="math-rm">m</span> ถ้าสัมประสิทธิ์การพาความร้อนที่ผิวแผ่นเท่ากับ <span class="math">245</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span> อุณหภูมิแผ่นระนาบคงที่เท่ากับ <span class="math">45</span> <span class="math-rm">°C</span> จงคำนวณหาอัตราการถ่ายเทความร้อนที่ถ่ายเทออกจากอากาศสู่ผิวแผ่นระนาบด้านดังกล่าว</li>
+      <li><strong>ข้อ (3) [ระดับ 3 - การประยุกต์ใช้กฎการแผ่รังสีความร้อนสุทธิ]:</strong> แผ่นโลหะบางขนาด <span class="math">0.1</span> <span class="math-rm">m</span> × <span class="math">0.1</span> <span class="math-rm">m</span> วางไว้ภายในภาชนะเปล่าขนาดใหญ่ซึ่งมีอุณหภูมิผิวด้านในภายในภาชนะคงที่เท่ากับ <span class="math">300</span> <span class="math-rm">K</span> ส่วนด้านล่างแผ่นโลหะหุ้มด้วยฉนวนและที่ผิวด้านบนของแผ่นโลหะถูกควบคุมให้มีอุณหภูมิคงที่เท่ากับ <span class="math">500</span> <span class="math-rm">K</span> โดยอาศัย Heater ไฟฟ้า ถ้าสภาพเปล่งรังสีของผิวแผ่นโลหะเท่ากับ <span class="math">0.8</span> จงคำนวณหาอัตราการแผ่รังสีความร้อนสุทธิระหว่างแผ่นโลหะกับผนังของภาชนะที่ห้อมรอบ</li>
+    </ul>
+
+    <h4>ส่วนที่ 2: โจทย์เสริมมาตรฐาน 5 ระดับ (ระดับ 1, 2, 4 และ 5) <span class="tag-sup">[เสริมพื้นฐาน]</span></h4>
+    <ul>
+      <li><strong>ข้อ (4) [ระดับ 1 - ตรวจสอบความเข้าใจพื้นฐานและการแปลงหน่วย]:</strong> ผนังคอนกรีตมีฟลักซ์ความร้อนไหลผ่านสม่ำเสมอ <span class="math">q″ = 250</span> <span class="math-rm">W/m<sup>2</sup></span> หากผนังมีพื้นที่ <span class="math">A = 12</span> <span class="math-rm">m<sup>2</sup></span> จงหา (ก) อัตราการถ่ายเทความร้อน <span class="math">q</span> ในหน่วย <span class="math-rm">kW</span> และ (ข) ปริมาณพลังงานความร้อนทั้งหมด <span class="math">Q</span> ในหน่วย <span class="math-rm">MJ</span> ที่ไหลผ่านผนังนี้ในช่วงเวลา <span class="math">8</span> ชั่วโมง</li>
+      <li><strong>ข้อ (5) [ระดับ 2 - อธิบายหลักการและเหตุผลเชิงปริมาณ]:</strong> พื้นผิวชิ้นงานมีอุณหภูมิ <span class="math">T<sub>s</sub> = 127</span> <span class="math-rm">°C</span> (<span class="math">400</span> <span class="math-rm">K</span>) และมีสภาพเปล่งรังสี <span class="math">ε = 0.9</span> อยู่ในห้องขนาดใหญ่ที่มีอุณหภูมิผนัง <span class="math">T<sub>sur</sub> = 27</span> <span class="math-rm">°C</span> (<span class="math">300</span> <span class="math-rm">K</span>) จงคำนวณหาค่าสัมประสิทธิ์การถ่ายเทความร้อนด้วยการแผ่รังสี <span class="math">h<sub>r</sub></span> และตรวจสอบว่า <span class="math">q<sub>rad</sub>″ = h<sub>r</sub>(T<sub>s</sub> − T<sub>sur</sub>)</span> ให้ค่าตรงกับสมการ <span class="math">ε σ (T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup>)</span> หรือไม่</li>
+      <li><strong>ข้อ (6) [ระดับ 4 - วิเคราะห์กราฟและการเปรียบเทียบโหมดความร้อน]:</strong> ผนังสองชั้นประกบกันสนิท ชั้น A หนา <span class="math">L<sub>A</sub> = 0.04</span> <span class="math-rm">m</span> ชั้น B หนา <span class="math">L<sub>B</sub> = 0.08</span> <span class="math-rm">m</span> ที่สภาวะคงตัวไร้การผลิตความร้อน วัดอุณหภูมิที่ผิวซ้ายสุดของ A ได้ <span class="math">200</span> <span class="math-rm">°C</span> ที่รอยต่อระหว่าง A กับ B ได้ <span class="math">140</span> <span class="math-rm">°C</span> และที่ผิวขวาสุดของ B ได้ <span class="math">20</span> <span class="math-rm">°C</span> จงหาอัตราส่วนสภาพนำความร้อน <span class="math">k<sub>A</sub> / k<sub>B</sub></span> พร้อมอธิบายเหตุผลจากความชันกราฟ</li>
+      <li><strong>ข้อ (7) [ระดับ 5 - โจทย์บูรณาการระดับมหาวิทยาลัย]:</strong> ชิปซิลิคอนรูปสี่เหลี่ยมจัตุรัสขนาด <span class="math">10</span> <span class="math-rm">mm</span> × <span class="math">10</span> <span class="math-rm">mm</span> มีด้านล่างหุ้มฉนวนสนิท ส่วนด้านบนสัมผัสกับกระแสลมหล่อเย็นที่มีอุณหภูมิ <span class="math">T<sub>∞</sub> = 27</span> <span class="math-rm">°C</span> (<span class="math">h = 120</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span>) และแลกเปลี่ยนรังสีกับผนังเคสคอมพิวเตอร์ที่ <span class="math">T<sub>sur</sub> = 27</span> <span class="math-rm">°C</span> โดยผิวชิปมีค่า <span class="math">ε = 0.85</span> หากอุณหภูมิสูงสุดของชิปขณะทำงานคงตัวต้องไม่เกิน <span class="math">T<sub>s</sub> = 87</span> <span class="math-rm">°C</span> จงคำนวณหากำลังไฟฟ้าสูงสุด (<span class="math">P<sub>elec</sub> = Ė<sub>g</sub></span>, หน่วย <span class="math-rm">W</span>) ที่ชิปตัวนี้สามารถใช้ได้โดยไม่ร้อนเกินกำหนด</li>
+    </ul>
+  </div>
+  <footer class="page-footer">
+    <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 1 พื้นฐานของการถ่ายเทความร้อน</span>
+    <span>หน้า 13</span>
+  </footer>
+</section>
+
+<!-- page 14 budget (Compact): h2 11 + 3 box-example solutions 430 + prose 80 + 4 gaps 32 = 553 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>1.14 เฉลยแบบฝึกหัดท้ายบทอย่างละเอียด (Detailed Solutions)</h2>
+
+    <div class="box-example">
+      <h4>เฉลยแบบฝึกหัดข้อ (1) [โจทย์อาจารย์ สไลด์หน้า 59] <span class="tag-src">[ต้นฉบับ]</span> <span class="tag-inf">[เติมเต็มสไลด์]</span></h4>
+      <p><strong>วิเคราะห์โจทย์และตัวแปรที่ทราบค่า:</strong>
+      <br>• สภาพนำความร้อนของแผ่นฉนวนใยแก้ว (Fiber Glass): <span class="math">k = 0.05</span> <span class="math-rm">W/(m·K)</span>
+      <br>• ฟลักซ์ความร้อนสูญเสียที่ยอมให้ไหลผ่านแผ่นฉนวน: <span class="math">q<sub>x</sub>″ = 80</span> <span class="math-rm">W/m<sup>2</sup></span> (สังเกตจากหน่วย <span class="math-rm">W/m<sup>2</sup></span> คือฟลักซ์ความร้อนต่อหนึ่งหน่วยพื้นที่)
+      <br>• ผลต่างอุณหภูมิระหว่างผิวทั้งสองด้านของแผ่นฉนวน: <span class="math">ΔT = T<sub>1</sub> − T<sub>2</sub> = 160</span> <span class="math-rm">°C</span> = <span class="math">160</span> <span class="math-rm">K</span> (เนื่องจากเป็นผลต่างอุณหภูมิ ค่าในหน่วย <span class="math-rm">°C</span> จึงเท่ากับในหน่วย <span class="math-rm">K</span>)
+      <br><strong>การเลือกสมการและขั้นตอนการคำนวณ:</strong>
+      <br>สำหรับการนำความร้อนใน 1 มิติภายใต้สภาวะคงตัวผ่านแผ่นฉนวนระนาบ เราใช้กฎของฟูริเยร์ตามสมการที่ 1.2:
+      <br><span class="math">q<sub>x</sub>″</span> = <span class="math">k</span> (<span class="math">ΔT</span> / <span class="math">L</span>)   ⇒   จัดรูปสมการเพื่อหาความหนาของแผ่นฉนวน (<span class="math">L</span>):   <span class="math">L</span> = <span class="math">k · ΔT</span> / <span class="math">q<sub>x</sub>″</span>
+      <br>แทนค่าตัวเลขพร้อมหน่วย:
+      <br><span class="math">L</span> = [0.05 <span class="math-rm">W/(m·K)</span> × 160 <span class="math-rm">K</span>] / (80 <span class="math-rm">W/m<sup>2</sup></span>) = 8.0 <span class="math-rm">(W/m)</span> / 80 <span class="math-rm">(W/m<sup>2</sup>)</span> = <strong>0.10 <span class="math-rm">m</span> (หรือเท่ากับ 10 <span class="math-rm">cm</span> / 100 <span class="math-rm">mm</span>)</strong>
+      <br><strong>ตรวจสอบความสมเหตุสมผล:</strong> หน่วย <span class="math-rm">[W/(m·K) × K] / [W/m<sup>2</sup>] = [W/m] × [m<sup>2</sup>/W] = m</span> ถูกต้อง และความหนาฉนวนใยแก้ว 10 cm สำหรับกั้นผลต่างอุณหภูมิ 160 °C เป็นขนาดมาตรฐานที่ใช้จริงในผนังเตาอบอุตสาหกรรม</p>
+    </div>
+
+    <div class="box-example">
+      <h4>เฉลยแบบฝึกหัดข้อ (2) [โจทย์อาจารย์ สไลด์หน้า 59] <span class="tag-src">[ต้นฉบับ]</span> <span class="tag-inf">[เติมเต็มสไลด์]</span></h4>
+      <p><strong>วิเคราะห์โจทย์และตัวแปรที่ทราบค่า:</strong>
+      <br>• อุณหภูมิของอากาศที่ไหลผ่าน: <span class="math">T<sub>∞</sub> = 350</span> <span class="math-rm">°C</span> | อุณหภูมิของพื้นผิวแผ่นระนาบ: <span class="math">T<sub>s</sub> = 45</span> <span class="math-rm">°C</span> (ในกรณีนี้ของไหลร้อนกว่าพื้นผิว <span class="math">T<sub>∞</sub> &gt; T<sub>s</sub></span> ความร้อนจึงถ่ายเทจากอากาศเข้าสู่ผิวแผ่นระนาบ)
+      <br>• ขนาดของแผ่นระนาบ: กว้าง <span class="math">0.3</span> <span class="math-rm">m</span>, ยาว <span class="math">0.5</span> <span class="math-rm">m</span> → พื้นที่ผิวด้านที่อากาศไหลผ่าน <span class="math">A = 0.5</span> <span class="math-rm">m</span> × <span class="math">0.3</span> <span class="math-rm">m</span> = <span class="math">0.15</span> <span class="math-rm">m<sup>2</sup></span>
+      <br>• สัมประสิทธิ์การพาความร้อนที่ผิวแผ่น: <span class="math">h = 245</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span>
+      <br><strong>การเลือกสมการและขั้นตอนการคำนวณ:</strong>
+      <br>จากกฎการเย็นตัวของนิวตัน (สมการที่ 1.3) สำหรับกรณีที่ของไหลมีอุณหภูมิสูงกว่าพื้นผิว (<span class="math">T<sub>∞</sub> &gt; T<sub>s</sub></span>):
+      <br><span class="math">q<sub>conv</sub> = h A</span> (<span class="math">T<sub>∞</sub> − T<sub>s</sub></span>)
+      <br>แทนค่าตัวเลขพร้อมหน่วย (ผลต่างอุณหภูมิ <span class="math">ΔT = 350 − 45 = 305</span> <span class="math-rm">°C</span> = <span class="math">305</span> <span class="math-rm">K</span>):
+      <br><span class="math">q<sub>conv</sub></span> = 245 <span class="math-rm">W/(m<sup>2</sup>·K)</span> × 0.15 <span class="math-rm">m<sup>2</sup></span> × (350 − 45) <span class="math-rm">K</span> = 36.75 <span class="math-rm">W/K</span> × 305 <span class="math-rm">K</span> = <strong>11,208.75 <span class="math-rm">W</span> (หรือ ≈ 11.21 <span class="math-rm">kW</span>)</strong>
+      <br><strong>ตรวจสอบความสมเหตุสมผล:</strong> ค่า <span class="math">h = 245</span> <span class="math-rm">W/(m<sup>2</sup>·K)</span> สอดคล้องกับการพาความร้อนแบบบังคับของก๊าซความเร็วสูงตามตารางที่ 1.1 และผลต่างอุณหภูมิสูงถึง 305 K จึงให้อัตราความร้อนระดับ 11.2 kW</p>
+    </div>
+
+    <div class="box-example">
+      <h4>เฉลยแบบฝึกหัดข้อ (3) [โจทย์อาจารย์ สไลด์หน้า 60] <span class="tag-src">[ต้นฉบับ]</span> <span class="tag-inf">[เติมเต็มสไลด์]</span></h4>
+      <p><strong>วิเคราะห์โจทย์และตัวแปรที่ทราบค่า:</strong>
+      <br>• ขนาดแผ่นโลหะบาง: <span class="math">0.1</span> <span class="math-rm">m</span> × <span class="math">0.1</span> <span class="math-rm">m</span> เนื่องจากด้านล่างหุ้มฉนวน พื้นที่ผิวด้านบนที่แผ่รังสีความร้อนจึงมีเพียงด้านเดียว คือ <span class="math">A = 0.1</span> <span class="math-rm">m</span> × <span class="math">0.1</span> <span class="math-rm">m</span> = <span class="math">0.01</span> <span class="math-rm">m<sup>2</sup></span>
+      <br>• อุณหภูมิผิวด้านบนของแผ่นโลหะ: <span class="math">T<sub>s</sub> = 500</span> <span class="math-rm">K</span> (โจทย์ให้มาในหน่วยเคลวินสัมบูรณ์เรียบร้อยแล้ว)
+      <br>• อุณหภูมิผนังด้านในของภาชนะขนาดใหญ่ที่ห้อมรอบ: <span class="math">T<sub>sur</sub> = 300</span> <span class="math-rm">K</span>
+      <br>• สภาพเปล่งรังสีของผิวแผ่นโลหะ: <span class="math">ε = 0.8</span> | ค่าคงที่สเตฟาน-โบลต์ซมันน์: <span class="math">σ = 5.67 × 10<sup>−8</sup></span> <span class="math-rm">W/(m<sup>2</sup>·K<sup>4</sup>)</span>
+      <br><strong>การเลือกสมการและขั้นตอนการคำนวณ:</strong>
+      <br>เนื่องจากแผ่นโลหะมีขนาดเล็กวางอยู่ภายในภาชนะเปล่าขนาดใหญ่ที่ห้อมรอบอย่างสมบูรณ์ เราสามารถใช้สมการการแลกเปลี่ยนรังสีความร้อนสุทธิ (สมการที่ 1.5):
+      <br><span class="math">q<sub>rad</sub> = ε A σ</span> (<span class="math">T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup></span>)
+      <br>แทนค่าตัวเลขพร้อมหน่วย:
+      <br><span class="math">q<sub>rad</sub></span> = 0.8 × (0.01 <span class="math-rm">m<sup>2</sup></span>) × (5.67 × 10<sup>−8</sup> <span class="math-rm">W/(m<sup>2</sup>·K<sup>4</sup>)</span>) × [(500 <span class="math-rm">K</span>)<sup>4</sup> − (300 <span class="math-rm">K</span>)<sup>4</sup>]
+      <br><span class="math">q<sub>rad</sub></span> = 4.536 × 10<sup>−10</sup> <span class="math-rm">W/K<sup>4</sup></span> × (6.25 × 10<sup>10</sup> − 0.81 × 10<sup>10</sup>) <span class="math-rm">K<sup>4</sup></span> = 4.536 × 10<sup>−10</sup> × 5.44 × 10<sup>10</sup> = <strong>24.68 <span class="math-rm">W</span></strong></p>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 1 พื้นฐานของการถ่ายเทความร้อน</span>
+    <span>หน้า 14</span>
+  </footer>
+</section>
+
+<!-- page 15 budget (Compact): 2 box-example 240 + h2 11 +audit table 6 rows 102 + ref list 80 + 4 gaps 32 = 465 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="box-example">
+      <h4>เฉลยแบบฝึกหัดข้อ (4), (5) และ (6) <span class="tag-sup">[เสริมพื้นฐาน]</span></h4>
+      <p><strong>ข้อ (4):</strong> (ก) อัตราการถ่ายเทความร้อน <span class="math">q = q″ · A = 250</span> <span class="math-rm">W/m<sup>2</sup></span> × <span class="math">12</span> <span class="math-rm">m<sup>2</sup></span> = <span class="math">3,000</span> <span class="math-rm">W</span> = <strong>3.0 <span class="math-rm">kW</span></strong>
+      <br>(ข) ช่วงเวลา <span class="math">Δt = 8</span> <span class="math-rm">h</span> × <span class="math">3,600</span> <span class="math-rm">s/h</span> = <span class="math">28,800</span> <span class="math-rm">s</span> ปริมาณความร้อนรวม <span class="math">Q = q · Δt = 3,000</span> <span class="math-rm">J/s</span> × <span class="math">28,800</span> <span class="math-rm">s</span> = <span class="math">8.64 × 10<sup>7</sup></span> <span class="math-rm">J</span> = <strong>86.4 <span class="math-rm">MJ</span></strong></p>
+      <p style="margin-top:4px;"><strong>ข้อ (5):</strong> จากสมการที่ 1.6: <span class="math">h<sub>r</sub> = ε σ (T<sub>s</sub> + T<sub>sur</sub>)(T<sub>s</sub><sup>2</sup> + T<sub>sur</sub><sup>2</sup>)</span> = 0.9 × (5.67 × 10<sup>−8</sup>) × (400 + 300) × (400<sup>2</sup> + 300<sup>2</sup>) = 5.103 × 10<sup>−8</sup> × 700 × 250,000 = <strong>8.93 <span class="math-rm">W/(m<sup>2</sup>·K)</span></strong> เมื่อคำนวณฟลักซ์ความร้อน <span class="math">q<sub>rad</sub>″ = h<sub>r</sub>(T<sub>s</sub> − T<sub>sur</sub>) = 8.93 × (400 − 300) =</span> <strong>893 <span class="math-rm">W/m<sup>2</sup></span></strong> ซึ่งตรงกับ <span class="math">ε σ (400<sup>4</sup> − 300<sup>4</sup>) = 893.025</span> <span class="math-rm">W/m<sup>2</sup></span> ทุกประการ</p>
+      <p style="margin-top:4px;"><strong>ข้อ (6):</strong> ที่สภาวะคงตัวไร้การผลิตความร้อน ฟลักซ์ความร้อนที่ไหลผ่านชั้น A และชั้น B ต้องเท่ากัน (<span class="math">q<sub>A</sub>″ = q<sub>B</sub>″</span>):
+      <br><span class="math">k<sub>A</sub> (ΔT<sub>A</sub> / L<sub>A</sub>) = k<sub>B</sub> (ΔT<sub>B</sub> / L<sub>B</sub>)</span>  ⇒  <span class="math">k<sub>A</sub> / k<sub>B</sub> = (ΔT<sub>B</sub> / L<sub>B</sub>) / (ΔT<sub>A</sub> / L<sub>A</sub>)</span> = [(140 − 20) / 0.08] / [(200 − 140) / 0.04] = 1,500 / 1,500 = <strong>1.0</strong> (เนื่องจากเกรเดียนต์ของอุณหภูมิ <span class="math">|dT/dx|</span> ในทั้งสองชั้นมีค่าเท่ากันคือ <span class="math">1,500</span> <span class="math-rm">°C/m</span> สภาพนำความร้อนของวัสดุทั้งสองจึงมีค่าเท่ากัน)</p>
+    </div>
+
+    <div class="box-example">
+      <h4>เฉลยแบบฝึกหัดข้อ (7) [โจทย์บูรณาการระดับมหาวิทยาลัย] <span class="tag-sup">[เสริมพื้นฐาน]</span></h4>
+      <p><strong>วิธีทำ:</strong> กำหนดปริมาตรควบคุมครอบคลุมเนื้อชิปซิลิคอนทั้งหมด พื้นที่ผิวด้านบนของชิปคือ <span class="math">A = 0.01</span> <span class="math-rm">m</span> × <span class="math">0.01</span> <span class="math-rm">m</span> = <span class="math">1.0 × 10<sup>−4</sup></span> <span class="math-rm">m<sup>2</sup></span> อุณหภูมิผิวชิปสูงสุด <span class="math">T<sub>s</sub> = 87 + 273 = 360</span> <span class="math-rm">K</span> และ <span class="math">T<sub>∞</sub> = T<sub>sur</sub> = 27 + 273 = 300</span> <span class="math-rm">K</span>
+      <br>จากสมการอนุรักษ์พลังงานของปริมาตรควบคุมที่สภาวะคงตัว (<span class="math">Ė<sub>st</sub> = 0</span>) และด้านล่างหุ้มฉนวน (<span class="math">Ė<sub>in</sub> = 0</span>):
+      <br><span class="math">Ė<sub>g</sub> − Ė<sub>out</sub> = 0</span>  ⇒  <span class="math">P<sub>elec</sub> = q<sub>conv</sub> + q<sub>rad</sub> = h A (T<sub>s</sub> − T<sub>∞</sub>) + ε A σ (T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup>)</span>
+      <br>• อัตราการพาความร้อน: <span class="math">q<sub>conv</sub></span> = 120 <span class="math-rm">W/(m<sup>2</sup>·K)</span> × (1.0 × 10<sup>−4</sup> <span class="math-rm">m<sup>2</sup></span>) × (360 − 300) <span class="math-rm">K</span> = <strong>0.720 <span class="math-rm">W</span></strong>
+      <br>• อัตราการแผ่รังสีความร้อน: <span class="math">q<sub>rad</sub></span> = 0.85 × (1.0 × 10<sup>−4</sup> <span class="math-rm">m<sup>2</sup></span>) × (5.67 × 10<sup>−8</sup> <span class="math-rm">W/(m<sup>2</sup>·K<sup>4</sup>)</span>) × (360<sup>4</sup> − 300<sup>4</sup>) <span class="math-rm">K<sup>4</sup></span> = 4.8195 × 10<sup>−12</sup> × (1.6796 × 10<sup>10</sup> − 0.8100 × 10<sup>10</sup>) = <strong>0.0419 <span class="math-rm">W</span></strong>
+      <br>• กำลังไฟฟ้าสูงสุดของชิป: <span class="math">P<sub>elec</sub></span> = 0.720 + 0.0419 = <strong>0.762 <span class="math-rm">W</span></strong></p>
+    </div>
+
+    <h2>1.15 ตารางตรวจสอบความครบถ้วนและเอกสารอ้างอิงประจำบทที่ 1</h2>
+    <table class="std-table">
+      <thead>
+        <tr>
+          <th scope="col">หัวข้อในสารบัญและสไลด์ต้นฉบับ (หน้า 1–60)</th>
+          <th scope="col">สถานะการเขียน</th>
+          <th scope="col">รายละเอียดการเติมเต็มและแก้ไขข้อจำกัดจากต้นฉบับ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1.1 What and How? + กลไกการถ่ายโอนพลังงาน มวล โมเมนตัม</td>
+          <td>ครบถ้วน 100%</td>
+          <td>เขียนครบตามสไลด์หน้า 1–13 และเสริมตารางเปรียบเทียบกฎของฟูริเยร์ ฟิกส์ และนิวตัน</td>
+        </tr>
+        <tr>
+          <td>1.2.1–1.2.3 สมการอัตรา (การนำ การพา การแผ่รังสี) + Table 1.1</td>
+          <td>ครบถ้วน 100%</td>
+          <td>เติมสมการที่เว้นว่างในสไลด์หน้า 20, 29, 32 และพิสูจน์ที่มาของ <span class="math">h<sub>r</sub></span></td>
+        </tr>
+        <tr>
+          <td>1.3 กฎการอนุรักษ์พลังงาน (CV &amp; Surface Balance) + 1.4 ระบบหน่วย</td>
+          <td>ครบถ้วน 100%</td>
+          <td>เขียนครบตามสไลด์หน้า 39–54 พร้อมอธิบายความหมายของ <span class="math">g<sub>c</sub></span></td>
+        </tr>
+        <tr>
+          <td>Example 1.1, 1.2, 1.3 และ 1.4</td>
+          <td>ครบถ้วน 100%</td>
+          <td>คำนวณเติมช่องว่างทั้งหมด ชี้แจงตัวเลข <span class="math-rm">374<sup>4</sup></span> ใน Ex 1.3 และเติม <span class="math">q<sub>1</sub>–q<sub>8</sub></span> ใน Ex 1.4</td>
+        </tr>
+        <tr>
+          <td>แบบฝึกหัดท้ายบทข้อ (1)–(3) และโจทย์เสริมครบ 5 ระดับ</td>
+          <td>ครบถ้วน 100%</td>
+          <td>แสดงวิธีทำและเฉลยละเอียดทุกข้อ (รวม 7 ข้อ) พร้อมตรวจสอบหน่วยครบถ้วน</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ol style="font-size:8.5pt; margin-top:6px;">
+      <li id="ref-bergman2011">Bergman, T. L., Lavine, A. S., Incropera, F. P., &amp; DeWitt, D. P. (2011). <em>Introduction to Heat Transfer</em> (6th ed.). John Wiley &amp; Sons Inc. (อ้างอิงในสไลด์หน้า 2)</li>
+      <li id="ref-cengel2020">Çengel, Y. A., &amp; Ghajar, A. J. (2020). <em>Heat and Mass Transfer: Fundamentals &amp; Applications</em> (6th ed. in SI Units). McGraw-Hill Education. (อ้างอิงในสไลด์หน้า 1)</li>
+      <li id="ref-archanai2017">อาชาไนย บัวศรี. (2560). <em>การถ่ายเทความร้อน (Heat Transfer)</em> (พิมพ์ครั้งที่ 1). ภาควิชาวิทยาการและวิศวกรรมวัสดุ คณะวิศวกรรมศาสตร์และเทคโนโลยีอุตสาหกรรม มหาวิทยาลัยศิลปากร. (อ้างอิงในสไลด์หน้า 3)</li>
+    </ol>
+  </div>
+  <footer class="page-footer">
+    <span>ปรากฏการณ์การถ่ายโอน 1 (Transport Phenomena I) — บทที่ 1 พื้นฐานของการถ่ายเทความร้อน (จบบทที่ 1)</span>
+    <span>หน้า 15</span>
+  </footer>
+</section>
+
+</div>
+
+<script data-bard-injected="true">
+(function() {
+  async function fetchFifeImageBlobUsingAlr(urlString) {
+    if (urlString.startsWith('blob:') || urlString.startsWith('data:')) {
+      throw new Error('Input URL is already a blob or data URL.');
+    }
+    var url = new URL(urlString, window.location.href);
+    url.searchParams.set('alr', 'yes');
+    for (var i = 0; i < 5; i++) {
+      var response = await fetch(url.toString(), {credentials: 'include'});
+      if (!response.ok) {
+        throw new Error('Fetch received not OK response: ' + response.status);
+      }
+      var contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.startsWith('text/plain')) {
+        var blob = await response.blob();
+        if (blob.size > 0 && blob.type.startsWith('image/')) {
+          return blob;
+        }
+        throw new Error('Fetched blob is not a valid image.');
+      }
+      url = new URL(await response.text());
+    }
+    throw new Error('Exceeded maximum number of redirects.');
+  }
+
+  async function updateImageSourcesUsingAlr() {
+    var imgs = Array.from(document.querySelectorAll('img'));
+    await Promise.all(imgs.map(async function(img) {
+      if (img.src && img.src.includes('googleusercontent')) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(img.src);
+          img.src = URL.createObjectURL(blob);
+        } catch (e) {}
+      }
+    }));
+
+    var elements = document.querySelectorAll('[style*="googleusercontent"]');
+    var urlRegex = /url\((['"]?)(https?:\/\/.*?googleusercontent.*?)\1\)/;
+    await Promise.all(Array.from(elements).map(async function(el) {
+      var bg = el.style.backgroundImage;
+      var match = bg ? bg.match(urlRegex) : null;
+      if (match && match[2]) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(match[2]);
+          var blobUrl = URL.createObjectURL(blob);
+          el.style.backgroundImage = bg.replace(match[2], blobUrl);
+        } catch (e) {}
+      }
+    }));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateImageSourcesUsingAlr);
+  } else {
+    updateImageSourcesUsingAlr();
+  }
+})();
+</script></body></html>
