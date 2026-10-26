@@ -17,7 +17,7 @@ window.GRADE_CONFIG = {
 
   // ชื่อที่แสดงใน dropdown วิชา (key ต้องตรงกับชื่อใน folders ของ index.html)
   subjectNames: {
-    transport: "TRANSPORT PHENOMENA",
+    transport: "TRANSPORT PHENOMENA I",
     kinetic: "CHEMICAL KINETICS AND REACTOR DESIGN"
   },
 
