@@ -19,7 +19,8 @@ window.GRADE_CONFIG = {
   // ชื่อที่แสดงใน dropdown วิชา (key ต้องตรงกับชื่อใน folders ของ index.html)
   subjectNames: {
     transport: "TRANSPORT PHENOMENA I",
-    kinetic: "CHEMICAL KINETICS AND REACTOR DESIGN"
+    kinetic: "CHEMICAL KINETICS AND REACTOR DESIGN",
+	charac: "Polymer Characterization II"
   },
 
   // กลุ่มเสียงหลังสุ่ม: good = เสียงยินดี, bad = เสียงผิดหวัง

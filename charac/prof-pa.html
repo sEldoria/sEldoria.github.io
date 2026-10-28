@@ -1,0 +1,614 @@
+<!DOCTYPE html><html lang="th"><head>
+<meta charset="UTF-8">
+<title>ตำราเรียนการพิสูจน์เอกลักษณ์พอลิเมอร์ด้วยเทคนิคไมโครสโคปี</title>
+<style>
+@page { margin: 0; }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Sarabun', 'Garuda', 'Kinnari', 'Noto Sans Thai', 'Segoe UI', Tahoma, sans-serif; }
+html { background-color: #ffffff; }
+@media (prefers-color-scheme: dark) {
+    html { background-color: #1f1f1f; }
+}
+body {
+    padding: 24px 0;
+    margin: 0 auto;
+    max-width: 900px !important;
+    border: none !important;
+    background: transparent !important;
+    color: #1e293b;
+}
+.page {
+    min-height: 297mm;
+    height: auto;
+    margin: 0 auto 12px auto;
+    padding: 18mm 18mm 12mm 18mm;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: visible;
+}
+@media screen and (max-width: 600px) {
+    body { padding: 16px 0; }
+    .page { margin: 0 auto 8px auto; border: none; padding: 12px 16px; }
+}
+.page-content {
+    flex: 1 0 auto;
+    min-height: 0;
+    overflow: visible;
+}
+.page-content > * + * {
+    margin-top: 14px;
+}
+.page.compact, body.compact .page {
+    font-size: 9.3pt;
+    line-height: 1.35;
+}
+.page.compact .page-content > * + *, body.compact .page-content > * + * {
+    margin-top: 10px;
+}
+.page-content > :is(h1, h2, h3, h4) + * {
+    margin-top: 6px;
+}
+.page-footer {
+    flex-shrink: 0;
+    margin-top: auto;
+    padding-top: 3mm;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8pt;
+    color: #64748b;
+}
+@media print {
+    *, *::before, *::after {
+        box-shadow: none !important;
+        text-shadow: none !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    body { padding: 0; background: none; }
+        .page {
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        overflow: visible;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .page-content {
+        overflow: visible;
+    }
+
+    .page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+}
+[contenteditable]:focus { outline: none; }
+
+/* Typographic & Component Styles */
+h1 { font-size: 17pt; color: #0f172a; margin: 0; font-weight: 700; line-height: 1.25; }
+h2 { font-size: 12.5pt; color: #1e3a8a; margin: 0; font-weight: 600; border-bottom: 1.5px solid #bfdbfe; padding-bottom: 2px; }
+h3 { font-size: 10.2pt; color: #1e293b; margin: 0; font-weight: 600; }
+p { margin: 0; font-size: 9.2pt; line-height: 1.38; text-align: justify; }
+ul, ol { margin: 0; padding-left: 18px; font-size: 9.1pt; line-height: 1.35; }
+li { margin-bottom: 2px; }
+
+/* Callout & Chrome Boxes */
+.box-banner {
+    background: linear-gradient(135deg, #1e3a8a 0%, #0369a1 100%);
+    color: #ffffff;
+    padding: 10px 14px;
+    border-radius: 4px;
+}
+.box-banner h1 { color: #ffffff; }
+.box-card {
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 3.5px solid #2563eb;
+    padding: 8px 10px;
+    border-radius: 3px;
+    font-size: 9pt;
+}
+.box-alert {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-left: 3.5px solid #dc2626;
+    padding: 7px 9px;
+    border-radius: 3px;
+    font-size: 8.9pt;
+}
+.box-example {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-left: 3.5px solid #16a34a;
+    padding: 8px 10px;
+    border-radius: 3px;
+    font-size: 8.9pt;
+}
+
+/* Formula & Math */
+.math-block {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    padding: 5px 8px;
+    text-align: center;
+    font-family: 'Cambria Math', 'Times New Roman', serif;
+    font-size: 9.8pt;
+    border-radius: 3px;
+    color: #0f172a;
+}
+.math {
+    font-family: 'Cambria Math', 'Times New Roman', serif;
+    font-style: italic;
+}
+
+/* Tables */
+table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.4pt;
+    line-height: 1.25;
+}
+table.data-table th, table.data-table td {
+    border: 1px solid #cbd5e1;
+    padding: 4px 6px;
+    vertical-align: top;
+}
+table.data-table th {
+    background-color: #e2e8f0;
+    color: #0f172a;
+    font-weight: 600;
+    text-align: left;
+}
+table.data-table tr:nth-child(even) td {
+    background-color: #f8fafc;
+}
+
+/* Authored Visuals / Schematics */
+.diagram-container {
+    width: 100%;
+    height: 32mm;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.caption {
+    font-size: 7.8pt;
+    color: #475569;
+    text-align: center;
+    margin-top: 2px;
+}
+.grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+</style>
+<style data-bard-injected="true">
+@media screen {
+    html {
+        background-color: #ffffff;
+    }
+    body {
+        padding: 8px 0 24px 0;
+    }
+}
+@media screen and (prefers-color-scheme: dark) {
+    html {
+        background-color: #1f1f1f;
+    }
+}
+@media screen and (max-width: 600px) {
+    body {
+        padding: 4px 0 16px 0;
+        margin: 0 auto;
+    }
+}
+</style></head>
+<body class="compact">
+<div contenteditable="true">
+
+<!-- page 1 budget (Compact): masthead 45 + box chrome 24 + h2 11 + prose 160 + svg 30mm 72 + h2 11 + table 6 rows 102 + 5 gaps 40 = 465 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="box-banner">
+      <div style="font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.8px; opacity: 0.9;">คู่มือตำราเรียนวิชาการระดับมหาวิทยาลัย (รายวิชา 611 311)</div>
+      <h1>ศาสตร์และวิศวกรรมการพิสูจน์เอกลักษณ์พอลิเมอร์ด้วยเทคนิคไมโครสโคปี</h1>
+      <div style="font-size: 8.5pt; margin-top: 3px; opacity: 0.95;">ผศ.ดร.ปาเจรา พัฒนถาบุตร • ภาควิชาฟิสิกส์และวิทยาศาสตร์วัสดุ</div>
+    </div>
+
+    <h2>1. ธรรมชาติเชิงฟิสิกส์ของคลื่น แสง และขีดจำกัดการมองเห็น (Foundations of Microscopy)</h2>
+    <p>
+      การพิสูจน์เอกลักษณ์ทางสัณฐานวิทยา (Morphology) มีความสำคัญอย่างยิ่งในวิทยาการพอลิเมอร์ เนื่องจากโครงสร้างผลึก ทิศทางการจัดเรียงตัวของโมเลกุล และการกระจายตัวของอนุภาคเสริมแรง ส่งผลโดยตรงต่อสมบัติเชิงกล ความร้อน และการเสื่อมสภาพ ตาเปล่ามนุษย์มีความสามารถในการแจกแจงรายละเอียด (Visual Resolution) ได้ไม่เกิน 100 μm การศึกษาโครงสร้างจุลภาคจึงต้องอาศัยรังสีตัวกลางที่มีความยาวคลื่นสั้นลงตามหลักทัศนศาสตร์
+    </p>
+
+    <div class="diagram-container">
+      <svg width="100%" height="100%" viewBox="0 0 540 100" role="img">
+        <title>สเปกตรัมคลื่นแม่เหล็กไฟฟ้าและขอบเขตการแจกแจงรายละเอียด</title>
+        <rect x="15" y="32" width="510" height="22" rx="3" fill="#e2e8f0" stroke="#94a3b8"></rect>
+        <rect x="250" y="32" width="50" height="22" fill="#38bdf8"></rect>
+        <text x="275" y="46" font-size="8" fill="#0c4a6e" font-weight="bold" text-anchor="middle">แสงขาว (Visible)</text>
+        <text x="70" y="46" font-size="8" fill="#475569" text-anchor="middle">คลื่นวิทยุ / ไมโครเวฟ</text>
+        <text x="195" y="46" font-size="8" fill="#475569" text-anchor="middle">อินฟราเรด (IR)</text>
+        <text x="345" y="46" font-size="8" fill="#475569" text-anchor="middle">อัลตราไวโอเลต (UV)</text>
+        <text x="465" y="46" font-size="8" fill="#475569" text-anchor="middle">รังสีเอกซ์ (X-rays)</text>
+        <!-- Limits -->
+        <line x1="200" y1="62" x2="200" y2="78" stroke="#ef4444" stroke-width="1.5"></line>
+        <text x="200" y="88" font-size="8" fill="#991b1b" text-anchor="middle">ตาเปล่า (∼100 μm)</text>
+        <line x1="275" y1="62" x2="275" y2="78" stroke="#0284c7" stroke-width="1.5"></line>
+        <text x="275" y="88" font-size="8" fill="#0369a1" text-anchor="middle">กล้องจุลทรรศน์แสง (∼200 nm)</text>
+        <line x1="480" y1="62" x2="480" y2="78" stroke="#16a34a" stroke-width="1.5"></line>
+        <text x="480" y="88" font-size="8" fill="#15803d" text-anchor="middle">กล้องอิเล็กตรอน (∼0.1 nm)</text>
+      </svg>
+    </div>
+    <div class="caption">รูปที่ 1: แผนผังสเปกตรัมคลื่นแม่เหล็กไฟฟ้าและขีดจำกัดความละเอียดของอุปกรณ์ตรวจวัด</div>
+
+    <h2>2. ขอบเขตขนาดอนุภาคและเทคนิคการตรวจสอบ (Size Classes &amp; Techniques)</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 18%;">ระดับขนาด (Class)</th>
+          <th style="width: 25%;">ช่วงขนาด (Particle Size)</th>
+          <th style="width: 32%;">เทคนิคการตรวจสอบหลัก</th>
+          <th style="width: 25%;">ตัวอย่างโครงสร้างในพอลิเมอร์</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Macro</strong></td><td>&gt; 50,000 nm (&gt; 50 μm)</td><td>ตาเปล่า (Naked Eye), แว่นขยาย</td><td>ฟองอากาศ, ชิ้นงานฉีดบิดเบี้ยว</td></tr>
+        <tr><td><strong>Micro</strong></td><td>100 ถึง 50,000 nm</td><td>กล้องจุลทรรศน์เชิงแสง (OM, PLM)</td><td>สเฟียรูไลต์ (Spherulites), เส้นใยผ้า</td></tr>
+        <tr><td><strong>Submicron</strong></td><td>10 ถึง 100 nm</td><td>Near-field Optical, SEM ผิวนอก</td><td>รูพรุนระดับนาโน, ท่อนาโนเดี่ยว</td></tr>
+        <tr><td><strong>Nano</strong></td><td>1 ถึง 10 nm</td><td>FE-SEM, TEM, AFM</td><td>แผ่นเคลย์นาโนคอมโพสิต (MMT)</td></tr>
+        <tr><td><strong>Atomic</strong></td><td>0.01 ถึง 1 nm (0.1 - 10 Å)</td><td>HRTEM, กล้องสนามปล่อยรังสี FEG</td><td>ระนาบแลตทิซผลึก (Lattice Fringes)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>Polymer Characterization II • กล้องจุลทรรศน์เชิงแสงและอิเล็กตรอน</span>
+    <span>หน้า 1 จาก 6</span>
+  </footer>
+</section>
+
+<!-- page 2 budget (Compact): h2 11 + prose 140 + math 30 + box chrome 24 + h3 9 + prose 120 + svg 30mm 72 + caption 14 + box example 110 + 5 gaps 40 = 570 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>3. ทัศนศาสตร์เรขาคณิตและกล้องจุลทรรศน์เชิงประกอบ (Compound Light Microscope)</h2>
+    <p>
+      กล้องจุลทรรศน์เชิงประกอบใช้เลนส์นูนแก้ว 2 ชุดทำงานร่วมกัน: <strong>เลนส์ใกล้วัตถุ (Objective Lens)</strong> ขยายภาพวัตถุที่ระยะ <em>f &lt; a &lt; 2f</em> เกิดเป็นภาพจริงหัวกลับขนาดขยาย (Real Intermediate Image) ภายในลำกล้อง จากนั้น <strong>เลนส์ใกล้ตา (Eyepiece Lens)</strong> จะทำหน้าที่เสมือนแว่นขยาย ขยายภาพมัธยันต์นั้นซ้ำอีกครั้งจนได้ภาพเสมือนหัวกลับขนาดขยายใหญ่มากสู่สายตา
+    </p>
+
+    <div class="math-block">
+      กำลังขยายรวม: <span class="math">M<sub>total</sub> = M<sub>obj</sub> × M<sub>eye</sub></span>   |   ขีดจำกัดความละเอียดตามเกณฑ์เรย์ลี: <span class="math">d = 0.61λ / NA = 0.61λ / (n sin α)</span>
+    </div>
+
+    <p>
+      โดยที่ <em>λ</em> คือความยาวคลื่นแสง, <em>n</em> คือดัชนีหักเหของตัวกลางระหว่างชิ้นงานกับเลนส์, และ <em>α</em> คือกึ่งมุมเปิดของกรวยแสงเข้าสู่เลนส์ ปัจจุบันนิยมใช้ระบบ <strong>Infinity-Corrected Optics</strong> ซึ่งแปลงแสงหลังเลนส์ใกล้วัตถุเป็นลำแสงขนาน ช่วยให้สามารถแทรกฟิลเตอร์ โพลาไรเซอร์ หรือปริซึม DIC ในช่วง &#34;Infinity Space&#34; ได้โดยไม่รบกวนระนาบโฟกัส
+    </p>
+
+    <div class="diagram-container">
+      <svg width="100%" height="100%" viewBox="0 0 520 95" role="img">
+        <title>เปรียบเทียบทางเดินแสงแบบแห้งและแบบแช่น้ำมัน</title>
+        <!-- Dry Objective -->
+        <rect x="30" y="55" width="180" height="10" fill="#bae6fd" stroke="#0284c7"></rect>
+        <text x="120" y="63" font-size="7.5" fill="#0369a1" text-anchor="middle">กระจกสไลด์ (n = 1.515)</text>
+        <path d="M 60 20 L 180 20 L 160 40 L 80 40 Z" fill="#cbd5e1" stroke="#475569"></path>
+        <text x="120" y="32" font-size="7.5" fill="#1e293b" text-anchor="middle">เลนส์ใกล้วัตถุ (Dry)</text>
+        <path d="M 120 55 L 75 40 M 120 55 L 165 40 M 120 55 L 50 48 M 120 55 L 190 48" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="2,2"></path>
+        <text x="120" y="85" font-size="8" fill="#b91c1c" text-anchor="middle" font-weight="bold">(a) อากาศ (n = 1.0) แสงหักเหสูญหาย NA ≤ 0.95</text>
+        
+        <!-- Oil Immersion -->
+        <rect x="300" y="55" width="180" height="10" fill="#bae6fd" stroke="#0284c7"></rect>
+        <text x="390" y="63" font-size="7.5" fill="#0369a1" text-anchor="middle">กระจกสไลด์ (n = 1.515)</text>
+        <path d="M 330 20 L 450 20 L 430 40 L 350 40 Z" fill="#cbd5e1" stroke="#475569"></path>
+        <text x="390" y="32" font-size="7.5" fill="#1e293b" text-anchor="middle">เลนส์แช่น้ำมัน (Oil)</text>
+        <rect x="350" y="40" width="80" height="15" fill="#fef08a" opacity="0.6"></rect>
+        <text x="390" y="50" font-size="7" fill="#854d0e" text-anchor="middle">น้ำมันแช่เลนส์ (n = 1.515)</text>
+        <path d="M 390 55 L 355 35 M 390 55 L 425 35 M 390 55 L 365 25 M 390 55 L 415 25" stroke="#16a34a" stroke-width="1.4"></path>
+        <text x="390" y="85" font-size="8" fill="#15803d" text-anchor="middle" font-weight="bold">(b) แช่น้ำมัน แสงไม่หักเหสูญหาย NA สูงถึง 1.40</text>
+      </svg>
+    </div>
+    <div class="caption">รูปที่ 2: เปรียบเทียบมุมรับแสงระหว่างเลนส์แห้งและเลนส์แช่น้ำมัน (Oil Immersion) เพื่อขจัดความคลาดทรงกลม</div>
+
+    <div class="box-example">
+      <strong>ตัวอย่างโจทย์คำนวณที่ 1: การคำนวณ Resolving Power และ Empty Magnification</strong><br>
+      <strong>โจทย์:</strong> เลนส์ใกล้วัตถุ 40× มีค่า NA = 0.65 ใช้แสงสีเขียวความยาวคลื่น λ = 550 nm ส่องดูโครงสร้างผลึก จงหาค่าความละเอียด <em>d</em> และวิเคราะห์ว่าหากเปลี่ยนเลนส์ใกล้ตาจาก 10× เป็น 25× จะช่วยเพิ่มรายละเอียดหรือไม่?<br>
+      <strong>วิธีทำ:</strong> คำนวณจากเกณฑ์เรย์ลี: <em>d</em> = (0.61 × 550 nm) / 0.65 = 335.5 / 0.65 ≈ <strong>516.15 nm</strong> (≈ 0.52 μm)<br>
+      <strong>การวิเคราะห์:</strong> การเปลี่ยนเลนส์ใกล้ตาเป็น 25× ทำให้กำลังขยายรวมเพิ่มจาก 400× เป็น 1000× แต่ <em>d</em> ยังคงเท่าเดิมที่ 516 nm ภาพจึงเพียงแค่ขยายใหญ่ขึ้นแต่เบลอมัว ไม่สามารถแจกแจงรายละเอียดใหม่ได้ จัดเป็น <em>กำลังขยายไร้ประโยชน์ (Empty Magnification)</em>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>Polymer Characterization II • กล้องจุลทรรศน์เชิงแสงและอิเล็กตรอน</span>
+    <span>หน้า 2 จาก 6</span>
+  </footer>
+</section>
+
+<!-- page 3 budget (Compact): h2 11 + prose 120 + svg 32mm 77 + caption 14 + h2 11 + prose 140 + box chrome 24 + box card 100 + 4 gaps 32 = 529 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>4. กล้องจุลทรรศน์โพลาไรซ์และการวิเคราะห์โครงสร้างผลึก (Polarized Light Microscopy - PLM)</h2>
+    <p>
+      พอลิเมอร์กึ่งผลึกหรือเส้นใยที่ถูกดึงยืด สายโซ่โมเลกุลจะจัดเรียงตัวในทิศทางขนานอย่างมีระเบียบ ทำให้มีค่าดัชนีหักเหในแนวขนาน (<em>n<sub>∥</sub></em>) และแนวตั้งฉาก (<em>n<sub>⊥</sub></em>) แตกต่างกัน เกิดเป็นสภาพ <strong>ไบรีฟรินเจนซ์ (Birefringence, Δn = |n<sub>∥</sub> − n<sub>⊥</sub>|)</strong> เมื่อลำแสงโพลาไรซ์วิ่งผ่านชิ้นงานหนา <em>t</em> คลื่นสองระนาบจะเคลื่อนที่ด้วยความเร็วต่างกัน ก่อให้เกิดผลต่างทางเดินแสง (Optical Path Difference, Γ):
+    </p>
+
+    <div class="math-block">
+      <span class="math">Γ = t × Δn = t × |n<sub>e</sub> − n<sub>o</sub>|</span>   ⇒   เกิดสีแทรกสอด (Interference Colors) ภายใต้โพลาไรเซอร์แบบตั้งฉาก
+    </div>
+
+    <div class="diagram-container">
+      <svg width="100%" height="100%" viewBox="0 0 520 95" role="img">
+        <title>หลักการทำงานของ Crossed Polarizers และการดับมืด</title>
+        <!-- Unpolarized -->
+        <circle cx="45" cy="45" r="14" fill="#f1f5f9" stroke="#64748b"></circle>
+        <line x1="45" y1="25" x2="45" y2="65" stroke="#ef4444" stroke-width="1.5"></line>
+        <line x1="25" y1="45" x2="65" y2="45" stroke="#ef4444" stroke-width="1.5"></line>
+        <line x1="31" y1="31" x2="59" y2="59" stroke="#ef4444" stroke-width="1.5"></line>
+        <text x="45" y="75" font-size="7.5" fill="#334155" text-anchor="middle">แสงธรรมชาติ</text>
+        
+        <text x="85" y="48" font-size="12" fill="#64748b">→</text>
+        <!-- Polarizer -->
+        <rect x="105" y="25" width="8" height="40" fill="#93c5fd" stroke="#1d4ed8"></rect>
+        <line x1="109" y1="28" x2="109" y2="62" stroke="#1e3a8a" stroke-width="1.5"></line>
+        <text x="109" y="75" font-size="7.5" fill="#1e3a8a" text-anchor="middle">Polarizer (0°)</text>
+        
+        <text x="145" y="48" font-size="12" fill="#64748b">→</text>
+        <!-- Specimen -->
+        <rect x="175" y="25" width="50" height="40" rx="3" fill="#fef08a" stroke="#ca8a04"></rect>
+        <ellipse cx="200" cy="45" rx="16" ry="8" fill="none" stroke="#ca8a04" stroke-width="1.2" transform="rotate(-30 200 45)"></ellipse>
+        <text x="200" y="75" font-size="7.5" fill="#854d0e" text-anchor="middle">ชิ้นงาน Anisotropic</text>
+        
+        <text x="255" y="48" font-size="12" fill="#64748b">→</text>
+        <!-- Analyzer -->
+        <rect x="285" y="25" width="8" height="40" fill="#fca5a5" stroke="#b91c1c"></rect>
+        <line x1="282" y1="45" x2="296" y2="45" stroke="#7f1d1d" stroke-width="1.5"></line>
+        <text x="289" y="75" font-size="7.5" fill="#991b1b" text-anchor="middle">Analyzer (90°)</text>
+        
+        <text x="325" y="48" font-size="12" fill="#64748b">→</text>
+        <!-- Output Intensity vs Angle -->
+        <g transform="translate(360, 20)">
+          <rect x="0" y="0" width="135" height="50" fill="#f8fafc" stroke="#cbd5e1"></rect>
+          <text x="67" y="14" font-size="7" fill="#0f172a" font-weight="bold" text-anchor="middle">ความเข้มตามมุมหมุน (θ)</text>
+          <text x="10" y="30" font-size="6.8" fill="#475569">0°, 90° : ดับมืด (Extinction)</text>
+          <text x="10" y="43" font-size="6.8" fill="#15803d" font-weight="bold">45°, 135° : สว่างสูงสุด (Bright)</text>
+        </g>
+      </svg>
+    </div>
+    <div class="caption">รูปที่ 3: แผนผังกล้องจุลทรรศน์แสงโพลาไรซ์แบบ Crossed Polarizers และวัฏจักรความสว่างทุก 45 องศา</div>
+
+    <h2>5. กรณีศึกษาทางวิศวกรรม: เส้นใยไหมธรรมชาติและโครงสร้างสเฟียรูไลต์</h2>
+    <p>
+      <strong>เส้นใยไหม (Raw Silk):</strong> ประกอบด้วยเส้นใยไฟโบรอิน (Fibroin) สองเส้นที่มีภาคตัดขวางรูปสามเหลี่ยม เชื่อมประสานด้วยกาวไหมเซริซิน (Sericin) การศึกษาผ่าน PLM ยืนยันการจัดเรียงตัวของสายโซ่โปรตีนตามแนวแกนยาว เมื่อผ่านกระบวนการลอกกาวไหม (Degumming) รูปทรงสามเหลี่ยมทำหน้าที่สะท้อนหักเหแสงคล้ายปริซึม ส่งผลให้ผ้าไหมทิ้งตัวเข้ารูปและมีความเงางาม
+    </p>
+
+    <div class="box-card">
+      <strong>ลวดลายกากบาทมอลทีส (Maltese Cross Pattern) ในพอลิโพรพีลีน (PP):</strong><br>
+      เมื่อพอลิเมอร์กึ่งผลึกตกผลึกเป็นผลึกทรงกลม (Spherulites) โซ่โมเลกุลจะแผ่ขยายออกจากจุดนิวเคลียสรอบทิศ แขนของผลึกที่วางตัวขนานและตั้งฉากกับแกนโพลาไรเซอร์จะดับมืด (Extinction) พร้อมกัน ปรากฏเป็นกากบาทสีดำมืดแบ่งผลึกออกเป็น 4 ส่วน ส่วนแขนแนวทแยงมุม 45° จะสว่างและปรากฏแถบสีแทรกสอด
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>Polymer Characterization II • กล้องจุลทรรศน์เชิงแสงและอิเล็กตรอน</span>
+    <span>หน้า 3 จาก 6</span>
+  </footer>
+</section>
+
+<!-- page 4 budget (Compact): h2 11 + prose 140 + math 30 + box chrome 24 + h3 9 + prose 120 + table 5 rows 85 + box alert 90 + 5 gaps 40 = 549 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>6. กล้องจุลทรรศน์อิเล็กตรอนแบบส่องกราด (Scanning Electron Microscopy - SEM)</h2>
+    <p>
+      SEM ทำงานโดยใช้ลำอิเล็กตรอนพลังงานสูง (1 – 30 keV) สแกนกราดไปบนผิวหน้าชิ้นงานที่เป็นฉนวนหรือตัวนำ อิเล็กตรอนถูกเร่งผ่านความต่างศักย์ <em>U</em> ตามสมการของเดอบรอยล์ที่ปรับแก้ทางสัมพัทธภาพ (Relativistic de Broglie Wavelength):
+    </p>
+
+    <div class="math-block">
+      <span class="math">λ = h / [2m<sub>0</sub>eU (1 + eU / (2m<sub>0</sub>c<sup>2</sup>))]<sup>1/2</sup></span>   |   ที่ 20 kV: <span class="math">λ ≈ 0.0086 nm</span> (≈ 8.6 pm)
+    </div>
+
+    <p>
+      ลำอิเล็กตรอนความยาวคลื่นสั้นระดับพิโคเมตรจะวิ่งผ่านเลนส์สนามแม่เหล็กไฟฟ้า (Electromagnetic Lenses) ซึ่งอาศัยแรงลอเรนซ์ <em>F = −e(v × B)</em> บีบให้อิเล็กตรอนเคลื่อนที่เป็นเกลียววน (Helical trajectory) โฟกัสลงเป็นจุดขนาดเส้นผ่านศูนย์กลางเพียงไม่กี่นาโนเมตร
+    </p>
+
+    <h2>7. การเปรียบเทียบแหล่งกำเนิดอิเล็กตรอน (Electron Guns)</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>พารามิเตอร์</th>
+          <th>Tungsten Hairpin</th>
+          <th>Lanthanum Hexaboride (LaB<sub>6</sub>)</th>
+          <th>Field Emission Gun (FEG)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>กลไกการปล่อย</strong></td><td>ความร้อนสูง (2700 K)</td><td>ความร้อนปานกลาง (2000 K)</td><td>สนามไฟฟ้าดึงดูด (Cold/Thermal)</td></tr>
+        <tr><td><strong>ขนาดจุดกำเนิด</strong></td><td>30 – 100 μm</td><td>5 – 50 μm</td><td><strong>&lt; 5 nm (คมชัดสูงสุด)</strong></td></tr>
+        <tr><td><strong>ความสว่าง (A/cm<sup>2</sup>·sr)</strong></td><td>~ 10<sup>5</sup></td><td>~ 10<sup>6</sup></td><td><strong>~ 10<sup>8</sup> – 10<sup>9</sup></strong></td></tr>
+        <tr><td><strong>การกระจายพลังงาน (ΔE)</strong></td><td>1 – 3 eV (กว้าง)</td><td>1 – 2 eV</td><td><strong>0.3 – 1.0 eV (แคบมาก)</strong></td></tr>
+        <tr><td><strong>อายุการใช้งาน</strong></td><td>40 – 100 ชม.</td><td>200 – 1000 ชม.</td><td><strong>&gt; 1000 ชม.</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="box-alert">
+      <strong>ปัญหาประจุไฟฟ้าสะสม (Charging Effect) ในพอลิเมอร์และการแก้ไข:</strong><br>
+      พอลิเมอร์ส่วนใหญ่เป็นฉนวนไฟฟ้า เมื่อถูกลำอิเล็กตรอนยิงใส่ ประจุลบจะสะสมบนผิวหน้า ขับไล่ลำอิเล็กตรอนที่ตามมา ทำให้ภาพสว่างวาบผิดเพี้ยนและภาพสั่นไหว วิธีแก้ไขทางปฏิบัติ:<br>
+      1. ติดชิ้นงานบน Stub โลหะด้วยกาวคาร์บอนนำไฟฟ้า (Conductive Carbon Tape)<br>
+      2. เคลือบผิวบางด้วยทองคำ (Au), โลหะผสมทอง-แพลเลเดียม (Au-Pd) หรือคาร์บอน (C) หนา 5–15 nm ด้วยเครื่อง Sputter Coater ภายใต้สุญญากาศ
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>Polymer Characterization II • กล้องจุลทรรศน์เชิงแสงและอิเล็กตรอน</span>
+    <span>หน้า 4 จาก 6</span>
+  </footer>
+</section>
+
+<!-- page 5 budget (Compact): h2 11 + prose 120 + svg 32mm 77 + caption 14 + h2 11 + prose 140 + box chrome 24 + box example 110 + 4 gaps 32 = 541 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>8. สัญญาณปฏิสัมพันธ์ใน SEM และการวิเคราะห์รังสีเอกซ์ (Signals &amp; EDS)</h2>
+    <p>
+      เมื่อลำอิเล็กตรอนตกกระทบชิ้นงาน จะแทรกซึมและเกิดปริมาตรปฏิสัมพันธ์รูปลูกแพร์ (Interaction Volume) โดยขนาดจะขยายใหญ่ขึ้นเมื่อใช้แรงดันเร่งสูง (<em>V<sub>0</sub> ↑</em>) และหดเล็กลงเมื่อตัวอย่างมีเลขเชิงอะตอมเฉลี่ยสูง (<em>Z ↑</em>)
+    </p>
+
+    <div class="diagram-container">
+      <svg width="100%" height="100%" viewBox="0 0 520 95" role="img">
+        <title>ปริมาตรปฏิสัมพันธ์และสัญญาณอิเล็กตรอน</title>
+        <!-- Beam -->
+        <polygon points="260,5 252,22 268,22" fill="#38bdf8"></polygon>
+        <line x1="260" y1="5" x2="260" y2="25" stroke="#0284c7" stroke-width="2"></line>
+        <text x="260" y="14" font-size="7.5" fill="#0369a1" text-anchor="middle">ลำอิเล็กตรอน (Incident Beam)</text>
+        
+        <!-- Surface -->
+        <line x1="80" y1="25" x2="440" y2="25" stroke="#334155" stroke-width="2"></line>
+        <text x="445" y="24" font-size="7.5" fill="#334155">ผิวชิ้นงาน</text>
+        
+        <!-- Interaction Tear Drop -->
+        <path d="M 252,25 C 240,40 200,60 200,80 C 200,92 230,95 260,95 C 290,95 320,92 320,80 C 320,60 280,40 268,25 Z" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.2"></path>
+        
+        <!-- SE region -->
+        <rect x="250" y="25" width="20" height="8" fill="#f87171" opacity="0.8"></rect>
+        <path d="M 255,27 L 220,15" stroke="#dc2626" stroke-width="1.2" marker-end="url(#arrow)"></path>
+        <text x="180" y="14" font-size="7.5" fill="#991b1b" font-weight="bold">SE (&lt;10 nm ผิวตื้น)</text>
+        
+        <!-- BSE region -->
+        <ellipse cx="260" cy="50" rx="35" ry="18" fill="#93c5fd" opacity="0.6"></ellipse>
+        <path d="M 270,42 L 320,15" stroke="#2563eb" stroke-width="1.2"></path>
+        <text x="355" y="14" font-size="7.5" fill="#1d4ed8" font-weight="bold">BSE (ลึกกว่า สะท้อน Z-contrast)</text>
+        
+        <!-- X-rays region -->
+        <text x="260" y="80" font-size="7.5" fill="#4338ca" text-anchor="middle">Characteristic X-rays (ลึกสุด ∼ μm)</text>
+      </svg>
+    </div>
+    <div class="caption">รูปที่ 4: ปริมาตรปฏิสัมพันธ์ (Interaction Volume) และระดับความลึกในการกำเนิดสัญญาณ SE, BSE และรังสีเอกซ์</div>
+
+    <h2>9. การเปรียบเทียบสัญญาณ SE vs. BSE และเทคนิค EDS</h2>
+    <ul>
+      <li><strong>Secondary Electrons (SE):</strong> อิเล็กตรอนพลังงานต่ำ (&lt; 50 eV) เกิดจากการชนแบบไม่ยืดหยุ่นใกล้ผิวหน้า (&lt; 10 nm) ตรวจวัดด้วย Everhart-Thornley Detector ให้ข้อมูล <em>สัณฐานวิทยาของพื้นผิว (Topography)</em> มีระยะชัดลึกสูง</li>
+      <li><strong>Backscattered Electrons (BSE):</strong> อิเล็กตรอนพลังงานสูงที่กระเจิงแบบยืดหยุ่นกลับจากนิวเคลียส สัมประสิทธิ์การสะท้อนแปรผันตามเลขเชิงอะตอม (<em>Z</em>) ช่วยแยกแยะ <em>ความแตกต่างขององค์ประกอบทางเคมี (Compositional Contrast)</em></li>
+      <li><strong>EDS (Energy Dispersive X-ray Spectroscopy):</strong> วัดระดับพลังงานของ Characteristic X-rays ที่ปลดปล่อยออกมาเมื่ออิเล็กตรอนชั้นในถูกดีดหลุด มีข้อจำกัดไม่สามารถตรวจวัดธาตุเบามาก เช่น H, He, Li และตรวจวัดธาตุที่เบากว่าโซเดียม (Na, <em>Z &lt; 11</em>) ได้ยาก</li>
+    </ul>
+
+    <div class="box-example">
+      <strong>กรณีศึกษา: นาโนคอมโพสิต PLA เสริมแรงด้วยนาโนเซลลูโลส (NCC)</strong><br>
+      งานวิจัยของ Krishnamachari &amp; Hashaikeh ส่องดูรอยแตกหักของโฟมย่อยสลายได้ทางชีวภาพ พบโครงสร้างรูพรุนแบบเปิดขนาดไมโครและนาโน (Micro/Nanoporosity) ชัดเจน ซึ่งเกิดจากการระเหยของตัวทำละลายขณะอบแห้ง โครงสร้างนี้เหมาะอย่างยิ่งในการประยุกต์ใช้เป็นโครงร่างวิศวกรรมเนื้อเยื่อ (Tissue Scaffolds) เพื่อให้เซลล์เจริญเติบโตและลำเลียงสารอาหาร
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>Polymer Characterization II • กล้องจุลทรรศน์เชิงแสงและอิเล็กตรอน</span>
+    <span>หน้า 5 จาก 6</span>
+  </footer>
+</section>
+
+<!-- page 6 budget (Compact): h2 11 + prose 120 + table 6 rows 102 + h2 11 + box chrome 24 + box card 90 + h2 11 + exercises 140 + 5 gaps 40 = 549 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>10. กล้องจุลทรรศน์อิเล็กตรอนแบบส่องผ่าน (TEM) และการเตรียมตัวอย่างขั้นสูง</h2>
+    <p>
+      TEM ใช้ลำอิเล็กตรอนพลังงานสูงยิ่งยวด (80 – 300 kV) ส่องผ่านทะลุตัวอย่างที่บางเฉียบ (&lt; 100 nm) เพื่อให้เกิดการแปลงฟูเรียร์ (Fourier Transform) ณ ระนาบโฟกัสด้านหลังของเลนส์ใกล้วัตถุ เกิดเป็นภาพการเลี้ยวเบน (Diffraction Pattern) และสังเคราะห์ภาพจริงบนจอเรืองแสง
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>คุณลักษณะ</th>
+          <th>Stereo OM</th>
+          <th>Polarizing (PLM)</th>
+          <th>SEM</th>
+          <th>TEM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>แหล่งรังสี</strong></td><td>แสงขาวตามองเห็น</td><td>แสงโพลาไรซ์</td><td>ลำอิเล็กตรอน 1-30 kV</td><td>ลำอิเล็กตรอน 80-300 kV</td></tr>
+        <tr><td><strong>กำลังขยาย</strong></td><td>5× – 100×</td><td>40× – 1,000×</td><td>20× – 100,000×</td><td>1,000× – 1,000,000×</td></tr>
+        <tr><td><strong>ความละเอียด (d)</strong></td><td>~ 3 μm</td><td>~ 200 – 250 nm</td><td>~ 1 – 5 nm</td><td><strong>~ 0.05 – 0.2 nm (ระดับอะตอม)</strong></td></tr>
+        <tr><td><strong>ระยะความชัดลึก</strong></td><td>สูงมาก</td><td>ต่ำ (ระนาบแบน)</td><td>สูงมาก (ภาพ 3 มิติ)</td><td>ปานกลางถึงต่ำ</td></tr>
+        <tr><td><strong>การเตรียมตัวอย่าง</strong></td><td>ส่องได้ทันที ไม่ทำลาย</td><td>ตัดแผ่นบาง ปิดสไลด์</td><td>ติดสตัด เคลือบทอง</td><td><strong>Cryo-ultramicrotomy (&lt;100nm)</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="box-card">
+      <strong>การเตรียมตัวอย่างพอลิเมอร์สำหรับ TEM และการย้อมสี (Staining):</strong><br>
+      เนื่องจากพอลิเมอร์เป็นสารประกอบธาตุเบา (C, H, O) จึงกระเจิงอิเล็กตรอนได้ต่ำ ภาพขาด Contrast จึงต้องใช้มีดเพชรเฉือนตัดที่อุณหภูมิต่ำกว่า <em>T<sub>g</sub></em> (Cryo-Ultramicrotomy) ให้ได้แผ่นบาง 40–60 nm และย้อมสีด้วยไอโลหะหนัก:<br>
+      • <strong>Osmium tetroxide (OsO<sub>4</sub>):</strong> ทำปฏิกิริยากับพันธะคู่ C=C ใช้ย้อมเฟสยางใน HIPS หรือ ABS<br>
+      • <strong>Ruthenium tetroxide (RuO<sub>4</sub>):</strong> ย้อมบริเวณอสัณฐานของพอลิเมอร์กึ่งผลึก (PE, PP) เพื่อแยกแถบผลึก Lamellae
+    </div>
+
+    <h2>11. แบบฝึกหัดทบทวนและคำถามตรวจสอบความเข้าใจ (Review Exercises)</h2>
+    <ol>
+      <li><strong>คำถาม:</strong> เพราะเหตุใดภาพรอยแตกหักของพอลิเมอร์จากหัววัด Secondary Electron (SE) ใน SEM จึงมีมิติความลึก (Depth of Field) สูงกว่ากล้องจุลทรรศน์เชิงแสงอย่างมาก?<br>
+      <em>แนวตอบ:</em> ลำอิเล็กตรอนใน SEM มีมุมเปิดรับแสง (α) แคบมากในระดับมิลลิเรเดียน ทำให้ลำแสงขนานสูงและระยะชัดลึกตามแนวแกน Z กว้างกว่าเลนส์แก้วหลายร้อยเท่า ประกอบกับขอบที่เอียงจะปล่อย SE ได้มากกว่า เกิดมิติความสว่างแบบ 3 มิติ</li>
+      <li><strong>คำถาม:</strong> ในการวิเคราะห์โครงสร้างนาโนคอมโพสิตของแผ่นดินเหนียวมอนต์มอริลโลไนต์ (MMT) ในเมทริกซ์เซลลูโลส เหตุใดจึงต้องใช้ TEM แทน SEM?<br>
+      <em>แนวตอบ:</em> แผ่น MMT มีความหนาระดับนาโนเมตรเดี่ยว การศึกษาการกระจายตัว (Exfoliation/Intercalation) ต้องอาศัยลำอิเล็กตรอนส่องทะลุผ่านความหนาเพื่อวัดระยะห่างระหว่างแผ่นเคลย์ ซึ่ง SEM ส่องเห็นเฉพาะพื้นผิวหน้าภายนอกเท่านั้น</li>
+    </ol>
+  </div>
+  <footer class="page-footer">
+    <span>Polymer Characterization II • กล้องจุลทรรศน์เชิงแสงและอิเล็กตรอน</span>
+    <span>หน้า 6 จาก 6</span>
+  </footer>
+</section>
+
+</div>
+
+<script data-bard-injected="true">
+(function() {
+  async function fetchFifeImageBlobUsingAlr(urlString) {
+    if (urlString.startsWith('blob:') || urlString.startsWith('data:')) {
+      throw new Error('Input URL is already a blob or data URL.');
+    }
+    var url = new URL(urlString, window.location.href);
+    url.searchParams.set('alr', 'yes');
+    for (var i = 0; i < 5; i++) {
+      var response = await fetch(url.toString(), {credentials: 'include'});
+      if (!response.ok) {
+        throw new Error('Fetch received not OK response: ' + response.status);
+      }
+      var contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.startsWith('text/plain')) {
+        var blob = await response.blob();
+        if (blob.size > 0 && blob.type.startsWith('image/')) {
+          return blob;
+        }
+        throw new Error('Fetched blob is not a valid image.');
+      }
+      url = new URL(await response.text());
+    }
+    throw new Error('Exceeded maximum number of redirects.');
+  }
+
+  async function updateImageSourcesUsingAlr() {
+    var imgs = Array.from(document.querySelectorAll('img'));
+    await Promise.all(imgs.map(async function(img) {
+      if (img.src && img.src.includes('googleusercontent')) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(img.src);
+          img.src = URL.createObjectURL(blob);
+        } catch (e) {}
+      }
+    }));
+
+    var elements = document.querySelectorAll('[style*="googleusercontent"]');
+    var urlRegex = /url\((['"]?)(https?:\/\/.*?googleusercontent.*?)\1\)/;
+    await Promise.all(Array.from(elements).map(async function(el) {
+      var bg = el.style.backgroundImage;
+      var match = bg ? bg.match(urlRegex) : null;
+      if (match && match[2]) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(match[2]);
+          var blobUrl = URL.createObjectURL(blob);
+          el.style.backgroundImage = bg.replace(match[2], blobUrl);
+        } catch (e) {}
+      }
+    }));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateImageSourcesUsingAlr);
+  } else {
+    updateImageSourcesUsingAlr();
+  }
+})();
+</script></body></html>

@@ -1,0 +1,883 @@
+<!DOCTYPE html><html lang="th"><head>
+<meta charset="UTF-8">
+<title>คู่มือการเรียนรู้และการทดสอบพอลิเมอร์ฉบับสมบูรณ์</title>
+<style>
+@page { margin: 0; }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { background-color: #ffffff; }
+@media (prefers-color-scheme: dark) {
+    html { background-color: #1f1f1f; }
+}
+body {
+    padding: 24px 0;
+    margin: 0 auto;
+    max-width: 900px !important;
+    border: none !important;
+    background: transparent !important;
+    font-family: 'Sarabun', 'Noto Sans Thai', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #1e293b;
+    -webkit-font-smoothing: antialiased;
+}
+.page {
+    min-height: 297mm;
+    height: auto;
+    margin: 0 auto 12px auto;
+    padding: 18mm 18mm 12mm 18mm;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: visible;
+}
+@media screen and (max-width: 600px) {
+    body { padding: 16px 0; }
+    .page { margin: 0 auto 8px auto; border: none; padding: 12px 20px; }
+}
+.page-content {
+    flex: 1 0 auto;
+    min-height: 0;
+    overflow: visible;
+}
+.page-content > * + * {
+    margin-top: 14px;
+}
+.page.compact, body.compact .page {
+    font-size: 9.2pt;
+    line-height: 1.35;
+}
+.page.compact .page-content > * + *, body.compact .page-content > * + * {
+    margin-top: 10px;
+}
+.page-content > :is(h1, h2, h3, h4) + * {
+    margin-top: 6px;
+}
+.page-footer {
+    flex-shrink: 0;
+    margin-top: auto;
+    padding-top: 3mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: #64748b;
+    border-top: 1px solid #e2e8f0;
+}
+@media print {
+    *, *::before, *::after {
+        box-shadow: none !important;
+        text-shadow: none !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    body { padding: 0; background: none; }
+        .page {
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        overflow: visible;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .page-content {
+        overflow: visible;
+    }
+
+    .page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+}
+[contenteditable]:focus { outline: none; }
+
+/* Typographic & Component Styles */
+h1 { font-size: 19pt; color: #0f172a; margin: 0; font-weight: 700; line-height: 1.25; }
+h2 { font-size: 13.5pt; color: #1e3a8a; margin: 0; font-weight: 600; border-left: 4px solid #2563eb; padding-left: 8px; }
+h3 { font-size: 10.8pt; color: #0369a1; margin: 0; font-weight: 600; }
+p { margin: 0; text-align: justify; }
+
+.masthead {
+    border-bottom: 2px solid #1e3a8a;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+.badge {
+    display: inline-block;
+    background-color: #eff6ff;
+    color: #1d4ed8;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 8pt;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.callout {
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 4px solid #0284c7;
+    padding: 8px 12px;
+    border-radius: 2px;
+    font-size: 8.8pt;
+}
+.callout-warning {
+    background-color: #fffbeb;
+    border: 1px solid #fde68a;
+    border-left: 4px solid #d97706;
+    padding: 8px 12px;
+    border-radius: 2px;
+    font-size: 8.8pt;
+}
+.callout-success {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-left: 4px solid #16a34a;
+    padding: 8px 12px;
+    border-radius: 2px;
+    font-size: 8.8pt;
+}
+table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+    margin-top: 4px;
+}
+table.data-table th, table.data-table td {
+    border: 1px solid #cbd5e1;
+    padding: 5px 8px;
+    text-align: left;
+}
+table.data-table th {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    font-weight: 600;
+}
+table.data-table tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+.card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.card {
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    padding: 8px 10px;
+    border-radius: 4px;
+}
+.card h4 {
+    margin: 0 0 4px 0;
+    font-size: 9.2pt;
+    color: #1e3a8a;
+}
+.svg-diagram {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fafafa;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 4px;
+}
+</style>
+<style data-bard-injected="true">
+@media screen {
+    html {
+        background-color: #ffffff;
+    }
+    body {
+        padding: 8px 0 24px 0;
+    }
+}
+@media screen and (prefers-color-scheme: dark) {
+    html {
+        background-color: #1f1f1f;
+    }
+}
+@media screen and (max-width: 600px) {
+    body {
+        padding: 4px 0 16px 0;
+        margin: 0 auto;
+    }
+}
+</style></head>
+<body>
+<div contenteditable="true">
+
+<!-- page 1 budget (Compact): masthead 45 + h2 11 + prose 120 + table 6 rows 102 + card-grid 152 + box chrome 48 + 4 gaps 32 = 510 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="masthead">
+      <span class="badge">เอกสารวิชาการฉบับสมบูรณ์ • Polymer Characterization</span>
+      <h1>คู่มือหลักการทดสอบสมบัติทางกลและความร้อนของพอลิเมอร์</h1>
+      <p style="font-size: 9pt; color: #475569; margin-top: 3px;">รวบรวมหลักการพื้นฐาน การแปลความหมายกราฟ กลไกระดับโมเลกุล และแนวทางการวิเคราะห์ข้อสอบ</p>
+    </div>
+
+    <h2>1. บทนำและกรอบแนวคิดพื้นฐาน (Foundational Framework)</h2>
+    <p>
+      การทดสอบเชิงกล (Mechanical Testing) ของพอลิเมอร์มีจุดประสงค์หลักเพื่อประเมินการตอบสนองของวัสดุเมื่อได้รับแรงภายนอกกระทำ ซึ่งจำเป็นอย่างยิ่งในการเลือกวัสดุ (Material Selection), ควบคุมคุณภาพการผลิต (Quality Control), ออกแบบผลิตภัณฑ์ (Product Design) และทำนายอายุการใช้งาน เนื่องจากพอลิเมอร์เป็นวัสดุประเภทวิสโคอิลาสติก (Viscoelastic Material) พฤติกรรมจึงขึ้นอยู่กับอัตราเร็วในการให้แรง (Strain Rate) อุณหภูมิ และโครงสร้างระดับโมเลกุล การประเมินสมบัติจึงไม่อาจอาศัยการทดสอบเพียงชนิดเดียวได้
+    </p>
+
+    <div class="callout">
+      <strong>หัวใจสำคัญ: 5 รูปแบบการให้แรง (Five Loading Modes)</strong>
+      <div style="margin-top: 4px; display: flex; justify-content: space-between; font-weight: 500;">
+        <span>1. <strong>Pull (ดึง):</strong> Tensile</span>
+        <span>2. <strong>Push (กด):</strong> Compression</span>
+        <span>3. <strong>Bend (ดัดงอ):</strong> Flexural</span>
+        <span>4. <strong>Hit (กระแทก):</strong> Impact</span>
+        <span>5. <strong>Indent (กดทะลวงผิว):</strong> Hardness</span>
+      </div>
+    </div>
+
+    <h2>2. สรุปภาพรวมการทดสอบทั้ง 5 ชนิด</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 18%;">การทดสอบ</th>
+          <th style="width: 14%;">ลักษณะแรง</th>
+          <th style="width: 38%;">เป้าหมายการประเมินและพฤติกรรมที่วัดได้</th>
+          <th style="width: 30%;">ค่าผลลัพธ์หลักที่รายงาน</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tensile Test</strong></td>
+          <td>Pull (แรงดึงแกนเดี่ยว)</td>
+          <td>ความต้านทานแรงดึง สภาพดึงยืด พฤติกรรมการคอดตัว (necking)</td>
+          <td>Tensile Strength, Modulus, Elongation at break</td>
+        </tr>
+        <tr>
+          <td><strong>Flexural Test</strong></td>
+          <td>Bend (ดัดงอ 3 จุด)</td>
+          <td>การรับภาระดัดงอ (ผิวนอกรับแรงอัด ผิวในรับแรงดึง) สำหรับแผ่นชิ้นงาน</td>
+          <td>Flexural Strength (MOR), Flexural Modulus</td>
+        </tr>
+        <tr>
+          <td><strong>Compression Test</strong></td>
+          <td>Push (แรงกดในแกน)</td>
+          <td>ความต้านทานการถูกบดขยี้ การรับน้ำหนักกดทับ การยุบตัว (crushing)</td>
+          <td>Compressive Strength, Yield Stress, Modulus</td>
+        </tr>
+        <tr>
+          <td><strong>Impact Test</strong></td>
+          <td>Hit (แรงกระแทกฉับพลัน)</td>
+          <td>การดูดซับพลังงานก่อนแตกหักภายใต้อัตราความเครียดสูงพิเศษ</td>
+          <td>Impact Energy (J), Impact Strength (J/m หรือ kJ/m<sup>2</sup>)</td>
+        </tr>
+        <tr>
+          <td><strong>Hardness Test</strong></td>
+          <td>Indent (กดทะลวงผิว)</td>
+          <td>ความต้านทานการเสียรูปเฉพาะที่บนผิวหน้า (รอยกด/รอยขีดข่วน)</td>
+          <td>Shore A, Shore D, Rockwell (ค่าไร้หน่วย)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>นิยาม: ความเค้น (Stress) vs ความเครียด (Strain)</h4>
+        <p><strong>Stress (σ) = F / A<sub>0</sub>:</strong> วัดความเข้มข้นของแรงที่กระจายตัวบนพื้นที่หน้าตัดเดิม (Pa หรือ MPa) ช่วยให้เปรียบเทียบชิ้นงานต่างขนาดกันได้ตรงไปตรงมา<br>
+        <strong>Strain (ε) = ΔL / L<sub>0</sub>:</strong> การเปลี่ยนรูปร่างสัมพัทธ์ต่อความยาวเดิม ไม่มีหน่วย หรือระบุเป็นร้อยละ (% Strain = ε × 100)</p>
+      </div>
+      <div class="card">
+        <h4>นิยาม: ความแข็งเกร็ง vs ความแข็งแรง vs ความเหนียว</h4>
+        <p><strong>Stiffness (ความแข็งเกร็ง):</strong> ดูจากความชันช่วงยืดหยุ่น (Modulus) บ่งบอกการต้านทานการเปลี่ยนรูปชั่วคราว<br>
+        <strong>Strength (ความแข็งแรง):</strong> ค่าความเค้นสูงสุดที่รับได้ก่อนวิบัติ<br>
+        <strong>Toughness (ความเหนียว):</strong> พลังงานรวมที่ดูดซับได้จนกระทั่งแตกหัก (พื้นที่ใต้กราฟ σ–ε)</p>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>คู่มือการทดสอบพอลิเมอร์ • บทที่ 1 บทนำและกรอบแนวคิดพื้นฐาน</span>
+    <span>หน้า 1</span>
+  </footer>
+</section>
+
+<!-- page 2 budget (Compact): h2 11 + prose 140 + svg 30mm 72 + table 5 rows 85 + card-grid 152 + box chrome 48 + 4 gaps 32 = 540 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>3. การทดสอบแรงดึงและกราฟความเค้น-ความเครียด (Tensile Testing)</h2>
+    <p>
+      การทดสอบแรงดึง (ASTM D638 / ISO 527) ทำโดยการจับยึดชิ้นงานรูปกระดูกหมา (Dog-bone specimen) ที่ปลายทั้งสองด้าน แล้วดึงด้วยอัตราเร็วคงที่จนกระทั่งขาด เพื่อให้เกิดการเสียรูปและแตกหักเฉพาะในบริเวณหน้าตัดแคบ (Gauge length, L<sub>0</sub>) กราฟที่ได้เรียกว่า Tensile Stress–Strain Curve ซึ่งแสดงพฤติกรรมเชิงกลได้อย่างสมบูรณ์ที่สุด
+    </p>
+
+    <div class="svg-diagram" style="height: 32mm;">
+      <svg width="100%" height="100%" viewBox="0 0 520 100" role="img">
+        <title>Tensile Stress Strain Curve and Deformation Stages</title>
+        <!-- Axes -->
+        <line x1="40" y1="85" x2="490" y2="85" stroke="#475569" stroke-width="1.5"></line>
+        <line x1="40" y1="85" x2="40" y2="10" stroke="#475569" stroke-width="1.5"></line>
+        <text x="495" y="88" font-size="9" fill="#475569">Strain (ε)</text>
+        <text x="35" y="10" font-size="9" fill="#475569" text-anchor="end">Stress (σ)</text>
+        <!-- Curve -->
+        <path d="M 40 85 Q 70 30 110 25 T 160 50 L 320 50 Q 380 48 440 18" fill="none" stroke="#2563eb" stroke-width="2.2"></path>
+        <!-- Points & Callouts -->
+        <circle cx="110" cy="25" r="3.5" fill="#dc2626"></circle>
+        <text x="110" y="18" font-size="8.5" fill="#dc2626" font-weight="bold" text-anchor="middle">Yield Point</text>
+        <circle cx="440" cy="18" r="3.5" fill="#0f172a"></circle>
+        <text x="440" y="12" font-size="8.5" fill="#0f172a" font-weight="bold" text-anchor="middle">Fracture</text>
+        <!-- Regions -->
+        <line x1="85" y1="85" x2="85" y2="50" stroke="#94a3b8" stroke-dasharray="2,2"></line>
+        <line x1="160" y1="85" x2="160" y2="50" stroke="#94a3b8" stroke-dasharray="2,2"></line>
+        <line x1="320" y1="85" x2="320" y2="50" stroke="#94a3b8" stroke-dasharray="2,2"></line>
+        <text x="60" y="94" font-size="7.5" fill="#64748b" text-anchor="middle">Elastic</text>
+        <text x="135" y="94" font-size="7.5" fill="#64748b" text-anchor="middle">Necking</text>
+        <text x="240" y="94" font-size="7.5" fill="#64748b" text-anchor="middle">Cold Drawing (Plateau)</text>
+        <text x="380" y="94" font-size="7.5" fill="#64748b" text-anchor="middle">Strain Hardening</text>
+      </svg>
+    </div>
+
+    <h3>กลไกการเสียรูปของพอลิเมอร์เหนียว 4 ขั้นตอน (Deformation Sequence)</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 22%;">ขั้นตอน</th>
+          <th style="width: 38%;">ปรากฏการณ์ระดับมหภาค (Specimen Level)</th>
+          <th style="width: 40%;">กลไกระดับโมเลกุล (Chain Level)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Elastic &amp; Yielding</strong></td>
+          <td>ความเครียดยังคืนรูปได้ เมื่อถึงจุด Yield ชิ้นงานเริ่มเกิดการคอดเฉพาะจุด</td>
+          <td>พันธะระหว่างโมเลกุลยืดออก สายโซ่เริ่มเอาชนะแรงดึงดูดระหว่างสายโซ่และเริ่มเลื่อนไถล</td>
+        </tr>
+        <tr>
+          <td><strong>2. Necking</strong></td>
+          <td>พื้นที่หน้าตัดลดลงอย่างรวดเร็ว ณ ตำแหน่งที่อ่อนแอที่สุด ค่า Stress ลดต่ำลงเล็กน้อย</td>
+          <td>สายโซ่พอลิเมอร์เริ่มคลี่ตัวออกจากขดพันกัน (uncoiling) เฉพาะบริเวณคอด</td>
+        </tr>
+        <tr>
+          <td><strong>3. Cold Drawing</strong></td>
+          <td>รอยคอดขยายตัวยาวออกไปตามความยาวชิ้นงาน ความเค้นคงที่สม่ำเสมอ (Plateau)</td>
+          <td>กลุ่มผลึกถูกดึงให้แตกตัว สายโซ่เรียงตัวขนานกันในทิศทางของแรงดึงอย่างต่อเนื่อง</td>
+        </tr>
+        <tr>
+          <td><strong>4. Strain Hardening</strong></td>
+          <td>รอยคอดกระจายทั่วทั้งชิ้นงาน ความเค้นพุ่งสูงขึ้นอย่างรวดเร็วจนกระทั่งขาด</td>
+          <td>สายโซ่ถูกจัดเรียงตัวชิดกันอย่างสมบูรณ์ แรงยึดเหนี่ยวขนานทิศทางดึงสูงมาก จึงต้านแรงได้สูงขึ้น</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>การคำนวณสมบัติสำคัญจาก Tensile Curve</h4>
+        <p>• <strong>Young&#39;s Modulus (E):</strong> E = Δσ / Δε (หาจากความชันช่วงเส้นตรงแรกสุด)<br>
+        • <strong>0.2% Offset Yield:</strong> หากจุด Yield ไม่ชัดเจน ให้ลากเส้นขนานความชัน E โดยเริ่มจากระยะ Strain 0.002 (0.2%) ตัดกับกราฟที่จุดใด จุดนั้นคือ Yield Strength<br>
+        • <strong>Tensile Strength (σ<sub>uts</sub>):</strong> σ<sub>max</sub> = F<sub>max</sub> / A<sub>0</sub><br>
+        • <strong>Elongation at Break (ε<sub>b</sub>%):</strong> [(L<sub>break</sub> - L<sub>0</sub>) / L<sub>0</sub>] × 100</p>
+      </div>
+      <div class="card">
+        <h4>ข้อควรระวังในการจำแนกความเหนียว vs การยืดตัว</h4>
+        <p><strong>Ductility:</strong> บ่งบอกความสามารถในการยืดตัวพลาสติกก่อนขาด (ดูที่ Elongation at break)<br>
+        <strong>Toughness:</strong> ดูดซับพลังงานทั้งหมดก่อนขาด (ดูพื้นที่ใต้กราฟทั้งหมด)<br>
+        <em>ข้อพึงระวัง:</em> ยางอีลาสโตเมอร์ยืดได้ 800% (High Ductility) แต่มีความเค้นต่ำมาก พื้นที่ใต้กราฟจึงน้อยกว่าพลาสติกวิศวกรรมกลุ่ม Tough (เช่น Nylon, PC) ที่มีความแข็งแรงสูงและยืดตัวได้ปานกลาง</p>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>คู่มือการทดสอบพอลิเมอร์ • บทที่ 2 การทดสอบแรงดึงและกลไกการเปลี่ยนรูป</span>
+    <span>หน้า 2</span>
+  </footer>
+</section>
+
+<!-- page 3 budget (Compact): h2 11 + prose 130 + table 6 rows 102 + card-grid 152 + callout 45 + box chrome 48 + 4 gaps 32 = 520 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>4. การทดสอบการดัดงอและแรงกด (Flexural &amp; Compression Testing)</h2>
+    <p>
+      <strong>การทดสอบแรงดัดงอ (Flexural Test - ASTM D790):</strong> ใช้ประเมินชิ้นงานคานหรือแผ่นเรียบโดยวางบนฐานรองรับสองจุด (Supports) ห่างกันระยะ Span length (L) และกดด้วยหัวกดตรงกึ่งกลาง (Loading nose) โดยผิวชิ้นงานด้านบนจะรับแรงอัด (Compression) ผิวชิ้นงานด้านล่างจะรับแรงดึง (Tension) และแกนสะเทิน (Neutral axis) กึ่งกลางชิ้นงานไม่มีความเค้นเกิดขึ้น
+    </p>
+
+    <div class="callout">
+      <strong>สมการคำนวณการดัดงอ 3 จุด (Three-Point Bending):</strong>
+      <div style="margin-top: 4px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <div><strong>Flexural Strength (σ<sub>f</sub>):</strong> σ<sub>f</sub> = 3FL / (2bd<sup>2</sup>)</div>
+        <div><strong>Flexural Modulus (E<sub>f</sub>):</strong> E<sub>f</sub> = L<sup>3</sup>m / (4bd<sup>3</sup>)</div>
+      </div>
+      <span style="font-size: 8pt; color: #475569;">เมื่อ F = แรงสูงสุด (N), L = ระยะห่างซัพพอร์ต (mm), b = ความกว้างชิ้นงาน (mm), d = ความหนาชิ้นงาน (mm), m = ความชันช่วงเริ่มต้น (N/mm)</span>
+    </div>
+
+    <p style="margin-top: 8px;">
+      <strong>การทดสอบแรงกด (Compression Test - ASTM D695):</strong> กระทำโดยวางแท่งชิ้นงานทรงกระบอกหรือแท่งสี่เหลี่ยมระหว่างแผ่นกดขนาน (Platens) แล้วกดเข้าหากันในแกนตรง เพื่อประเมินความต้านทานการบดขยี้ สำหรับพลาสติกเหนียว ชิ้นงานมักไม่แตกหัก แต่จะเกิดการป่องออกด้านข้าง (Barrelling) และเข้าสู่ช่วงยุบแน่น (Densification) จึงต้องรายงานค่า Yield Strength ที่ยอดแรก หรือรายงานความเค้น ณ ระดับความเครียดคงที่ เช่น σ<sub>10%</sub>
+    </p>
+
+    <h2>5. การทดสอบแรงกระแทกและความไวต่อรอยบาก (Impact Testing)</h2>
+    <p>
+      เป็นการทดสอบแบบโหลดฉับพลัน (Ultra-short term) ด้วยลูกตุ้มเพนดูลัม เพื่อหาพลังงานที่ใช้ในการทำลายชิ้นงาน (Impact Energy, J) การมีรอยบาก (Notch) มีผลอย่างยิ่งเนื่องจากรอยบากทำหน้าที่เป็น <em>Stress Concentrator</em> ทำให้ความเค้นรวมตัวหนาแน่น ป้องกันไม่ให้สายโซ่จัดเรียงตัวคลายความเค้น ส่งผลให้วัสดุเปลี่ยนพฤติกรรมจากเหนียว (Ductile) ไปเป็นเปราะ (Brittle) ทันที
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 20%;">คุณลักษณะ</th>
+          <th style="width: 40%;">Charpy Impact Test (ISO 179)</th>
+          <th style="width: 40%;">Izod Impact Test (ASTM D256)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>การวางชิ้นงาน</strong></td>
+          <td>วางนอนตามแนวนอน (Horizontal beam)</td>
+          <td>จับยึดในแนวดิ่งแบบคานยื่น (Vertical cantilever)</td>
+        </tr>
+        <tr>
+          <td><strong>จุดรองรับชิ้นงาน</strong></td>
+          <td>รองรับสองปลายแบบอิสระ (Both ends supported)</td>
+          <td>จับยึดแน่นที่ปลายด้านล่างด้านเดียว (Clamped at base)</td>
+        </tr>
+        <tr>
+          <td><strong>ทิศทางที่ลูกตุ้มชน</strong></td>
+          <td>ชนที่กึ่งกลางด้านหลัง <strong>ตรงข้ามกับรอยบาก</strong></td>
+          <td>ชนบริเวณปลายบน <strong>ด้านเดียวกับที่มีรอยบาก</strong></td>
+        </tr>
+        <tr>
+          <td><strong>การหันหน้าของรอยบาก</strong></td>
+          <td>รอยบากหันออกจากทิศทางที่ลูกตุ้มพุ่งเข้าชน</td>
+          <td>รอยบากหันหน้ารับการพุ่งชนของลูกตุ้มโดยตรง</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>การทดสอบความแข็ง Shore Hardness</h4>
+        <p>• <strong>Shore A:</strong> หัวกดกรวยปลายป้าน 35° (R 0.79 mm) สำหรับยางและพลาสติกเนื้อนิ่ม<br>
+        • <strong>Shore D:</strong> หัวกดกรวยแหลม 30° (R 0.10 mm) สำหรับพลาสติกแข็ง<br>
+        <em>ข้อพึงระวัง:</em> ความแข็ง (Hardness) วัดความต้านทานเฉพาะผิวหน้า ไม่สามารถนำไปเทียบข้ามสเกลได้ และไม่ได้แปลว่าวัสดุนั้นจะมีความต้านทานแรงดึงสูงเสมอไป</p>
+      </div>
+      <div class="card">
+        <h4>อิทธิพลของอัตราเร็วและอุณหภูมิต่อ Impact</h4>
+        <p>• <strong>Strain Rate สูง:</strong> สายโซ่พอลิเมอร์ไม่มีเวลาเพียงพอในการขยับตัวคลายแรง ทำให้เกิดการแตกหักแบบเปราะ<br>
+        • <strong>อุณหภูมิต่ำกว่า T<sub>g</sub>:</strong> สายโซ่แข็งทื่อ พอลิเมอร์เปราะ พลังงานกระแทกต่ำ<br>
+        • <strong>อุณหภูมิสูงกว่า T<sub>g</sub>:</strong> สายโซ่เคลื่อนที่ได้ พลังงานกระแทกสูงขึ้นอย่างก้าวกระโดด</p>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>คู่มือการทดสอบพอลิเมอร์ • บทที่ 3 การดัดงอ แรงกด แรงกระแทก และความแข็ง</span>
+    <span>หน้า 3</span>
+  </footer>
+</section>
+
+<!-- page 4 budget (Compact): h2 11 + prose 120 + table 5 rows 85 + card-grid 152 + callout 45 + box chrome 48 + 4 gaps 32 = 493 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>6. การทดสอบสมบัติทางความร้อน: VST และ HDT (Thermal Characterization)</h2>
+    <p>
+      ในสภาวะการใช้งานจริง พอลิเมอร์ต้องสัมผัสทั้งภาระเชิงกลและอุณหภูมิที่สูงขึ้นพร้อมกัน การทดสอบจุดอ่อนตัวไวแคต (Vicat Softening Temperature: VST) และอุณหภูมิการบิดงอเนื่องจากความร้อน (Heat Deflection Temperature: HDT) เป็นมาตรฐานสากลในการประเมินขีดจำกัดความสามารถในการรับภาระที่อุณหภูมิสูง
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 18%;">หัวข้อเปรียบเทียบ</th>
+          <th style="width: 41%;">Vicat Softening Temperature (VST)</th>
+          <th style="width: 41%;">Heat Deflection Temperature (HDT)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>มาตรฐานการทดสอบ</strong></td>
+          <td>ASTM D1525 / ISO 306</td>
+          <td>ASTM D648 / ISO 75</td>
+        </tr>
+        <tr>
+          <td><strong>รูปแบบการให้แรง</strong></td>
+          <td><strong>Point Indentation (แรงกดทะลุเฉพาะจุด)</strong> ใช้เข็มแบนปลายตัดพื้นที่ 1 mm<sup>2</sup></td>
+          <td><strong>Three-point Bending (แรงดัดงอ 3 จุด)</strong> ให้ความเค้นคงที่ (0.455 MPa หรือ 1.82 MPa)</td>
+        </tr>
+        <tr>
+          <td><strong>เกณฑ์วัดจุดยุติ</strong></td>
+          <td>อุณหภูมิที่เข็มกดจมลึกเข้าไปในเนื้อชิ้นงานลึก <strong>1.0 mm</strong></td>
+          <td>อุณหภูมิที่คานเกิดการแอ่นตัวตรงกลางถึงระยะที่กำหนด (เช่น <strong>0.25 mm</strong>)</td>
+        </tr>
+        <tr>
+          <td><strong>ความหมายในเชิงวิศวกรรม</strong></td>
+          <td>บอกอุณหภูมิที่ผิวหน้าของพอลิเมอร์สูญเสียความต้านทานการเจาะทะลุ</td>
+          <td>บอกอุณหภูมิสูงสุดที่ชิ้นส่วนโครงสร้างยังสามารถคงรูปและรับน้ำหนักได้</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>ผลกระทบของโครงสร้างพอลิเมอร์ต่อ HDT/VST</h4>
+        <p>• <strong>Amorphous Polymers (เช่น PS, PMMA, PC):</strong> ค่า HDT และ VST จะอยู่ใกล้เคียงกับอุณหภูมิการเปลี่ยนสถานะคล้ายแก้ว (T<sub>g</sub>) มาก เมื่ออุณหภูมิแตะ T<sub>g</sub> วัสดุจะสูญเสียความแข็งแรงอย่างฉับพลัน<br>
+        • <strong>Semicrystalline Polymers (เช่น PE, PP, POM, PA):</strong> หากไม่เสริมแรง ผลึกจะช่วยพยุงโครงสร้างเหนือ T<sub>g</sub> ได้ระดับหนึ่ง แต่หากเสริมแรงด้วยเส้นใยแก้ว (Glass Fiber) จะเพิ่มค่า HDT ให้พุ่งสูงขึ้นเข้าใกล้จุดหลอมเหลว (T<sub>m</sub>) ได้อย่างมหาศาล</p>
+      </div>
+      <div class="card">
+        <h4>ข้อสรุปการนำผลไปเลือกวัสดุ</h4>
+        <p>• เลือกดู <strong>HDT</strong> เมื่อต้องการออกแบบชิ้นส่วนเชิงวิศวกรรมที่ต้องรับน้ำหนักดัดงอ เช่น ฝาครอบเครื่องยนต์, โครงสร้างเครื่องใช้ไฟฟ้า, ขาแขวนชิ้นงาน<br>
+        • เลือกดู <strong>VST</strong> เมื่อต้องการประเมินความสามารถในการทนต่อการขีดข่วนหรือการกดกระแทกของผิวชิ้นงานขณะร้อน เช่น แผ่นปูพื้น, ภาชนะบรรจุอาหารร้อน, ปลอกสายเคเบิล</p>
+      </div>
+    </div>
+
+    <h2>7. กราฟเปรียบเทียบพฤติกรรมพลาสติก 4 รูปแบบ (Materials Classification)</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>กลุ่มวัสดุ</th>
+          <th>Stiffness (Modulus)</th>
+          <th>Strength (σ<sub>max</sub>)</th>
+          <th>Elongation (ε<sub>b</sub>)</th>
+          <th>Toughness (Area)</th>
+          <th>ตัวอย่างวัสดุ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Brittle</strong></td>
+          <td>สูงมาก (ชันมาก)</td>
+          <td>ปานกลาง–สูง</td>
+          <td>ต่ำมาก (&lt; 5%)</td>
+          <td>ต่ำมาก</td>
+          <td>GPPS, PMMA, เซรามิก</td>
+        </tr>
+        <tr>
+          <td><strong>2. Strong &amp; Less Ductile</strong></td>
+          <td>สูง</td>
+          <td>สูงมาก</td>
+          <td>ปานกลาง (5–25%)</td>
+          <td>ปานกลาง</td>
+          <td>เหล็กกล้าคาร์บอน, PC, แผ่น POM</td>
+        </tr>
+        <tr>
+          <td><strong>3. Tough (เหนียวแข็งแรง)</strong></td>
+          <td>ปานกลาง–สูง</td>
+          <td>สูง</td>
+          <td>สูง (50–300%)</td>
+          <td><strong>สูงที่สุด (พื้นที่มากสุด)</strong></td>
+          <td>PA-6 (Nylon), HDPE, PP โคพอลิเมอร์</td>
+        </tr>
+        <tr>
+          <td><strong>4. Soft &amp; Ductile (Elastomer)</strong></td>
+          <td>ต่ำมาก (แบนราบ)</td>
+          <td>ต่ำ</td>
+          <td>สูงมาก (&gt; 500%)</td>
+          <td>ต่ำ–ปานกลาง</td>
+          <td>ยางพาราธรรมชาติ, Silicone, Soft PVC</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="page-footer">
+    <span>คู่มือการทดสอบพอลิเมอร์ • บทที่ 4 การทดสอบความร้อนและจำแนกประเภทวัสดุ</span>
+    <span>หน้า 4</span>
+  </footer>
+</section>
+
+<!-- page 5 budget (Compact): h2 11 + prose 80 + table 8 rows 136 + card-grid 152 + callout 45 + box chrome 48 + 4 gaps 32 = 504 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>8. ชุดแนวข้อสอบเสมือนจริง ส่วนที่ 1: การจับคู่ความหมายและคำศัพท์</h2>
+    <p>
+      ข้อสอบส่วนนี้เน้นการประเมินความแม่นยำในการระบุนิยามศัพท์ทางเทคนิคและวัตถุประสงค์ของการทดสอบแต่ละประเภท ให้นักศึกษาจับคู่รายการคำศัพท์กับข้อความนิยามให้ถูกต้องสมบูรณ์
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 25%;">คำศัพท์ (Terminology)</th>
+          <th style="width: 8%; text-align: center;">รหัส</th>
+          <th style="width: 67%;">คำอธิบายหลักการและวัตถุประสงค์</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1. Shore Durometer D</td>
+          <td style="text-align: center;"><strong>D</strong></td>
+          <td>วัดความต้านทานการยุบตัวเฉพาะที่บนผิวหน้าของพลาสติกแข็งด้วยหัวกดทรงกรวยแหลม 30 องศา</td>
+        </tr>
+        <tr>
+          <td>2. Izod Impact Test</td>
+          <td style="text-align: center;"><strong>E</strong></td>
+          <td>ทดสอบการดูดซับพลังงานกระแทกฉับพลันโดยจับยึดชิ้นงานแนวดิ่ง และลูกตุ้มชนด้านเดียวกับรอยบาก</td>
+        </tr>
+        <tr>
+          <td>3. Young&#39;s Modulus</td>
+          <td style="text-align: center;"><strong>A</strong></td>
+          <td>ความชันของกราฟความเค้น-ความเครียดในช่วงการเสียรูปยืดหยุ่น บ่งบอกความแข็งเกร็ง (Stiffness)</td>
+        </tr>
+        <tr>
+          <td>4. Flexural Strength (MOR)</td>
+          <td style="text-align: center;"><strong>G</strong></td>
+          <td>ความเค้นดัดงอสูงสุดที่เกิดขึ้นบนผิวหน้าด้านนอกสุดของชิ้นงานคานทดสอบ 3 จุดก่อนเกิดการแตกหัก</td>
+        </tr>
+        <tr>
+          <td>5. Cold Drawing</td>
+          <td style="text-align: center;"><strong>B</strong></td>
+          <td>ปรากฏการณ์ที่รอยคอด (neck) ยืดขยายตัวออกไปตามความยาวชิ้นงานภายใต้แรงเค้นคงที่</td>
+        </tr>
+        <tr>
+          <td>6. Toughness</td>
+          <td style="text-align: center;"><strong>F</strong></td>
+          <td>พลังงานรวมทั้งหมดต่อหนึ่งหน่วยปริมาตรที่วัสดุดูดซับไว้ได้ก่อนการแตกหัก (พื้นที่ใต้กราฟ σ–ε)</td>
+        </tr>
+        <tr>
+          <td>7. HDT</td>
+          <td style="text-align: center;"><strong>H</strong></td>
+          <td>อุณหภูมิที่ชิ้นงานทดสอบเกิดการแอ่นตัวงอลงมาถึงระยะมาตรฐานภายใต้แรงดัดงอคงที่</td>
+        </tr>
+        <tr>
+          <td>8. Strain Hardening</td>
+          <td style="text-align: center;"><strong>C</strong></td>
+          <td>ความเค้นพุ่งสูงขึ้นหลังการยืดตัวยาว เนื่องจากสายโซ่โมเลกุลจัดเรียงตัวขนานกันในแนวแรงดึง</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card-grid" style="margin-top: 10px;">
+      <div class="card">
+        <h4>วิเคราะห์ความเข้าใจผิดยอดฮิตในการจับคู่คำศัพท์</h4>
+        <p>• <strong>สับสนระหว่าง Hardness กับ Strength:</strong> ความแข็งผิวไม่ได้แปลว่ารับแรงดึงได้สูง เช่น เซรามิกมีความแข็งสูงมากแต่เปราะและรับแรงดึงได้จำกัด<br>
+        • <strong>สับสนระหว่าง Elongation กับ Toughness:</strong> ชิ้นงานที่ยืดตัวได้สูงมาก (High Elongation) อาจไม่ใช่ชิ้นงานที่มีความเหนียวสูงสุดหากความเค้นต่ำ<br>
+        • <strong>สับสน Charpy กับ Izod:</strong> จำง่ายๆ ว่า &#34;Izod ชนด้านบาก (I-ZOD hits Notch side) ยึดแบบคานดิ่ง (Cantilever)&#34; ส่วน Charpy หนุนสองข้าง ชนหลังรอยบาก</p>
+      </div>
+      <div class="card">
+        <h4>แนวทางการจำแนกการทดสอบความร้อน VST vs HDT</h4>
+        <p>• <strong>VST = เข็มกด (Needle Penetration):</strong> ใช้เข็มปลายตัด 1 mm<sup>2</sup> ลึก 1 mm ประเมินสภาพความนิ่มของผิวหน้า<br>
+        • <strong>HDT = ดัดคาน (Beam Bending):</strong> วางคานบนแท่น 2 จุด กดให้เกิดการแอ่นตัว 0.25 mm ประเมินการรับภาระโครงสร้าง<br>
+        <em>คีย์ลัดสำหรับข้อสอบ:</em> เจาะผิวลึก 1 มม. = VST / คานโก่ง 0.25 มม. = HDT</p>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>คู่มือการทดสอบพอลิเมอร์ • บทที่ 5 แนวข้อสอบและการประเมินผล ส่วนที่ 1</span>
+    <span>หน้า 5</span>
+  </footer>
+</section>
+
+<!-- page 6 budget (Compact): h2 11 + prose 60 + card 6 items 360 + box chrome 48 + 4 gaps 32 = 511 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>9. ชุดแนวข้อสอบเสมือนจริง ส่วนที่ 2: การตรวจข้อความและให้เหตุผล</h2>
+    <p>
+      ข้อสอบส่วนนี้มุ่งเน้นการคิดวิเคราะห์เชิงลึก ให้นักศึกษาพิจารณาข้อความต่อไปนี้ว่า <strong>&#34;ถูก&#34;</strong> หรือ <strong>&#34;ผิด&#34;</strong> พร้อมอธิบายหลักการทางฟิสิกส์และพอลิเมอร์สนับสนุนอย่างชัดเจน
+    </p>
+
+    <div class="card" style="margin-top: 6px;">
+      <h4>ข้อ 2.1: &#34;พอลิเมอร์ที่มีค่า Elongation at break สูงที่สุด จะมีค่า Toughness สูงที่สุดเสมอ&#34;</h4>
+      <p><strong>คำตอบ: ผิด (False)</strong><br>
+      <strong>เหตุผล:</strong> ค่า Toughness คือพลังงานรวมที่ดูดซับได้จนกระทั่งแตกหัก ซึ่งเท่ากับ <em>พื้นที่ใต้กราฟ Stress–Strain ทั้งหมด (U<sub>t</sub> = ∫ σ dε)</em> วัสดุอย่างอีลาสโตเมอร์ (Elastomer) เช่น ยาง มี Elongation สูงถึง 700–800% แต่มี Tensile Strength ต่ำมาก (ความเค้นต่ำ) ทำให้พื้นที่ใต้กราฟมีขนาดเล็กกว่าพอลิเมอร์กลุ่ม Tough Engineering Plastics (เช่น PA, PC) ซึ่งมี Strength สูงและมี Elongation ปานกลางถึงสูง (100–300%) ส่งผลให้มีพื้นที่ใต้กราฟมากกว่า</p>
+    </div>
+
+    <div class="card">
+      <h4>ข้อ 2.2: &#34;การเพิ่มอัตราเร็วในการดึง (Strain Rate) ในการทดสอบ Tensile จะทำให้พอลิเมอร์แสดงพฤติกรรมเหนียวมากขึ้น&#34;</h4>
+      <p><strong>คำตอบ: ผิด (False)</strong><br>
+      <strong>เหตุผล:</strong> พอลิเมอร์มีพฤติกรรม Viscoelastic เมื่อเพิ่มอัตราเร็วในการดึง สายโซ่พอลิเมอร์จะมีเวลาในการคลี่ตัว (Uncoiling) และเลื่อนไถลจัดเรียงตัวใหม่น้อยลง ส่งผลให้โมดูลัสและความแข็งแรงช่วงครากเพิ่มสูงขึ้น แต่วัสดุจะสูญเสียสภาพดึงยืด (Elongation ลดลงอย่างมาก) ทำให้ชิ้นงานแตกหักอย่างรวดเร็วแบบเปราะ (Brittle fracture) ดังนั้นการเพิ่ม Strain Rate จึงทำให้วัสดุเปราะขึ้น ไม่ใช่เหนียวขึ้น</p>
+    </div>
+
+    <div class="card">
+      <h4>ข้อ 2.3: &#34;ชิ้นงานที่มีรอยบาก (Notch) จะมีค่า Impact Strength ต่ำกว่าชิ้นงานที่ไม่มีรอยบากเสมอ&#34;</h4>
+      <p><strong>คำตอบ: ถูก (True)</strong><br>
+      <strong>เหตุผล:</strong> รอยบากทำหน้าที่เป็นตัวรวมความเค้น (Stress Concentrator) ทำให้เกิด Triaxial stress state บริเวณปลายรอยบาก ซึ่งขัดขวางการเกิด Shear yielding หรือ Plastic deformation ระดับโมเลกุล ส่งผลให้พลังงานกระแทกส่วนใหญ่ถูกใช้ไปในการแพร่กระจายของรอยแตก (Crack propagation) โดยตรง แทนที่จะดูดซับด้วยการเปลี่ยนรูปพลาสติก ค่าความทนทานต่อแรงกระแทกจึงลดลงอย่างมาก</p>
+    </div>
+
+    <div class="card">
+      <h4>ข้อ 2.4: &#34;สำหรับพอลิเมอร์อสัณฐาน (Amorphous Polymer) อุณหภูมิ VST และ HDT จะมีค่าใกล้เคียงกับอุณหภูมิ Tg&#34;</h4>
+      <p><strong>คำตอบ: ถูก (True)</strong><br>
+      <strong>เหตุผล:</strong> พอลิเมอร์อสัณฐานไม่มีโครงสร้างผลึกคอยช่วยพยุงแรง ความแข็งเกร็งของวัสดุขึ้นอยู่กับแรงดึงดูดระหว่างสายโซ่ในสถานะคล้ายแก้ว (Glassy state) เมื่ออุณหภูมิสูงแตะระดับ T<sub>g</sub> สายโซ่ส่วนใหญ่จะเริ่มขยับตัวได้อย่างอิสระ (Cooperative segmental motion) ทำให้โมดูลัสลดลงฮวบฮาบหลายเท่าตัว วัสดุจึงเกิดการแอ่นตัว (HDT) และถูกเข็มกดทะลุ (VST) ณ ช่วงอุณหภูมิที่ใกล้เคียงกับ T<sub>g</sub> ทันที</p>
+    </div>
+
+    <div class="card">
+      <h4>ข้อ 2.5: &#34;ในการทดสอบ Izod Impact ชิ้นงานจะถูกจัดวางแนวนอน และถูกตีทางด้านตรงข้ามกับรอยบาก&#34;</h4>
+      <p><strong>คำตอบ: ผิด (False)</strong><br>
+      <strong>เหตุผล:</strong> การจัดวางชิ้นงานแนวนอนและถูกตีที่ด้านตรงข้ามกับรอยบากคือลักษณะของ <strong>Charpy Impact Test</strong> ส่วนการทดสอบแบบ <strong>Izod Impact Test</strong> ชิ้นงานจะถูกจับยึดใน <em>แนวดิ่ง (Vertical cantilever)</em> โดยลูกตุ้มเพนดูลัมจะพุ่งเข้าชนที่ปลายด้านบนทาง <em>ด้านเดียวกับที่มีรอยบาก</em></p>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>คู่มือการทดสอบพอลิเมอร์ • บทที่ 5 แนวข้อสอบและการประเมินผล ส่วนที่ 2</span>
+    <span>หน้า 6</span>
+  </footer>
+</section>
+
+<!-- page 7 budget (Compact): h2 11 + prose 50 + card-grid 2 items 260 + table 4 rows 70 + box chrome 48 + 4 gaps 32 = 471 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>10. ชุดแนวข้อสอบเสมือนจริง ส่วนที่ 3: การคำนวณและวิเคราะห์กราฟ</h2>
+    <p>
+      ข้อสอบส่วนนี้เน้นการนำหลักการทางวิศวกรรมไปประยุกต์ใช้คำนวณจากข้อมูลจริง และการเลือกวัสดุให้สอดคล้องกับสภาพการทำงาน
+    </p>
+
+    <div class="card">
+      <h4>โจทย์คำนวณที่ 1: การวิเคราะห์สมบัติแรงดึง (Tensile Calculation)</h4>
+      <p>
+        ชิ้นงานทดสอบ Tensile รูปกระดูกหมาทำจากพอลิโพรพีลีน (PP) มีขนาดพื้นที่หน้าตัดเดิม กว้าง b = 10.0 mm หนา d = 4.0 mm มีระยะ Gauge length เริ่มต้น L<sub>0</sub> = 50.0 mm เมื่อนำไปดึงทดสอบตามมาตรฐาน ASTM D638 พบพฤติกรรมดังนี้:<br>
+        • ในช่วง Elastic ที่แรงดึง F = 480 N วัดระยะยืดได้ ΔL = 0.60 mm<br>
+        • ชิ้นงานเกิดจุด Yield ที่แรงสูงสุด F<sub>yield</sub> = 1,400 N<br>
+        • ชิ้นงานเกิดการคอดและยืดตัวจนกระทั่งขาดที่ระยะความยาวสุดท้าย L<sub>break</sub> = 180.0 mm
+      </p>
+      <div style="background: #f8fafc; border: 1px dashed #94a3b8; padding: 6px 10px; margin-top: 6px; font-size: 8.5pt;">
+        <strong>วิธีทำและขั้นตอนการคำนวณอย่างละเอียด:</strong><br>
+        1. <em>คำนวณพื้นที่หน้าตัดเดิม (A<sub>0</sub>):</em> A<sub>0</sub> = b × d = 10.0 mm × 4.0 mm = <strong>40.0 mm<sup>2</sup></strong><br>
+        2. <em>คำนวณ Young&#39;s Modulus (E):</em><br>
+            • ความเค้นที่สภาวะยืดหยุ่น: σ<sub>1</sub> = F / A<sub>0</sub> = 480 N / 40.0 mm<sup>2</sup> = 12.0 MPa (หรือ N/mm<sup>2</sup>)<br>
+            • ความเครียดที่สภาวะยืดหยุ่น: ε<sub>1</sub> = ΔL / L<sub>0</sub> = 0.60 mm / 50.0 mm = 0.012 (ไร้หน่วย)<br>
+            • Young&#39;s Modulus: E = σ<sub>1</sub> / ε<sub>1</sub> = 12.0 MPa / 0.012 = <strong>1,000 MPa (หรือ 1.0 GPa)</strong><br>
+        3. <em>คำนวณ Tensile Yield Strength (σ<sub>y</sub>):</em><br>
+            • σ<sub>y</sub> = F<sub>yield</sub> / A<sub>0</sub> = 1,400 N / 40.0 mm<sup>2</sup> = <strong>35.0 MPa</strong><br>
+        4. <em>คำนวณ Elongation at Break (%ε<sub>b</sub>):</em><br>
+            • %ε<sub>b</sub> = [(L<sub>break</sub> - L<sub>0</sub>) / L<sub>0</sub>] × 100 = [(180.0 - 50.0) / 50.0] × 100 = (130.0 / 50.0) × 100 = <strong>260%</strong>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 6px;">
+      <h4>โจทย์คำนวณที่ 2: การวิเคราะห์สมบัติการดัดงอ 3 จุด (Flexural Calculation)</h4>
+      <p>
+        แผ่นพลาสติกคอมโพสิตมีความกว้าง b = 12.7 mm หนา d = 3.2 mm วางบนจุดรองรับห่างกัน L = 51.2 mm (อัตราส่วนสแปนต่อความหนา 16:1) เมื่อทำการกดงอ พบว่าชิ้นงานแตกหักที่แรงสูงสุด F = 150 N และมีค่าความชันช่วงยืดหยุ่น m = ΔF/Δδ = 85 N/mm
+      </p>
+      <div style="background: #f8fafc; border: 1px dashed #94a3b8; padding: 6px 10px; margin-top: 6px; font-size: 8.5pt;">
+        <strong>วิธีทำและขั้นตอนการคำนวณอย่างละเอียด:</strong><br>
+        1. <em>คำนวณ Flexural Strength (σ<sub>f</sub>):</em><br>
+            σ<sub>f</sub> = (3 · F · L) / (2 · b · d<sup>2</sup>) = (3 × 150 N × 51.2 mm) / (2 × 12.7 mm × (3.2 mm)<sup>2</sup>)<br>
+            σ<sub>f</sub> = 23,040 / (25.4 × 10.24) = 23,040 / 260.096 ≈ <strong>88.58 MPa</strong><br>
+        2. <em>คำนวณ Flexural Modulus (E<sub>f</sub>):</em><br>
+            E<sub>f</sub> = (L<sup>3</sup> · m) / (4 · b · d<sup>3</sup>) = ((51.2)<sup>3</sup> × 85 N/mm) / (4 × 12.7 mm × (3.2 mm)<sup>3</sup>)<br>
+            E<sub>f</sub> = (134,217.7 × 85) / (50.8 × 32.768) = 11,408,506.8 / 1,664.61 ≈ <strong>6,853.5 MPa (หรือ 6.85 GPa)</strong>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>คู่มือการทดสอบพอลิเมอร์ • บทที่ 5 แนวข้อสอบและการประเมินผล ส่วนที่ 3 (คำนวณ)</span>
+    <span>หน้า 7</span>
+  </footer>
+</section>
+
+<!-- page 8 budget (Compact): h2 11 + prose 50 + card 3 items 240 + table 5 rows 85 + callout 45 + box chrome 48 + 4 gaps 32 = 511 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>11. การวิเคราะห์เลือกวิธีทดสอบและเลือกวัสดุตามสถานการณ์จริง</h2>
+    <p>
+      การเป็นวิศวกรและนักวิทยาศาสตร์พอลิเมอร์จำเป็นต้องสามารถเลือกมาตรฐานการทดสอบและวัสดุให้ตรงกับโจทย์การทำงานจริง
+    </p>
+
+    <div class="card">
+      <h4>กรณีศึกษาที่ 1: การเลือกวัสดุทำหมวกกันน็อกนิรภัย (Safety Helmet Casing)</h4>
+      <p>
+        <strong>สถานการณ์:</strong> ต้องการเลือกพอลิเมอร์ผลิตเปลือกนอกของหมวกนิรภัยสำหรับงานก่อสร้าง ซึ่งต้องทนต่อก้อนหินหรือเครื่องมือหล่นใส่โดยไม่แตกกระจาย และต้องใช้งานกลางแจ้งภายใต้แสงแดดของประเทศไทยได้โดยไม่เสียรูปทรง<br>
+        <strong>การวิเคราะห์และวิธีทดสอบที่ต้องพิจารณา:</strong><br>
+        1. <em>Impact Test (Notched Izod / Dynatup Puncture):</em> ต้องเลือกวัสดุที่มีพลังงานดูดซับแรงกระแทกสูงมาก และมีความไวต่อรอยบากต่ำ เพื่อป้องกันการแตกแบบหายนะเมื่อผิวหมวกเกิดรอยขีดข่วน<br>
+        2. <em>Heat Deflection Temperature (HDT):</em> หมวกต้องมีค่า HDT สูงกว่าอุณหภูมิสะสมกลางแดด (&gt; 80 °C)<br>
+        <strong>วัสดุที่เลือก:</strong> <strong>Polycarbonate (PC) หรือ ABS เกรดทนแรงกระแทกสูง</strong> เนื่องจากมี Toughness สูงมาก และมีค่า HDT สูงถึง 130 °C (สำหรับ PC) ไม่ควรเลือก GPPS เด็ดขาดเพราะเปราะและแตกกระจาย
+      </p>
+    </div>
+
+    <div class="card" style="margin-top: 6px;">
+      <h4>กรณีศึกษาที่ 2: การเลือกวิธีทดสอบสำหรับชั้นวางของในตู้เย็น (Refrigerator Shelf)</h4>
+      <p>
+        <strong>สถานการณ์:</strong> แผ่นกระจายน้ำหนักสำหรับวางขวดน้ำและอาหารในตู้เย็น ต้องรับน้ำหนักต่อเนื่องโดยไม่แอ่นตัวตกท้องช้าง และต้องไม่เปราะแตกที่อุณหภูมิต่ำ (4 °C)<br>
+        <strong>การวิเคราะห์และวิธีทดสอบ:</strong><br>
+        1. <em>Flexural Test (ASTM D790):</em> ต้องทดสอบหาค่า <strong>Flexural Modulus</strong> เพื่อรับประกันว่าแผ่นคานจะไม่เกิดการแอ่นตัวเกินเกณฑ์ความปลอดภัย<br>
+        2. <em>Low-temperature Impact Test:</em> ต้องทดสอบ Charpy หรือ Izod ที่อุณหภูมิ 0–4 °C เพื่อตรวจสอบว่าอุณหภูมิใช้งานไม่ต่ำกว่าอุณหภูมิการเปลี่ยนสถานะเปราะ (Ductile-to-Brittle Transition Temperature)
+      </p>
+    </div>
+
+    <h2>12. สรุปเช็กลิสต์สำคัญสำหรับเตรียมตัวสอบ (Exam Master Checklist)</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>หัวข้อ</th>
+          <th>จุดที่ต้องจำให้แม่นยำ</th>
+          <th>ข้อควรระวังในการทำข้อสอบ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Loading Modes</strong></td>
+          <td>Pull = Tensile, Push = Compression, Bend = Flexural, Hit = Impact, Indent = Hardness</td>
+          <td>อย่าจำสับสนระหว่างแรงดัด (Bend) กับแรงดึง (Pull)</td>
+        </tr>
+        <tr>
+          <td><strong>Impact Specimen</strong></td>
+          <td>Izod = แนวดิ่ง, ชนด้านบาก / Charpy = แนวนอน, ชนด้านหลังรอยบาก</td>
+          <td>โจทย์มักหลอกสลับตำแหน่งลูกตุ้มชนและทิศทางรอยบาก</td>
+        </tr>
+        <tr>
+          <td><strong>HDT vs VST</strong></td>
+          <td>HDT = โก่ง 0.25 mm (คานดัด) / VST = เข็มกดลึก 1.0 mm (กดเจาะ)</td>
+          <td>HDT วัดความแข็งแรงเชิงโครงสร้าง, VST วัดความนิ่มของผิว</td>
+        </tr>
+        <tr>
+          <td><strong>Tensile Curves</strong></td>
+          <td>Stiffness = ความชันแรก, Strength = จุดสูงสุด, Toughness = พื้นที่ทั้งหมด</td>
+          <td>วัสดุยืดได้ไกลสุด (ยาง) ไม่ได้แปลว่าเหนียวที่สุด (Toughest)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout-success" style="margin-top: 8px;">
+      <strong>สรุปภาพรวม:</strong> การเข้าใจพฤติกรรมเชิงกลของพอลิเมอร์ไม่ได้อยู่ที่การท่องจำตัวเลข แต่เป็นการเชื่อมโยงระหว่าง <em>สภาวะแรงภายนอก (Loading Mode)</em> กับ <em>การเคลื่อนที่ของสายโซ่โมเลกุล (Molecular Movement)</em> และ <em>อุณหภูมิใช้งาน</em> หากจำแนกความสัมพันธ์นี้ได้ จะสามารถทำข้อสอบได้คะแนนเต็มและนำไปใช้งานทางวิศวกรรมได้อย่างถูกต้อง
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>คู่มือการทดสอบพอลิเมอร์ • บทที่ 5 แนวข้อสอบและการประเมินผล ส่วนที่ 3 (กรณีศึกษาและสรุป)</span>
+    <span>หน้า 8</span>
+  </footer>
+</section>
+
+</div>
+
+<script data-bard-injected="true">
+(function() {
+  async function fetchFifeImageBlobUsingAlr(urlString) {
+    if (urlString.startsWith('blob:') || urlString.startsWith('data:')) {
+      throw new Error('Input URL is already a blob or data URL.');
+    }
+    var url = new URL(urlString, window.location.href);
+    url.searchParams.set('alr', 'yes');
+    for (var i = 0; i < 5; i++) {
+      var response = await fetch(url.toString(), {credentials: 'include'});
+      if (!response.ok) {
+        throw new Error('Fetch received not OK response: ' + response.status);
+      }
+      var contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.startsWith('text/plain')) {
+        var blob = await response.blob();
+        if (blob.size > 0 && blob.type.startsWith('image/')) {
+          return blob;
+        }
+        throw new Error('Fetched blob is not a valid image.');
+      }
+      url = new URL(await response.text());
+    }
+    throw new Error('Exceeded maximum number of redirects.');
+  }
+
+  async function updateImageSourcesUsingAlr() {
+    var imgs = Array.from(document.querySelectorAll('img'));
+    await Promise.all(imgs.map(async function(img) {
+      if (img.src && img.src.includes('googleusercontent')) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(img.src);
+          img.src = URL.createObjectURL(blob);
+        } catch (e) {}
+      }
+    }));
+
+    var elements = document.querySelectorAll('[style*="googleusercontent"]');
+    var urlRegex = /url\((['"]?)(https?:\/\/.*?googleusercontent.*?)\1\)/;
+    await Promise.all(Array.from(elements).map(async function(el) {
+      var bg = el.style.backgroundImage;
+      var match = bg ? bg.match(urlRegex) : null;
+      if (match && match[2]) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(match[2]);
+          var blobUrl = URL.createObjectURL(blob);
+          el.style.backgroundImage = bg.replace(match[2], blobUrl);
+        } catch (e) {}
+      }
+    }));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateImageSourcesUsingAlr);
+  } else {
+    updateImageSourcesUsingAlr();
+  }
+})();
+</script></body></html>

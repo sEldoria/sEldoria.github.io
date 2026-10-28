@@ -1,0 +1,732 @@
+<!DOCTYPE html><html lang="th"><head>
+<meta charset="UTF-8">
+<title>แบบฝึกหัดฉบับสมบูรณ์ วิศวกรรมปฏิกิริยาเคมีและวัสดุดักจับ CO2</title>
+<style>
+@page { margin: 0; }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { background-color: #ffffff; }
+@media (prefers-color-scheme: dark) {
+    html { background-color: #1f1f1f; }
+}
+body {
+    padding: 24px 0;
+    margin: 0 auto;
+    max-width: 900px !important;
+    border: none !important;
+    background: transparent !important;
+    font-family: 'Sarabun', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #0f172a;
+    -webkit-font-smoothing: antialiased;
+}
+.page {
+    min-height: 297mm;
+    height: auto;
+    margin: 0 auto 12px auto;
+    padding: 18mm 18mm 12mm 18mm;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: visible;
+}
+@media screen and (max-width: 600px) {
+    body { padding: 16px 0; }
+    .page {
+        margin: 0 auto 8px auto;
+        border: none;
+        padding: 12px 16px;
+    }
+}
+.page-content {
+    flex: 1 0 auto;
+    min-height: 0;
+    overflow: visible;
+}
+.page-content > * + * {
+    margin-top: 12px;
+}
+.page.compact, body.compact .page {
+    font-size: 9pt;
+    line-height: 1.35;
+}
+.page.compact .page-content > * + *, body.compact .page-content > * + * {
+    margin-top: 10px;
+}
+.page-content > :is(h1, h2, h3, h4) + * {
+    margin-top: 6px;
+}
+.page-footer {
+    flex-shrink: 0;
+    margin-top: auto;
+    padding-top: 3mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8pt;
+    color: #64748b;
+    border-top: 1px solid #e2e8f0;
+}
+@media print {
+    *, *::before, *::after {
+        box-shadow: none !important;
+        text-shadow: none !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    body { padding: 0; background: none; }
+     .page {
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        overflow: visible;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .page-content {
+        overflow: visible;
+    }
+
+    .page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+}
+[contenteditable]:focus { outline: none; }
+
+/* Academic & Workbook Elements */
+.doc-header {
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.doc-title-group h1 {
+    font-size: 15pt;
+    margin: 0;
+    color: #0f172a;
+    font-weight: 700;
+}
+.doc-title-group p {
+    font-size: 8.5pt;
+    color: #475569;
+    margin: 2px 0 0 0;
+}
+.student-meta {
+    font-size: 8.5pt;
+    color: #334155;
+    text-align: right;
+    border-left: 2px solid #cbd5e1;
+    padding-left: 10px;
+    min-width: 220px;
+}
+.section-tag {
+    display: inline-block;
+    background-color: #0369a1;
+    color: #ffffff;
+    font-size: 8pt;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+}
+.section-tag.sol {
+    background-color: #047857;
+}
+.item-card {
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background: #ffffff;
+    padding: 8px 12px;
+}
+.item-card.highlight {
+    background-color: #f8fafc;
+    border-left: 4px solid #0284c7;
+}
+.item-title {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 4px;
+}
+.grid-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8pt;
+    margin: 4px 0;
+}
+.grid-table th, .grid-table td {
+    border: 1px solid #cbd5e1;
+    padding: 3px 5px;
+    text-align: center;
+}
+.grid-table th {
+    background-color: #f1f5f9;
+    color: #334155;
+    font-weight: 600;
+}
+.write-space {
+    border: 1px dashed #cbd5e1;
+    border-radius: 4px;
+    background: #fafafa;
+    padding: 6px 10px;
+    position: relative;
+}
+.write-space-title {
+    font-size: 8pt;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+.ruled-lines {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 8px 0;
+}
+.ruled-line {
+    border-bottom: 1px dotted #cbd5e1;
+    height: 1px;
+    width: 100%;
+}
+.sol-card {
+    border: 1px solid #bbf7d0;
+    border-left: 4px solid #10b981;
+    background-color: #f0fdf4;
+    padding: 6px 10px;
+    font-size: 8.5pt;
+}
+.sol-title {
+    font-weight: 700;
+    color: #065f46;
+    margin-bottom: 3px;
+    font-size: 9pt;
+}
+.math-eq {
+    font-family: 'Cambria Math', 'Times New Roman', serif;
+    font-weight: 600;
+}
+</style>
+<style data-bard-injected="true">
+@media screen {
+    html {
+        background-color: #ffffff;
+    }
+    body {
+        padding: 8px 0 24px 0;
+    }
+}
+@media screen and (prefers-color-scheme: dark) {
+    html {
+        background-color: #1f1f1f;
+    }
+}
+@media screen and (max-width: 600px) {
+    body {
+        padding: 4px 0 16px 0;
+        margin: 0 auto;
+    }
+}
+</style></head>
+<body class="compact">
+<div contenteditable="true">
+
+<!-- ================= PAGE 1 : WORKBOOK PART 1 (บทที่ 5) ================= -->
+<!-- page 1 budget (Compact): header 40 + card1 100 + write1 120 + card2 110 + write2 110 + 4 gaps 32 = 512 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="doc-header">
+      <div class="doc-title-group">
+        <span class="section-tag">แบบฝึกหัดภาคสนาม &amp; พื้นที่แสดงวิธีทำ</span>
+        <h1>แบบฝึกหัดวิศวกรรมปฏิกิริยาเคมีและวัสดุขั้นสูง</h1>
+        <p>รวบรวมตัวอย่างและคำถามท้ายบทจากเอกสารคำสอน บทที่ 5, 6, 7, 8 และ 9</p>
+      </div>
+      <div class="student-meta">
+        <div><strong>ชื่อ-นามสกุล:</strong> ....................................................</div>
+        <div><strong>รหัสนักศึกษา:</strong> ............................. <strong>กลุ่ม:</strong> .........</div>
+      </div>
+    </div>
+
+    <!-- EX 5.1 -->
+    <div class="item-card highlight">
+      <div class="item-title">ตัวอย่างที่ 5.1: การเปรียบเทียบ PFR และ CSTR สำหรับปฏิกิริยาอันดับสอง</div>
+      <div>ปฏิกิริยาในสถานะของเหลว A + B → ผลิตผล, โดยที่ -r<sub>A</sub> = (500 L/(mol·min)) C<sub>A</sub> C<sub>B</sub> มี C<sub>A0</sub> = C<sub>B0</sub> = 0.02 mol/L ป้อนเข้าเครื่องปฏิกรณ์ท่อไหล (PFR) ขนาด V = 0.5 L ด้วยอัตราการป้อน v = 0.10 L/min จงคำนวณหา:</div>
+      <div>(ก) อัตราส่วนการเปลี่ยน (X<sub>A</sub>) ในเครื่องปฏิกรณ์แบบท่อไหล</div>
+      <div>(ข) หากเปลี่ยนไปใช้ CSTR โดยให้ได้ X<sub>A</sub> เท่าเดิม จะต้องใช้ CSTR ขนาดเท่าใด</div>
+      <div>(ค) หาก CSTR มีขนาดเท่ากับ PFR (0.5 L) จะได้อัตราการเปลี่ยน (X<sub>A</sub>) เป็นเท่าใด</div>
+    </div>
+
+    <div class="write-space">
+      <div class="write-space-title">พื้นที่แสดงวิธีทำและคำนวณ (ตัวอย่างที่ 5.1)</div>
+      <div class="ruled-lines">
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+      </div>
+    </div>
+
+    <!-- EX 5.2 -->
+    <div class="item-card highlight">
+      <div class="item-title">ตัวอย่างที่ 5.2: การเปรียบเทียบการต่อเครื่องปฏิกรณ์แบบอนุกรมและขนาน</div>
+      <div>ปฏิกิริยาอันดับสองในเครื่องปฏิกรณ์ต่อเนื่อง ให้การเปลี่ยน 95% (X<sub>A</sub> = 0.95) ถ้านำเครื่องปฏิกรณ์แบบเดียวกันมาอีก 1 เครื่อง (ขนาดเท่าเดิม V) ต่อแบบขนานหรืออนุกรม เพื่อให้ทำงานที่ X<sub>A</sub> เท่าเดิม กำลังการผลิตจะเพิ่มขึ้นกี่เท่า:</div>
+      <div>(ก) ถ้าทั้งสองเครื่องเป็นแบบท่อไหล (PFR)</div>
+      <div>(ข) ถ้าทั้งสองเครื่องเป็นแบบถังกวน (CSTR)</div>
+    </div>
+
+    <div class="write-space">
+      <div class="write-space-title">พื้นที่แสดงวิธีทำและคำนวณ (ตัวอย่างที่ 5.2)</div>
+      <div class="ruled-lines">
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ภาควิชาวิศวกรรมวัสดุและเทคโนโลยีอุตสาหกรรม</span>
+    <span>หน้าที่ 1 / 8 (แบบฝึกหัด บทที่ 5)</span>
+  </footer>
+</section>
+
+<!-- ================= PAGE 2 : WORKBOOK PART 2 (บทที่ 5 คำถาม + บทที่ 6) ================= -->
+<!-- page 2 budget (Compact): card_q1 90 + write_q1 85 + card_q2 85 + write_q2 85 + card_61 80 + write_61 85 + 5 gaps 40 = 550 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="item-card highlight">
+      <div class="item-title">คำถาม #1 (ท้ายบทที่ 5): การต่อ CSTR อนุกรม 4 เครื่อง</div>
+      <div>จากตัวอย่างที่ 5.2 (ปฏิกิริยาอันดับสอง, X<sub>A</sub> = 0.95) ถ้านำถังกวนขนาดเท่าเดิมมาต่อเพิ่มเข้าไปอีก 3 เครื่อง รวมเป็น 4 เครื่อง (N = 4) แบบอนุกรม จงหาว่าความสามารถในการทำงาน (อัตราการป้อนสาร) จะเพิ่มขึ้นเป็นกี่เท่าเมื่อเทียบกับถังเดี่ยว</div>
+    </div>
+
+    <div class="write-space">
+      <div class="write-space-title">พื้นที่แสดงวิธีทำ (คำถาม #1 ท้ายบทที่ 5)</div>
+      <div class="ruled-lines">
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+      </div>
+    </div>
+
+    <div class="item-card highlight">
+      <div class="item-title">คำถาม #2 (ท้ายบทที่ 5): ผลเมื่อเปลี่ยนเป็นปฏิกิริยาอันดับหนึ่ง</div>
+      <div>หากเปลี่ยนสภาวะในตัวอย่างที่ 5.2 เป็น &#34;ปฏิกิริยาอันดับหนึ่ง&#34; (First-order) ที่ X<sub>A</sub> = 0.95 จงหาว่าการต่อ CSTR 2 ถังแบบอนุกรม จะมีความสามารถในการทำงานเพิ่มขึ้นเป็นกี่เท่าเมื่อเทียบกับถังเดี่ยว</div>
+    </div>
+
+    <div class="write-space">
+      <div class="write-space-title">พื้นที่แสดงวิธีทำ (คำถาม #2 ท้ายบทที่ 5)</div>
+      <div class="ruled-lines">
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+      </div>
+    </div>
+
+    <div class="item-card highlight">
+      <div class="item-title">ตัวอย่างที่ 6.1: การเลือกสภาวะการป้อนสารเพื่อให้ได้ Selectivity สูงสุด</div>
+      <div>พหุปฏิกิริยาขนานในของเหลว: A + B →<sup>k<sub>1</sub></sup> R (ต้องการ), r<sub>1</sub> = k<sub>1</sub> C<sub>A</sub><sup>1.8</sup> C<sub>B</sub><sup>0.5</sup> และ A + B →<sup>k<sub>2</sub></sup> S (ไม่ต้องการ), r<sub>2</sub> = k<sub>2</sub> C<sub>A</sub><sup>0.3</sup> C<sub>B</sub><sup>1.5</sup> จงวิเคราะห์อัตราส่วน Selectivity บัดดล และเสนอแนะวิธีการป้อนสาร A และ B ที่เหมาะสมทั้งในถังแบบกะและแบบไหลต่อเนื่อง</div>
+    </div>
+
+    <div class="write-space">
+      <div class="write-space-title">พื้นที่แสดงวิธีทำ (ตัวอย่างที่ 6.1)</div>
+      <div class="ruled-lines">
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ภาควิชาวิศวกรรมวัสดุและเทคโนโลยีอุตสาหกรรม</span>
+    <span>หน้าที่ 2 / 8 (แบบฝึกหัด บทที่ 5 &amp; 6)</span>
+  </footer>
+</section>
+
+<!-- ================= PAGE 3 : WORKBOOK PART 3 (บทที่ 6 ต่อ + บทที่ 7) ================= -->
+<!-- page 3 budget (Compact): card_6_ex1 100 + write_6_ex1 110 + card_6_ex2 120 + write_6_ex2 110 + 4 gaps 32 = 472 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="item-card highlight">
+      <div class="item-title">ตัวอย่างท้ายบทที่ 6 (ข้อ 1): พหุปฏิกิริยาแบบอนุกรม (A → R → S)</div>
+      <div>ปฏิกิริยา A →<sup>k<sub>1</sub></sup> R →<sup>k<sub>2</sub></sup> S มี k<sub>1</sub> = k<sub>2</sub> = 0.1 min<sup>-1</sup> ป้อนสาร A อัตราการไหล v = 1,000 L/h, C<sub>A0</sub> = 1 mol/L (C<sub>R0</sub> = C<sub>S0</sub> = 0 mol/L) จงคำนวณหา:</div>
+      <div>(ก) ค่า τ<sub>p,max</sub>, ความเข้มข้นสูงสุด C<sub>R,max</sub> และปริมาตรถัง V<sub>PFR</sub> ของเครื่องปฏิกรณ์ท่อไหล</div>
+      <div>(ข) ค่า τ<sub>m,max</sub>, ความเข้มข้นสูงสุด C<sub>R,max</sub> และปริมาตรถัง V<sub>CSTR</sub> ของเครื่องปฏิกรณ์ถังกวน</div>
+    </div>
+
+    <div class="write-space">
+      <div class="write-space-title">พื้นที่แสดงวิธีทำและคำนวณ (ตัวอย่างที่ 1 บทที่ 6)</div>
+      <div class="ruled-lines">
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+      </div>
+    </div>
+
+    <div class="item-card highlight">
+      <div class="item-title">ตัวอย่างท้ายบทที่ 6 (ข้อ 2): ระบบปฏิกิริยาขนาน A → R และ 2A → S</div>
+      <div>ปฏิกิริยาในของเหลวความหนาแน่นคงที่: A → R มี r<sub>R</sub> = 2 C<sub>A</sub> kmol/(m<sup>3</sup>·h) และ 2A → S มี r<sub>S</sub> = 0.2 C<sub>A</sub><sup>2</sup> kmol/(m<sup>3</sup>·h) ป้อนเฉพาะสาร A บริสุทธิ์ C<sub>A0</sub> = 10 kmol/m<sup>3</sup> ต้องการ Conversion X<sub>A</sub> = 0.8:</div>
+      <div>(ก) เพื่อให้ได้ Yield สูงสุด ควรเลือกใช้ CSTR หรือ PFR เพราะเหตุใด</div>
+      <div>(ข) คำนวณหา C<sub>A</sub>, C<sub>R</sub>, C<sub>S</sub>, Overall Yield (Ȳ<sub>R</sub>) และ Space Time (τ) ของทั้ง CSTR และ PFR</div>
+    </div>
+
+    <div class="write-space">
+      <div class="write-space-title">พื้นที่แสดงวิธีทำและคำนวณ (ตัวอย่างที่ 2 บทที่ 6)</div>
+      <div class="ruled-lines">
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ภาควิชาวิศวกรรมวัสดุและเทคโนโลยีอุตสาหกรรม</span>
+    <span>หน้าที่ 3 / 8 (แบบฝึกหัด บทที่ 6)</span>
+  </footer>
+</section>
+
+<!-- ================= PAGE 4 : WORKBOOK PART 4 (บทที่ 7 RTD Pulse & Step) ================= -->
+<!-- page 4 budget (Compact): card_71 130 + table_empty 80 + write_71 50 + card_72 130 + write_72 70 + 4 gaps 32 = 492 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="item-card highlight">
+      <div class="item-title">ตัวอย่างที่ 7.1: การวิเคราะห์ RTD ด้วยวิธี Pulse Tracer</div>
+      <div>ฉีด Tracer แบบ Pulse มวล N<sub>T</sub> = 1.2 kg เข้าสู่ถัง Closed Vessel ปริมาตร V = 180 dm<sup>3</sup>, อัตราการไหล v = 11 dm<sup>3</sup>/min ได้ความเข้มข้น C<sub>T</sub>(t) ตามเวลา จงเติมตารางคำนวณหาฟังก์ชัน E(t), Mean Residence Time (t̄), Space Time (τ) และสรุปพฤติกรรมการไหล</div>
+    </div>
+
+    <table class="grid-table">
+      <thead>
+        <tr>
+          <th>t (min)</th><th>C<sub>T</sub>(t) (g/dm<sup>3</sup>)</th><th>Δt</th><th>C<sub>T,avg</sub></th><th>Δt · C<sub>T,avg</sub></th><th>E(t) (min<sup>-1</sup>)</th><th>t · E(t)</th><th>Δt · [t·E(t)]<sub>avg</sub></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>5</td><td>1.5</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>5</td><td>3</td><td>5</td><td>4.0</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>10</td><td>5</td><td>5</td><td>5.0</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>15</td><td>5</td><td>5</td><td>4.5</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>20</td><td>4</td><td>5</td><td>3.0</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>25</td><td>2</td><td>5</td><td>1.5</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>30</td><td>1</td><td>5</td><td>0.5</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>35</td><td>0</td><td>-</td><td>-</td><td>-</td><td></td><td></td><td>-</td></tr>
+        <tr><th colspan="4">ผลรวม (∑)</th><th></th><th>-</th><th>-</th><th>t̄ = ..........</th></tr>
+      </tbody>
+    </table>
+
+    <div class="write-space">
+      <div class="write-space-title">สรุปผลการเปรียบเทียบ t̄ และ τ พร้อมอธิบายพฤติกรรมของไหล:</div>
+      <div class="ruled-lines">
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+      </div>
+    </div>
+
+    <div class="item-card highlight">
+      <div class="item-title">ตัวอย่างที่ 7.2: การวิเคราะห์ RTD ด้วยวิธี Step Tracer</div>
+      <div>ที่เวลา t = 0 min เพิ่มความเข้มข้น Tracer ทางเข้าจาก C<sub>T1</sub> = 2.0 g/dm<sup>3</sup> เป็น C<sub>T2</sub> = 3.0 g/dm<sup>3</sup> ตรวจวัด C<sub>T</sub>(t) ขาออกได้: t(0)=2.000, t(5)=2.005, t(10)=2.020, t(15)=2.060, t(20)=2.180, t(30)=2.410, t(45)=2.620, t(60)=2.780, t(90)=2.890, t(120)=2.960, t(150)=2.990 g/dm<sup>3</sup> จงแสดงสูตรการหาฟังก์ชัน F(t) และการหา E(t) ด้วยวิธี Backward และ Central Differencing</div>
+    </div>
+
+    <div class="write-space">
+      <div class="write-space-title">พื้นที่สรุปสมการและการหาค่า F(t), E(t):</div>
+      <div class="ruled-lines">
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ภาควิชาวิศวกรรมวัสดุและเทคโนโลยีอุตสาหกรรม</span>
+    <span>หน้าที่ 4 / 8 (แบบฝึกหัด บทที่ 7)</span>
+  </footer>
+</section>
+
+<!-- ================= PAGE 5 : WORKBOOK PART 5 (บทที่ 8 & 9) ================= -->
+<!-- page 5 budget (Compact): card_81 100 + write_81 120 + card_82 110 + write_82 120 + 4 gaps 32 = 482 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div class="item-card highlight">
+      <div class="item-title">ตัวอย่างที่ 8.1: การพิสูจน์แบบจำลองแลงเมียร์สำหรับการดูดซับแข่งขัน (Competitive Adsorption)</div>
+      <div>แก๊ส X และ Y ดูดซับบนตัวเร่งปฏิกิริยาของแข็งพร้อมกัน โดยมีอัตราการดูดซับและการคายซับเป็นอันดับหนึ่งเชิงโมเลกุล จงพิสูจน์ว่าสัดส่วนการปกคลุมผิว (Fractional Surface Coverage) θ<sub>X</sub> และ θ<sub>Y</sub> เป็นดังนี้:</div>
+      <div style="text-align: center; margin: 4px 0;">
+        <span class="math-eq">θ<sub>X</sub> = (K<sub>X</sub> p<sub>X</sub>) / (1 + K<sub>X</sub> p<sub>X</sub> + K<sub>Y</sub> p<sub>Y</sub>)</span> และ 
+        <span class="math-eq">θ<sub>Y</sub> = (K<sub>Y</sub> p<sub>Y</sub>) / (1 + K<sub>X</sub> p<sub>X</sub> + K<sub>Y</sub> p<sub>Y</sub>)</span>
+      </div>
+    </div>
+
+    <div class="write-space">
+      <div class="write-space-title">พื้นที่แสดงวิธีพิสูจน์ (ตัวอย่างที่ 8.1)</div>
+      <div class="ruled-lines">
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+      </div>
+    </div>
+
+    <div class="item-card highlight">
+      <div class="item-title">ตัวอย่างที่ 8.2: การวิเคราะห์กลไกอัตราเร็วที่ควบคุมด้วยปฏิกิริยาบนพื้นผิว (Surface Reaction RDS)</div>
+      <div>พิจารณาปฏิกิริยาวิวิธพันธ์ A ↔ C บนตัวเร่งปฏิกิริยาของแข็ง ประกอบด้วย 3 ขั้นตอน: (1) Adsorption: A + S ↔ A·S, (2) Surface Reaction: A·S ↔ C·S, (3) Desorption: C·S ↔ C + S จงหาสมการอัตราเร็วรวม r<sub>overall</sub> หากกำหนดให้ขั้นตอนปฏิกิริยาบนพื้นผิวเป็นขั้นตอนกำหนดอัตราเร็ว (ช้าที่สุด)</div>
+    </div>
+
+    <div class="write-space">
+      <div class="write-space-title">พื้นที่แสดงวิธีพิสูจน์ (ตัวอย่างที่ 8.2)</div>
+      <div class="ruled-lines">
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+        <div class="ruled-line"></div>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>ภาควิชาวิศวกรรมวัสดุและเทคโนโลยีอุตสาหกรรม</span>
+    <span>หน้าที่ 5 / 8 (แบบฝึกหัด บทที่ 8 &amp; 9)</span>
+  </footer>
+</section>
+
+<!-- ================= PAGE 6 : SOLUTIONS PART 1 (เฉลย บทที่ 5 & 6) ================= -->
+<!-- page 6 budget (Compact): tag 20 + sol_51 160 + sol_52 140 + sol_q1 110 + sol_q2 110 + 4 gaps 32 = 572 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div style="border-bottom: 2px solid #047857; padding-bottom: 4px;">
+      <span class="section-tag sol">เฉลยละเอียดฉบับสมบูรณ์ (Solution Manual)</span>
+      <h2 style="font-size: 13pt; margin: 2px 0 0 0; color: #065f46;">เฉลยวิธีทำ: บทที่ 5 (การออกแบบเครื่องปฏิกรณ์สำหรับปฏิกิริยาเดี่ยว)</h2>
+    </div>
+
+    <!-- เฉลย 5.1 -->
+    <div class="sol-card">
+      <div class="sol-title">เฉลยตัวอย่างที่ 5.1 (สไลด์บทที่ 5 หน้า 35-40):</div>
+      <div>ปฏิกิริยา A + B → P, โดย C<sub>A0</sub> = C<sub>B0</sub> = 0.02 mol/L ⇒ ปฏิกิริยาอันดับสอง -r<sub>A</sub> = k C<sub>A</sub><sup>2</sup> (k = 500 L/(mol·min))<br>
+      คำนวณสเปซไทม์ PFR: <span class="math-eq">τ<sub>p</sub> = V / v = 0.5 L / (0.10 L/min) = 5 min</span><br>
+      กลุ่มตัวแปรไร้มิติ: <span class="math-eq">k C<sub>A0</sub> τ<sub>p</sub> = 500 × 0.02 × 5 = 50</span></div>
+      <div><strong>(ก) หา X<sub>A</sub> ใน PFR:</strong> จากสมการ PFR ปฏิกิริยาอันดับสอง: k C<sub>A0</sub> τ<sub>p</sub> = X<sub>A</sub> / (1 - X<sub>A</sub>) ⇒ 50 = X<sub>A</sub> / (1 - X<sub>A</sub>) ⇒ 50 - 50 X<sub>A</sub> = X<sub>A</sub> ⇒ <strong>X<sub>A</sub> = 50/51 ≈ 0.9804 (98.04%)</strong> (หรืออ่านจากรูปที่ 5.7 ที่ k C<sub>A0</sub> τ = 50 ได้ 1 - X<sub>A</sub> ≈ 0.02)</div>
+      <div><strong>(ข) ขนาด CSTR ที่ได้ X<sub>A</sub> = 0.9804 เท่าเดิม:</strong> จากกราฟรูป 5.1 (เส้น n = 2, 1 - X<sub>A</sub> = 0.02) หรือคำนวณจากสูตร:<br>
+      (τ C<sub>A0</sub>)<sub>m</sub> / (τ C<sub>A0</sub>)<sub>p</sub> = [X<sub>A</sub>/(1-X<sub>A</sub>)<sup>2</sup>] / [X<sub>A</sub>/(1-X<sub>A</sub>)] = 1 / (1 - X<sub>A</sub>) = 1 / 0.0196 ≈ 51<br>
+      ดังนั้น τ<sub>m</sub> = 51 × τ<sub>p</sub> = 51 × 5 = 255 min ⇒ <strong>V<sub>CSTR</sub> = v × τ<sub>m</sub> = 0.10 L/min × 255 min = 25.5 L</strong> (ใหญ่กว่า PFR ถึง 51 เท่า)</div>
+      <div><strong>(ค) ถ้า V<sub>CSTR</sub> = V<sub>PFR</sub> = 0.5 L (τ<sub>m</sub> = 5 min):</strong> k C<sub>A0</sub> τ<sub>m</sub> = 50<br>
+      จากสมการ CSTR: k C<sub>A0</sub> τ<sub>m</sub> = X<sub>A</sub> / (1 - X<sub>A</sub>)<sup>2</sup> ⇒ 50(1 - X<sub>A</sub>)<sup>2</sup> = X<sub>A</sub> ⇒ 50 X<sub>A</sub><sup>2</sup> - 101 X<sub>A</sub> + 50 = 0<br>
+      แก้สมการกำลังสองได้ <strong>X<sub>A</sub> ≈ 0.865 (86.5%)</strong> (ต่ำกว่า PFR ที่ทำได้ 98.04% มาก)</div>
+    </div>
+
+    <!-- เฉลย 5.2 -->
+    <div class="sol-card">
+      <div class="sol-title">เฉลยตัวอย่างที่ 5.2 (สไลด์บทที่ 5 หน้า 42-48):</div>
+      <div>ปฏิกิริยาอันดับสอง, X<sub>A</sub> = 0.95 (1 - X<sub>A</sub> = 0.05), เพิ่มถังขนาด V เท่าเดิมอีก 1 เครื่อง:<br>
+      <strong>(ก) เครื่องปฏิกรณ์ท่อไหล (PFR):</strong><br>
+      - ต่อแบบขนาน: ป้อนเข้าแต่ละถัง F<sub>A0</sub> รวมเป็น 2 F<sub>A0</sub> ⇒ กำลังการผลิตเพิ่มขึ้น <strong>2.0 เท่า</strong><br>
+      - ต่อแบบอนุกรม: ปริมาตรรวมเป็น 2V โดย τ<sub>p</sub> = V<sub>รวม</sub> / v<sub>ใหม่</sub> ⇒ เพื่อให้ได้ X<sub>A</sub> = 0.95 เท่าเดิม ค่า τ<sub>p</sub> ต้องเท่าเดิม ดังนั้น v<sub>ใหม่</sub> = 2V / τ<sub>p</sub> = 2 v<sub>เดิม</sub> ⇒ กำลังการผลิตเพิ่มขึ้น <strong>2.0 เท่า</strong> (เท่ากันทั้งขนานและอนุกรม)</div>
+      <div><strong>(ข) เครื่องปฏิกรณ์ถังกวน (CSTR):</strong><br>
+      - ต่อแบบขนาน: เพิ่มกำลังการผลิตเป็น <strong>2.0 เท่า</strong><br>
+      - ต่อแบบอนุกรม: จากกราฟรูป 5.7 ที่ 1 - X<sub>A</sub> = 0.05: ถังเดี่ยว (N=1) ได้ (k C<sub>A0</sub> τ)<sub>1</sub> = 390, ถังคู่ (N=2) ได้ (k C<sub>A0</sub> τ)<sub>2</sub> = 70<br>
+      ความสามารถในการทำงาน: v<sub>2</sub> / v<sub>1</sub> = τ<sub>1</sub> / τ<sub>2</sub> = 390 / 70 = <strong>5.57 เท่า</strong> (อนุกรมมีประสิทธิภาพสูงกว่าขนานมาก)</div>
+    </div>
+
+    <!-- เฉลย คำถาม #1 & #2 -->
+    <div class="sol-card">
+      <div class="sol-title">เฉลยคำถามท้ายบท #1 และ #2 (สไลด์บทที่ 5 หน้า 41 และ 49):</div>
+      <div><strong>คำถาม #1 (เพิ่มเป็น N = 4 ถังอนุกรม, อันดับสอง):</strong> จากกราฟรูป 5.7 ที่ 1 - X<sub>A</sub> = 0.05 อ่านเส้น N = 4 ได้ (k C<sub>A0</sub> τ)<sub>4</sub> ≈ 25<br>
+      ดังนั้น กำลังการผลิตเทียบกับถังเดี่ยว: v<sub>4</sub> / v<sub>1</sub> = τ<sub>1</sub> / τ<sub>4</sub> = 390 / 25 = <strong>15.6 เท่า</strong></div>
+      <div><strong>คำถาม #2 (ถ้าเปลี่ยนเป็นปฏิกิริยาอันดับหนึ่ง, X<sub>A</sub> = 0.95):</strong><br>
+      - ถังเดี่ยว (N = 1): k τ<sub>1</sub> = X<sub>A</sub> / (1 - X<sub>A</sub>) = 0.95 / 0.05 = 19<br>
+      - สองถังอนุกรม (N = 2): C<sub>A0</sub> / C<sub>A2</sub> = (1 + k τ<sub>2</sub>)<sup>2</sup> ⇒ 1/0.05 = 20 = (1 + k τ<sub>2</sub>)<sup>2</sup> ⇒ 1 + k τ<sub>2</sub> = √20 = 4.472 ⇒ k τ<sub>2</sub> = 3.472<br>
+      อัตราส่วนกำลังการผลิต: v<sub>2</sub> / v<sub>1</sub> = τ<sub>1</sub> / τ<sub>2</sub> = 19 / 3.472 = <strong>5.47 เท่า</strong></div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>วิศวกรรมปฏิกิริยาเคมี &amp; การออกแบบเครื่องปฏิกรณ์</span>
+    <span>หน้าที่ 6 / 8 (เฉลยละเอียด บทที่ 5)</span>
+  </footer>
+</section>
+
+<!-- ================= PAGE 7 : SOLUTIONS PART 2 (เฉลย บทที่ 6 & 7) ================= -->
+<!-- page 7 budget (Compact): sol_61 100 + sol_6_ex1 140 + sol_6_ex2 150 + sol_71 130 + 4 gaps 32 = 552 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div style="border-bottom: 2px solid #047857; padding-bottom: 4px;">
+      <span class="section-tag sol">เฉลยละเอียดฉบับสมบูรณ์ (Solution Manual)</span>
+      <h2 style="font-size: 13pt; margin: 2px 0 0 0; color: #065f46;">เฉลยวิธีทำ: บทที่ 6 (พหุปฏิกิริยา) &amp; บทที่ 7 (ไม่อุดมคติ &amp; RTD)</h2>
+    </div>
+
+    <!-- เฉลย 6.1 -->
+    <div class="sol-card">
+      <div class="sol-title">เฉลยตัวอย่างที่ 6.1 (สไลด์บทที่ 6 หน้า 30-33):</div>
+      <div>หา Selectivity บัดดล: <span class="math-eq">S<sub>R</sub> = r<sub>1</sub> / r<sub>2</sub> = (k<sub>1</sub> C<sub>A</sub><sup>1.8</sup> C<sub>B</sub><sup>0.5</sup>) / (k<sub>2</sub> C<sub>A</sub><sup>0.3</sup> C<sub>B</sub><sup>1.5</sup>) = (k<sub>1</sub>/k<sub>2</sub>) · C<sub>A</sub><sup>1.5</sup> / C<sub>B</sub></span><br>
+      เพื่อให้ได้ S<sub>R</sub> สูงสุด ต้องควบคุมให้ <strong>C<sub>A</sub> สูง และ C<sub>B</sub> ต่ำ</strong> ตลอดเวลา<br>
+      - <em>เครื่องปฏิกรณ์แบบกะ:</em> ใส่สาร A ทั้งหมดลงในถังไว้ก่อน แล้วค่อยๆ หยดป้อนสาร B ลงไปทีละน้อยอย่างช้าๆ<br>
+      - <em>เครื่องปฏิกรณ์แบบไหลต่อเนื่อง:</em> ให้สายหลักของสาร A ไหลเข้าท่อ PFR แล้วเจาะท่อป้อนสาร B เสริมเข้ามาทีละน้อยหลายๆ จุดตามความยาวท่อ</div>
+    </div>
+
+    <!-- เฉลย ตัวอย่าง 1 บท 6 -->
+    <div class="sol-card">
+      <div class="sol-title">เฉลยตัวอย่างท้ายบทที่ 6 ข้อ 1 (สไลด์บทที่ 6 หน้า 60-63):</div>
+      <div>A →<sup>k<sub>1</sub></sup> R →<sup>k<sub>2</sub></sup> S โดย k<sub>1</sub> = k<sub>2</sub> = 0.1 min<sup>-1</sup>, C<sub>A0</sub> = 1 mol/L, v = 1,000 L/h<br>
+      <strong>(ก) PFR:</strong> τ<sub>p,max</sub> = 1 / k = 1 / 0.1 = <strong>10 min</strong> (1/6 h)<br>
+      C<sub>R,max</sub> / C<sub>A0</sub> = 1 / e ≈ 0.368 ⇒ <strong>C<sub>R,max</sub> = 0.368 mol/L</strong><br>
+      ขนาดเครื่อง: <strong>V<sub>PFR</sub> = v · τ<sub>p,max</sub> = 1,000 × (1/6) = 166.7 L</strong><br>
+      <strong>(ข) CSTR:</strong> τ<sub>m,max</sub> = 1 / √(k<sub>1</sub> k<sub>2</sub>) = 1 / 0.1 = <strong>10 min</strong> (1/6 h)<br>
+      C<sub>R,max</sub> / C<sub>A0</sub> = 1 / [1 + √(k<sub>2</sub>/k<sub>1</sub>)]<sup>2</sup> = 1 / (1 + 1)<sup>2</sup> = 0.25 ⇒ <strong>C<sub>R,max</sub> = 0.25 mol/L</strong><br>
+      ขนาดเครื่อง: <strong>V<sub>CSTR</sub> = 1,000 × (1/6) = 166.7 L</strong> (ได้ผลผลิตสาร R ต่ำกว่า PFR เนื่องจากอิทธิพลของ Back-mixing)</div>
+    </div>
+
+    <!-- เฉลย ตัวอย่าง 2 บท 6 -->
+    <div class="sol-card">
+      <div class="sol-title">เฉลยตัวอย่างท้ายบทที่ 6 ข้อ 2 (สไลด์บทที่ 6 หน้า 64-74):</div>
+      <div>A → R (r<sub>R</sub> = 2 C<sub>A</sub>), 2A → S (r<sub>S</sub> = 0.4 C<sub>A</sub><sup>2</sup>, -r<sub>A</sub> = 2 C<sub>A</sub> + 0.4 C<sub>A</sub><sup>2</sup>), C<sub>A0</sub> = 10, X<sub>A</sub> = 0.8 ⇒ C<sub>Af</sub> = 2 kmol/m<sup>3</sup><br>
+      Selectivity: S<sub>R</sub> = r<sub>R</sub> / r<sub>S</sub> = 2 C<sub>A</sub> / (0.4 C<sub>A</sub><sup>2</sup>) = 5 / C<sub>A</sub> ⇒ <em>ยิ่ง C<sub>A</sub> ต่ำ S<sub>R</sub> ยิ่งสูง ดังนั้น <strong>CSTR จะให้ Yield รวมสูงกว่า PFR</strong></em><br>
+      - <strong>CSTR:</strong> Ȳ<sub>R</sub> = Y<sub>R</sub>|<sub>C<sub>Af</sub>=2</sub> = 2(2) / [2(2) + 0.4(2)<sup>2</sup>] = 4 / 5.6 = <strong>0.714</strong><br>
+      C<sub>Rf</sub> = Ȳ<sub>R</sub>(C<sub>A0</sub> - C<sub>Af</sub>) = 0.714 × 8 = <strong>5.71 kmol/m<sup>3</sup></strong>, C<sub>Sf</sub> = 0.5(8 - 5.71) = <strong>1.15 kmol/m<sup>3</sup></strong>, τ<sub>m</sub> = (10 × 0.8) / 5.6 = <strong>1.43 h</strong><br>
+      - <strong>PFR:</strong> C<sub>Rf</sub> = -∫<sub>10</sub><sup>2</sup> [2 C<sub>A</sub> / (2 C<sub>A</sub> + 0.4 C<sub>A</sub><sup>2</sup>)] dC<sub>A</sub> = 5 ln(3.0 / 1.4) = <strong>3.81 kmol/m<sup>3</sup></strong><br>
+      Ȳ<sub>R</sub> = 3.81 / 8 = <strong>0.476</strong>, C<sub>Sf</sub> = 0.5(8 - 3.81) = <strong>2.10 kmol/m<sup>3</sup></strong>, τ<sub>p</sub> = 0.5 ln[(10 × 7)/(2 × 15)] = <strong>0.424 h</strong></div>
+    </div>
+
+    <!-- เฉลย 7.1 -->
+    <div class="sol-card">
+      <div class="sol-title">เฉลยตัวอย่างที่ 7.1: การวิเคราะห์ RTD Pulse Tracer (สไลด์บทที่ 7 หน้า 32-35):</div>
+      <div>1. พื้นที่ใต้กราฟ: ∫<sub>0</sub><sup>∞</sup> C<sub>T</sub> dt = ∑ C<sub>T,avg</sub> Δt = 7.5 + 20 + 25 + 22.5 + 15 + 7.5 + 2.5 = <strong>100 g·min/dm<sup>3</sup></strong> (หรือ 104 โดยประมาณ)<br>
+      2. หา E(t) = C<sub>T</sub>(t) / 100 และคำนวณ t̄ = ∫ t E(t) dt ≈ <strong>14.90 min</strong><br>
+      3. Space Time ทางทฤษฎี: τ = V / v = 180 dm<sup>3</sup> / (11 dm<sup>3</sup>/min) = <strong>16.36 min</strong><br>
+      <em>สรุปและอภิปรายผล:</em> พบว่า <strong>t̄ &lt; τ (14.90 &lt; 16.36 min)</strong> แสดงว่าเกิด <strong>การไหลลัด (Short-circuiting / Channeling)</strong> หรือมี <strong>บริเวณอับนิ่ง (Dead/Stagnant zone)</strong> ภายในเครื่องปฏิกรณ์ ทำให้ปริมาตรจริงที่สารทำปฏิกิริยาลดลง ส่งผลให้ประสิทธิภาพต่ำกว่าอุดมคติ</div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>วิศวกรรมปฏิกิริยาเคมี &amp; การออกแบบเครื่องปฏิกรณ์</span>
+    <span>หน้าที่ 7 / 8 (เฉลยละเอียด บทที่ 6 &amp; 7)</span>
+  </footer>
+</section>
+
+<!-- ================= PAGE 8 : SOLUTIONS PART 3 (เฉลย บทที่ 8 & 9) ================= -->
+<!-- page 8 budget (Compact): sol_81 160 + sol_82 170 + sol_9 160 + 3 gaps 24 = 514 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <div style="border-bottom: 2px solid #047857; padding-bottom: 4px;">
+      <span class="section-tag sol">เฉลยละเอียดฉบับสมบูรณ์ (Solution Manual)</span>
+      <h2 style="font-size: 13pt; margin: 2px 0 0 0; color: #065f46;">เฉลยวิธีทำ: บทที่ 8 (แคทาไลซิสบนผิว) &amp; บทที่ 9 (วัสดุดักจับ CO<sub>2</sub>)</h2>
+    </div>
+
+    <!-- เฉลย 8.1 -->
+    <div class="sol-card">
+      <div class="sol-title">เฉลยตัวอย่างที่ 8.1: การพิสูจน์ Langmuir Competitive Adsorption (สไลด์บทที่ 8 หน้า 55-59):</div>
+      <div>การดูดซับ: X + S ↔ X·S และ Y + S ↔ Y·S โดยที่ r<sub>net,X</sub> = k<sub>AdX</sub> p<sub>X</sub> C<sub>V</sub> - k<sub>-AdX</sub> C<sub>X·S</sub> = 0 ที่สมดุล<br>
+      จะได้ <span class="math-eq">C<sub>X·S</sub> = K<sub>X</sub> p<sub>X</sub> C<sub>V</sub></span> และในทำนองเดียวกัน <span class="math-eq">C<sub>Y·S</sub> = K<sub>Y</sub> p<sub>Y</sub> C<sub>V</sub></span> (โดย K<sub>i</sub> = k<sub>Adi</sub> / k<sub>-Adi</sub>)<br>
+      สมดุลมวลของจุดกัมมันต์ทั้งหมด (Site Balance): <span class="math-eq">C<sub>T</sub> = C<sub>V</sub> + C<sub>X·S</sub> + C<sub>Y·S</sub></span><br>
+      แทนค่า C<sub>X·S</sub> และ C<sub>Y·S</sub>: C<sub>T</sub> = C<sub>V</sub> + K<sub>X</sub> p<sub>X</sub> C<sub>V</sub> + K<sub>Y</sub> p<sub>Y</sub> C<sub>V</sub> = C<sub>V</sub> (1 + K<sub>X</sub> p<sub>X</sub> + K<sub>Y</sub> p<sub>Y</sub>)<br>
+      หา C<sub>V</sub>: <span class="math-eq">C<sub>V</sub> = C<sub>T</sub> / (1 + K<sub>X</sub> p<sub>X</sub> + K<sub>Y</sub> p<sub>Y</sub>)</span><br>
+      หาสัดส่วนการปกคลุมผิว θ<sub>X</sub> = C<sub>X·S</sub> / C<sub>T</sub> = (K<sub>X</sub> p<sub>X</sub> C<sub>V</sub>) / C<sub>T</sub>:<br>
+      <strong>θ<sub>X</sub> = (K<sub>X</sub> p<sub>X</sub>) / (1 + K<sub>X</sub> p<sub>X</sub> + K<sub>Y</sub> p<sub>Y</sub>)</strong> และ <strong>θ<sub>Y</sub> = (K<sub>Y</sub> p<sub>Y</sub>) / (1 + K<sub>X</sub> p<sub>X</sub> + K<sub>Y</sub> p<sub>Y</sub>)</strong> [ซ.ต.พ.]</div>
+    </div>
+
+    <!-- เฉลย 8.2 -->
+    <div class="sol-card">
+      <div class="sol-title">เฉลยตัวอย่างที่ 8.2: การวิเคราะห์กลไกปฏิกิริยาบนตัวเร่งปฏิกิริยา (สไลด์บทที่ 8 หน้า 69-73):</div>
+      <div>กำหนดให้ Surface Reaction เป็นขั้นตอนควบคุมอัตราเร็ว (Rate Determining Step: RDS):<br>
+      <span class="math-eq">r<sub>overall</sub> = r<sub>Re</sub> = k<sub>R</sub> θ<sub>A</sub> - k<sub>-R</sub> θ<sub>C</sub></span><br>
+      เนื่องจากขั้นตอนการดูดซับ A และการคายซับ C เกิดขึ้นเร็วมาก จึงถือว่าอยู่ที่สมดุลเสมอ:<br>
+      - จาก r<sub>Ad</sub> = k<sub>A</sub> p<sub>A</sub> θ<sub>V</sub> - k<sub>-A</sub> θ<sub>A</sub> = 0 ⇒ <span class="math-eq">θ<sub>A</sub> = (k<sub>A</sub>/k<sub>-A</sub>) p<sub>A</sub> θ<sub>V</sub> = K<sub>Ad</sub> p<sub>A</sub> θ<sub>V</sub></span><br>
+      - จาก r<sub>De</sub> = k<sub>D</sub> θ<sub>C</sub> - k<sub>-D</sub> p<sub>C</sub> θ<sub>V</sub> = 0 ⇒ <span class="math-eq">θ<sub>C</sub> = (k<sub>-D</sub>/k<sub>D</sub>) p<sub>C</sub> θ<sub>V</sub> = K′<sub>De</sub> p<sub>C</sub> θ<sub>V</sub></span><br>
+      จากความสัมพันธ์ของพื้นผิวทั้งหมด: <span class="math-eq">θ<sub>V</sub> + θ<sub>A</sub> + θ<sub>C</sub> = 1</span><br>
+      แทนค่า: θ<sub>V</sub> (1 + K<sub>Ad</sub> p<sub>A</sub> + K′<sub>De</sub> p<sub>C</sub>) = 1 ⇒ <span class="math-eq">θ<sub>V</sub> = 1 / (1 + K<sub>Ad</sub> p<sub>A</sub> + K′<sub>De</sub> p<sub>C</sub>)</span><br>
+      แทน θ<sub>A</sub> และ θ<sub>C</sub> ลงในสมการอัตราเร็วรวม จะได้สมการอัตราเร็วในรูปความดันย่อย:<br>
+      <div style="text-align: center; margin: 4px 0;">
+        <span class="math-eq" style="font-size: 9.5pt;"><strong>r<sub>overall</sub> = (k<sub>R</sub> K<sub>Ad</sub> p<sub>A</sub> - k<sub>-R</sub> K′<sub>De</sub> p<sub>C</sub>) / (1 + K<sub>Ad</sub> p<sub>A</sub> + K′<sub>De</sub> p<sub>C</sub>)</strong></span>
+      </div>
+    </div>
+
+    <!-- เฉลย บทที่ 9 & งานวิจัย -->
+    <div class="sol-card">
+      <div class="sol-title">เฉลยประเด็นงานวิจัยบทที่ 9: กลไกและประสิทธิภาพของวัสดุดักจับก๊าซ CO<sub>2</sub>:</div>
+      <div><strong>1. Chitosan/Activated Carbon Beads (สไลด์บทที่ 9 หน้า 3-5, 20-38):</strong><br>
+      - <em>Physisorption:</em> ก๊าซ CO<sub>2</sub> แพร่เข้าสู่รูพรุนแบบลำดับชั้น (Hierarchical pores) ทั้ง Macropores (&gt;50 nm), Mesopores (2-50 nm) และ Micropores (&lt;2 nm) ของถ่านกัมมันต์จากกากกาแฟ (Activated Coffee Grounds: ACG)<br>
+      - <em>Chemisorption:</em> อาศัยหมู่อะมิโนอิสระ (-NH<sub>2</sub>) บนสายโซ่ของไคโตซานเกิดพันธะกับ CO<sub>2</sub> เป็นเกลือคาร์บาเมต (Carbamate)<br>
+      - <em>ผลการทดลอง:</em> การเพิ่ม ACG (40%w/w) และ Epichlorohydrin (EP 7.16-8 g) เพิ่มความสามารถในการดูดซับ CO<sub>2</sub> สูงสุดเป็น 7.62-7.73 cm<sup>3</sup>/g<br>
+      <strong>2. Fe-MOFs จากกากสะเก็ดเหล็กรีดร้อน (Mill Scale Waste) (เอกสารงานวิจัย รศ.อาชาไนย บัวศรี):</strong><br>
+      - <em>กระบวนการ In-situ Acid-assisted:</em> ตัวอย่าง MF1.5 ดูดซับ CO<sub>2</sub> ได้ 21.60 cc/g สูงกว่ากากสะเก็ดเหล็กดิบ (2.70 cc/g) ถึง 8 เท่า<br>
+      - <em>กระบวนการ Pre-leaching:</em> การสกัดไอออน Fe<sup>3+</sup> ด้วยกรด HCl ก่อนสังเคราะห์ ช่วยสร้างผลึก MOF ที่สมบูรณ์และเพิ่มพื้นที่ผิว BET สูงถึง 1,213 m<sup>2</sup>/g ส่งผลให้ค่าการดูดซับ CO<sub>2</sub> พุ่งสูงขึ้นเป็น <strong>50.12 cc/g</strong> (เพิ่มขึ้น 9-18 เท่า)</div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>วิศวกรรมปฏิกิริยาเคมี &amp; การออกแบบเครื่องปฏิกรณ์</span>
+    <span>หน้าที่ 8 / 8 (เฉลยละเอียด บทที่ 8 &amp; 9)</span>
+  </footer>
+</div></section>
+
+</div>
+
+<script data-bard-injected="true">
+(function() {
+  async function fetchFifeImageBlobUsingAlr(urlString) {
+    if (urlString.startsWith('blob:') || urlString.startsWith('data:')) {
+      throw new Error('Input URL is already a blob or data URL.');
+    }
+    var url = new URL(urlString, window.location.href);
+    url.searchParams.set('alr', 'yes');
+    for (var i = 0; i < 5; i++) {
+      var response = await fetch(url.toString(), {credentials: 'include'});
+      if (!response.ok) {
+        throw new Error('Fetch received not OK response: ' + response.status);
+      }
+      var contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.startsWith('text/plain')) {
+        var blob = await response.blob();
+        if (blob.size > 0 && blob.type.startsWith('image/')) {
+          return blob;
+        }
+        throw new Error('Fetched blob is not a valid image.');
+      }
+      url = new URL(await response.text());
+    }
+    throw new Error('Exceeded maximum number of redirects.');
+  }
+
+  async function updateImageSourcesUsingAlr() {
+    var imgs = Array.from(document.querySelectorAll('img'));
+    await Promise.all(imgs.map(async function(img) {
+      if (img.src && img.src.includes('googleusercontent')) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(img.src);
+          img.src = URL.createObjectURL(blob);
+        } catch (e) {}
+      }
+    }));
+
+    var elements = document.querySelectorAll('[style*="googleusercontent"]');
+    var urlRegex = /url\((['"]?)(https?:\/\/.*?googleusercontent.*?)\1\)/;
+    await Promise.all(Array.from(elements).map(async function(el) {
+      var bg = el.style.backgroundImage;
+      var match = bg ? bg.match(urlRegex) : null;
+      if (match && match[2]) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(match[2]);
+          var blobUrl = URL.createObjectURL(blob);
+          el.style.backgroundImage = bg.replace(match[2], blobUrl);
+        } catch (e) {}
+      }
+    }));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateImageSourcesUsingAlr);
+  } else {
+    updateImageSourcesUsingAlr();
+  }
+})();
+</script></body></html>
