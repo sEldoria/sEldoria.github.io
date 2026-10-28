@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="th"><head>
 <meta charset="UTF-8">
-<title>แบบฝึกหัดฉบับสมบูรณ์ วิศวกรรมปฏิกิริยาเคมีและวัสดุดักจับ CO2</title>
+<title>คู่มือการเรียนรู้และเตรียมสอบเรื่องโครมาโทกราฟีฉบับสมบูรณ์</title>
 <style>
 @page { margin: 0; }
 *, *::before, *::after { box-sizing: border-box; }
@@ -15,8 +15,8 @@ body {
     max-width: 900px !important;
     border: none !important;
     background: transparent !important;
-    font-family: 'Sarabun', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #0f172a;
+    font-family: 'Sarabun', 'Noto Sans Thai', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #1e293b;
     -webkit-font-smoothing: antialiased;
 }
 .page {
@@ -34,11 +34,7 @@ body {
 }
 @media screen and (max-width: 600px) {
     body { padding: 16px 0; }
-    .page {
-        margin: 0 auto 8px auto;
-        border: none;
-        padding: 12px 16px;
-    }
+    .page { margin: 0 auto 8px auto; border: none; padding: 12px 20px; }
 }
 .page-content {
     flex: 1 0 auto;
@@ -46,11 +42,11 @@ body {
     overflow: visible;
 }
 .page-content > * + * {
-    margin-top: 12px;
+    margin-top: 14px;
 }
 .page.compact, body.compact .page {
-    font-size: 9pt;
-    line-height: 1.35;
+    font-size: 9.1pt;
+    line-height: 1.34;
 }
 .page.compact .page-content > * + *, body.compact .page-content > * + * {
     margin-top: 10px;
@@ -65,7 +61,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 8pt;
+    font-size: 8.5pt;
     color: #64748b;
     border-top: 1px solid #e2e8f0;
 }
@@ -77,7 +73,7 @@ body {
         print-color-adjust: exact;
     }
     body { padding: 0; background: none; }
-     .page {
+        .page {
         height: auto;
         min-height: 0;
         margin: 0;
@@ -97,120 +93,94 @@ body {
 }
 [contenteditable]:focus { outline: none; }
 
-/* Academic & Workbook Elements */
-.doc-header {
-    border-bottom: 2px solid #0f172a;
+/* Typographic & Component Styles */
+h1 { font-size: 18pt; color: #0f172a; margin: 0; font-weight: 700; line-height: 1.25; }
+h2 { font-size: 13pt; color: #1e3a8a; margin: 0; font-weight: 600; border-left: 4px solid #0284c7; padding-left: 8px; }
+h3 { font-size: 10.5pt; color: #0369a1; margin: 0; font-weight: 600; }
+p { margin: 0; text-align: justify; }
+
+.masthead {
+    border-bottom: 2px solid #0284c7;
     padding-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    margin-bottom: 10px;
 }
-.doc-title-group h1 {
-    font-size: 15pt;
-    margin: 0;
-    color: #0f172a;
-    font-weight: 700;
-}
-.doc-title-group p {
-    font-size: 8.5pt;
-    color: #475569;
-    margin: 2px 0 0 0;
-}
-.student-meta {
-    font-size: 8.5pt;
-    color: #334155;
-    text-align: right;
-    border-left: 2px solid #cbd5e1;
-    padding-left: 10px;
-    min-width: 220px;
-}
-.section-tag {
+.badge {
     display: inline-block;
-    background-color: #0369a1;
-    color: #ffffff;
-    font-size: 8pt;
-    font-weight: 700;
+    background-color: #e0f2fe;
+    color: #0369a1;
     padding: 2px 8px;
-    border-radius: 3px;
-    letter-spacing: 0.5px;
-}
-.section-tag.sol {
-    background-color: #047857;
-}
-.item-card {
-    border: 1px solid #cbd5e1;
     border-radius: 4px;
-    background: #ffffff;
-    padding: 8px 12px;
-}
-.item-card.highlight {
-    background-color: #f8fafc;
-    border-left: 4px solid #0284c7;
-}
-.item-title {
-    font-size: 9.5pt;
-    font-weight: 700;
-    color: #0f172a;
+    font-size: 8pt;
+    font-weight: 600;
     margin-bottom: 4px;
 }
-.grid-table {
+.callout {
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 4px solid #0284c7;
+    padding: 7px 11px;
+    border-radius: 2px;
+    font-size: 8.7pt;
+}
+.callout-formula {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-left: 4px solid #16a34a;
+    padding: 8px 12px;
+    border-radius: 2px;
+    font-size: 8.8pt;
+}
+.callout-warning {
+    background-color: #fffbeb;
+    border: 1px solid #fde68a;
+    border-left: 4px solid #d97706;
+    padding: 7px 11px;
+    border-radius: 2px;
+    font-size: 8.7pt;
+}
+table.data-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 8pt;
-    margin: 4px 0;
+    font-size: 8.4pt;
+    margin-top: 4px;
 }
-.grid-table th, .grid-table td {
+table.data-table th, table.data-table td {
     border: 1px solid #cbd5e1;
-    padding: 3px 5px;
-    text-align: center;
+    padding: 4.5px 7px;
+    text-align: left;
 }
-.grid-table th {
+table.data-table th {
     background-color: #f1f5f9;
-    color: #334155;
+    color: #0f172a;
     font-weight: 600;
 }
-.write-space {
-    border: 1px dashed #cbd5e1;
+table.data-table tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+.card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.card {
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    padding: 7px 10px;
     border-radius: 4px;
-    background: #fafafa;
-    padding: 6px 10px;
-    position: relative;
 }
-.write-space-title {
-    font-size: 8pt;
-    font-weight: 600;
-    color: #64748b;
-    margin-bottom: 4px;
-    text-transform: uppercase;
+.card h4 {
+    margin: 0 0 3px 0;
+    font-size: 9.1pt;
+    color: #1e3a8a;
 }
-.ruled-lines {
-    width: 100%;
+.svg-diagram {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 8px 0;
-}
-.ruled-line {
-    border-bottom: 1px dotted #cbd5e1;
-    height: 1px;
-    width: 100%;
-}
-.sol-card {
-    border: 1px solid #bbf7d0;
-    border-left: 4px solid #10b981;
-    background-color: #f0fdf4;
-    padding: 6px 10px;
-    font-size: 8.5pt;
-}
-.sol-title {
-    font-weight: 700;
-    color: #065f46;
-    margin-bottom: 3px;
-    font-size: 9pt;
-}
-.math-eq {
-    font-family: 'Cambria Math', 'Times New Roman', serif;
-    font-weight: 600;
+    justify-content: center;
+    align-items: center;
+    background: #fafafa;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 4px;
 }
 </style>
 <style data-bard-injected="true">
@@ -234,440 +204,541 @@ body {
     }
 }
 </style></head>
-<body class="compact">
+<body>
 <div contenteditable="true">
 
-<!-- ================= PAGE 1 : WORKBOOK PART 1 (บทที่ 5) ================= -->
-<!-- page 1 budget (Compact): header 40 + card1 100 + write1 120 + card2 110 + write2 110 + 4 gaps 32 = 512 / 600 words -->
+<!-- page 1 budget (Compact): masthead 45 + h2 11 + prose 130 + table 6 rows 102 + card-grid 152 + box chrome 48 + 4 gaps 32 = 520 / 600 words -->
 <section class="page compact">
   <div class="page-content">
-    <div class="doc-header">
-      <div class="doc-title-group">
-        <span class="section-tag">แบบฝึกหัดภาคสนาม &amp; พื้นที่แสดงวิธีทำ</span>
-        <h1>แบบฝึกหัดวิศวกรรมปฏิกิริยาเคมีและวัสดุขั้นสูง</h1>
-        <p>รวบรวมตัวอย่างและคำถามท้ายบทจากเอกสารคำสอน บทที่ 5, 6, 7, 8 และ 9</p>
-      </div>
-      <div class="student-meta">
-        <div><strong>ชื่อ-นามสกุล:</strong> ....................................................</div>
-        <div><strong>รหัสนักศึกษา:</strong> ............................. <strong>กลุ่ม:</strong> .........</div>
-      </div>
+    <div class="masthead">
+      <span class="badge">Polymer Characterization II • ผศ.ดร.สุดศิริ เหมศรี</span>
+      <h1>คู่มือวิชาการและการเตรียมสอบเรื่อง โครมาโทกราฟี (Chromatography)</h1>
+      <p style="font-size: 9pt; color: #475569; margin-top: 2px;">หลักการแยกสาร, ทฤษฎีเพลต (Plate Theory), ทฤษฎีอัตรา (Rate Theory), เทคนิค GC, HPLC และการคำนวณโครมาโทแกรม</p>
     </div>
 
-    <!-- EX 5.1 -->
-    <div class="item-card highlight">
-      <div class="item-title">ตัวอย่างที่ 5.1: การเปรียบเทียบ PFR และ CSTR สำหรับปฏิกิริยาอันดับสอง</div>
-      <div>ปฏิกิริยาในสถานะของเหลว A + B → ผลิตผล, โดยที่ -r<sub>A</sub> = (500 L/(mol·min)) C<sub>A</sub> C<sub>B</sub> มี C<sub>A0</sub> = C<sub>B0</sub> = 0.02 mol/L ป้อนเข้าเครื่องปฏิกรณ์ท่อไหล (PFR) ขนาด V = 0.5 L ด้วยอัตราการป้อน v = 0.10 L/min จงคำนวณหา:</div>
-      <div>(ก) อัตราส่วนการเปลี่ยน (X<sub>A</sub>) ในเครื่องปฏิกรณ์แบบท่อไหล</div>
-      <div>(ข) หากเปลี่ยนไปใช้ CSTR โดยให้ได้ X<sub>A</sub> เท่าเดิม จะต้องใช้ CSTR ขนาดเท่าใด</div>
-      <div>(ค) หาก CSTR มีขนาดเท่ากับ PFR (0.5 L) จะได้อัตราการเปลี่ยน (X<sub>A</sub>) เป็นเท่าใด</div>
-    </div>
+    <h2>1. บทนำและหลักการพื้นฐานของโครมาโทกราฟี (Fundamentals of Chromatography)</h2>
+    <p>
+      <strong>โครมาโทกราฟี (Chromatography):</strong> คือเทคนิคการแยกสารผสม (mixture) ที่ประกอบด้วยสารหลายชนิดออกจากกันเป็นส่วนๆ โดยอาศัยความแตกต่างของสมบัติการละลายใน <strong>เฟสเคลื่อนที่ (Mobile Phase)</strong> และความสามารถในการถูกดูดซับหรือกระจายตัวบน <strong>เฟสที่อยู่กับที่ (Stationary Phase)</strong> สารตัวอย่าง (Analyte) จะเกิดสมดุลการกระจายตัว (Equilibrium distribution: A<sub>mobile</sub> ⇄ A<sub>stationary</sub>) ตลอดความยาวของคอลัมน์ โดยสารที่ละลายใน mobile phase ได้ดีและถูก stationary phase ยึดเหนี่ยวไว้น้อยจะถูกชะ (elute) ออกมาก่อน ส่วนสารที่ยึดติดกับ stationary phase ได้ดีจะเคลื่อนที่ออกมาทีหลัง
+    </p>
 
-    <div class="write-space">
-      <div class="write-space-title">พื้นที่แสดงวิธีทำและคำนวณ (ตัวอย่างที่ 5.1)</div>
-      <div class="ruled-lines">
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
+    <div class="callout">
+      <strong>คำศัพท์พื้นฐานสำคัญ (Chromatographic Glossary):</strong>
+      <div style="margin-top: 3px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; font-size: 8.5pt;">
+        <div>• <strong>Analyte:</strong> สารที่ต้องการแยกและวิเคราะห์ในของผสม</div>
+        <div>• <strong>Eluent:</strong> สารละลายหรือแก๊สพา (Mobile phase) ที่ใช้พา analyte</div>
+        <div>• <strong>Eluate:</strong> ของไหลที่ไหลชะออกมาจากปลายคอลัมน์ (Solvent + Analyte)</div>
+        <div>• <strong>Support:</strong> อนุภาคของแข็งเฉื่อยที่ใช้เคลือบ stationary liquid</div>
       </div>
     </div>
 
-    <!-- EX 5.2 -->
-    <div class="item-card highlight">
-      <div class="item-title">ตัวอย่างที่ 5.2: การเปรียบเทียบการต่อเครื่องปฏิกรณ์แบบอนุกรมและขนาน</div>
-      <div>ปฏิกิริยาอันดับสองในเครื่องปฏิกรณ์ต่อเนื่อง ให้การเปลี่ยน 95% (X<sub>A</sub> = 0.95) ถ้านำเครื่องปฏิกรณ์แบบเดียวกันมาอีก 1 เครื่อง (ขนาดเท่าเดิม V) ต่อแบบขนานหรืออนุกรม เพื่อให้ทำงานที่ X<sub>A</sub> เท่าเดิม กำลังการผลิตจะเพิ่มขึ้นกี่เท่า:</div>
-      <div>(ก) ถ้าทั้งสองเครื่องเป็นแบบท่อไหล (PFR)</div>
-      <div>(ข) ถ้าทั้งสองเครื่องเป็นแบบถังกวน (CSTR)</div>
-    </div>
-
-    <div class="write-space">
-      <div class="write-space-title">พื้นที่แสดงวิธีทำและคำนวณ (ตัวอย่างที่ 5.2)</div>
-      <div class="ruled-lines">
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-      </div>
-    </div>
-  </div>
-  <footer class="page-footer">
-    <span>ภาควิชาวิศวกรรมวัสดุและเทคโนโลยีอุตสาหกรรม</span>
-    <span>หน้าที่ 1 / 8 (แบบฝึกหัด บทที่ 5)</span>
-  </footer>
-</section>
-
-<!-- ================= PAGE 2 : WORKBOOK PART 2 (บทที่ 5 คำถาม + บทที่ 6) ================= -->
-<!-- page 2 budget (Compact): card_q1 90 + write_q1 85 + card_q2 85 + write_q2 85 + card_61 80 + write_61 85 + 5 gaps 40 = 550 / 600 words -->
-<section class="page compact">
-  <div class="page-content">
-    <div class="item-card highlight">
-      <div class="item-title">คำถาม #1 (ท้ายบทที่ 5): การต่อ CSTR อนุกรม 4 เครื่อง</div>
-      <div>จากตัวอย่างที่ 5.2 (ปฏิกิริยาอันดับสอง, X<sub>A</sub> = 0.95) ถ้านำถังกวนขนาดเท่าเดิมมาต่อเพิ่มเข้าไปอีก 3 เครื่อง รวมเป็น 4 เครื่อง (N = 4) แบบอนุกรม จงหาว่าความสามารถในการทำงาน (อัตราการป้อนสาร) จะเพิ่มขึ้นเป็นกี่เท่าเมื่อเทียบกับถังเดี่ยว</div>
-    </div>
-
-    <div class="write-space">
-      <div class="write-space-title">พื้นที่แสดงวิธีทำ (คำถาม #1 ท้ายบทที่ 5)</div>
-      <div class="ruled-lines">
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-      </div>
-    </div>
-
-    <div class="item-card highlight">
-      <div class="item-title">คำถาม #2 (ท้ายบทที่ 5): ผลเมื่อเปลี่ยนเป็นปฏิกิริยาอันดับหนึ่ง</div>
-      <div>หากเปลี่ยนสภาวะในตัวอย่างที่ 5.2 เป็น &#34;ปฏิกิริยาอันดับหนึ่ง&#34; (First-order) ที่ X<sub>A</sub> = 0.95 จงหาว่าการต่อ CSTR 2 ถังแบบอนุกรม จะมีความสามารถในการทำงานเพิ่มขึ้นเป็นกี่เท่าเมื่อเทียบกับถังเดี่ยว</div>
-    </div>
-
-    <div class="write-space">
-      <div class="write-space-title">พื้นที่แสดงวิธีทำ (คำถาม #2 ท้ายบทที่ 5)</div>
-      <div class="ruled-lines">
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-      </div>
-    </div>
-
-    <div class="item-card highlight">
-      <div class="item-title">ตัวอย่างที่ 6.1: การเลือกสภาวะการป้อนสารเพื่อให้ได้ Selectivity สูงสุด</div>
-      <div>พหุปฏิกิริยาขนานในของเหลว: A + B →<sup>k<sub>1</sub></sup> R (ต้องการ), r<sub>1</sub> = k<sub>1</sub> C<sub>A</sub><sup>1.8</sup> C<sub>B</sub><sup>0.5</sup> และ A + B →<sup>k<sub>2</sub></sup> S (ไม่ต้องการ), r<sub>2</sub> = k<sub>2</sub> C<sub>A</sub><sup>0.3</sup> C<sub>B</sub><sup>1.5</sup> จงวิเคราะห์อัตราส่วน Selectivity บัดดล และเสนอแนะวิธีการป้อนสาร A และ B ที่เหมาะสมทั้งในถังแบบกะและแบบไหลต่อเนื่อง</div>
-    </div>
-
-    <div class="write-space">
-      <div class="write-space-title">พื้นที่แสดงวิธีทำ (ตัวอย่างที่ 6.1)</div>
-      <div class="ruled-lines">
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-      </div>
-    </div>
-  </div>
-  <footer class="page-footer">
-    <span>ภาควิชาวิศวกรรมวัสดุและเทคโนโลยีอุตสาหกรรม</span>
-    <span>หน้าที่ 2 / 8 (แบบฝึกหัด บทที่ 5 &amp; 6)</span>
-  </footer>
-</section>
-
-<!-- ================= PAGE 3 : WORKBOOK PART 3 (บทที่ 6 ต่อ + บทที่ 7) ================= -->
-<!-- page 3 budget (Compact): card_6_ex1 100 + write_6_ex1 110 + card_6_ex2 120 + write_6_ex2 110 + 4 gaps 32 = 472 / 600 words -->
-<section class="page compact">
-  <div class="page-content">
-    <div class="item-card highlight">
-      <div class="item-title">ตัวอย่างท้ายบทที่ 6 (ข้อ 1): พหุปฏิกิริยาแบบอนุกรม (A → R → S)</div>
-      <div>ปฏิกิริยา A →<sup>k<sub>1</sub></sup> R →<sup>k<sub>2</sub></sup> S มี k<sub>1</sub> = k<sub>2</sub> = 0.1 min<sup>-1</sup> ป้อนสาร A อัตราการไหล v = 1,000 L/h, C<sub>A0</sub> = 1 mol/L (C<sub>R0</sub> = C<sub>S0</sub> = 0 mol/L) จงคำนวณหา:</div>
-      <div>(ก) ค่า τ<sub>p,max</sub>, ความเข้มข้นสูงสุด C<sub>R,max</sub> และปริมาตรถัง V<sub>PFR</sub> ของเครื่องปฏิกรณ์ท่อไหล</div>
-      <div>(ข) ค่า τ<sub>m,max</sub>, ความเข้มข้นสูงสุด C<sub>R,max</sub> และปริมาตรถัง V<sub>CSTR</sub> ของเครื่องปฏิกรณ์ถังกวน</div>
-    </div>
-
-    <div class="write-space">
-      <div class="write-space-title">พื้นที่แสดงวิธีทำและคำนวณ (ตัวอย่างที่ 1 บทที่ 6)</div>
-      <div class="ruled-lines">
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-      </div>
-    </div>
-
-    <div class="item-card highlight">
-      <div class="item-title">ตัวอย่างท้ายบทที่ 6 (ข้อ 2): ระบบปฏิกิริยาขนาน A → R และ 2A → S</div>
-      <div>ปฏิกิริยาในของเหลวความหนาแน่นคงที่: A → R มี r<sub>R</sub> = 2 C<sub>A</sub> kmol/(m<sup>3</sup>·h) และ 2A → S มี r<sub>S</sub> = 0.2 C<sub>A</sub><sup>2</sup> kmol/(m<sup>3</sup>·h) ป้อนเฉพาะสาร A บริสุทธิ์ C<sub>A0</sub> = 10 kmol/m<sup>3</sup> ต้องการ Conversion X<sub>A</sub> = 0.8:</div>
-      <div>(ก) เพื่อให้ได้ Yield สูงสุด ควรเลือกใช้ CSTR หรือ PFR เพราะเหตุใด</div>
-      <div>(ข) คำนวณหา C<sub>A</sub>, C<sub>R</sub>, C<sub>S</sub>, Overall Yield (Ȳ<sub>R</sub>) และ Space Time (τ) ของทั้ง CSTR และ PFR</div>
-    </div>
-
-    <div class="write-space">
-      <div class="write-space-title">พื้นที่แสดงวิธีทำและคำนวณ (ตัวอย่างที่ 2 บทที่ 6)</div>
-      <div class="ruled-lines">
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-      </div>
-    </div>
-  </div>
-  <footer class="page-footer">
-    <span>ภาควิชาวิศวกรรมวัสดุและเทคโนโลยีอุตสาหกรรม</span>
-    <span>หน้าที่ 3 / 8 (แบบฝึกหัด บทที่ 6)</span>
-  </footer>
-</section>
-
-<!-- ================= PAGE 4 : WORKBOOK PART 4 (บทที่ 7 RTD Pulse & Step) ================= -->
-<!-- page 4 budget (Compact): card_71 130 + table_empty 80 + write_71 50 + card_72 130 + write_72 70 + 4 gaps 32 = 492 / 600 words -->
-<section class="page compact">
-  <div class="page-content">
-    <div class="item-card highlight">
-      <div class="item-title">ตัวอย่างที่ 7.1: การวิเคราะห์ RTD ด้วยวิธี Pulse Tracer</div>
-      <div>ฉีด Tracer แบบ Pulse มวล N<sub>T</sub> = 1.2 kg เข้าสู่ถัง Closed Vessel ปริมาตร V = 180 dm<sup>3</sup>, อัตราการไหล v = 11 dm<sup>3</sup>/min ได้ความเข้มข้น C<sub>T</sub>(t) ตามเวลา จงเติมตารางคำนวณหาฟังก์ชัน E(t), Mean Residence Time (t̄), Space Time (τ) และสรุปพฤติกรรมการไหล</div>
-    </div>
-
-    <table class="grid-table">
+    <h2>2. การจำแนกประเภทของโครมาโทกราฟี (Classification of Chromatography)</h2>
+    <table class="data-table">
       <thead>
         <tr>
-          <th>t (min)</th><th>C<sub>T</sub>(t) (g/dm<sup>3</sup>)</th><th>Δt</th><th>C<sub>T,avg</sub></th><th>Δt · C<sub>T,avg</sub></th><th>E(t) (min<sup>-1</sup>)</th><th>t · E(t)</th><th>Δt · [t·E(t)]<sub>avg</sub></th>
+          <th style="width: 25%;">กลไกการแยก (Mechanism)</th>
+          <th style="width: 22%;">เฟสอยู่กับที่ / เฟสเคลื่อนที่</th>
+          <th style="width: 53%;">หลักการทำงานและอันตรกิริยา (Separation Principle)</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>0</td><td>0</td><td>5</td><td>1.5</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>5</td><td>3</td><td>5</td><td>4.0</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>10</td><td>5</td><td>5</td><td>5.0</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>15</td><td>5</td><td>5</td><td>4.5</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>20</td><td>4</td><td>5</td><td>3.0</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>25</td><td>2</td><td>5</td><td>1.5</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>30</td><td>1</td><td>5</td><td>0.5</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>35</td><td>0</td><td>-</td><td>-</td><td>-</td><td></td><td></td><td>-</td></tr>
-        <tr><th colspan="4">ผลรวม (∑)</th><th></th><th>-</th><th>-</th><th>t̄ = ..........</th></tr>
+        <tr>
+          <td><strong>1. Adsorption</strong></td>
+          <td>Solid / Liquid or Gas</td>
+          <td>อาศัยการดูดซับบนพื้นผิวของแข็งที่มีรูพรุน (เช่น Silica gel, Alumina) ด้วยแรงดึงดูดทางขั้ว</td>
+        </tr>
+        <tr>
+          <td><strong>2. Partition</strong></td>
+          <td>Liquid film / Liquid or Gas</td>
+          <td>อาศัยการกระจายตัวและการละลายที่แตกต่างกันระหว่างของเหลว 2 เฟสที่ไม่ผสมกัน (LLC / GLC)</td>
+        </tr>
+        <tr>
+          <td><strong>3. Ion Exchange (IEC)</strong></td>
+          <td>Ion resin / Liquid</td>
+          <td>อาศัยแรงดึงดูดทางไฟฟ้าสถิตระหว่างไอออนบนเรซินกับไอออนที่มีประจุตรงข้ามของสารตัวอย่าง</td>
+        </tr>
+        <tr>
+          <td><strong>4. Size Exclusion (SEC/GPC)</strong></td>
+          <td>Porous gel / Liquid</td>
+          <td><strong>ไม่มีแรงอันตรกิริยาเคมี</strong> อาศัยขนาดโมเลกุล โมเลกุลใหญ่ถูกคัดออก (excluded) จึงออกมาก่อน โมเลกุลเล็กเข้าตามรูพรุนจึงออกมาช้า</td>
+        </tr>
+        <tr>
+          <td><strong>5. Affinity</strong></td>
+          <td>Immobilized ligand / Liquid</td>
+          <td>อาศัยความจำเพาะเจาะจงทางชีวโมเลกุลสูงมาก เช่น แอนติเจน-แอนติบอดี หรือเอนไซม์-ซับสเตรต</td>
+        </tr>
       </tbody>
     </table>
 
-    <div class="write-space">
-      <div class="write-space-title">สรุปผลการเปรียบเทียบ t̄ และ τ พร้อมอธิบายพฤติกรรมของไหล:</div>
-      <div class="ruled-lines">
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
+    <div class="card-grid">
+      <div class="card">
+        <h4>Normal Phase vs. Reverse Phase</h4>
+        <p>• <strong>Normal (Forward) Phase:</strong> Stationary phase มีขั้วสูง (Polar เช่น Silica gel), Mobile phase ไม่มีขั้ว (Non-polar เช่น Hexane) สารไม่มีขั้วจะออกมาก่อน<br>
+        • <strong>Reverse Phase:</strong> Stationary phase ไม่มีขั้ว (Non-polar เช่น C-18, C-8 บน Silica), Mobile phase มีขั้ว (Polar เช่น น้ำ, เมทานอล) สารมีขั้วจะออกมาก่อน</p>
       </div>
-    </div>
-
-    <div class="item-card highlight">
-      <div class="item-title">ตัวอย่างที่ 7.2: การวิเคราะห์ RTD ด้วยวิธี Step Tracer</div>
-      <div>ที่เวลา t = 0 min เพิ่มความเข้มข้น Tracer ทางเข้าจาก C<sub>T1</sub> = 2.0 g/dm<sup>3</sup> เป็น C<sub>T2</sub> = 3.0 g/dm<sup>3</sup> ตรวจวัด C<sub>T</sub>(t) ขาออกได้: t(0)=2.000, t(5)=2.005, t(10)=2.020, t(15)=2.060, t(20)=2.180, t(30)=2.410, t(45)=2.620, t(60)=2.780, t(90)=2.890, t(120)=2.960, t(150)=2.990 g/dm<sup>3</sup> จงแสดงสูตรการหาฟังก์ชัน F(t) และการหา E(t) ด้วยวิธี Backward และ Central Differencing</div>
-    </div>
-
-    <div class="write-space">
-      <div class="write-space-title">พื้นที่สรุปสมการและการหาค่า F(t), E(t):</div>
-      <div class="ruled-lines">
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
+      <div class="card">
+        <h4>Columnar vs. Planar Chromatography</h4>
+        <p>• <strong>Columnar:</strong> บรรจุ Stationary phase ในท่อทรงกระบอกแคบ พาด้วยแรงดันหรือแรงโน้มถ่วง เช่น HPLC, GC<br>
+        • <strong>Planar:</strong> เคลือบ Stationary phase บนแผ่นรองรับแบน เช่น Thin Layer Chromatography (TLC), Paper chromatography โดยอาศัยแรงแคปิลลารี</p>
       </div>
     </div>
   </div>
   <footer class="page-footer">
-    <span>ภาควิชาวิศวกรรมวัสดุและเทคโนโลยีอุตสาหกรรม</span>
-    <span>หน้าที่ 4 / 8 (แบบฝึกหัด บทที่ 7)</span>
+    <span>คู่มือการเรียนรู้โครมาโทกราฟี • บทที่ 1 หลักการพื้นฐานและการจำแนกประเภท</span>
+    <span>หน้า 1</span>
   </footer>
 </section>
 
-<!-- ================= PAGE 5 : WORKBOOK PART 5 (บทที่ 8 & 9) ================= -->
-<!-- page 5 budget (Compact): card_81 100 + write_81 120 + card_82 110 + write_82 120 + 4 gaps 32 = 482 / 600 words -->
+<!-- page 2 budget (Compact): h2 11 + prose 120 + svg 30mm 72 + table 5 rows 85 + card-grid 152 + box chrome 48 + 4 gaps 32 = 520 / 600 words -->
 <section class="page compact">
   <div class="page-content">
-    <div class="item-card highlight">
-      <div class="item-title">ตัวอย่างที่ 8.1: การพิสูจน์แบบจำลองแลงเมียร์สำหรับการดูดซับแข่งขัน (Competitive Adsorption)</div>
-      <div>แก๊ส X และ Y ดูดซับบนตัวเร่งปฏิกิริยาของแข็งพร้อมกัน โดยมีอัตราการดูดซับและการคายซับเป็นอันดับหนึ่งเชิงโมเลกุล จงพิสูจน์ว่าสัดส่วนการปกคลุมผิว (Fractional Surface Coverage) θ<sub>X</sub> และ θ<sub>Y</sub> เป็นดังนี้:</div>
-      <div style="text-align: center; margin: 4px 0;">
-        <span class="math-eq">θ<sub>X</sub> = (K<sub>X</sub> p<sub>X</sub>) / (1 + K<sub>X</sub> p<sub>X</sub> + K<sub>Y</sub> p<sub>Y</sub>)</span> และ 
-        <span class="math-eq">θ<sub>Y</sub> = (K<sub>Y</sub> p<sub>Y</sub>) / (1 + K<sub>X</sub> p<sub>X</sub> + K<sub>Y</sub> p<sub>Y</sub>)</span>
+    <h2>3. การอ่านโครมาโทแกรมและพารามิเตอร์พื้นฐาน (Chromatographic Parameters)</h2>
+    <p>
+      <strong>โครมาโทแกรม (Chromatogram):</strong> คือกราฟแสดงความสัมพันธ์ระหว่างสัญญาณของตัวตรวจวัด (Detector Signal) กับเวลา (Time, t) หรือปริมาตรของเฟสเคลื่อนที่ (Volume, V) ข้อมูลจากโครมาโทแกรมใช้ทั้งการวิเคราะห์เชิงคุณภาพ (Qualitative จาก t<sub>R</sub>) และเชิงปริมาณ (Quantitative จากพื้นที่ใต้พีก Peak Area หรือความสูงพีก Peak Height)
+    </p>
+
+    <div class="svg-diagram" style="height: 32mm;">
+      <svg width="100%" height="100%" viewBox="0 0 520 100" role="img">
+        <title>Standard Chromatogram Diagram</title>
+        <!-- Axes -->
+        <line x1="30" y1="85" x2="490" y2="85" stroke="#475569" stroke-width="1.5"></line>
+        <line x1="30" y1="85" x2="30" y2="10" stroke="#475569" stroke-width="1.5"></line>
+        <text x="495" y="88" font-size="9" fill="#475569">Time (min)</text>
+        <text x="25" y="10" font-size="9" fill="#475569" text-anchor="end">Signal</text>
+        <!-- Injection marker -->
+        <line x1="30" y1="85" x2="30" y2="70" stroke="#dc2626" stroke-width="2"></line>
+        <text x="30" y="95" font-size="7.5" fill="#dc2626" text-anchor="middle">Inj (t=0)</text>
+        <!-- Unretained peak (tM) -->
+        <path d="M 60 85 Q 70 85 75 60 Q 80 85 90 85" fill="none" stroke="#64748b" stroke-width="1.5"></path>
+        <line x1="75" y1="85" x2="75" y2="60" stroke="#94a3b8" stroke-dasharray="2,2"></line>
+        <text x="75" y="55" font-size="8" fill="#475569" text-anchor="middle">t</text></svg><sub>M</sub> (dead time)
+        <!-- Retained Peak A -->
+        <path d="M 170 85 Q 210 85 220 20 Q 230 85 270 85" fill="none" stroke="#2563eb" stroke-width="2"></path>
+        <!-- Peak Parameters -->
+        <line x1="220" y1="85" x2="220" y2="20" stroke="#2563eb" stroke-dasharray="2,2"></line>
+        <text x="220" y="15" font-size="8.5" fill="#2563eb" font-weight="bold" text-anchor="middle">Analyte Peak (t<sub>R</sub>)</text>
+        <!-- W and W_1/2 lines -->
+        <line x1="180" y1="85" x2="260" y2="85" stroke="#dc2626" stroke-width="2"></line>
+        <text x="220" y="94" font-size="8" fill="#dc2626" text-anchor="middle">Baseline width (W)</text>
+        <line x1="195" y1="52.5" x2="245" y2="52.5" stroke="#16a34a" stroke-width="1.5"></line>
+        <text x="250" y="55" font-size="7.5" fill="#16a34a">W<sub>1/2</sub></text>
+        <!-- Distance arrow for t_R' -->
+        <line x1="75" y1="35" x2="220" y2="35" stroke="#0891b2" stroke-width="1.2" marker-end="url(#arrow)"></line>
+        <text x="145" y="31" font-size="8" fill="#0891b2" text-anchor="middle">Adjusted retention time (t&#39;<sub>R</sub> = t<sub>R</sub> - t<sub>M</sub>)</text>
+      
+    </div>
+
+    <h3>พารามิเตอร์หลักในการวิเคราะห์และสมการสำคัญ</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 25%;">พารามิเตอร์</th>
+          <th style="width: 25%;">สมการคำนวณ</th>
+          <th style="width: 50%;">ความหมายและการนำไปแปลผล</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Dead Time (t<sub>M</sub> หรือ t<sub>0</sub>)</strong></td>
+          <td>t<sub>M</sub> = L / u</td>
+          <td>เวลาที่สารที่ไม่ถูกยึดจับเลย (Unretained species) เคลื่อนที่ผ่านคอลัมน์</td>
+        </tr>
+        <tr>
+          <td><strong>Retention Time (t<sub>R</sub>)</strong></td>
+          <td>t<sub>R</sub> = t&#39;<sub>R</sub> + t<sub>M</sub></td>
+          <td>เวลารวมตั้งแต่ฉีดสารจนถึงจุดกึ่งกลางยอดพีก ใช้ระบุเอกลักษณ์ของสาร (Qualitative)</td>
+        </tr>
+        <tr>
+          <td><strong>Retention Factor (k&#39;)</strong></td>
+          <td><strong>k&#39; = (t<sub>R</sub> - t<sub>M</sub>) / t<sub>M</sub> = t&#39;<sub>R</sub> / t<sub>M</sub></strong></td>
+          <td>อัตราส่วนเวลาที่สารอยู่บน stationary phase เทียบกับ mobile phase (ค่าที่เหมาะสมคือ 1–10)</td>
+        </tr>
+        <tr>
+          <td><strong>Selectivity Factor (α)</strong></td>
+          <td><strong>α = t&#39;<sub>R,B</sub> / t&#39;<sub>R,A</sub> = k&#39;<sub>B</sub> / k&#39;<sub>A</sub></strong></td>
+          <td>ความสามารถในการแยกสาร 2 ชนิด (สาร B ออกทีหลังสาร A ดังนั้น α ≥ 1 เสมอ โดย α ≥ 1.1 แยกได้ดี)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>รูปร่างของพีกและความไม่สมมาตร (Peak Shapes)</h4>
+        <p>• <strong>Gaussian Peak:</strong> สมมาตรสมบูรณ์แบบ (Asymmetry factor, A<sub>s</sub> = 1.0)<br>
+        • <strong>Tailing Peak (A<sub>s</sub> &gt; 1.0):</strong> ท้ายพีกย้อย เกิดจากการมี active sites บน stationary phase หรือเกิดการดูดซับรุนแรง<br>
+        • <strong>Fronting Peak (A<sub>s</sub> &lt; 1.0):</strong> หน้าพีกเอียงเท เกิดจากการฉีดสารตัวอย่างเข้มข้นเกินไปจนคอลัมน์อิ่มตัว (Column overload)</p>
       </div>
-    </div>
-
-    <div class="write-space">
-      <div class="write-space-title">พื้นที่แสดงวิธีพิสูจน์ (ตัวอย่างที่ 8.1)</div>
-      <div class="ruled-lines">
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-      </div>
-    </div>
-
-    <div class="item-card highlight">
-      <div class="item-title">ตัวอย่างที่ 8.2: การวิเคราะห์กลไกอัตราเร็วที่ควบคุมด้วยปฏิกิริยาบนพื้นผิว (Surface Reaction RDS)</div>
-      <div>พิจารณาปฏิกิริยาวิวิธพันธ์ A ↔ C บนตัวเร่งปฏิกิริยาของแข็ง ประกอบด้วย 3 ขั้นตอน: (1) Adsorption: A + S ↔ A·S, (2) Surface Reaction: A·S ↔ C·S, (3) Desorption: C·S ↔ C + S จงหาสมการอัตราเร็วรวม r<sub>overall</sub> หากกำหนดให้ขั้นตอนปฏิกิริยาบนพื้นผิวเป็นขั้นตอนกำหนดอัตราเร็ว (ช้าที่สุด)</div>
-    </div>
-
-    <div class="write-space">
-      <div class="write-space-title">พื้นที่แสดงวิธีพิสูจน์ (ตัวอย่างที่ 8.2)</div>
-      <div class="ruled-lines">
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
-        <div class="ruled-line"></div>
+      <div class="card">
+        <h4>เกณฑ์ของค่า k&#39; (Capacity Factor) ในการแยก</h4>
+        <p>• <strong>k&#39; &lt; 1:</strong> สารเคลื่อนที่ออกมาเร็วเกินไป พีกจะซ้อนทับกับ dead time peak ทำให้แยกสารไม่ได้<br>
+        • <strong>1 ≤ k&#39; ≤ 10:</strong> ช่วงที่เหมาะสมที่สุด พีกแยกตัวดีและใช้เวลาวิเคราะห์สั้น<br>
+        • <strong>k&#39; &gt; 20:</strong> สารติดอยู่ในคอลัมน์นานเกินไป พีกเตี้ยและกว้าง เสียเวลาในการวิเคราะห์โดยไม่จำเป็น</p>
       </div>
     </div>
   </div>
   <footer class="page-footer">
-    <span>ภาควิชาวิศวกรรมวัสดุและเทคโนโลยีอุตสาหกรรม</span>
-    <span>หน้าที่ 5 / 8 (แบบฝึกหัด บทที่ 8 &amp; 9)</span>
+    <span>คู่มือการเรียนรู้โครมาโทกราฟี • บทที่ 2 การอ่านโครมาโทแกรมและพารามิเตอร์</span>
+    <span>หน้า 2</span>
   </footer>
 </section>
 
-<!-- ================= PAGE 6 : SOLUTIONS PART 1 (เฉลย บทที่ 5 & 6) ================= -->
-<!-- page 6 budget (Compact): tag 20 + sol_51 160 + sol_52 140 + sol_q1 110 + sol_q2 110 + 4 gaps 32 = 572 / 600 words -->
+<!-- page 3 budget (Compact): h2 11 + prose 120 + callout-formula 50 + table 4 rows 70 + card-grid 152 + box chrome 48 + 4 gaps 32 = 483 / 600 words -->
 <section class="page compact">
   <div class="page-content">
-    <div style="border-bottom: 2px solid #047857; padding-bottom: 4px;">
-      <span class="section-tag sol">เฉลยละเอียดฉบับสมบูรณ์ (Solution Manual)</span>
-      <h2 style="font-size: 13pt; margin: 2px 0 0 0; color: #065f46;">เฉลยวิธีทำ: บทที่ 5 (การออกแบบเครื่องปฏิกรณ์สำหรับปฏิกิริยาเดี่ยว)</h2>
+    <h2>4. ทฤษฎีเพลตและประสิทธิภาพของคอลัมน์ (Plate Theory)</h2>
+    <p>
+      เสนอโดย Martin และ Synge (1941) โดยอนุมานเปรียบเทียบคอลัมน์โครมาโทกราฟีเสมือนกับ <strong>หอกลั่นลำดับส่วน (Fractional Distillation Column)</strong> ที่แบ่งออกเป็นชั้นตามทฤษฎีเล็กๆ เรียกว่า <strong>Theoretical Plate (N)</strong> ซึ่งในแต่ละเพลตจะเกิดสมดุลการกระจายตัวของสารระหว่างเฟสเคลื่อนที่และเฟสอยู่กับที่หนึ่งครั้ง เพลตนี้ไม่มีอยู่จริงทางกายภาพแต่เป็นตัวเลขเชิงจินตนาการเพื่อประเมิน <strong>ประสิทธิภาพของคอลัมน์ (Column Efficiency)</strong>
+    </p>
+
+    <div class="callout-formula">
+      <strong>สมการคำนวณจำนวนเพลต (N) และความสูงของเพลต (H):</strong>
+      <div style="margin-top: 4px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <div><strong>N = 16 (t<sub>R</sub> / W)<sup>2</sup> = 5.54 (t<sub>R</sub> / W<sub>1/2</sub>)<sup>2</sup></strong></div>
+        <div><strong>H = L / N = (L / 16) · (W / t<sub>R</sub>)<sup>2</sup></strong></div>
+      </div>
+      <span style="font-size: 8pt; color: #166534;">เมื่อ L = ความยาวของคอลัมน์, W = ความกว้างที่ฐานพีก, W<sub>1/2</sub> = ความกว้างที่กึ่งกลางความสูงของพีก (หน่วยเวลาต้องตรงกัน)</span>
     </div>
 
-    <!-- เฉลย 5.1 -->
-    <div class="sol-card">
-      <div class="sol-title">เฉลยตัวอย่างที่ 5.1 (สไลด์บทที่ 5 หน้า 35-40):</div>
-      <div>ปฏิกิริยา A + B → P, โดย C<sub>A0</sub> = C<sub>B0</sub> = 0.02 mol/L ⇒ ปฏิกิริยาอันดับสอง -r<sub>A</sub> = k C<sub>A</sub><sup>2</sup> (k = 500 L/(mol·min))<br>
-      คำนวณสเปซไทม์ PFR: <span class="math-eq">τ<sub>p</sub> = V / v = 0.5 L / (0.10 L/min) = 5 min</span><br>
-      กลุ่มตัวแปรไร้มิติ: <span class="math-eq">k C<sub>A0</sub> τ<sub>p</sub> = 500 × 0.02 × 5 = 50</span></div>
-      <div><strong>(ก) หา X<sub>A</sub> ใน PFR:</strong> จากสมการ PFR ปฏิกิริยาอันดับสอง: k C<sub>A0</sub> τ<sub>p</sub> = X<sub>A</sub> / (1 - X<sub>A</sub>) ⇒ 50 = X<sub>A</sub> / (1 - X<sub>A</sub>) ⇒ 50 - 50 X<sub>A</sub> = X<sub>A</sub> ⇒ <strong>X<sub>A</sub> = 50/51 ≈ 0.9804 (98.04%)</strong> (หรืออ่านจากรูปที่ 5.7 ที่ k C<sub>A0</sub> τ = 50 ได้ 1 - X<sub>A</sub> ≈ 0.02)</div>
-      <div><strong>(ข) ขนาด CSTR ที่ได้ X<sub>A</sub> = 0.9804 เท่าเดิม:</strong> จากกราฟรูป 5.1 (เส้น n = 2, 1 - X<sub>A</sub> = 0.02) หรือคำนวณจากสูตร:<br>
-      (τ C<sub>A0</sub>)<sub>m</sub> / (τ C<sub>A0</sub>)<sub>p</sub> = [X<sub>A</sub>/(1-X<sub>A</sub>)<sup>2</sup>] / [X<sub>A</sub>/(1-X<sub>A</sub>)] = 1 / (1 - X<sub>A</sub>) = 1 / 0.0196 ≈ 51<br>
-      ดังนั้น τ<sub>m</sub> = 51 × τ<sub>p</sub> = 51 × 5 = 255 min ⇒ <strong>V<sub>CSTR</sub> = v × τ<sub>m</sub> = 0.10 L/min × 255 min = 25.5 L</strong> (ใหญ่กว่า PFR ถึง 51 เท่า)</div>
-      <div><strong>(ค) ถ้า V<sub>CSTR</sub> = V<sub>PFR</sub> = 0.5 L (τ<sub>m</sub> = 5 min):</strong> k C<sub>A0</sub> τ<sub>m</sub> = 50<br>
-      จากสมการ CSTR: k C<sub>A0</sub> τ<sub>m</sub> = X<sub>A</sub> / (1 - X<sub>A</sub>)<sup>2</sup> ⇒ 50(1 - X<sub>A</sub>)<sup>2</sup> = X<sub>A</sub> ⇒ 50 X<sub>A</sub><sup>2</sup> - 101 X<sub>A</sub> + 50 = 0<br>
-      แก้สมการกำลังสองได้ <strong>X<sub>A</sub> ≈ 0.865 (86.5%)</strong> (ต่ำกว่า PFR ที่ทำได้ 98.04% มาก)</div>
+    <div class="callout">
+      <strong>กฎทองของประสิทธิภาพคอลัมน์ (Golden Rule of Column Efficiency):</strong>
+      คอลัมน์ที่มีประสิทธิภาพการแยกสูงและให้พีกแคบคมชัด จะต้องมี <strong>จำนวนเพลตตามทฤษฎีมาก (N สูง, ปกติ N &gt; 2,000)</strong> และมี <strong>ความสูงของแต่ละเพลตน้อย (HETP หรือ H ต่ำ)</strong>
     </div>
 
-    <!-- เฉลย 5.2 -->
-    <div class="sol-card">
-      <div class="sol-title">เฉลยตัวอย่างที่ 5.2 (สไลด์บทที่ 5 หน้า 42-48):</div>
-      <div>ปฏิกิริยาอันดับสอง, X<sub>A</sub> = 0.95 (1 - X<sub>A</sub> = 0.05), เพิ่มถังขนาด V เท่าเดิมอีก 1 เครื่อง:<br>
-      <strong>(ก) เครื่องปฏิกรณ์ท่อไหล (PFR):</strong><br>
-      - ต่อแบบขนาน: ป้อนเข้าแต่ละถัง F<sub>A0</sub> รวมเป็น 2 F<sub>A0</sub> ⇒ กำลังการผลิตเพิ่มขึ้น <strong>2.0 เท่า</strong><br>
-      - ต่อแบบอนุกรม: ปริมาตรรวมเป็น 2V โดย τ<sub>p</sub> = V<sub>รวม</sub> / v<sub>ใหม่</sub> ⇒ เพื่อให้ได้ X<sub>A</sub> = 0.95 เท่าเดิม ค่า τ<sub>p</sub> ต้องเท่าเดิม ดังนั้น v<sub>ใหม่</sub> = 2V / τ<sub>p</sub> = 2 v<sub>เดิม</sub> ⇒ กำลังการผลิตเพิ่มขึ้น <strong>2.0 เท่า</strong> (เท่ากันทั้งขนานและอนุกรม)</div>
-      <div><strong>(ข) เครื่องปฏิกรณ์ถังกวน (CSTR):</strong><br>
-      - ต่อแบบขนาน: เพิ่มกำลังการผลิตเป็น <strong>2.0 เท่า</strong><br>
-      - ต่อแบบอนุกรม: จากกราฟรูป 5.7 ที่ 1 - X<sub>A</sub> = 0.05: ถังเดี่ยว (N=1) ได้ (k C<sub>A0</sub> τ)<sub>1</sub> = 390, ถังคู่ (N=2) ได้ (k C<sub>A0</sub> τ)<sub>2</sub> = 70<br>
-      ความสามารถในการทำงาน: v<sub>2</sub> / v<sub>1</sub> = τ<sub>1</sub> / τ<sub>2</sub> = 390 / 70 = <strong>5.57 เท่า</strong> (อนุกรมมีประสิทธิภาพสูงกว่าขนานมาก)</div>
-    </div>
+    <h2>5. ค่าการแยกของสารสองชนิด (Resolution, R<sub>s</sub>)</h2>
+    <p>
+      <strong>Resolution (R<sub>s</sub>):</strong> เป็นค่าที่บ่งบอกความสามารถของระบบในการแยกพีกของสารสองชนิด (A และ B) ออกจากกันอย่างแท้จริง โดยนำทั้งผลต่างของ retention time และความกว้างของพีกมาร่วมพิจารณา
+    </p>
 
-    <!-- เฉลย คำถาม #1 & #2 -->
-    <div class="sol-card">
-      <div class="sol-title">เฉลยคำถามท้ายบท #1 และ #2 (สไลด์บทที่ 5 หน้า 41 และ 49):</div>
-      <div><strong>คำถาม #1 (เพิ่มเป็น N = 4 ถังอนุกรม, อันดับสอง):</strong> จากกราฟรูป 5.7 ที่ 1 - X<sub>A</sub> = 0.05 อ่านเส้น N = 4 ได้ (k C<sub>A0</sub> τ)<sub>4</sub> ≈ 25<br>
-      ดังนั้น กำลังการผลิตเทียบกับถังเดี่ยว: v<sub>4</sub> / v<sub>1</sub> = τ<sub>1</sub> / τ<sub>4</sub> = 390 / 25 = <strong>15.6 เท่า</strong></div>
-      <div><strong>คำถาม #2 (ถ้าเปลี่ยนเป็นปฏิกิริยาอันดับหนึ่ง, X<sub>A</sub> = 0.95):</strong><br>
-      - ถังเดี่ยว (N = 1): k τ<sub>1</sub> = X<sub>A</sub> / (1 - X<sub>A</sub>) = 0.95 / 0.05 = 19<br>
-      - สองถังอนุกรม (N = 2): C<sub>A0</sub> / C<sub>A2</sub> = (1 + k τ<sub>2</sub>)<sup>2</sup> ⇒ 1/0.05 = 20 = (1 + k τ<sub>2</sub>)<sup>2</sup> ⇒ 1 + k τ<sub>2</sub> = √20 = 4.472 ⇒ k τ<sub>2</sub> = 3.472<br>
-      อัตราส่วนกำลังการผลิต: v<sub>2</sub> / v<sub>1</sub> = τ<sub>1</sub> / τ<sub>2</sub> = 19 / 3.472 = <strong>5.47 เท่า</strong></div>
-    </div>
-  </div>
-  <footer class="page-footer">
-    <span>วิศวกรรมปฏิกิริยาเคมี &amp; การออกแบบเครื่องปฏิกรณ์</span>
-    <span>หน้าที่ 6 / 8 (เฉลยละเอียด บทที่ 5)</span>
-  </footer>
-</section>
-
-<!-- ================= PAGE 7 : SOLUTIONS PART 2 (เฉลย บทที่ 6 & 7) ================= -->
-<!-- page 7 budget (Compact): sol_61 100 + sol_6_ex1 140 + sol_6_ex2 150 + sol_71 130 + 4 gaps 32 = 552 / 600 words -->
-<section class="page compact">
-  <div class="page-content">
-    <div style="border-bottom: 2px solid #047857; padding-bottom: 4px;">
-      <span class="section-tag sol">เฉลยละเอียดฉบับสมบูรณ์ (Solution Manual)</span>
-      <h2 style="font-size: 13pt; margin: 2px 0 0 0; color: #065f46;">เฉลยวิธีทำ: บทที่ 6 (พหุปฏิกิริยา) &amp; บทที่ 7 (ไม่อุดมคติ &amp; RTD)</h2>
-    </div>
-
-    <!-- เฉลย 6.1 -->
-    <div class="sol-card">
-      <div class="sol-title">เฉลยตัวอย่างที่ 6.1 (สไลด์บทที่ 6 หน้า 30-33):</div>
-      <div>หา Selectivity บัดดล: <span class="math-eq">S<sub>R</sub> = r<sub>1</sub> / r<sub>2</sub> = (k<sub>1</sub> C<sub>A</sub><sup>1.8</sup> C<sub>B</sub><sup>0.5</sup>) / (k<sub>2</sub> C<sub>A</sub><sup>0.3</sup> C<sub>B</sub><sup>1.5</sup>) = (k<sub>1</sub>/k<sub>2</sub>) · C<sub>A</sub><sup>1.5</sup> / C<sub>B</sub></span><br>
-      เพื่อให้ได้ S<sub>R</sub> สูงสุด ต้องควบคุมให้ <strong>C<sub>A</sub> สูง และ C<sub>B</sub> ต่ำ</strong> ตลอดเวลา<br>
-      - <em>เครื่องปฏิกรณ์แบบกะ:</em> ใส่สาร A ทั้งหมดลงในถังไว้ก่อน แล้วค่อยๆ หยดป้อนสาร B ลงไปทีละน้อยอย่างช้าๆ<br>
-      - <em>เครื่องปฏิกรณ์แบบไหลต่อเนื่อง:</em> ให้สายหลักของสาร A ไหลเข้าท่อ PFR แล้วเจาะท่อป้อนสาร B เสริมเข้ามาทีละน้อยหลายๆ จุดตามความยาวท่อ</div>
-    </div>
-
-    <!-- เฉลย ตัวอย่าง 1 บท 6 -->
-    <div class="sol-card">
-      <div class="sol-title">เฉลยตัวอย่างท้ายบทที่ 6 ข้อ 1 (สไลด์บทที่ 6 หน้า 60-63):</div>
-      <div>A →<sup>k<sub>1</sub></sup> R →<sup>k<sub>2</sub></sup> S โดย k<sub>1</sub> = k<sub>2</sub> = 0.1 min<sup>-1</sup>, C<sub>A0</sub> = 1 mol/L, v = 1,000 L/h<br>
-      <strong>(ก) PFR:</strong> τ<sub>p,max</sub> = 1 / k = 1 / 0.1 = <strong>10 min</strong> (1/6 h)<br>
-      C<sub>R,max</sub> / C<sub>A0</sub> = 1 / e ≈ 0.368 ⇒ <strong>C<sub>R,max</sub> = 0.368 mol/L</strong><br>
-      ขนาดเครื่อง: <strong>V<sub>PFR</sub> = v · τ<sub>p,max</sub> = 1,000 × (1/6) = 166.7 L</strong><br>
-      <strong>(ข) CSTR:</strong> τ<sub>m,max</sub> = 1 / √(k<sub>1</sub> k<sub>2</sub>) = 1 / 0.1 = <strong>10 min</strong> (1/6 h)<br>
-      C<sub>R,max</sub> / C<sub>A0</sub> = 1 / [1 + √(k<sub>2</sub>/k<sub>1</sub>)]<sup>2</sup> = 1 / (1 + 1)<sup>2</sup> = 0.25 ⇒ <strong>C<sub>R,max</sub> = 0.25 mol/L</strong><br>
-      ขนาดเครื่อง: <strong>V<sub>CSTR</sub> = 1,000 × (1/6) = 166.7 L</strong> (ได้ผลผลิตสาร R ต่ำกว่า PFR เนื่องจากอิทธิพลของ Back-mixing)</div>
-    </div>
-
-    <!-- เฉลย ตัวอย่าง 2 บท 6 -->
-    <div class="sol-card">
-      <div class="sol-title">เฉลยตัวอย่างท้ายบทที่ 6 ข้อ 2 (สไลด์บทที่ 6 หน้า 64-74):</div>
-      <div>A → R (r<sub>R</sub> = 2 C<sub>A</sub>), 2A → S (r<sub>S</sub> = 0.4 C<sub>A</sub><sup>2</sup>, -r<sub>A</sub> = 2 C<sub>A</sub> + 0.4 C<sub>A</sub><sup>2</sup>), C<sub>A0</sub> = 10, X<sub>A</sub> = 0.8 ⇒ C<sub>Af</sub> = 2 kmol/m<sup>3</sup><br>
-      Selectivity: S<sub>R</sub> = r<sub>R</sub> / r<sub>S</sub> = 2 C<sub>A</sub> / (0.4 C<sub>A</sub><sup>2</sup>) = 5 / C<sub>A</sub> ⇒ <em>ยิ่ง C<sub>A</sub> ต่ำ S<sub>R</sub> ยิ่งสูง ดังนั้น <strong>CSTR จะให้ Yield รวมสูงกว่า PFR</strong></em><br>
-      - <strong>CSTR:</strong> Ȳ<sub>R</sub> = Y<sub>R</sub>|<sub>C<sub>Af</sub>=2</sub> = 2(2) / [2(2) + 0.4(2)<sup>2</sup>] = 4 / 5.6 = <strong>0.714</strong><br>
-      C<sub>Rf</sub> = Ȳ<sub>R</sub>(C<sub>A0</sub> - C<sub>Af</sub>) = 0.714 × 8 = <strong>5.71 kmol/m<sup>3</sup></strong>, C<sub>Sf</sub> = 0.5(8 - 5.71) = <strong>1.15 kmol/m<sup>3</sup></strong>, τ<sub>m</sub> = (10 × 0.8) / 5.6 = <strong>1.43 h</strong><br>
-      - <strong>PFR:</strong> C<sub>Rf</sub> = -∫<sub>10</sub><sup>2</sup> [2 C<sub>A</sub> / (2 C<sub>A</sub> + 0.4 C<sub>A</sub><sup>2</sup>)] dC<sub>A</sub> = 5 ln(3.0 / 1.4) = <strong>3.81 kmol/m<sup>3</sup></strong><br>
-      Ȳ<sub>R</sub> = 3.81 / 8 = <strong>0.476</strong>, C<sub>Sf</sub> = 0.5(8 - 3.81) = <strong>2.10 kmol/m<sup>3</sup></strong>, τ<sub>p</sub> = 0.5 ln[(10 × 7)/(2 × 15)] = <strong>0.424 h</strong></div>
-    </div>
-
-    <!-- เฉลย 7.1 -->
-    <div class="sol-card">
-      <div class="sol-title">เฉลยตัวอย่างที่ 7.1: การวิเคราะห์ RTD Pulse Tracer (สไลด์บทที่ 7 หน้า 32-35):</div>
-      <div>1. พื้นที่ใต้กราฟ: ∫<sub>0</sub><sup>∞</sup> C<sub>T</sub> dt = ∑ C<sub>T,avg</sub> Δt = 7.5 + 20 + 25 + 22.5 + 15 + 7.5 + 2.5 = <strong>100 g·min/dm<sup>3</sup></strong> (หรือ 104 โดยประมาณ)<br>
-      2. หา E(t) = C<sub>T</sub>(t) / 100 และคำนวณ t̄ = ∫ t E(t) dt ≈ <strong>14.90 min</strong><br>
-      3. Space Time ทางทฤษฎี: τ = V / v = 180 dm<sup>3</sup> / (11 dm<sup>3</sup>/min) = <strong>16.36 min</strong><br>
-      <em>สรุปและอภิปรายผล:</em> พบว่า <strong>t̄ &lt; τ (14.90 &lt; 16.36 min)</strong> แสดงว่าเกิด <strong>การไหลลัด (Short-circuiting / Channeling)</strong> หรือมี <strong>บริเวณอับนิ่ง (Dead/Stagnant zone)</strong> ภายในเครื่องปฏิกรณ์ ทำให้ปริมาตรจริงที่สารทำปฏิกิริยาลดลง ส่งผลให้ประสิทธิภาพต่ำกว่าอุดมคติ</div>
-    </div>
-  </div>
-  <footer class="page-footer">
-    <span>วิศวกรรมปฏิกิริยาเคมี &amp; การออกแบบเครื่องปฏิกรณ์</span>
-    <span>หน้าที่ 7 / 8 (เฉลยละเอียด บทที่ 6 &amp; 7)</span>
-  </footer>
-</section>
-
-<!-- ================= PAGE 8 : SOLUTIONS PART 3 (เฉลย บทที่ 8 & 9) ================= -->
-<!-- page 8 budget (Compact): sol_81 160 + sol_82 170 + sol_9 160 + 3 gaps 24 = 514 / 600 words -->
-<section class="page compact">
-  <div class="page-content">
-    <div style="border-bottom: 2px solid #047857; padding-bottom: 4px;">
-      <span class="section-tag sol">เฉลยละเอียดฉบับสมบูรณ์ (Solution Manual)</span>
-      <h2 style="font-size: 13pt; margin: 2px 0 0 0; color: #065f46;">เฉลยวิธีทำ: บทที่ 8 (แคทาไลซิสบนผิว) &amp; บทที่ 9 (วัสดุดักจับ CO<sub>2</sub>)</h2>
-    </div>
-
-    <!-- เฉลย 8.1 -->
-    <div class="sol-card">
-      <div class="sol-title">เฉลยตัวอย่างที่ 8.1: การพิสูจน์ Langmuir Competitive Adsorption (สไลด์บทที่ 8 หน้า 55-59):</div>
-      <div>การดูดซับ: X + S ↔ X·S และ Y + S ↔ Y·S โดยที่ r<sub>net,X</sub> = k<sub>AdX</sub> p<sub>X</sub> C<sub>V</sub> - k<sub>-AdX</sub> C<sub>X·S</sub> = 0 ที่สมดุล<br>
-      จะได้ <span class="math-eq">C<sub>X·S</sub> = K<sub>X</sub> p<sub>X</sub> C<sub>V</sub></span> และในทำนองเดียวกัน <span class="math-eq">C<sub>Y·S</sub> = K<sub>Y</sub> p<sub>Y</sub> C<sub>V</sub></span> (โดย K<sub>i</sub> = k<sub>Adi</sub> / k<sub>-Adi</sub>)<br>
-      สมดุลมวลของจุดกัมมันต์ทั้งหมด (Site Balance): <span class="math-eq">C<sub>T</sub> = C<sub>V</sub> + C<sub>X·S</sub> + C<sub>Y·S</sub></span><br>
-      แทนค่า C<sub>X·S</sub> และ C<sub>Y·S</sub>: C<sub>T</sub> = C<sub>V</sub> + K<sub>X</sub> p<sub>X</sub> C<sub>V</sub> + K<sub>Y</sub> p<sub>Y</sub> C<sub>V</sub> = C<sub>V</sub> (1 + K<sub>X</sub> p<sub>X</sub> + K<sub>Y</sub> p<sub>Y</sub>)<br>
-      หา C<sub>V</sub>: <span class="math-eq">C<sub>V</sub> = C<sub>T</sub> / (1 + K<sub>X</sub> p<sub>X</sub> + K<sub>Y</sub> p<sub>Y</sub>)</span><br>
-      หาสัดส่วนการปกคลุมผิว θ<sub>X</sub> = C<sub>X·S</sub> / C<sub>T</sub> = (K<sub>X</sub> p<sub>X</sub> C<sub>V</sub>) / C<sub>T</sub>:<br>
-      <strong>θ<sub>X</sub> = (K<sub>X</sub> p<sub>X</sub>) / (1 + K<sub>X</sub> p<sub>X</sub> + K<sub>Y</sub> p<sub>Y</sub>)</strong> และ <strong>θ<sub>Y</sub> = (K<sub>Y</sub> p<sub>Y</sub>) / (1 + K<sub>X</sub> p<sub>X</sub> + K<sub>Y</sub> p<sub>Y</sub>)</strong> [ซ.ต.พ.]</div>
-    </div>
-
-    <!-- เฉลย 8.2 -->
-    <div class="sol-card">
-      <div class="sol-title">เฉลยตัวอย่างที่ 8.2: การวิเคราะห์กลไกปฏิกิริยาบนตัวเร่งปฏิกิริยา (สไลด์บทที่ 8 หน้า 69-73):</div>
-      <div>กำหนดให้ Surface Reaction เป็นขั้นตอนควบคุมอัตราเร็ว (Rate Determining Step: RDS):<br>
-      <span class="math-eq">r<sub>overall</sub> = r<sub>Re</sub> = k<sub>R</sub> θ<sub>A</sub> - k<sub>-R</sub> θ<sub>C</sub></span><br>
-      เนื่องจากขั้นตอนการดูดซับ A และการคายซับ C เกิดขึ้นเร็วมาก จึงถือว่าอยู่ที่สมดุลเสมอ:<br>
-      - จาก r<sub>Ad</sub> = k<sub>A</sub> p<sub>A</sub> θ<sub>V</sub> - k<sub>-A</sub> θ<sub>A</sub> = 0 ⇒ <span class="math-eq">θ<sub>A</sub> = (k<sub>A</sub>/k<sub>-A</sub>) p<sub>A</sub> θ<sub>V</sub> = K<sub>Ad</sub> p<sub>A</sub> θ<sub>V</sub></span><br>
-      - จาก r<sub>De</sub> = k<sub>D</sub> θ<sub>C</sub> - k<sub>-D</sub> p<sub>C</sub> θ<sub>V</sub> = 0 ⇒ <span class="math-eq">θ<sub>C</sub> = (k<sub>-D</sub>/k<sub>D</sub>) p<sub>C</sub> θ<sub>V</sub> = K′<sub>De</sub> p<sub>C</sub> θ<sub>V</sub></span><br>
-      จากความสัมพันธ์ของพื้นผิวทั้งหมด: <span class="math-eq">θ<sub>V</sub> + θ<sub>A</sub> + θ<sub>C</sub> = 1</span><br>
-      แทนค่า: θ<sub>V</sub> (1 + K<sub>Ad</sub> p<sub>A</sub> + K′<sub>De</sub> p<sub>C</sub>) = 1 ⇒ <span class="math-eq">θ<sub>V</sub> = 1 / (1 + K<sub>Ad</sub> p<sub>A</sub> + K′<sub>De</sub> p<sub>C</sub>)</span><br>
-      แทน θ<sub>A</sub> และ θ<sub>C</sub> ลงในสมการอัตราเร็วรวม จะได้สมการอัตราเร็วในรูปความดันย่อย:<br>
-      <div style="text-align: center; margin: 4px 0;">
-        <span class="math-eq" style="font-size: 9.5pt;"><strong>r<sub>overall</sub> = (k<sub>R</sub> K<sub>Ad</sub> p<sub>A</sub> - k<sub>-R</sub> K′<sub>De</sub> p<sub>C</sub>) / (1 + K<sub>Ad</sub> p<sub>A</sub> + K′<sub>De</sub> p<sub>C</sub>)</strong></span>
+    <div class="callout-formula">
+      <strong>สมการคำนวณ Resolution (R<sub>s</sub>):</strong>
+      <div style="margin-top: 3px; display: flex; justify-content: space-around;">
+        <span><strong>R<sub>s</sub> = 2(t<sub>R,B</sub> - t<sub>R,A</sub>) / (W<sub>A</sub> + W<sub>B</sub>) = 2Δt / (W<sub>A</sub> + W<sub>B</sub>)</strong></span>
+        <span><strong>R<sub>s</sub> = (√N / 4) · (α - 1) · [k&#39;<sub>B</sub> / (1 + k&#39;<sub>B</sub>)]</strong></span>
       </div>
     </div>
 
-    <!-- เฉลย บทที่ 9 & งานวิจัย -->
-    <div class="sol-card">
-      <div class="sol-title">เฉลยประเด็นงานวิจัยบทที่ 9: กลไกและประสิทธิภาพของวัสดุดักจับก๊าซ CO<sub>2</sub>:</div>
-      <div><strong>1. Chitosan/Activated Carbon Beads (สไลด์บทที่ 9 หน้า 3-5, 20-38):</strong><br>
-      - <em>Physisorption:</em> ก๊าซ CO<sub>2</sub> แพร่เข้าสู่รูพรุนแบบลำดับชั้น (Hierarchical pores) ทั้ง Macropores (&gt;50 nm), Mesopores (2-50 nm) และ Micropores (&lt;2 nm) ของถ่านกัมมันต์จากกากกาแฟ (Activated Coffee Grounds: ACG)<br>
-      - <em>Chemisorption:</em> อาศัยหมู่อะมิโนอิสระ (-NH<sub>2</sub>) บนสายโซ่ของไคโตซานเกิดพันธะกับ CO<sub>2</sub> เป็นเกลือคาร์บาเมต (Carbamate)<br>
-      - <em>ผลการทดลอง:</em> การเพิ่ม ACG (40%w/w) และ Epichlorohydrin (EP 7.16-8 g) เพิ่มความสามารถในการดูดซับ CO<sub>2</sub> สูงสุดเป็น 7.62-7.73 cm<sup>3</sup>/g<br>
-      <strong>2. Fe-MOFs จากกากสะเก็ดเหล็กรีดร้อน (Mill Scale Waste) (เอกสารงานวิจัย รศ.อาชาไนย บัวศรี):</strong><br>
-      - <em>กระบวนการ In-situ Acid-assisted:</em> ตัวอย่าง MF1.5 ดูดซับ CO<sub>2</sub> ได้ 21.60 cc/g สูงกว่ากากสะเก็ดเหล็กดิบ (2.70 cc/g) ถึง 8 เท่า<br>
-      - <em>กระบวนการ Pre-leaching:</em> การสกัดไอออน Fe<sup>3+</sup> ด้วยกรด HCl ก่อนสังเคราะห์ ช่วยสร้างผลึก MOF ที่สมบูรณ์และเพิ่มพื้นที่ผิว BET สูงถึง 1,213 m<sup>2</sup>/g ส่งผลให้ค่าการดูดซับ CO<sub>2</sub> พุ่งสูงขึ้นเป็น <strong>50.12 cc/g</strong> (เพิ่มขึ้น 9-18 เท่า)</div>
+    <div class="card-grid" style="margin-top: 8px;">
+      <div class="card">
+        <h4>เกณฑ์การตัดสินค่า Resolution (R<sub>s</sub>)</h4>
+        <p>• <strong>R<sub>s</sub> &lt; 1.0:</strong> พีกซ้อนทับกันค่อนข้างมาก ไม่สามารถแยกสารได้สมบูรณ์<br>
+        • <strong>R<sub>s</sub> = 1.0:</strong> พีกแยกกันประมาณ 98% (ยอดพีกแยกแต่ฐานยังติดกัน)<br>
+        • <strong>R<sub>s</sub> ≥ 1.5:</strong> <strong>Baseline Separation (การแยกที่ฐานพีกอย่างสมบูรณ์)</strong> สารแยกกัน 99.7% ซึ่งเป็นเกณฑ์มาตรฐานในทางวิเคราะห์<br>
+        • <strong>R<sub>s</sub> &gt; 10:</strong> แยกห่างเกินไป ทำให้เปลืองเวลาและตัวทำละลายโดยไม่จำเป็น</p>
+      </div>
+      <div class="card">
+        <h4>3 ปัจจัยที่ควบคุมค่า Resolution (Purnell Equation)</h4>
+        <p>1. <strong>Efficiency Factor (√N):</strong> เพิ่ม N ทำได้โดยใช้คอลัมน์ที่ยาวขึ้น หรืออนุภาคเล็กลง (ลด H)<br>
+        2. <strong>Selectivity Factor (α):</strong> ควบคุมระยะห่างของพีก ปรับเปลี่ยนได้โดยเปลี่ยนชนิดของ stationary phase หรือตัวทำละลาย<br>
+        3. <strong>Retention Factor (k&#39;):</strong> ปรับเปลี่ยนโดยการควบคุมอุณหภูมิ (ใน GC) หรือเปลี่ยนสัดส่วนตัวทำละลาย (ใน HPLC)</p>
+      </div>
     </div>
   </div>
   <footer class="page-footer">
-    <span>วิศวกรรมปฏิกิริยาเคมี &amp; การออกแบบเครื่องปฏิกรณ์</span>
-    <span>หน้าที่ 8 / 8 (เฉลยละเอียด บทที่ 8 &amp; 9)</span>
+    <span>คู่มือการเรียนรู้โครมาโทกราฟี • บทที่ 3 ทฤษฎีเพลตและค่าการแยก (Resolution)</span>
+    <span>หน้า 3</span>
   </footer>
-</div></section>
+</section>
+
+<!-- page 4 budget (Compact): h2 11 + prose 110 + callout-formula 40 + card-grid 152 + table 4 rows 70 + box chrome 48 + 4 gaps 32 = 463 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>6. ทฤษฎีอัตราและสมการแวนดีมเตอร์ (Rate Theory &amp; Van Deemter Equation)</h2>
+    <p>
+      เสนอโดย J.J. Van Deemter (1956) เพื่ออธิบายสาเหตุเชิงพลศาสตร์ที่ทำให้เกิด <strong>การขยายตัวของแถบสาร (Band Broadening หรือ Peak Dispersion)</strong> ขณะเคลื่อนที่ผ่านคอลัมน์ ซึ่งทฤษฎีเพลตไม่สามารถอธิบายได้ การที่พีกยิ่งกว้างแสดงว่าประสิทธิภาพการแยกยิ่งต่ำ สมการ Van Deemter แสดงความสัมพันธ์ระหว่าง Plate Height (H) กับความเร็วเชิงเส้นของ mobile phase (u):
+    </p>
+
+    <div class="callout-formula">
+      <div style="font-size: 10pt; text-align: center; font-weight: bold;">
+        H = A + (B / u) + C · u
+      </div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 18%;">พจน์ในสมการ</th>
+          <th style="width: 32%;">กลไกการเกิด Band Broadening</th>
+          <th style="width: 50%;">วิธีลดค่าเพื่อเพิ่มประสิทธิภาพคอลัมน์ (ลด H)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>A term<br>(Eddy Diffusion)</strong></td>
+          <td>โมเลกุลของสารชนิดเดียวกันเดินทางผ่านช่องว่างระหว่างอนุภาคที่มีเส้นทางยาวไม่เท่ากัน (Multiple flow paths)</td>
+          <td>• บรรจุคอลัมน์ให้สม่ำเสมอ (Uniform packing)<br>• <strong>ลดขนาดอนุภาค (Smaller particle size)</strong><br>• ใน <strong>Capillary Column เทอม A = 0</strong> เพราะไม่มีของแข็งบรรจุ</td>
+        </tr>
+        <tr>
+          <td><strong>B / u term<br>(Longitudinal Diff.)</strong></td>
+          <td>การแพร่ของสารจากบริเวณกึ่งกลางแถบที่มีความเข้มข้นสูงไปยังหัว-ท้ายแถบที่มีความเข้มข้นต่ำตามทิศทางการไหล</td>
+          <td>• <strong>เพิ่มอัตราการไหล (u สูงขึ้น)</strong> เพื่อลดเวลาที่สารแช่อยู่ในคอลัมน์<br>• ลดอุณหภูมิคอลัมน์ (เทอม B เด่นชัดมากใน GC เพราะแก๊สแพร่เร็ว)</td>
+        </tr>
+        <tr>
+          <td><strong>C · u term<br>(Mass Transfer)</strong></td>
+          <td>ความล่าช้าในการถ่ายโอนมวลและเกิดสมดุลระหว่าง mobile phase กับ stationary phase (โมเลกุลในรูพรุนลึกจะออกมาช้า)</td>
+          <td>• ใช้ฟิล์ม stationary liquid ให้บางลง (Thinner film)<br>• ลดขนาดอนุภาค หรือใช้อุณหภูมิสูงขึ้นช่วยเร่งสมดุล<br>• <strong>ลดอัตราการไหล (u ต่ำลง)</strong> เพื่อให้สารมีเวลาถ่ายโอนมวลเข้าสู่สมดุล</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card-grid" style="margin-top: 8px;">
+      <div class="card">
+        <h4>กราฟ Van Deemter Plot และความเร็วที่เหมาะสม (u<sub>opt</sub>)</h4>
+        <p>เมื่อพล็อตค่า H เทียบกับ u กราฟจะมีลักษณะเป็นรูปตัว U:<br>
+        • ที่ u ต่ำมาก: เทอม B/u จะมีค่าสูงมาก ทำให้ H สูง (พีกกว้าง)<br>
+        • ที่ u สูงมาก: เทอม C·u จะมีค่าสูงมาก ทำให้ H สูงขึ้นเช่นกัน<br>
+        • <strong>จุดต่ำสุดของกราฟ (u<sub>opt</sub>):</strong> คือความเร็วที่ให้ค่า H ต่ำที่สุด ส่งผลให้คอลัมน์มีประสิทธิภาพสูงสุด (N สูงสุด)</p>
+      </div>
+      <div class="card">
+        <h4>ความแตกต่างระหว่าง GC และ LC ในมุมมอง Rate Theory</h4>
+        <p>• <strong>ใน GC:</strong> สัมประสิทธิ์การแพร่ในแก๊สสูงกว่าของเหลว 10<sup>4</sup> เท่า ดังนั้น <em>เทอม B จึงมีอิทธิพลสูงมาก</em> จึงไม่ควรใช้อัตราการไหลที่ช้าเกินไปใน GC<br>
+        • <strong>ใน LC (HPLC):</strong> การแพร่ในของเหลวช้ามาก เทอม B จึงน้อย แต่ <em>เทอม C มีอิทธิพลสูง</em> อนุภาคขนาดเล็กมาก (3–5 µm) ใน HPLC จึงช่วยลดทั้งเทอม A และ C ได้อย่างดีเยี่ยม</p>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>คู่มือการเรียนรู้โครมาโทกราฟี • บทที่ 4 ทฤษฎีอัตราและสมการแวนดีมเตอร์</span>
+    <span>หน้า 4</span>
+  </footer>
+</section>
+
+<!-- page 5 budget (Compact): h2 11 + prose 120 + table 6 rows 102 + card-grid 152 + box chrome 48 + 4 gaps 32 = 465 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>7. แก๊สโครมาโทกราฟี (Gas Chromatography - GC)</h2>
+    <p>
+      <strong>แก๊สโครมาโทกราฟี (GC):</strong> ใช้สำหรับแยกสารผสมที่สามารถระเหยกลายเป็นไอได้โดยไม่สลายตัวที่อุณหภูมิไม่เกิน 450 °C โดยมีเฟสเคลื่อนที่เป็นแก๊สเฉื่อย เรียกว่า <strong>Carrier Gas</strong> (เช่น He, N<sub>2</sub>, Ar ความบริสุทธิ์ ≥ 99.995%) ทำหน้าที่พาสารตัวอย่างผ่านเข้าไปในคอลัมน์ที่ติดตั้งอยู่ในตู้อบควบคุมอุณหภูมิ (Oven)
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 22%;">คุณลักษณะ</th>
+          <th style="width: 39%;">Packed Column (คอลัมน์แบบบรรจุ)</th>
+          <th style="width: 39%;">Capillary / Open Tubular Column</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>โครงสร้างภายใน</strong></td>
+          <td>บรรจุอนุภาคของแข็งเฉื่อยที่เคลือบ stationary liquid</td>
+          <td>ท่อกลวง ภายในเคลือบฟิล์มของเหลวบาง (0.25–3.0 µm) ที่ผนังท่อ</td>
+        </tr>
+        <tr>
+          <td><strong>ขนาดเส้นผ่านศูนย์กลาง (ID)</strong></td>
+          <td>กว้าง 3 – 8 mm</td>
+          <td>แคบมาก 0.1 – 0.53 mm</td>
+        </tr>
+        <tr>
+          <td><strong>ความยาวของคอลัมน์</strong></td>
+          <td>สั้น 1 – 3 เมตร</td>
+          <td>ยาวมาก 25 – 100 เมตร</td>
+        </tr>
+        <tr>
+          <td><strong>ประสิทธิภาพ (Efficiency)</strong></td>
+          <td>N ต่ำกว่า เกิด Eddy diffusion (A ≠ 0)</td>
+          <td><strong>N สูงมาก (ระดับแสนเพลต), ไม่มี Eddy diffusion (A = 0)</strong></td>
+        </tr>
+        <tr>
+          <td><strong>ความดันต้านทาน (Pressure drop)</strong></td>
+          <td>สูงเนื่องจากมีอนุภาคอัดแน่น</td>
+          <td>ต่ำมากเนื่องจากเป็นท่อกลวง ทำให้ใช้คอลัมน์ยาวๆ ได้</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>อิทธิพลของอุณหภูมิคอลัมน์ใน GC (Column Temperature)</h4>
+        <p>• <strong>เพิ่มอุณหภูมิ:</strong> สารระเหยเป็นไอมากขึ้น ค่า partition coefficient (K) ลดลง สารเคลื่อนที่เร็วขึ้น วิเคราะห์ได้เร็ว แต่พีกอาจเบียดชิดกัน (Resolution ลดลง)<br>
+        • <strong>ลดอุณหภูมิ:</strong> สารจับกับ stationary liquid นานขึ้น ทำให้ <strong>Resolution ดีขึ้น</strong> แต่ใช้เวลานานขึ้น<br>
+        • นิยมใช้การโปรแกรมอุณหภูมิ (Temperature Programming) ค่อยๆ เพิ่มความร้อนเพื่อแยกทั้งสารจุดเดือดต่ำและจุดเดือดสูงในรันเดียว</p>
+      </div>
+      <div class="card">
+        <h4>ตัวตรวจวัด Flame Ionization Detector (FID)</h4>
+        <p>• เป็น Detector ยอดนิยมสำหรับสารประกอบอินทรีย์ไฮโดรคาร์บอนเกือบทุกชนิด<br>
+        • <strong>หลักการ:</strong> เผาสารที่ออกมาจากคอลัมน์ด้วยเปลวไฟของแก๊สไฮโดรเจน (H<sub>2</sub>) ผสมกับอากาศ (Air) ทำให้เกิดไอออนประจุบวก แล้วถูกดึงดูดไปที่ Collector electrode เกิดกระแสไฟฟ้าที่เป็นสัดส่วนโดยตรงกับจำนวนคาร์บอนอะตอม<br>
+        • <strong>ข้อจำกัด:</strong> เป็นตัวตรวจวัดแบบทำลายสาร (Destructive detector)</p>
+      </div>
+    </div>
+
+    <div class="callout-warning">
+      <strong>การวิเคราะห์พอลิเมอร์ด้วย GC:</strong> พอลิเมอร์เป็นโมเลกุลขนาดใหญ่และไม่ระเหย หากต้องการวิเคราะห์โครงสร้างหรือองค์ประกอบ ต้องใช้เทคนิค <strong>Pyrolysis-GC (Py-GC)</strong> โดยใช้ความร้อนสูงทำให้สายโซ่พอลิเมอร์แตกตัวเป็นสารโมเลกุลเล็กที่ระเหยได้ก่อนเข้าคอลัมน์
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>คู่มือการเรียนรู้โครมาโทกราฟี • บทที่ 5 แก๊สโครมาโทกราฟี (Gas Chromatography)</span>
+    <span>หน้า 5</span>
+  </footer>
+</section>
+
+<!-- page 6 budget (Compact): h2 11 + prose 120 + table 6 rows 102 + card-grid 152 + box chrome 48 + 4 gaps 32 = 465 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>8. โครมาโทกราฟีของเหลวสมรรถนะสูง (HPLC)</h2>
+    <p>
+      <strong>HPLC (High Performance Liquid Chromatography):</strong> พัฒนามาจากคอลัมน์โครมาโทกราฟีแบบดั้งเดิม โดยเปลี่ยนจากการปล่อยให้ของเหลวไหลด้วยแรงโน้มถ่วง มาเป็นการใช้ <strong>ปั๊มแรงดันสูง (High Pressure Pump)</strong> ผลัก mobile phase ผ่านคอลัมน์ที่บรรจุอนุภาคขนาดเล็กมาก (3–20 µm) ทำให้การแยกสารมีประสิทธิภาพสูงมาก รวดเร็ว และสามารถวิเคราะห์สารที่ไม่ทนความร้อนหรือไม่ระเหยได้
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 25%;">องค์ประกอบของเครื่อง HPLC</th>
+          <th style="width: 75%;">หน้าที่การทำงานและหลักการทางวิศวกรรมเคมี</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Solvent Reservoir &amp; Degasser</strong></td>
+          <td>บรรจุ mobile phase และมีระบบไล่ฟองแก๊สที่ละลายอยู่ออก ป้องกันไม่ให้เกิดฟองแก๊สในปั๊มและ detector</td>
+        </tr>
+        <tr>
+          <td><strong>2. High Pressure Pump</strong></td>
+          <td>สร้างแรงดันสูง (สูงถึงหลายร้อยบาร์) และควบคุมอัตราการไหลของตัวทำละลายให้คงที่แม่นยำสม่ำเสมอ</td>
+        </tr>
+        <tr>
+          <td><strong>3. Sample Injection (Rheodyne Valve)</strong></td>
+          <td>ใช้ระบบ <strong>Sample Loop</strong> มี 2 ตำแหน่ง: ตำแหน่ง <em>Load</em> สำหรับฉีดสารเติมเข้า loop และหมุนไปที่ <em>Inject</em> เพื่อให้ mobile phase ชะสารเข้าสู่คอลัมน์ ให้ความเที่ยงตรงสูงมาก</td>
+        </tr>
+        <tr>
+          <td><strong>4. Chromatographic Column</strong></td>
+          <td>ท่อสแตนเลสสั้น (10–35 cm, ID 1–10 mm) บรรจุอนุภาค Silica หรือ Polymer beads ขนาดเล็กระดับไมโครเมตร</td>
+        </tr>
+        <tr>
+          <td><strong>5. Detector</strong></td>
+          <td>ตรวจวัดสัญญาณสารที่ถูกชะออกมา เช่น UV-Vis Absorption Detector, Refractive Index Detector (RI)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>การแยกแบบ Isocratic vs. Gradient Elution</h4>
+        <p>• <strong>Isocratic Elution:</strong> ใช้องค์ประกอบของ Mobile phase สัดส่วนคงที่ตลอดการรัน เหมาะกับของผสมที่สารมีขั้วใกล้เคียงกัน<br>
+        • <strong>Gradient Elution:</strong> ค่อยๆ ปรับเปลี่ยนสัดส่วนของตัวทำละลายระหว่างการรัน (เช่น ค่อยๆ เพิ่มตัวทำละลายที่มีแรงชะสูงขึ้น) ช่วยให้สารที่ติดแน่นหลุดออกมาเร็วขึ้น ลดเวลาวิเคราะห์และทำให้พีกแคบคมชัด</p>
+      </div>
+      <div class="card">
+        <h4>การวิเคราะห์เชิงคุณภาพและปริมาณ (Qual &amp; Quant)</h4>
+        <p>• <strong>เชิงคุณภาพ (Qualitative):</strong> เทียบค่า Retention Time (t<sub>R</sub>) กับสารมาตรฐาน หรือใช้เทคนิค <strong>Spiking</strong> (เติมสารบริสุทธิ์ที่สงสัยลงในตัวอย่าง หากพีกใดสูงขึ้น แสดงว่าเป็นพีกของสารนั้น)<br>
+        • <strong>เชิงปริมาณ (Quantitative):</strong> สร้างกราฟมาตรฐาน (Calibration Curve) ระหว่างความเข้มข้นกับพื้นที่ใต้พีก (Peak Area) กราฟต้องเป็นเส้นตรงและผ่านจุดกำเนิด</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>สรุปเปรียบเทียบข้อเด่น: GC vs HPLC</strong><br>
+      • <strong>GC:</strong> เหมาะกับสารโมเลกุลเล็ก ระเหยง่าย ทนความร้อน ประสิทธิภาพแยกสูงมากด้วย capillary column<br>
+      • <strong>HPLC:</strong> เหมาะกับสารโมเลกุลใหญ่ สารชีวโมเลกุล สารที่ไม่ทนความร้อน และพอลิเมอร์ที่ละลายน้ำหรือตัวทำละลายได้
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>คู่มือการเรียนรู้โครมาโทกราฟี • บทที่ 6 โครมาโทกราฟีของเหลวสมรรถนะสูง (HPLC)</span>
+    <span>หน้า 6</span>
+  </footer>
+</section>
+
+<!-- page 7 budget (Compact): h2 11 + prose 40 + callout-formula 45 + card 4 items 310 + box chrome 48 + 4 gaps 32 = 486 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>9. สรุปความสัมพันธ์ของสมการและคลังข้อสอบปรนัย (Exam Part 1)</h2>
+    <p>
+      สูตรทั้งหมดที่ระบุในคำชี้แจงหน้าข้อสอบ มีความเชื่อมโยงกันอย่างเป็นระบบเพื่อใช้ประเมินประสิทธิภาพและพฤติกรรมการแยกสาร:
+    </p>
+
+    <div class="callout-formula">
+      <strong>ชุดสมการมาตรฐานที่ระบุในใบข้อสอบ (Exam Formula Reference):</strong>
+      <div style="margin-top: 3px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 8.3pt;">
+        <div>• <strong>k&#39;</strong> = (t<sub>R</sub> - t<sub>M</sub>) / t<sub>M</sub> = t&#39;<sub>R</sub> / t<sub>M</sub> = m<sub>S</sub> / m<sub>M</sub> = K / β</div>
+        <div>• <strong>N</strong> = L / H = 16 (t<sub>R</sub> / W)<sup>2</sup> = 5.54 (t<sub>R</sub> / W<sub>1/2</sub>)<sup>2</sup></div>
+        <div>• <strong>α</strong> = (t&#39;<sub>R</sub>)<sub>B</sub> / (t&#39;<sub>R</sub>)<sub>A</sub> = k&#39;<sub>B</sub> / k&#39;<sub>A</sub> = K<sub>B</sub> / K<sub>A</sub></div>
+        <div>• <strong>H</strong> = σ<sup>2</sup> / L = σ<sup>2</sup>L / t<sub>R</sub><sup>2</sup> = (L / 16)(W / t<sub>R</sub>)<sup>2</sup></div>
+        <div style="grid-column: span 2; text-align: center;">• <strong>R<sub>s</sub></strong> = (t<sub>R</sub><sup>B</sup> - t<sub>R</sub><sup>A</sup>) / [(W<sub>A</sub> + W<sub>B</sub>) / 2] = 2Δt / (W<sub>A</sub> + W<sub>B</sub>)</div>
+      </div>
+    </div>
+
+    <h3>ชุดข้อสอบปรนัย 4 ตัวเลือก เสมือนจริง (พร้อมวิเคราะห์เฉลยละเอียด)</h3>
+
+    <div class="card" style="margin-top: 4px;">
+      <h4>ข้อ 1.1: ปัจจัยใดต่อไปนี้มีผลทำให้เทอม Eddy Diffusion (A-term) ในสมการ Van Deemter มีค่าลดลงมากที่สุด?</h4>
+      <p style="font-size: 8.4pt;">
+        (ก) การเพิ่มอุณหภูมิของตู้อบคอลัมน์ใน Gas Chromatography<br>
+        (ข) การลดขนาดอนุภาคของเฟสอยู่กับที่และบรรจุคอลัมน์ให้มีความสม่ำเสมอสูง<br>
+        (ค) การเพิ่มอัตราเร็วเชิงเส้นของเฟสเคลื่อนที่ (u) ให้สูงขึ้น<br>
+        (ง) การเพิ่มความหนาของฟิล์มของเหลวที่เคลือบบนผิวของแข็ง
+      </p>
+      <p style="margin-top: 2px; font-size: 8.4pt; color: #166534;"><strong>เฉลย: ตอบ (ข)</strong><br>
+      <strong>คำอธิบาย:</strong> เทอม A (Eddy diffusion) เกิดจากโมเลกุลเดินทางหลายเส้นทางที่ไม่เท่ากัน การใช้อนุภาคขนาดเล็กและสม่ำเสมอจะช่วยลดความแตกต่างของระยะทางเดิน (Path length) ลงได้มากที่สุด และหากใช้ Capillary column เทอม A จะกลายเป็นศูนย์ทันที</p>
+    </div>
+
+    <div class="card">
+      <h4>ข้อ 1.2: หากสารตัวอย่าง A และ B มีค่า Retention factor k&#39;<sub>A</sub> = 2.0 และ k&#39;<sub>B</sub> = 4.0 จงหาค่า Selectivity factor (α)?</h4>
+      <p style="font-size: 8.4pt;">
+        (ก) 0.50          (ข) 1.50          (ค) 2.00          (ง) 6.00
+      </p>
+      <p style="margin-top: 2px; font-size: 8.4pt; color: #166534;"><strong>เฉลย: ตอบ (ค)</strong><br>
+      <strong>คำอธิบาย:</strong> ตามสูตร α = k&#39;<sub>B</sub> / k&#39;<sub>A</sub> โดยกำหนดให้สาร B คือสารที่ถูกยึดจับดีกว่า (k&#39; มากกว่า) เสมอ ดังนั้น α = 4.0 / 2.0 = 2.00 (ค่า α ต้อง ≥ 1.0 เสมอ)</p>
+    </div>
+
+    <div class="card">
+      <h4>ข้อ 1.3: ในการทดสอบ HPLC เมื่อเปลี่ยนการชะจาก Isocratic Elution เป็น Gradient Elution มีวัตถุประสงค์หลักเพื่ออะไร?</h4>
+      <p style="font-size: 8.4pt;">
+        (ก) ป้องกันไม่ให้สารตัวอย่างเกิดปฏิกิริยากับคอลัมน์<br>
+        (ข) เพิ่มความดันในระบบให้คงที่ตลอดการทดสอบ<br>
+        (ค) เร่งให้สารที่ถูกยึดจับแน่นหลุดออกมาเร็วขึ้น ลดเวลาการวิเคราะห์ และป้องกันพีกขยายกว้าง (Band broadening)<br>
+        (ง) เปลี่ยนแปลงกลไกการแยกจาก Reverse Phase ไปเป็น Normal Phase
+      </p>
+      <p style="margin-top: 2px; font-size: 8.4pt; color: #166534;"><strong>เฉลย: ตอบ (ค)</strong><br>
+      <strong>คำอธิบาย:</strong> การใช้ Gradient elution โดยการค่อยๆ ปรับเพิ่มสัดส่วนตัวทำละลายที่มีแรงชะสูงขึ้น จะทำให้สารที่มี retention นานหลุดออกมาเร็วขึ้น พีกที่ปลายโครมาโทแกรมจะคมชัดและประหยัดเวลาอย่างมาก</p>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>คู่มือการเรียนรู้โครมาโทกราฟี • บทที่ 7 รวมสูตรและข้อสอบปรนัย (Part 1)</span>
+    <span>หน้า 7</span>
+  </footer>
+</section>
+
+<!-- page 8 budget (Compact): h2 11 + prose 35 + card 2 items 420 + box chrome 48 + 4 gaps 32 = 546 / 600 words -->
+<section class="page compact">
+  <div class="page-content">
+    <h2>10. ชุดข้อสอบคำนวณจากโครมาโทแกรม พร้อมวิธีคิดอย่างละเอียด (Exam Part 2)</h2>
+    <p>
+      ข้อสอบข้อที่ 2 ของอาจารย์ให้นำไม้บรรทัดและเครื่องคิดเลขเข้าห้องสอบ เพื่อวัดและคำนวณค่าจากโครมาโทแกรมที่กำหนดให้:
+    </p>
+
+    <div class="card">
+      <h4>โจทย์ข้อสอบคำนวณเสมือนจริง: การวิเคราะห์โครมาโทแกรมของสารผสมสองชนิด</h4>
+      <p style="font-size: 8.4pt;">
+        นักศึกษานำสารตัวอย่างผสมที่มีสาร A และ B มาวิเคราะห์ด้วยเครื่อง HPLC โดยใช้คอลัมน์มีความยาว <strong>L = 15.0 cm</strong> อัตราการไหลคงที่ จากโครมาโทแกรมวัดระยะด้วยไม้บรรทัดเทียบกับแกนเวลา พบข้อมูลดังนี้:<br>
+        • พีกของ Unretained solute (t<sub>M</sub>) ปรากฏที่เวลา <strong>t<sub>M</sub> = 1.50 นาที</strong><br>
+        • พีกสาร A: จุดยอดพีกปรากฏที่เวลา <strong>t<sub>R,A</sub> = 6.00 นาที</strong>, ความกว้างฐานพีก <strong>W<sub>A</sub> = 0.50 นาที</strong>, กึ่งกลางความสูง <strong>W<sub>1/2,A</sub> = 0.294 นาที</strong><br>
+        • พีกสาร B: จุดยอดพีกปรากฏที่เวลา <strong>t<sub>R,B</sub> = 8.50 นาที</strong>, ความกว้างฐานพีก <strong>W<sub>B</sub> = 0.70 นาที</strong><br>
+        <strong>คำสั่ง:</strong> จงแสดงวิธีคำนวณหาค่าพารามิเตอร์ทั้ง 6 ข้อต่อไปนี้อย่างละเอียด พร้อมระบุหน่วยและสรุปผล
+      </p>
+      <div style="background: #f8fafc; border: 1px dashed #0284c7; padding: 5px 8px; margin-top: 4px; font-size: 8.2pt;">
+        <strong>เฉลยและวิธีทำอย่างเป็นขั้นตอน:</strong><br>
+        <strong>1) คำนวณ Corrected Retention Time ของสาร A และ B (t&#39;<sub>R</sub>):</strong><br>
+            • t&#39;<sub>R,A</sub> = t<sub>R,A</sub> - t<sub>M</sub> = 6.00 - 1.50 = <strong>4.50 นาที</strong><br>
+            • t&#39;<sub>R,B</sub> = t<sub>R,B</sub> - t<sub>M</sub> = 8.50 - 1.50 = <strong>7.00 นาที</strong><br>
+        <strong>2) คำนวณ Capacity Factor หรือ Retention Factor (k&#39;):</strong><br>
+            • k&#39;<sub>A</sub> = t&#39;<sub>R,A</sub> / t<sub>M</sub> = 4.50 / 1.50 = <strong>3.00</strong> (ไร้หน่วย)<br>
+            • k&#39;<sub>B</sub> = t&#39;<sub>R,B</sub> / t<sub>M</sub> = 7.00 / 1.50 = <strong>4.67</strong> (ไร้หน่วย)<br>
+            <em>(ประเมิน: ค่า k&#39; ทั้งสองอยู่ในช่วง 1–10 แสดงว่าสารทั้งสองถูกชะออกมาในช่วงเวลาที่เหมาะสมมาก)</em><br>
+        <strong>3) คำนวณ Selectivity Factor (α) ระหว่างสาร B และ A:</strong><br>
+            • α = t&#39;<sub>R,B</sub> / t&#39;<sub>R,A</sub> = 7.00 / 4.50 ≈ <strong>1.56</strong> (หรือ α = k&#39;<sub>B</sub> / k&#39;<sub>A</sub> = 4.67 / 3.00 = 1.56)<br>
+            <em>(ประเมิน: ค่า α ≥ 1.1 แสดงว่าคอลัมน์มีความสามารถในการเลือกแยกสาร A และ B ออกจากกันได้ดีมาก)</em><br>
+        <strong>4) คำนวณจำนวน Theoretical Plates (N) ของสาร A:</strong><br>
+            • คำนวณจากสูตรฐานพีก W: N = 16 (t<sub>R,A</sub> / W<sub>A</sub>)<sup>2</sup> = 16 × (6.00 / 0.50)<sup>2</sup> = 16 × (12.0)<sup>2</sup> = 16 × 144 = <strong>2,304 เพลต</strong><br>
+            • ตรวจทานด้วย W<sub>1/2</sub>: N = 5.54 (6.00 / 0.294)<sup>2</sup> = 5.54 × (20.408)<sup>2</sup> ≈ 2,307 เพลต (ตรงกันตามทฤษฎี)<br>
+        <strong>5) คำนวณ Plate Height (H) ของคอลัมน์:</strong><br>
+            • H = L / N = 15.0 cm / 2,304 = 0.00651 cm = <strong>0.0651 mm (หรือ 65.1 µm)</strong><br>
+        <strong>6) คำนวณ Resolution (R<sub>s</sub>) และสรุปประสิทธิภาพการแยก:</strong><br>
+            • R<sub>s</sub> = 2(t<sub>R,B</sub> - t<sub>R,A</sub>) / (W<sub>A</sub> + W<sub>B</sub>) = 2(8.50 - 6.00) / (0.50 + 0.70) = 2(2.50) / 1.20 = 5.00 / 1.20 ≈ <strong>4.17</strong><br>
+            <strong>สรุปผล:</strong> ค่า R<sub>s</sub> = 4.17 ซึ่ง <strong>มากกว่า 1.5</strong> อย่างมีนัยสำคัญ บ่งบอกว่าสาร A และสาร B <strong>เกิดการแยกที่ฐานพีกอย่างสมบูรณ์ (Complete baseline separation)</strong> ไม่มีส่วนใดของพีกซ้อนทับกันเลย สามารถนำไปหาปริมาณสาร (Quantitative analysis) จากพื้นที่ใต้พีกได้อย่างแม่นยำ 100%
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <span>คู่มือการเรียนรู้โครมาโทกราฟี • บทที่ 8 การคำนวณโครมาโทแกรมและเฉลยละเอียด (Part 2)</span>
+    <span>หน้า 8</span>
+  </footer>
+</section>
 
 </div>
 
