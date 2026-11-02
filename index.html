@@ -1,596 +1,1055 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ปี 3 เทอม 1 ปลายภาค</title>
-<link rel="icon" type="image/x-icon" href="https://i1.sndcdn.com/artworks-ywGjRvK57HuKsnhN-E5rhVA-t500x500.jpg">
-<style>
-*{box-sizing:border-box}
-.nav-link,
-  .nav-link:hover,
-  .nav-link:focus {
-    color: white !important;
-    text-decoration: none !important;
-  }
-body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#1e293b}
-.navbar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 24px;background:#172554;position:sticky;top:0;z-index:100}
-.logo{color:#fff;font-size:20px;font-weight:bold;text-decoration:none;margin-right:20px}
-.grade-nav-btn{background:#7c3aed;border:1px solid #a78bfa;color:#fff;padding:11px 14px;border-radius:7px;cursor:pointer;font-size:15px;font-weight:700;font-family:inherit;white-space:nowrap}
-.grade-nav-btn:hover,.grade-nav-btn:focus{background:#6d28d9}
-.grade-subject-picker{display:flex;flex-direction:column;gap:8px;max-width:480px;margin:0 auto 16px;text-align:left}.grade-subject-picker label{font-size:14px;color:#e9d5ff;font-weight:700}.grade-subject-picker select{width:100%;padding:12px 13px;border:1px solid #a78bfa;border-radius:9px;background:#111827;color:#fff;font:inherit;outline-offset:2px}.grade-probabilities{margin:22px auto 0;max-width:480px;text-align:left;background:#ffffff0c;border:1px solid #ffffff20;border-radius:12px;padding:14px}
-.grade-probabilities h3{margin:0 0 10px;font-size:17px;color:#e9d5ff;text-align:center}
-.grade-probability-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
-.grade-probability-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:8px;background:#ffffff0b;color:#e2e8f0}
-.grade-probability-item strong{color:#facc15;font-variant-numeric:tabular-nums}
-.grade-probability-note{font-size:12px;color:#c4b5fd;margin:10px 0 0;text-align:center}
-#menus{display:flex;flex-wrap:wrap;gap:5px}
-.dropdown{position:relative}
-.dropbtn{background:transparent;border:none;color:#fff;padding:12px 15px;cursor:pointer;font-size:15px;border-radius:6px;font-family:inherit}
-.dropbtn:hover,.dropbtn:focus{background:#1e40af}
-.dropbtn::after{content:" ▼";font-size:10px}
-.dropdown-content{display:none;position:absolute;top:100%;left:0;min-width:220px;max-width:320px;max-height:70vh;overflow-y:auto;background:#fff;box-shadow:0 8px 20px #0002;border-radius:8px;padding:6px;z-index:200}
-.dropdown-content.show{display:block}
-.dropdown-content a{display:block;padding:12px;color:#334155;text-decoration:none;border-radius:5px;overflow-wrap:anywhere}
-.dropdown-content a:hover{background:#dbeafe;color:#1d4ed8}
-.document-actions{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-left:auto}
-.action-btn{padding:10px 12px;background:#fff;color:#172554;border:1px solid #cbd5e1;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;white-space:nowrap}
-.action-btn:hover{background:#dbeafe}
-#otherDropdown .dropdown-content{left:auto;right:0}
-main{max-width:1200px;margin:30px auto;padding:0 20px}
-.content{background:#fff;padding:24px;border-radius:12px;min-height:300px;box-shadow:0 2px 10px #00000008}
-iframe{display:block;width:100%;height:75vh;min-height:500px;border:none;background:#fff}
-.lesson-toolbar{display:none;justify-content:flex-end;gap:8px;padding:8px 0;background:#fff;position:sticky;top:0;z-index:20}
-#viewer:not([hidden]) + .lesson-toolbar{display:flex}
-.lesson-fullscreen-btn{border:0;border-radius:8px;padding:11px 16px;background:#172554;color:#fff;font:700 14px Arial,sans-serif;cursor:pointer;box-shadow:0 2px 6px #0002}
-.lesson-fullscreen-btn:hover,.lesson-fullscreen-btn:focus{background:#1d4ed8;outline:2px solid #93c5fd;outline-offset:2px}
-.content:fullscreen{width:100%;height:100%;max-width:none;margin:0;padding:12px;border-radius:0;overflow:auto;background:#fff}
-.content:fullscreen #viewer{height:calc(100vh - 76px);min-height:0}
-.content:fullscreen .lesson-toolbar{position:sticky;top:0;background:#fff}
-@media(max-width:700px){iframe{height:70vh;min-height:400px}.lesson-fullscreen-btn{width:100%}}
-[hidden]{display:none!important}
-@media(max-width:700px){.navbar{padding:10px;gap:5px}.logo{width:100%;margin:0 0 5px}.grade-nav-btn{order:0}.document-actions{margin-left:0}main{padding:0 12px}.content{padding:14px}#otherDropdown .dropdown-content{left:0;right:auto}}
-@media print{body{background:#fff}.navbar,main>h1,main>#description,#welcome{display:none!important}main{max-width:none;margin:0;padding:0}.content{padding:0;margin:0;border-radius:0;box-shadow:none}iframe{display:block!important;width:100%;height:auto;min-height:0;overflow:visible}@page{size:A4;margin:15mm}}
-
-/* Random grade strip */
-.grade-lottery{--slot-width:100px;max-width:620px;margin:30px auto;padding:26px 18px;overflow:hidden;text-align:center;color:#f8fafc;background:linear-gradient(145deg,#111827,#25204b);border:1px solid #4f46e5;border-radius:22px;box-shadow:0 15px 40px #0004;font-family:system-ui,sans-serif}
-.grade-lottery *{box-sizing:border-box}
-.grade-lottery h2{margin:0 0 8px;font-size:26px}
-.grade-subtitle{color:#c4b5fd;margin:0 0 30px}
-.grade-machine{position:relative;padding:20px 0}
-.grade-window{position:relative;width:100%;height:120px;overflow:hidden;border:3px solid #a78bfa;border-radius:14px;background:#0b1020;box-shadow:inset 0 0 24px #0008}
-.grade-window:before,.grade-window:after{content:"";position:absolute;z-index:2;top:0;bottom:0;width:12%;pointer-events:none}
-.grade-window:before{left:0;background:linear-gradient(90deg,#0b1020,transparent)}
-.grade-window:after{right:0;background:linear-gradient(270deg,#0b1020,transparent)}
-.grade-track{display:flex;width:max-content;height:100%;will-change:transform;transform:translateX(0)}
-.grade-slot{flex:0 0 var(--slot-width);width:var(--slot-width);height:100%;display:flex;align-items:center;justify-content:center;border-right:1px solid #ffffff18;font-size:34px;font-weight:900;text-shadow:0 0 16px currentColor}
-.grade-slot.grade-F{color:#f87171}.grade-slot.grade-D{color:#fb923c}.grade-slot.grade-Dplus{color:#fbbf24}.grade-slot.grade-C{color:#a3e635}.grade-slot.grade-Cplus{color:#4ade80}.grade-slot.grade-B{color:#38bdf8}.grade-slot.grade-Bplus{color:#818cf8}.grade-slot.grade-A{color:#e879f9}
-.grade-pointer{position:absolute;left:50%;z-index:3;transform:translateX(-50%);color:#facc15;font-size:27px;line-height:1;filter:drop-shadow(0 0 7px #facc15aa)}
-.grade-pointer-top{top:-1px}.grade-pointer-bottom{bottom:-1px}
-.grade-status{min-height:28px;margin:12px 0 18px;color:#ddd6fe;font-size:15px}
-.grade-spin-btn,.grade-sound-btn{border:0;border-radius:12px;padding:13px 20px;margin:5px;font-size:16px;font-weight:750;cursor:pointer;transition:transform .2s,filter .2s}
-.grade-spin-btn{color:#fff;background:linear-gradient(100deg,#7c3aed,#db2777);box-shadow:0 5px 20px #9333ea55}
-.grade-sound-btn{color:#e9d5ff;background:#ffffff14;border:1px solid #ffffff30}
-.grade-spin-btn:hover,.grade-sound-btn:hover{filter:brightness(1.15);transform:translateY(-2px)}
-.grade-spin-btn:disabled{opacity:.6;cursor:wait;transform:none}
-.grade-result{margin:22px auto 0;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
-.grade-result-label{color:#c4b5fd;font-size:14px}.grade-result strong{font-size:48px;line-height:1.2;color:#facc15}
-.grade-result.is-winner strong{animation:grade-pop .55s ease-out;text-shadow:0 0 28px #facc1580}
-@keyframes grade-pop{0%{transform:scale(.3) rotate(-12deg);opacity:0}65%{transform:scale(1.25) rotate(4deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:1}}
-@media(max-width:420px){.grade-lottery{padding:22px 12px}.grade-lottery h2{font-size:22px}.grade-window{height:100px}.grade-slot{font-size:29px}.grade-result strong{font-size:42px}}
-@media(prefers-reduced-motion:reduce){.grade-spin-btn,.grade-sound-btn{transition:none}}
-</style>
-</head>
-<body>
-<nav class="navbar">
-  <a href="#" class="logo" id="home">สรุปเอกสารปลายภาค by Prof. Gemini at Google</a>
-  <button type="button" class="grade-nav-btn" id="gradeNavBtn">🎰 สุ่มเกรด</button>
-  <div id="menus"></div>
-  <div class="document-actions">
-    <button type="button" class="action-btn" id="savePdfBtn">Save to PDF</button>
-    <button type="button" class="action-btn" id="printBtn">Print</button>
-    
-<a href="https://drive.google.com/drive/folders/19AfQaIUPERvWQ3KjjKLo0MpdVCQ_AMKj?usp=sharing"
-   target="_self"
-   rel="noopener noreferrer"
-   class="nav-link">
-  Google Drive
-</a>
-
-    <div class="dropdown" id="otherDropdown">
-      <button type="button" class="dropbtn" id="otherBtn" aria-expanded="false">Other</button>
-      <div class="dropdown-content" id="otherMenu"></div>
-    </div>
-  </div>
-</nav>
-<main>
-  <h1 id="title">สาธุ99</h1>
-  <p id="description">เลือกเอกสารที่ชอบๆได้เลยอ้ายๆ</p>
-  <section class="content">
-    <div id="welcome">
-      <h2>เอาไงดีน่อ</h2>
-      <p>เลือกเอกสารจาก Dropdown ด้านบน เพื่อเปิดบทเรียน</p>
-      <section id="grade-lottery" class="grade-lottery">
-        <h2>🎰 สุ่มเกรดของคุณ</h2>
-        <p class="grade-subtitle">เลือกวิชาที่ต้องการสุ่ม แล้วมาลุ้นกันว่าจะได้เกรดอะไร!</p>
-        <div class="grade-subject-picker"><label for="grade-subject-select">📚 เลือกวิชา</label><select id="grade-subject-select" aria-label="เลือกวิชาที่ต้องการสุ่มเกรด"></select></div>
-        <div id="grade-probabilities" class="grade-probabilities" aria-label="เปอร์เซ็นต์โอกาสออกแต่ละเกรด"></div>
-        <div class="grade-machine">
-          <div class="grade-pointer grade-pointer-top">▼</div>
-          <div class="grade-window"><div id="grade-track" class="grade-track"></div></div>
-          <div class="grade-pointer grade-pointer-bottom">▲</div>
-        </div>
-        <div id="grade-status" class="grade-status" aria-live="polite">พร้อมแล้วหรือยัง?</div>
-        <button id="grade-spin-btn" class="grade-spin-btn" type="button">🎲 เริ่มสุ่มเกรด</button>
-        <button id="grade-sound-btn" class="grade-sound-btn" type="button" aria-pressed="true">🔊 ปิดเสียง</button>
-        <div id="grade-result" class="grade-result" aria-live="polite"><span class="grade-result-label">เกรดที่ได้</span><strong id="grade-result-value">?</strong></div>
-      </section>
-    </div>
-    <iframe id="viewer" title="เนื้อหาบทเรียน" hidden></iframe>
-    <div class="lesson-toolbar" id="lessonToolbar">
-      <button type="button" class="lesson-fullscreen-btn" id="lessonFullscreenBtn" aria-label="ขยายบทเรียนเต็มจอ">⛶ ขยายบทเรียนเต็มจอ</button>
-    </div>
-  </section>
-</main>
-<script src="grade-config.js"></script>
-<script>
-// 1. กำหนดวิชาและไฟล์ HTML
-const folders = {
-  transport: {
-    pages: ["chapter1.html", "chapter2.html","chapter3-1.html","chapter3-2.html", "chapter5.html", "chapter6.html", "chapter7.html", "chapter8.html"],
-    other: ["trans-formula.pdf"]
-  },
-  kinetic: {
-    pages: ["excercise.html"],
-    other: ["kinetic-formula.pdf"]
-  },
-  charac: {
-    pages: ["prof-pa.html","prof-nc.html","prof-sudsiri.html"],
-    other: ["sudsiri-ref.pdf","nc-ref.pdf"]
-  }
-};
-
-// 2. อ้างอิงองค์ประกอบ
-const menus = document.getElementById("menus");
-const viewer = document.getElementById("viewer");
-const welcome = document.getElementById("welcome");
-const title = document.getElementById("title");
-const description = document.getElementById("description");
-const otherBtn = document.getElementById("otherBtn");
-const otherMenu = document.getElementById("otherMenu");
-let currentFolder = null;
-let currentFile = null;
-
-// 3. สร้าง Dropdown วิชาอัตโนมัติ
-Object.entries(folders).forEach(([folder, folderData]) => {
-  const dropdown = document.createElement("div");
-  dropdown.className = "dropdown";
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "dropbtn";
-  button.textContent = folder;
-  button.setAttribute("aria-expanded", "false");
-  const content = document.createElement("div");
-  content.className = "dropdown-content";
-  folderData.pages.forEach(file => {
-    const link = document.createElement("a");
-    const path = `${folder}/${file}`;
-    link.href = path;
-    link.textContent = file.replace(/\.html$/i, "").replace(/[-_]/g, " ");
-    link.addEventListener("click", event => {
-      event.preventDefault();
-      openLesson(folder, file, link.textContent);
-      closeMenus();
-      history.pushState({folder, file}, "", `?folder=${encodeURIComponent(folder)}&file=${encodeURIComponent(file)}`);
-    });
-    content.appendChild(link);
-  });
-  button.addEventListener("click", event => {
-    event.stopPropagation();
-    const opening = !content.classList.contains("show");
-    closeMenus();
-    content.classList.toggle("show", opening);
-    button.setAttribute("aria-expanded", String(opening));
-  });
-  dropdown.append(button, content);
-  menus.appendChild(dropdown);
-});
-
-// 4. เปิดบทเรียน
-function openLesson(folder, file, displayName) {
-  currentFolder = folder;
-  currentFile = file;
-  viewer.src = `${folder}/${file}`;
-  viewer.hidden = false;
-  welcome.hidden = true;
-  title.textContent = displayName;
-  description.textContent = `${folder}/${file}`;
-  renderOtherFiles(folder);
-}
-
-// 5. สร้างเมนู Other
-function renderOtherFiles(folder) {
-  otherMenu.replaceChildren();
-  const files = folders[folder]?.other || [];
-  if (!files.length) {
-    const empty = document.createElement("a");
-    empty.href = "#";
-    empty.textContent = "ไม่มีไฟล์ในโฟลเดอร์ other";
-    empty.addEventListener("click", e => e.preventDefault());
-    otherMenu.appendChild(empty);
-    return;
-  }
-  files.forEach(file => {
-    const link = document.createElement("a");
-    const path = `${folder}/other/${file}`;
-    link.href = path;
-    link.textContent = file;
-    link.download = file;
-    link.addEventListener("click", event => {
-      if (/\.html?$/i.test(file)) {
-        event.preventDefault();
-        currentFile = `other/${file}`;
-        viewer.src = path;
-        viewer.hidden = false;
-        welcome.hidden = true;
-        title.textContent = file.replace(/\.html?$/i, "");
-        description.textContent = path;
-        closeMenus();
-        history.pushState({folder, file: `other/${file}`}, "", `?folder=${encodeURIComponent(folder)}&file=${encodeURIComponent(`other/${file}`)}`);
-      }
-    });
-    otherMenu.appendChild(link);
-  });
-}
-
-// 6. เปิด / ปิด Dropdown
-function closeMenus() {
-  document.querySelectorAll(".dropdown-content").forEach(menu => menu.classList.remove("show"));
-  document.querySelectorAll(".dropbtn").forEach(button => button.setAttribute("aria-expanded", "false"));
-}
-document.addEventListener("click", event => { if (!event.target.closest(".dropdown")) closeMenus(); });
-otherBtn.addEventListener("click", event => {
-  event.stopPropagation();
-  if (!currentFolder) { alert("กรุณาเลือกวิชาหรือบทเรียนก่อน"); return; }
-  const opening = !otherMenu.classList.contains("show");
-  closeMenus();
-  otherMenu.classList.toggle("show", opening);
-  otherBtn.setAttribute("aria-expanded", String(opening));
-});
-
-// 7. Print และ Save to PDF
-function printCurrentDocument() {
-  if (viewer.hidden || !viewer.getAttribute("src")) { alert("กรุณาเปิดบทเรียนก่อนพิมพ์หรือบันทึก PDF"); return; }
-  try {
-    const printWindow = viewer.contentWindow;
-    if (!printWindow) { alert("ไม่สามารถเข้าถึงเอกสารได้"); return; }
-    printWindow.focus();
-    printWindow.print();
-  } catch (error) {
-    alert("ไม่สามารถสั่งพิมพ์เอกสารได้ กรุณาตรวจสอบว่าไฟล์อยู่บนเว็บไซต์เดียวกัน");
-  }
-}
-document.getElementById("printBtn").addEventListener("click", printCurrentDocument);
-document.getElementById("savePdfBtn").addEventListener("click", printCurrentDocument);
-
-// ขยายบทเรียนให้เต็มหน้าจอ และกดย่อเพื่อกลับสู่หน้าปกติ
-const lessonFullscreenBtn = document.getElementById("lessonFullscreenBtn");
-const lessonContent = document.querySelector("main .content");
-lessonFullscreenBtn.addEventListener("click", async () => {
-  try {
-    if (document.fullscreenElement) {
-      await document.exitFullscreen();
-    } else if (lessonContent.requestFullscreen) {
-      await lessonContent.requestFullscreen();
-    } else {
-      alert("เบราว์เซอร์นี้ไม่รองรับโหมดเต็มหน้าจอ กรุณาลองใช้ Chrome หรือ Edge");
-    }
-  } catch (error) {
-    alert("ไม่สามารถขยายเต็มจอได้ กรุณาลองกดอีกครั้ง");
-  }
-});
-function updateFullscreenButton() {
-  const isFullscreen = Boolean(document.fullscreenElement);
-  lessonFullscreenBtn.textContent = isFullscreen ? "⤢ ย่อกลับหน้าปกติ" : "⛶ ขยายบทเรียนเต็มจอ";
-  lessonFullscreenBtn.setAttribute("aria-label", isFullscreen ? "ย่อกลับหน้าปกติ" : "ขยายบทเรียนเต็มจอ");
-}
-document.addEventListener("fullscreenchange", updateFullscreenButton);
-
-// ปุ่มสุ่มเกรดในตำแหน่งแรกของ Navbar
- document.getElementById("gradeNavBtn").addEventListener("click", () => {
-  currentFolder = null; currentFile = null;
-  viewer.hidden = true; viewer.removeAttribute("src"); welcome.hidden = false;
-  title.textContent = "สุ่มเกรด"; description.textContent = "ดูเปอร์เซ็นต์โอกาสออก แล้วกดเริ่มสุ่มได้เลย";
-  otherMenu.replaceChildren(); closeMenus();
-  history.pushState({}, "", `${location.pathname}#grade-lottery`);
-  requestAnimationFrame(() => document.getElementById("grade-lottery").scrollIntoView({behavior:"smooth", block:"start"}));
-});
-
-// 8. กลับหน้าแรก
-document.getElementById("home").addEventListener("click", event => {
-  event.preventDefault(); currentFolder = null; currentFile = null;
-  viewer.hidden = true; viewer.removeAttribute("src"); welcome.hidden = false;
-  title.textContent = "ยินดีต้อนรับ"; description.textContent = "เลือกหมวดหมู่จากเมนูด้านบน";
-  otherMenu.replaceChildren(); closeMenus(); history.pushState({}, "", location.pathname);
-});
-
-// 9. รองรับ Back / Forward
-function restorePageFromUrl() {
-  const params = new URLSearchParams(location.search);
-  const folder = params.get("folder"); const file = params.get("file");
-  if (folder && file && folders[folder]) {
-    if (folders[folder].pages.includes(file)) {
-      openLesson(folder, file, file.replace(/\.html$/i, "").replace(/[-_]/g, " ")); return;
-    }
-    if (file.startsWith("other/") && folders[folder].other.includes(file.slice(6)) && /\.html?$/i.test(file)) {
-      openLesson(folder, file, file.replace(/^other\//, "").replace(/\.html?$/i, "")); return;
-    }
-  }
-  currentFolder = null; currentFile = null; viewer.hidden = true; viewer.removeAttribute("src");
-  welcome.hidden = false; title.textContent = "ยินดีต้อนรับ"; description.textContent = "เลือกหมวดหมู่จากเมนูด้านบน";
-}
-window.addEventListener("popstate", restorePageFromUrl);
-window.addEventListener("DOMContentLoaded", restorePageFromUrl);
-
-// 10. แอนิเมชันสุ่มเกรด แถบวิ่ง 10 วินาที พร้อมเสียงติ๊กจาก Web Audio API
-(() => {
-  const root = document.getElementById("grade-lottery");
-  if (!root || root.dataset.initialized === "true") return;
-  root.dataset.initialized = "true";
-  const track = root.querySelector("#grade-track");
-  const spinBtn = root.querySelector("#grade-spin-btn");
-  const soundBtn = root.querySelector("#grade-sound-btn");
-  const probabilityBox = root.querySelector("#grade-probabilities");
-  const status = root.querySelector("#grade-status");
-  const resultBox = root.querySelector("#grade-result");
-  const resultValue = root.querySelector("#grade-result-value");
-  const win = root.querySelector(".grade-window");
-  const grades = [
-    {name:"F",cls:"grade-F"},{name:"D",cls:"grade-D"},{name:"D+",cls:"grade-Dplus"},
-    {name:"C",cls:"grade-C"},{name:"C+",cls:"grade-Cplus"},{name:"B",cls:"grade-B"},
-    {name:"B+",cls:"grade-Bplus"},{name:"A",cls:"grade-A"}
-  ];
-  const DURATION = 10000;
-  const SLOT_COUNT = 90;
-  let audioContext = null, soundEnabled = true, spinning = false, animationFrame = null;
-  function makeSlot(grade) {
-    const el = document.createElement("div");
-    el.className = `grade-slot ${grade.cls}`; el.textContent = grade.name;
-    el.setAttribute("aria-hidden", "true"); return el;
-  }
-  // สุ่มสัดส่วนเรทเฉพาะผู้ใช้และรายวิชา โดยเก็บไว้ใน localStorage ของเบราว์เซอร์นี้
-  // หมายเหตุ: ถ้าต้องการแยกผู้ใช้จริงข้ามอุปกรณ์ ต้องมีระบบบัญชีและ backend
-  const subjectSelect = root.querySelector("#grade-subject-select");
-  const subjectNames = (window.GRADE_CONFIG && window.GRADE_CONFIG.subjectNames) || {};
-  const configuredRates = (window.GRADE_CONFIG && window.GRADE_CONFIG.rates) || {};
-  const storagePrefix = "gradeLotteryRates:v1:";
-  let selectedSubject = "";
-  let gradeRates = [];
-  let totalRate = 0;
-
-  function populateSubjects() {
-    subjectSelect.replaceChildren();
-    const entries = Object.entries(folders || {});
-    entries.forEach(([key, data]) => {
-      const option = document.createElement("option");
-      option.value = key;
-      option.textContent = subjectNames[key] || key.replace(/[-_]/g, " ").replace(/\b\w/g, c => c.toUpperCase());
-      subjectSelect.appendChild(option);
-    });
-    if (!entries.length) {
-      const option = document.createElement("option");
-      option.value = "default"; option.textContent = "วิชาทั่วไป";
-      subjectSelect.appendChild(option);
-    }
-    try {
-      const preferred = localStorage.getItem("gradeLotterySelectedSubject");
-      if (preferred && [...subjectSelect.options].some(option => option.value === preferred)) subjectSelect.value = preferred;
-    } catch (e) { /* storage blocked: use first subject */ }
-  }
-
-  function getPersonalizedRates(subjectKey) {
-    const storageKey = storagePrefix + encodeURIComponent(subjectKey);
-    try {
-      const saved = localStorage.getItem(storageKey);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (grades.every(g => Number.isFinite(Number(parsed[g.name])) && Number(parsed[g.name]) >= 0) && grades.some(g => Number(parsed[g.name]) > 0)) return parsed;
-      }
-    } catch (e) { /* หาก localStorage ใช้ไม่ได้ จะสุ่มใหม่ในหน้านี้ */ }
-
-    // ใช้เรทฐานจาก config แล้วสุ่มปรับขึ้นลงเฉพาะผู้ใช้/วิชานี้
-    const baseTotal = grades.reduce((sum, g) => sum + Math.max(0, Number(configuredRates[g.name]) || 0), 0);
-    const personalized = {};
-    grades.forEach(g => {
-      const base = Math.max(0, Number(configuredRates[g.name]) || 0);
-      personalized[g.name] = baseTotal > 0
-        ? (base > 0 ? base * (0.5 + Math.random()) : 0)
-        : Math.random() * 100 + 1;
-    });
-    if (!grades.some(g => personalized[g.name] > 0)) grades.forEach(g => personalized[g.name] = 1);
-    try { localStorage.setItem(storageKey, JSON.stringify(personalized)); } catch (e) { /* private mode / storage blocked */ }
-    return personalized;
-  }
-
-  function updateRatesForSubject(subjectKey) {
-    selectedSubject = subjectKey;
-    try { localStorage.setItem("gradeLotterySelectedSubject", subjectKey); } catch (e) {}
-    const personalRates = getPersonalizedRates(subjectKey);
-    gradeRates = grades.map(grade => {
-      const rate = Number(personalRates[grade.name]);
-      return { grade, rate: Number.isFinite(rate) && rate > 0 ? rate : 0 };
-    });
-    totalRate = gradeRates.reduce((sum, item) => sum + item.rate, 0);
-    renderGradeProbabilities();
-    resultValue.textContent = "?";
-    resultBox.classList.remove("is-winner");
-    status.textContent = `เลือกวิชา ${subjectSelect.options[subjectSelect.selectedIndex]?.textContent || subjectKey} แล้ว พร้อมสุ่ม!`;
-    spinBtn.textContent = "🎲 เริ่มสุ่มเกรด";
-    track.replaceChildren(makeSlot(grades[0]));
-    requestAnimationFrame(() => { track.style.transform = `translateX(${centerAt(0)}px)`; });
-  }
-
-  // แสดงเปอร์เซ็นต์เฉพาะของผู้ใช้และวิชาที่เลือก
-  function renderGradeProbabilities() {
-    probabilityBox.replaceChildren();
-    const heading = document.createElement("h3");
-    heading.textContent = "📊 โอกาสออกแต่ละเกรดของคุณ";
-    probabilityBox.appendChild(heading);
-    const grid = document.createElement("div");
-    grid.className = "grade-probability-grid";
-    gradeRates.forEach(item => {
-      const row = document.createElement("div");
-      row.className = "grade-probability-item";
-      const gradeLabel = document.createElement("span");
-      gradeLabel.textContent = `เกรด ${item.grade.name}`;
-      const percentage = document.createElement("strong");
-      const probability = totalRate > 0 ? item.rate / totalRate * 100 : 100 / grades.length;
-      percentage.textContent = `${probability.toFixed(2)}%`;
-      row.append(gradeLabel, percentage);
-      grid.appendChild(row);
-    });
-    probabilityBox.appendChild(grid);
-    const note = document.createElement("p");
-    note.className = "grade-probability-note";
-    note.textContent = "เรทนี้สุ่มเฉพาะเบราว์เซอร์ของคุณ แยกตามวิชา และบันทึกไว้เพื่อให้เปอร์เซ็นต์คงเดิมเมื่อกลับมาใหม่";
-    probabilityBox.appendChild(note);
-  }
-
-  function randomGrade() {
-    if (totalRate <= 0) return grades[Math.floor(Math.random() * grades.length)];
-    let roll = Math.random() * totalRate;
-    for (const item of gradeRates) {
-      roll -= item.rate;
-      if (roll < 0) return item.grade;
-    }
-    return gradeRates[gradeRates.length - 1].grade;
-  }
-
-  populateSubjects();
-  updateRatesForSubject(subjectSelect.value || "default");
-  subjectSelect.addEventListener("change", () => {
-    if (spinning) { subjectSelect.value = selectedSubject; return; }
-    updateRatesForSubject(subjectSelect.value);
-  });
-  function buildTrack(finalGrade) {
-    track.replaceChildren();
-    const items = Array.from({length:SLOT_COUNT}, () => randomGrade());
-    const targetIndex = SLOT_COUNT - 5; items[targetIndex] = finalGrade;
-    items.forEach(grade => track.appendChild(makeSlot(grade)));
-    return {targetIndex};
-  }
-  function getSlotWidth() {
-    const slot = track.querySelector(".grade-slot");
-    return slot ? slot.getBoundingClientRect().width : 100;
-  }
-  function centerAt(index) { return win.clientWidth / 2 - getSlotWidth() / 2 - index * getSlotWidth(); }
-  function easeOutQuint(t) { return 1 - Math.pow(1 - t, 5); }
-  async function prepareAudio() {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (!AudioCtx) return null;
-    if (!audioContext) audioContext = new AudioCtx();
-    if (audioContext.state === "suspended") await audioContext.resume();
-    return audioContext;
-  }
-  function tick() {
-    if (!soundEnabled || !audioContext || audioContext.state !== "running") return;
-    const now = audioContext.currentTime;
-    const osc = audioContext.createOscillator(), gain = audioContext.createGain();
-    osc.type = "square"; osc.frequency.setValueAtTime(1600, now);
-    osc.frequency.exponentialRampToValueAtTime(850, now + 0.018);
-    gain.gain.setValueAtTime(0.0001, now); gain.gain.exponentialRampToValueAtTime(0.10, now + 0.002);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.025);
-    osc.connect(gain); gain.connect(audioContext.destination); osc.start(now); osc.stop(now + 0.03);
-  }
-  // เสียงยินดีสำหรับเกรดสูง
-  function playGoodSound() {
-    if (!soundEnabled || !audioContext || audioContext.state !== "running") return;
-    const now = audioContext.currentTime;
-    [523.25,659.25,783.99,1046.5].forEach((frequency,i) => {
-      const osc = audioContext.createOscillator(), gain = audioContext.createGain(), start = now + i * 0.12;
-      osc.type = "triangle";
-      osc.frequency.setValueAtTime(frequency, start);
-      gain.gain.setValueAtTime(0.0001,start);
-      gain.gain.exponentialRampToValueAtTime(0.16,start+0.025);
-      gain.gain.exponentialRampToValueAtTime(0.0001,start+0.28);
-      osc.connect(gain); gain.connect(audioContext.destination); osc.start(start); osc.stop(start+0.30);
-    });
-  }
-  // เสียงผิดหวังสำหรับเกรดต่ำ
-  function playBadSound() {
-    if (!soundEnabled || !audioContext || audioContext.state !== "running") return;
-    const now = audioContext.currentTime;
-    [392,311.13,233.08,174.61].forEach((frequency,i) => {
-      const osc = audioContext.createOscillator(), gain = audioContext.createGain(), start = now + i * 0.16;
-      osc.type = "sawtooth";
-      osc.frequency.setValueAtTime(frequency, start);
-      osc.frequency.exponentialRampToValueAtTime(frequency * 0.72, start + 0.13);
-      gain.gain.setValueAtTime(0.0001,start);
-      gain.gain.exponentialRampToValueAtTime(0.10,start+0.02);
-      gain.gain.exponentialRampToValueAtTime(0.0001,start+0.22);
-      osc.connect(gain); gain.connect(audioContext.destination); osc.start(start); osc.stop(start+0.24);
-    });
-  }
-  // เลือกเสียงตามกลุ่มเกรดที่กำหนดไว้ใน grade-config.js
-  function playResultSound(grade) {
-    const soundTiers = (window.GRADE_CONFIG && window.GRADE_CONFIG.soundTiers) || {};
-    const goodGrades = Array.isArray(soundTiers.good) ? soundTiers.good : ["A", "B+", "B"];
-    const badGrades = Array.isArray(soundTiers.bad) ? soundTiers.bad : ["F", "D", "D+"];
-    if (goodGrades.includes(grade.name)) playGoodSound();
-    else if (badGrades.includes(grade.name)) playBadSound();
-    else tick();
-  }
-  function spin() {
-    if (spinning) return;
-    spinning = true; spinBtn.disabled = true; status.textContent = "กำลังสุ่ม... ลุ้นกันเลย!";
-    resultBox.classList.remove("is-winner"); resultValue.textContent = "?";
-    prepareAudio().then(() => {
-      const finalGrade = randomGrade(), {targetIndex} = buildTrack(finalGrade);
-      track.style.transition = "none"; track.style.transform = `translateX(${centerAt(0)}px)`;
-      track.getBoundingClientRect();
-      const startX = centerAt(0), endX = centerAt(targetIndex), startTime = performance.now(), slotWidth = getSlotWidth();
-      let lastCrossed = 0;
-      function animate(now) {
-        const elapsed = Math.min(now - startTime, DURATION), progress = elapsed / DURATION;
-        const x = startX + (endX - startX) * easeOutQuint(progress);
-        track.style.transform = `translateX(${x}px)`;
-        const passed = Math.floor(Math.max(0, (startX - x) / slotWidth));
-        while (lastCrossed < passed) { lastCrossed++; tick(); }
-        if (elapsed < DURATION) animationFrame = requestAnimationFrame(animate);
-        else {
-          track.style.transform = `translateX(${endX}px)`; animationFrame = null;
-          resultValue.textContent = finalGrade.name; resultBox.classList.remove("is-winner");
-          void resultBox.offsetWidth; resultBox.classList.add("is-winner");
-          const soundTiers = (window.GRADE_CONFIG && window.GRADE_CONFIG.soundTiers) || {};
-          const goodGrades = Array.isArray(soundTiers.good) ? soundTiers.good : ["A", "B+", "B"];
-          const badGrades = Array.isArray(soundTiers.bad) ? soundTiers.bad : ["F", "D", "D+"];
-          status.textContent = goodGrades.includes(finalGrade.name)
-            ? `🎉 ยินดีด้วย! ได้เกรด ${finalGrade.name}`
-            : badGrades.includes(finalGrade.name)
-              ? `😵 โอ๊ย! ได้เกรด ${finalGrade.name} คราวหน้าสู้ใหม่!`
-              : `ผลสุ่มออกแล้ว: เกรด ${finalGrade.name}`;
-          playResultSound(finalGrade);
-          spinning = false; spinBtn.disabled = false; spinBtn.textContent = "🔄 สุ่มอีกครั้ง";
+<!DOCTYPE html><html lang="th"><head>
+    <meta charset="UTF-8">
+    <title>Transient Thermal Analysis of a Cooling Gel Patch Applied to Human Skin During Fever Using ANSYS</title>
+    <style>
+        @page { size: 210mm 297mm; margin: 0; }
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { background-color: #ffffff; }
+        @media (prefers-color-scheme: dark) {
+            html { background-color: #1f1f1f; }
         }
+        body {
+            padding: 24px 0;
+            margin: 0 auto;
+            max-width: 1160px !important;
+            border: none !important;
+            background: transparent !important;
+            font-family: 'Sarabun', 'TH Sarabun New', 'Tahoma', 'Segoe UI', sans-serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            color: #1e293b;
+        }
+        .page {
+    min-height: 297mm;
+    height: auto;
+    margin: 0 auto 12px auto;
+    padding: 18mm 18mm 12mm 18mm;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: visible;
+}
+        @media screen and (max-width: 600px) {
+            body {
+                padding: 16px 0;
+            }
+            .page {
+                width: 100%;
+                margin: 0 auto 8px auto;
+                border: none;
+                padding: 12px 20px;
+            }
+        }
+        .page-content {
+    flex: 1 0 auto;
+    min-height: 0;
+    overflow: visible;
+}
+        .page-content > * + * {
+            margin-top: 20px;
+        }
+        .page-content > :is(h1, h2, h3, h4) + * {
+            margin-top: 8px;
+        }
+        .page-footer {
+            flex-shrink: 0;
+            margin-top: auto;
+            padding-top: 4mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 8.5pt;
+            color: #64748b;
+            border-top: 1px solid #cbd5e1;
+        }
+        @media print {
+            *, *::before, *::after {
+                box-shadow: none !important;
+                text-shadow: none !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            body { padding: 0; background: none; }
+                .page {
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        overflow: visible;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .page-content {
+        overflow: visible;
+    }
+
+    .page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+        }
+        [contenteditable]:focus { outline: none; }
+
+        /* Typography & Document Craft */
+        .masthead {
+            border-bottom: 3px solid #0f172a;
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+        }
+        .masthead-eyebrow {
+            font-size: 9.5pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #0369a1;
+            margin: 0 0 4px 0;
+        }
+        h1 {
+            font-size: 19pt;
+            line-height: 1.25;
+            color: #0f172a;
+            margin: 0 0 6px 0;
+            font-weight: 800;
+        }
+        .masthead-sub {
+            font-size: 10.5pt;
+            color: #475569;
+            margin: 0;
+        }
+        h2 {
+            font-size: 14pt;
+            color: #0f172a;
+            border-bottom: 1.5px solid #0369a1;
+            padding-bottom: 4px;
+            margin-top: 22px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        h3 {
+            font-size: 11.5pt;
+            color: #0369a1;
+            margin-top: 14px;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+        h4 {
+            font-size: 11pt;
+            color: #1e293b;
+            margin-top: 10px;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+        p {
+            margin: 0;
+            text-align: justify;
+        }
+        ul, ol {
+            margin: 6px 0 6px 0;
+            padding-left: 22px;
+        }
+        li {
+            margin-bottom: 4px;
+        }
+        li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Math & Formulas */
+        .equation-block {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-left: 4px solid #0369a1;
+            padding: 8px 14px;
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-size: 11pt;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .eq-num {
+            font-family: 'Sarabun', sans-serif;
+            font-size: 9.5pt;
+            color: #64748b;
+            font-weight: 600;
+        }
+        .math {
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-style: italic;
+        }
+        .math-upright {
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-style: normal;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9.5pt;
+            line-height: 1.35;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 6px 8px;
+            text-align: left;
+            vertical-align: top;
+            overflow-wrap: break-word;
+        }
+        thead th {
+            background-color: #0f172a;
+            color: #ffffff;
+            font-weight: 700;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        .num-col {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+        .center-col {
+            text-align: center;
+        }
+
+        /* Code & Command Blocks */
+        pre {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-left: 3px solid #334155;
+            padding: 8px 12px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 9.5pt;
+            line-height: 1.35;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            color: #0f172a;
+        }
+        code {
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 9.5pt;
+            background-color: #f1f5f9;
+            padding: 1px 4px;
+            border-radius: 2px;
+        }
+
+        /* Callout (Strictly 1 main engineering callout style) */
+        .callout {
+            background-color: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-left: 4px solid #0284c7;
+            padding: 10px 14px;
+        }
+
+        /* Citations */
+        a.cite {
+            color: #0369a1;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        ol.ref-list li:target {
+            background-color: #e0f2fe;
+            padding: 2px 4px;
+        }
+    </style>
+<style data-bard-injected="true">
+@media screen {
+    html {
+        background-color: #ffffff;
+    }
+    body {
+        padding: 8px 0 24px 0;
+    }
+}
+@media screen and (prefers-color-scheme: dark) {
+    html {
+        background-color: #1f1f1f;
+    }
+}
+@media screen and (max-width: 600px) {
+    body {
+        padding: 4px 0 16px 0;
+        margin: 0 auto;
+    }
+}
+</style></head>
+<body>
+<div contenteditable="true">
+<section class="page">
+    <div class="page-content">
+
+        <header class="masthead">
+            <div class="masthead-eyebrow">Engineering Masterclass &amp; Technical Reference Manual</div>
+            <h1>Transient Thermal Analysis of a Cooling Gel Patch Applied to Human Skin During Fever Using ANSYS</h1>
+            <p class="masthead-sub">คู่มือวิศวกรรมฉบับสมบูรณ์สำหรับการวิเคราะห์การถ่ายเทความร้อนชีวภาพและพลศาสตร์ความร้อนด้วย ANSYS Mechanical และ ANSYS Fluent (บทที่ 1 ถึง บทที่ 9)</p>
+        </header>
+
+        <div class="callout">
+            <strong>วัตถุประสงค์ของโครงการวิศวกรรม:</strong> เอกสารฉบับนี้ออกแบบมาเพื่อฝึกอบรมวิศวกรให้เข้าใจรากฐานทางฟิสิกส์ของกลศาสตร์ของไหล (Fluid Mechanics) การถ่ายเทความร้อน (Heat Transfer) และการถ่ายเทความร้อนชีวภาพ (Bioheat Transfer) จนสามารถสร้างแบบจำลอง ตั้งค่าตัวแก้สมการ เขียนโค้ดควบคุม (APDL และ C UDF) และตรวจสอบความถูกต้องของระบบแผ่นเจลลดไข้บนผิวหนังมนุษย์ในสภาวะมีไข้ได้อย่างแม่นยำตามมาตรฐานอุตสาหกรรม
+        </div>
+
+        <h2>บทที่ 1: บทบาทของ Fluid Engineer และรากฐาน Fluid Mechanics</h2>
+
+        <h3>1.1 การแยกส่วนระบบทางกายภาพ (Physical System Decomposition)</h3>
+        <p>การจำลองทางวิศวกรรมเริ่มต้นจากการแปลงปรากฏการณ์จริงบนหน้าผากของผู้ป่วยที่มีไข้ให้เป็นระบบทางอุณหพลศาสตร์และกลศาสตร์ของไหล ระบบประกอบด้วย 2 โดเมนหลักที่ประกบกันผ่านรอยต่อที่มีความต้านทานความร้อน ได้แก่ <strong>แผ่นเจลลดไข้ (Cooling Gel Patch)</strong> ซึ่งประกอบด้วยชั้นผ้าใยสังเคราะห์ (Fiber Top Sheet) ชั้นไฮโดรเจลอุ้มน้ำ (Hydrogel) และชั้นกาว (Adhesive Layer) และ <strong>เนื้อเยื่อผิวหนังมนุษย์ (Human Skin)</strong> ซึ่งประกอบด้วยชั้นหนังกำพร้า (Epidermis) ชั้นหนังแท้ (Dermis) และชั้นไขมันใต้ผิวหนัง (Subcutaneous Fat) โดยมีปัจจัยทางกายภาพ 8 ประการที่ทำงานร่วมกันตลอดเวลา ได้แก่ อุณหภูมิเริ่มต้นของผิวหนังที่สูงขึ้นจากพิษไข้ การสร้างความร้อนระดับเซลล์ (Metabolism) การไหลเวียนของเลือดอุ่นในหลอดเลือดฝอย (Blood Perfusion) การดูดซับความร้อนของเจลเย็น การต้านทานความร้อนที่ผิวสัมผัส (Thermal Contact Resistance) และการแลกเปลี่ยนความร้อนกับอากาศในห้องผ่านการพาและการแผ่รังสี</p>
+
+        <h3>1.2 ความแตกต่างและความเชื่อมโยงระหว่าง Fluid Mechanics และ Heat Transfer</h3>
+        <p><strong>กลศาสตร์ของไหล (Fluid Mechanics)</strong> ศึกษาพฤติกรรมของสสารที่ไม่สามารถทนต่อความเค้นเฉือนได้โดยไม่เปลี่ยนรูปอย่างต่อเนื่อง (ของเหลวและก๊าซ) ทั้งในสภาวะอยู่นิ่ง (Fluid Statics, ความเร็ว <span class="math">V</span> = 0 เช่น น้ำที่ถูกกักในโครงข่ายพอลิเมอร์ของ Hydrogel) และสภาวะเคลื่อนที่ (Fluid Dynamics, <span class="math">V</span> ≠ 0 เช่น อากาศที่ไหลผ่านหน้าผากและเลือดที่ไหลในหลอดเลือดฝอย) ส่วน <strong>การถ่ายเทความร้อน (Heat Transfer)</strong> ศึกษาการเคลื่อนที่ของพลังงานความร้อนที่ขับเคลื่อนด้วยความแตกต่างของอุณหภูมิ (Δ<span class="math">T</span>) ทั้งสองวิชานี้เชื่อมโยงกันอย่างแยกไม่ออกผ่านกระบวนการพัดพาความร้อนด้วยของไหล (Advection/Convection) และการเปลี่ยนแปลงคุณสมบัติของของไหลตามอุณหภูมิ หรือที่เรียกว่าปัญหา <strong>Conjugate Heat Transfer (CHT)</strong></p>
+
+        <h3>1.3 สมการควบคุมหลักทางกลศาสตร์ของไหลและการถ่ายเทความร้อน (Governing Equations)</h3>
+        <p>โปรแกรมคำนวณทางวิศวกรรมใช้ระเบียบวิธีเชิงตัวเลขในการแก้สมการเชิงอนุพันธ์ย่อย 3 สมการหลักที่มาจากกฎการอนุรักษ์ทางฟิสิกส์ ดังนี้:</p>
+
+        <h4>1. สมการความต่อเนื่อง (Continuity Equation — กฎทรงมวล)</h4>
+        <div class="equation-block">
+            <span>∂<span class="math">ρ</span> / ∂<span class="math">t</span> + ∇ · (<span class="math">ρ</span><strong>V</strong>) = 0</span>
+            <span class="eq-num">(สมการที่ 1.1)</span>
+        </div>
+        <p>โดยที่ <span class="math">ρ</span> คือความหนาแน่นของของไหล [kg/m<sup>3</sup>], <span class="math">t</span> คือเวลา [s], <strong>V</strong> คือเวกเตอร์ความเร็วของการไหล (<span class="math">u, v, w</span>) [m/s] และ ∇· คือตัวดำเนินการไดเวอร์เจนซ์ [m<sup>−1</sup>] สำหรับของไหลที่อัดตัวไม่ได้ (Incompressible flow) ความหนาแน่น <span class="math">ρ</span> จะคงที่ สมการจึงลดรูปเหลือ ∇ · <strong>V</strong> = 0</p>
+
+        <h4>2. สมการโมเมนตัมและสมการนาเวียร์-สโตกส์ (Navier-Stokes Momentum Equation — กฎข้อที่ 2 ของนิวตัน)</h4>
+        <div class="equation-block">
+            <span><span class="math">ρ</span> ( ∂<strong>V</strong> / ∂<span class="math">t</span> + (<strong>V</strong> · ∇)<strong>V</strong> ) = −∇<span class="math">P</span> + <span class="math">μ</span>∇<sup>2</sup><strong>V</strong> + <span class="math">ρ</span><strong>g</strong> + <strong>F</strong><sub>ext</sub></span>
+            <span class="eq-num">(สมการที่ 1.2)</span>
+        </div>
+        <p>ทุกพจน์มีหน่วยเป็นแรงต่อหนึ่งหน่วยปริมาตร [N/m<sup>3</sup>] โดยที่ <span class="math">P</span> คือความดันสถิต [Pa], <span class="math">μ</span> คือความหนืดไดนามิก [Pa·s], ∇<sup>2</sup> คือตัวดำเนินการลาปลาเซียน [m<sup>−2</sup>], <strong>g</strong> คือความเร่งโน้มถ่วง [m/s<sup>2</sup>] (ทำให้เกิดแรงลอยตัวตามธรรมชาติเมื่ออากาศร้อนขึ้น) และ <strong>F</strong><sub>ext</sub> คือแรงภายนอกอื่นๆ ต่อปริมาตร [N/m<sup>3</sup>]</p>
+
+        <h4>3. สมการอนุรักษ์พลังงาน (Conservation of Energy Equation — กฎข้อที่ 1 ของเทอร์โมไดนามิกส์)</h4>
+        <div class="equation-block">
+            <span><span class="math">ρ c<sub>p</sub></span> ( ∂<span class="math">T</span> / ∂<span class="math">t</span> + <strong>V</strong> · ∇<span class="math">T</span> ) = ∇ · (<span class="math">k</span>∇<span class="math">T</span>) + Φ + <span class="math">S<sub>h</sub></span></span>
+            <span class="eq-num">(สมการที่ 1.3)</span>
+        </div>
+        <p>ทุกพจน์มีหน่วยเป็นกำลังงานความร้อนต่อหนึ่งหน่วยปริมาตร [W/m<sup>3</sup>] โดยที่ <span class="math">c<sub>p</sub></span> คือความจุความร้อนจำเพาะ [J/(kg·K)], <span class="math">T</span> คืออุณหภูมิสัมบูรณ์ [K], <span class="math">k</span> คือสัมประสิทธิ์การนำความร้อน [W/(m·K)], Φ คือความร้อนจากการเสียดสีของความหนืด (Viscous Dissipation) [W/m<sup>3</sup>] และ <span class="math">S<sub>h</sub></span> คือแหล่งกำเนิดความร้อนภายในเชิงปริมาตร (Volumetric Heat Source) [W/m<sup>3</sup>] ในกรณีของเนื้อเยื่อและแผ่นเจลที่จำลองเป็นของแข็งอยู่นิ่ง (<strong>V</strong> = 0 และ Φ = 0) สมการนี้จะตัดพจน์การพัดพาออก และนำอิทธิพลของการไหลเวียนเลือดไปใส่ไว้ในพจน์ <span class="math">S<sub>h</sub></span> แทน</p>
+
+        <h3>1.4 Reynolds Number, Laminar vs. Turbulent Flow และตัวอย่างคำนวณ</h3>
+        <p>การจำแนกรูปแบบการไหลของของไหลใช้ตัวเลขไร้มิติ <strong>Reynolds Number (Re)</strong> ซึ่งเป็นอัตราส่วนระหว่างแรงเฉื่อยต่อแรงหนืด:</p>
+        <div class="equation-block">
+            <span>Re = (<span class="math">ρ V L<sub>c</sub></span>) / <span class="math">μ</span> = (<span class="math">V L<sub>c</sub></span>) / <span class="math">ν</span></span>
+            <span class="eq-num">(สมการที่ 1.4)</span>
+        </div>
+        <p>โดยที่ <span class="math">L<sub>c</sub></span> คือความยาวลักษณะเฉพาะ [m] และ <span class="math">ν</span> = <span class="math">μ</span>/<span class="math">ρ</span> คือความหนืดจลน์ [m<sup>2</sup>/s] หากค่า Re ต่ำกว่าเกณฑ์วิกฤต (สำหรับแผ่นราบ Re<sub>L</sub> &lt; 5 × 10<sup>5</sup>) การไหลจะเป็นแบบราบเรียบ (<strong>Laminar Flow</strong>) แต่หากสูงกว่าเกณฑ์จะเกิดการปั่นป่วน (<strong>Turbulent Flow</strong>)</p>
+        <p><strong>ตัวอย่างการคำนวณที่ 1.1:</strong> แผ่นเจลลดไข้ยาว <span class="math">L<sub>c</sub></span> = 0.10 m ติดอยู่บนหน้าผากผู้ป่วยในห้องปรับอากาศที่มีลมพัดเอื่อยด้วยความเร็ว <span class="math">V</span> = 0.20 m/s ที่อุณหภูมิ 25 °C (<span class="math">ρ</span> = 1.184 kg/m<sup>3</sup>, <span class="math">μ</span> = 1.849 × 10<sup>−5</sup> Pa·s) จะได้ค่า Re<sub>L</sub> = (1.184 × 0.20 × 0.10) / (1.849 × 10<sup>−5</sup>) = <strong>1,280.7</strong> ซึ่งน้อยกว่า 5 × 10<sup>5</sup> อย่างมาก ดังนั้นการไหลของอากาศเหนือแผ่นเจลจึงอยู่ในสภาวะ <strong>Laminar Flow</strong> อย่างสมบูรณ์</p>
+
+        <h3>1.5 Boundary Conditions, Steady vs. Transient และการตัดสินใจเลือกใช้ซอฟต์แวร์</h3>
+        <p>เงื่อนไขขอบเขตทางความร้อนแบ่งเป็น 3 ชนิด ได้แก่ <strong>Dirichlet BC</strong> (ระบุอุณหภูมิคงที่ เช่น ขอบล่างสุดของชั้นไขมันติดกับแกนกลางร่างกาย <span class="math">T</span> = <span class="math">T</span><sub>core</sub>), <strong>Neumann BC</strong> (ระบุฟลักซ์ความร้อน เช่น ผนังด้านข้างสมมาตรไม่มีความร้อนไหลผ่าน <span class="math">q</span>″ = 0 W/m<sup>2</sup>) และ <strong>Robin BC</strong> (ระบุการพาความร้อนที่ผิวบนของเจลสัมผัสอากาศ) สำหรับโครงการนี้ต้องวิเคราะห์แบบ <strong>Transient State</strong> (∂<span class="math">T</span>/∂<span class="math">t</span> ≠ 0) เสมอ เพราะอุณหภูมิของทั้งผิวหนังและแผ่นเจลเปลี่ยนแปลงตลอดเวลาตั้งแต่วินาทีแรกที่แปะเจล</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 24%;">เกณฑ์การพิจารณาทางวิศวกรรม</th>
+                    <th scope="col" style="width: 38%;">แนวทาง A: ANSYS Mechanical (Transient Thermal)</th>
+                    <th scope="col" style="width: 38%;">แนวทาง B: ANSYS Fluent (CFD &amp; Thermal Solver)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>ระเบียบวิธีคำนวณหลัก</strong></td>
+                    <td>Finite Element Method (FEM) แก้สมการนำความร้อนในโดเมนของแข็ง</td>
+                    <td>Finite Volume Method (FVM) แก้สมการอนุรักษ์มวล โมเมนตัม และพลังงาน</td>
+                </tr>
+                <tr>
+                    <td><strong>ความเหมาะสมต่อโครงการ</strong></td>
+                    <td><strong>เหมาะสมและรวดเร็วที่สุด</strong> สำหรับโมเดลที่แทนที่การไหลของเลือดด้วยสมการ Pennes และแทนอากาศด้วยค่า <span class="math">h</span></td>
+                    <td><strong>เหมาะสมสำหรับการขยายผลขั้นสูง</strong> เมื่อต้องการเขียนฟังก์ชันควบคุมระดับเซลล์ด้วยภาษา C (UDF)</td>
+                </tr>
+                <tr>
+                    <td><strong>กรณีที่บังคับต้องใช้ Fluent แทน Mechanical</strong></td>
+                    <td>ไม่สามารถคำนวณสนามความเร็วของไหลหรือการเปลี่ยนสถานะที่ซับซ้อนได้โดยตรง</td>
+                    <td>1. เมื่อจำลองโดเมนอากาศไหลผ่านหน้าผากจริง (CHT)<br>2. เมื่อคิดการระเหยของน้ำจากเจลสู่อากาศ (Evaporation / Species Transport)<br>3. เมื่อจำลองหลอดเลือดขนาดใหญ่แบบ 3 มิติ</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>บทที่ 2: Heat Transfer และ Bioheat Transfer เชิงลึก</h2>
+
+        <h3>2.1 กลไกการถ่ายเทความร้อนทั้ง 3 รูปแบบและสมการที่เกี่ยวข้อง</h3>
+        <ol>
+            <li><strong>การนำความร้อน (Conduction — กฎของฟูเรียร์):</strong> เกิดขึ้นภายในเนื้อเยื่อผิวหนังและภายในแผ่นเจล
+                <div class="equation-block">
+                    <span><span class="math">q″<sub>cond,x</sub></span> = −<span class="math">k</span> ( d<span class="math">T</span> / d<span class="math">x</span> )    และที่รอยต่อ:    <span class="math">q″<sub>interface</sub></span> = ( <span class="math">T<sub>skin,surf</sub></span> − <span class="math">T<sub>gel,bottom</sub></span> ) / <span class="math">R<sub>c</sub></span> = TCC · Δ<span class="math">T<sub>interface</sub></span></span>
+                    <span class="eq-num">(สมการที่ 2.1)</span>
+                </div>
+                โดยที่ <span class="math">q″</span> คือฟลักซ์ความร้อน [W/m<sup>2</sup>], <span class="math">R<sub>c</sub></span> คือความต้านทานความร้อนที่ผิวสัมผัส [(m<sup>2</sup>·K)/W] และ TCC = 1/<span class="math">R<sub>c</sub></span> คือค่า Thermal Contact Conductance [W/(m<sup>2</sup>·K)]
+            </li>
+            <li><strong>การพาความร้อน (Convection — กฎการเย็นตัวของนิวตัน):</strong> เกิดที่ผิวบนของแผ่นเจลหรือผิวหนังที่สัมผัสอากาศห้อง
+                <div class="equation-block">
+                    <span><span class="math">q″<sub>conv</sub></span> = <span class="math">h</span> ( <span class="math">T<sub>s</sub></span> − <span class="math">T<sub>∞</sub></span> )</span>
+                    <span class="eq-num">(สมการที่ 2.2)</span>
+                </div>
+                โดยที่ <span class="math">h</span> คือสัมประสิทธิ์การพาความร้อน [W/(m<sup>2</sup>·K)], <span class="math">T<sub>s</sub></span> คืออุณหภูมิพื้นผิว และ <span class="math">T<sub>∞</sub></span> คืออุณหภูมิอากาศแวดล้อม
+            </li>
+            <li><strong>การแผ่รังสีความร้อน (Radiation — กฎของสเตฟาน-โบลต์ซมันน์):</strong> การแลกเปลี่ยนคลื่นแม่เหล็กไฟฟ้ากับผนังห้อง
+                <div class="equation-block">
+                    <span><span class="math">q″<sub>rad</sub></span> = <span class="math">ε σ</span> ( <span class="math">T<sub>s</sub></span><sup>4</sup> − <span class="math">T<sub>surr</sub></span><sup>4</sup> )</span>
+                    <span class="eq-num">(สมการที่ 2.3)</span>
+                </div>
+                โดยที่ <span class="math">ε</span> คือค่า Emissivity ไร้มิติ (ผิวหนัง ≈ 0.98, ผ้าใยสังเคราะห์ ≈ 0.90), <span class="math">σ</span> = 5.67 × 10<sup>−8</sup> W/(m<sup>2</sup>·K<sup>4</sup>) และอุณหภูมิ <span class="math">T<sub>s</sub></span>, <span class="math">T<sub>surr</sub></span> <strong>ต้องแทนค่าในหน่วยเคลวิน [K] เสมอ</strong>
+            </li>
+        </ol>
+
+        <p><strong>ตัวอย่างการคำนวณที่ 2.1 (ภาระความร้อนที่ผิวหนังก่อนแปะเจล):</strong> ผิวหนังผู้ป่วยมีไข้มีอุณหภูมิผิว <span class="math">T<sub>s</sub></span> = 38.0 °C (311.15 K) อยู่ในห้องอุณหภูมิ <span class="math">T<sub>∞</sub></span> = <span class="math">T<sub>surr</sub></span> = 25.0 °C (298.15 K) โดยมี <span class="math">h</span> = 5.0 W/(m<sup>2</sup>·K) และ <span class="math">ε</span> = 0.98 จะได้ฟลักซ์การพาความร้อน <span class="math">q″<sub>conv</sub></span> = 5.0 × (311.15 − 298.15) = <strong>65.0 W/m<sup>2</sup></strong> และฟลักซ์การแผ่รังสี <span class="math">q″<sub>rad</sub></span> = 0.98 × (5.67 × 10<sup>−8</sup>) × (311.15<sup>4</sup> − 298.15<sup>4</sup>) = <strong>81.93 W/m<sup>2</sup></strong> รวมเป็นฟลักซ์ระบายความร้อนสุทธิ <strong>146.93 W/m<sup>2</sup></strong> (พิสูจน์ให้เห็นว่าการแผ่รังสีมีสัดส่วนสูงถึง 55.8% ของการระบายความร้อนทั้งหมด จึงห้ามตัดทิ้งในการจำลองเด็ดขาด)</p>
+
+        <h3>2.2 สมการความร้อนชีวภาพของเพนเนส (Pennes Bioheat Equation)</h3>
+        <p>สำหรับการถ่ายเทความร้อนภายในเนื้อเยื่อมนุษย์ที่มีชีวิต เราใช้สมการมาตรฐานที่เสนอโดย <a class="cite" href="#ref-pennes1948" contenteditable="false">Pennes (1948)</a> ดังนี้:</p>
+        <div class="equation-block">
+            <span><span class="math">ρ<sub>t</sub> c<sub>t</sub></span> ( ∂<span class="math">T</span> / ∂<span class="math">t</span> ) = ∇ · (<span class="math">k<sub>t</sub></span>∇<span class="math">T</span>) + <span class="math">ρ<sub>b</sub> c<sub>b</sub> ω<sub>b</sub></span> (<span class="math">T<sub>b</sub></span> − <span class="math">T</span>) + <span class="math">Q<sub>met</sub></span></span>
+            <span class="eq-num">(สมการที่ 2.4)</span>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 18%;">สัญลักษณ์ตัวแปร</th>
+                    <th scope="col" style="width: 28%;">ความหมายทางวิศวกรรมและสรีรวิทยา</th>
+                    <th scope="col" style="width: 16%;">หน่วย SI</th>
+                    <th scope="col" style="width: 38%;">ผลกระทบต่อการกระจายอุณหภูมิในการจำลอง</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="math">ρ<sub>t</sub></span></td>
+                    <td>Tissue Density (ความหนาแน่นของเนื้อเยื่อ)</td>
+                    <td>kg/m<sup>3</sup></td>
+                    <td>ร่วมกับ <span class="math">c<sub>t</sub></span> กำหนดความเฉื่อยทางความร้อน (Thermal Inertia) ของเนื้อเยื่อแต่ละชั้น</td>
+                </tr>
+                <tr>
+                    <td><span class="math">c<sub>t</sub></span></td>
+                    <td>Tissue Specific Heat Capacity (ความจุความร้อนจำเพาะของเนื้อเยื่อ)</td>
+                    <td>J/(kg·K)</td>
+                    <td>หากมีค่าสูง เนื้อเยื่อจะเปลี่ยนแปลงอุณหภูมิได้ช้าลงเมื่อถูกเจลดึงความร้อน</td>
+                </tr>
+                <tr>
+                    <td><span class="math">k<sub>t</sub></span></td>
+                    <td>Tissue Thermal Conductivity (สัมประสิทธิ์การนำความร้อนของเนื้อเยื่อ)</td>
+                    <td>W/(m·K)</td>
+                    <td>ควบคุมความชันของเกรเดียนต์อุณหภูมิ (ชั้นไขมันมี <span class="math">k<sub>t</sub></span> ต่ำจึงกั้นความเย็นไม่ให้ลงลึก)</td>
+                </tr>
+                <tr>
+                    <td><span class="math">ρ<sub>b</sub></span>, <span class="math">c<sub>b</sub></span></td>
+                    <td>Blood Density และ Blood Specific Heat Capacity (ความหนาแน่นและความจุความร้อนของเลือด)</td>
+                    <td>kg/m<sup>3</sup>,<br>J/(kg·K)</td>
+                    <td>ตัวคูณความสามารถในการนำพาพลังงานความร้อนของกระแสเลือด (<span class="math">ρ<sub>b</sub> c<sub>b</sub></span> ≈ 3.996 × 10<sup>6</sup> J/(m<sup>3</sup>·K))</td>
+                </tr>
+                <tr>
+                    <td><span class="math">ω<sub>b</sub></span></td>
+                    <td>Blood Perfusion Rate (อัตราการไหลเวียนเลือดผ่านหลอดเลือดฝอยต่อปริมาตรเนื้อเยื่อ)</td>
+                    <td>s<sup>−1</sup> (หรือ m<sup>3</sup>/m<sup>3</sup>·s)</td>
+                    <td>ตัวแปรที่ทรงอิทธิพลที่สุด ยิ่ง <span class="math">ω<sub>b</sub></span> สูง (เช่น ขณะมีไข้หลอดเลือดขยายตัว) เลือดยิ่งต้านความเย็นของเจลได้มาก</td>
+                </tr>
+                <tr>
+                    <td><span class="math">T<sub>b</sub></span></td>
+                    <td>Arterial Blood Temperature (อุณหภูมิเลือดแดงที่ไหลเข้าสู่เนื้อเยื่อ)</td>
+                    <td>K หรือ °C</td>
+                    <td>เป็นอุณหภูมิอ้างอิงของแหล่งความร้อนในร่างกาย (ปกติ 37.0 °C, มีไข้ 39.0 °C)</td>
+                </tr>
+                <tr>
+                    <td><span class="math">Q<sub>met</sub></span></td>
+                    <td>Metabolic Heat Generation (ความร้อนจากกระบวนการเมแทบอลิซึมระดับเซลล์)</td>
+                    <td>W/m<sup>3</sup></td>
+                    <td>แหล่งกำเนิดความร้อนพื้นฐานที่มีค่าเป็นบวกเสมอ แต่มีขนาดเล็กกว่าพจน์ของเลือดมาก</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>2.3 การเปรียบเทียบความร้อนจาก Metabolism (<span class="math">Q<sub>met</sub></span>) กับ Blood Perfusion (<span class="math">Q<sub>perf</sub></span>)</h3>
+        <p>ความแตกต่างเชิงวิศวกรรมที่สำคัญที่สุดคือ <strong>Metabolic Heat Generation (<span class="math">Q<sub>met</sub></span>)</strong> เกิดจากปฏิกิริยาเคมีในเซลล์ มีค่าเป็นบวกเสมอและมักกำหนดเป็นค่าคงที่ในแต่ละชั้นเนื้อเยื่อ ในขณะที่ <strong>Blood Perfusion Heat Term (<span class="math">Q<sub>perf</sub></span> = <span class="math">ρ<sub>b</sub> c<sub>b</sub> ω<sub>b</sub></span>(<span class="math">T<sub>b</sub></span> − <span class="math">T</span>))</strong> มีค่าแปรผันตรงกับผลต่างอุณหภูมิระหว่างเลือดกับเนื้อเยื่อ ณ จุดนั้น (<span class="math">T<sub>b</sub></span> − <span class="math">T</span>)</p>
+        <p><strong>ตัวอย่างการคำนวณที่ 2.2:</strong> ในชั้นหนังแท้ (Dermis) ขณะมีไข้ (<span class="math">T<sub>b</sub></span> = 39.0 °C, <span class="math">ρ<sub>b</sub></span> = 1,060 kg/m<sup>3</sup>, <span class="math">c<sub>b</sub></span> = 3,770 J/(kg·K), <span class="math">ω<sub>b</sub></span> = 0.0025 s<sup>−1</sup>, <span class="math">Q<sub>met</sub></span> = 460 W/m<sup>3</sup>) สัมประสิทธิ์การไหลเวียนเลือดคือ <span class="math">ρ<sub>b</sub> c<sub>b</sub> ω<sub>b</sub></span> = 1,060 × 3,770 × 0.0025 = <strong>9,990.5 W/(m<sup>3</sup>·K)</strong> เมื่อแปะแผ่นเจลลดไข้จนอุณหภูมิชั้น Dermis ลดลงมาอยู่ที่ <span class="math">T</span> = 34.0 °C จะเกิดความร้อนจากเลือดพุ่งสูงถึง <span class="math">Q<sub>perf</sub></span> = 9,990.5 × (39.0 − 34.0) = <strong>49,952.5 W/m<sup>3</sup></strong> ซึ่งสูงกว่าค่า <span class="math">Q<sub>met</sub></span> (460 W/m<sup>3</sup>) ถึง <strong>108.6 เท่า!</strong> นี่คือคำอธิบายทางฟิสิกส์ว่าทำไมยิ่งเจลดึงอุณหภูมิผิวลงต่ำเท่าใด กระแสเลือดยิ่งส่งความร้อนมาต้านมากขึ้นตามสมการเชิงเส้น</p>
+
+        <h2>บทที่ 3: การสร้างแบบจำลองทางวิศวกรรม (Geometry Modeling)</h2>
+
+        <h3>3.1 โครงสร้างชั้นวัสดุทั้ง 6 ชั้น และการกำหนดขนาด Representative Volume Element (RVE)</h3>
+        <p>เพื่อหลีกเลี่ยงการสร้างจำนวน Mesh มหาศาลโดยไม่จำเป็น เราจำลองชิ้นส่วนตัวอย่างกลางหน้าผากขนาดพื้นที่หน้าตัดกว้าง × ยาว = <strong>10.0 mm × 10.0 mm</strong> (พื้นที่ <span class="math">A</span> = 1.0 × 10<sup>−4</sup> m<sup>2</sup>) โดยแบ่งความหนาตามแนวแกน <span class="math">Y</span> ออกเป็น 6 ชั้นวัสดุอย่างชัดเจนตามหน้าที่ทางกายภาพ (<a class="cite" href="#ref-xu2008" contenteditable="false">Xu et al., 2008</a>): ชั้น <strong>Fiber Top Sheet</strong> (หนา 0.20 mm) ทำหน้าที่เป็นฉนวนกั้นความร้อนจากอากาศห้อง, ชั้น <strong>Hydrogel</strong> (หนา 2.00 mm) ทำหน้าที่กักเก็บความเย็นหลัก, ชั้น <strong>Adhesive Layer</strong> (หนา 0.05 mm) ช่วยยึดเกาะผิวหนัง, ชั้น <strong>Epidermis</strong> (หนา 0.08 mm) เป็นหนังกำพร้าที่ไม่มีหลอดเลือด (<span class="math">ω<sub>b</sub></span> = 0), ชั้น <strong>Dermis</strong> (หนา 1.50 mm) เป็นหนังแท้ที่มีหลอดเลือดฝอยหนาแน่น และชั้น <strong>Subcutaneous Fat</strong> (หนา 3.00 mm) เป็นชั้นไขมันทำหน้าที่ฉนวนความร้อนด้านล่าง</p>
+
+        <h3>3.2 ขั้นตอนการสร้าง Geometry ใน ANSYS SpaceClaim และการตั้งค่า Shared Topology</h3>
+        <ol>
+            <li><strong>ตั้งค่าหน่วย:</strong> เปิด SpaceClaim ไปที่ <code>File &gt; SpaceClaim Options &gt; Units</code> ตั้งค่า Length เป็น <code>Millimeters (mm)</code></li>
+            <li><strong>สร้างชั้นเนื้อเยื่อผิวหนัง (Skin Component):</strong>
+                <ul>
+                    <li>สร้าง Sketch บนระนาบ XZ ที่ระดับ <span class="math">Y</span> = 0.00 mm วาดสี่เหลี่ยมจัตุรัสขนาด 10 mm × 10 mm ใช้คำสั่ง <code>Pull</code> ดึงลงในทิศ −<span class="math">Y</span> เป็นระยะ <code>0.08 mm</code> ตั้งชื่อ Solid นี้ว่า <code>Epidermis</code></li>
+                    <li>สร้าง Sketch บนผิวล่างของ <code>Epidermis</code> (<span class="math">Y</span> = −0.08 mm) วาดสี่เหลี่ยม 10 × 10 mm กดปุ่ม <code>Pull</code> แล้วเลือกตัวเลือก <strong><code>No merge</code></strong> ในหน้าต่าง Options ด้านซ้าย ดึงลงเป็นระยะ <code>1.50 mm</code> ตั้งชื่อว่า <code>Dermis</code></li>
+                    <li>ทำซ้ำที่ผิวล่างของ <code>Dermis</code> (<span class="math">Y</span> = −1.58 mm) โดยเปิด <code>No merge</code> ดึงลงเป็นระยะ <code>3.00 mm</code> ตั้งชื่อว่า <code>Subcutaneous_Fat</code></li>
+                </ul>
+            </li>
+            <li><strong>สร้างชั้นแผ่นเจลลดไข้ (Gel Patch Component):</strong>
+                <ul>
+                    <li>กลับมาที่ระนาบผิวบนของ <code>Epidermis</code> (<span class="math">Y</span> = 0.00 mm) สร้างสี่เหลี่ยม 10 × 10 mm กด <code>Pull</code> (เปิด <code>No merge</code>) ดึงขึ้นในทิศ +<span class="math">Y</span> ระยะ <code>0.05 mm</code> ตั้งชื่อว่า <code>Adhesive_Layer</code></li>
+                    <li>ดึงต่อขึ้นไปจากผิวบนของกาว (เปิด <code>No merge</code>) ระยะ <code>2.00 mm</code> ตั้งชื่อว่า <code>Hydrogel</code> และดึงชั้นบนสุดขึ้นไปอีก <code>0.20 mm</code> ตั้งชื่อว่า <code>Fiber_Top_Sheet</code></li>
+                </ul>
+            </li>
+            <li><strong>การจัดกลุ่ม Shared Topology vs. Contact Region (ขั้นตอนสำคัญที่สุด):</strong>
+                <ul>
+                    <li>ใน Structure Tree เลือก <code>Epidermis</code>, <code>Dermis</code>, และ <code>Subcutaneous_Fat</code> คลิกขวาเลือก <code>Move to New Component</code> ตั้งชื่อว่า <code>Skin_Part</code> จากนั้นในหน้าต่าง Properties ของ <code>Skin_Part</code> เปลี่ยนค่า <strong>Share Topology = <code>Share</code></strong> (เพราะเนื้อเยื่อเชื่อมต่อกันสมบูรณ์ ไม่มี Contact Resistance)</li>
+                    <li>เลือก <code>Adhesive_Layer</code>, <code>Hydrogel</code>, และ <code>Fiber_Top_Sheet</code> คลิกขวาเลือก <code>Move to New Component</code> ตั้งชื่อว่า <code>Gel_Part</code> แล้วตั้งค่า <strong>Share Topology = <code>Share</code></strong></li>
+                    <li>ที่ระดับ Root Assembly บนสุด <strong>ต้องตั้งค่า Share Topology = <code>None</code></strong> เพื่อให้ระนาบ <span class="math">Y</span> = 0.00 mm ระหว่าง <code>Adhesive_Layer</code> กับ <code>Epidermis</code> แยกโหนดออกจากกันสำหรับใส่ค่า Thermal Contact Resistance (<span class="math">R<sub>c</sub></span>)</li>
+                </ul>
+            </li>
+            <li><strong>การตรวจสอบ Geometry:</strong> ไปที่แถบ <code>Workbench &gt; Share</code> ตรวจสอบว่าเส้นขอบที่แชร์โหนดปรากฏเฉพาะ 4 รอยต่อย่อยภายในแต่ละ Part และไม่มีการแชร์โหนดที่ระนาบ <span class="math">Y</span> = 0.00 mm จากนั้นใช้คำสั่ง <code>Measure &gt; Interference</code> ตรวจยืนยันว่าไม่มีปริมาตรซ้อนทับกัน</li>
+        </ol>
+
+        <h2>บทที่ 4: การกำหนดคุณสมบัติวัสดุ (Material Properties)</h2>
+
+        <h3>4.1 ตารางมาตรฐานคุณสมบัติทางความร้อนและชีวภาพของวัสดุแต่ละชั้น</h3>
+        <p>ข้อมูลในตารางที่ 4.1 รวบรวมจากงานวิจัยที่ผ่านการตรวจสอบ (<a class="cite" href="#ref-pennes1948" contenteditable="false">Pennes, 1948</a>; <a class="cite" href="#ref-xu2008" contenteditable="false">Xu et al., 2008</a>; <a class="cite" href="#ref-hasgall2022" contenteditable="false">Hasgall et al., 2022</a>; <a class="cite" href="#ref-yang2018" contenteditable="false">Yang et al., 2018</a>; <a class="cite" href="#ref-mao2007" contenteditable="false">Mao &amp; Russell, 2007</a>) โดยแยกแยะอย่างชัดเจนระหว่างสภาวะปกติและสภาวะมีไข้</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">ชั้นวัสดุ / เนื้อเยื่อ</th>
+                    <th scope="col" class="num-col">ความหนา<br>(mm)</th>
+                    <th scope="col" class="num-col">Density <span class="math">ρ</span><br>(kg/m<sup>3</sup>)</th>
+                    <th scope="col" class="num-col">Conductivity <span class="math">k</span><br>(W/m·K)</th>
+                    <th scope="col" class="num-col">Specific Heat <span class="math">c<sub>p</sub></span><br>(J/kg·K)</th>
+                    <th scope="col" class="center-col">Initial Temp <span class="math">T<sub>0</sub></span><br>(°C)</th>
+                    <th scope="col" class="center-col">Metabolism <span class="math">Q<sub>met</sub></span><br>(W/m<sup>3</sup>)</th>
+                    <th scope="col" class="center-col">Perfusion <span class="math">ω<sub>b</sub></span><br>(1/s)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1. Fiber Top Sheet</strong></td>
+                    <td class="num-col">0.20</td>
+                    <td class="num-col">250</td>
+                    <td class="num-col">0.06</td>
+                    <td class="num-col">1,350</td>
+                    <td class="center-col">25.0 (หรือ 10.0)</td>
+                    <td class="center-col">0</td>
+                    <td class="center-col">0</td>
+                </tr>
+                <tr>
+                    <td><strong>2. Hydrogel Layer</strong></td>
+                    <td class="num-col">2.00</td>
+                    <td class="num-col">1,020</td>
+                    <td class="num-col">0.52</td>
+                    <td class="num-col">3,850</td>
+                    <td class="center-col">25.0 (หรือ 10.0)</td>
+                    <td class="center-col">0</td>
+                    <td class="center-col">0</td>
+                </tr>
+                <tr>
+                    <td><strong>3. Adhesive Layer</strong></td>
+                    <td class="num-col">0.05</td>
+                    <td class="num-col">980</td>
+                    <td class="num-col">0.25</td>
+                    <td class="num-col">2,400</td>
+                    <td class="center-col">25.0 (หรือ 10.0)</td>
+                    <td class="center-col">0</td>
+                    <td class="center-col">0</td>
+                </tr>
+                <tr>
+                    <td><strong>4. Epidermis</strong></td>
+                    <td class="num-col">0.08</td>
+                    <td class="num-col">1,200</td>
+                    <td class="num-col">0.23</td>
+                    <td class="num-col">3,590</td>
+                    <td class="center-col">ปกติ: 34.2 / ไข้: 36.5</td>
+                    <td class="center-col">0</td>
+                    <td class="center-col">0</td>
+                </tr>
+                <tr>
+                    <td><strong>5. Dermis</strong></td>
+                    <td class="num-col">1.50</td>
+                    <td class="num-col">1,200</td>
+                    <td class="num-col">0.45</td>
+                    <td class="num-col">3,300</td>
+                    <td class="center-col">ปกติ: 35.5 / ไข้: 38.0</td>
+                    <td class="center-col">ปกติ: 368 / ไข้: 460</td>
+                    <td class="center-col">ปกติ: 0.00125<br>ไข้: 0.00250</td>
+                </tr>
+                <tr>
+                    <td><strong>6. Subcutaneous Fat</strong></td>
+                    <td class="num-col">3.00</td>
+                    <td class="num-col">1,000</td>
+                    <td class="num-col">0.21</td>
+                    <td class="num-col">2,500</td>
+                    <td class="center-col">ปกติ: 36.5 / ไข้: 38.6</td>
+                    <td class="center-col">ปกติ: 368 / ไข้: 460</td>
+                    <td class="center-col">ปกติ: 0.00050<br>ไข้: 0.00080</td>
+                </tr>
+                <tr>
+                    <td><strong>Arterial Blood (อ้างอิง)</strong></td>
+                    <td class="num-col">-</td>
+                    <td class="num-col">1,060</td>
+                    <td class="num-col">-</td>
+                    <td class="num-col">3,770</td>
+                    <td class="center-col"><span class="math">T<sub>b</sub></span> ปกติ: 37.0<br><span class="math">T<sub>b</sub></span> ไข้: 39.0</td>
+                    <td class="center-col">-</td>
+                    <td class="center-col">-</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>4.2 การวิเคราะห์แหล่งที่มาและผลกระทบหากกำหนดค่าผิดพลาด</h3>
+        <ul>
+            <li><strong>Fiber Top Sheet:</strong> เป็นผ้า Non-woven ที่มีโพรงอากาศแทรกอยู่ ~80% (<a class="cite" href="#ref-mao2007" contenteditable="false">Mao &amp; Russell, 2007</a>) จึงมีค่า <span class="math">k</span> ต่ำเพียง 0.06 W/(m·K) หากวิศวกรกำหนดค่าผิดโดยใช้พลาสติกตัน (<span class="math">k</span> ≈ 0.25 W/(m·K)) ความร้อนจากอากาศห้องจะรั่วเข้าสู่แผ่นเจลเร็วกว่าความจริงถึง 4 เท่า</li>
+            <li><strong>Hydrogel Layer:</strong> มีน้ำเป็นองค์ประกอบ 80% (<a class="cite" href="#ref-yang2018" contenteditable="false">Yang et al., 2018</a>) ค่า <span class="math">c<sub>p</sub></span> = 3,850 J/(kg·K) คือตัวกำหนดความจุความเย็นรวม จากการคำนวณมวลของชั้น Hydrogel ในโมเดล 10 × 10 × 2 mm (<span class="math">m</span> = 1,020 × 2×10<sup>−7</sup> = 2.04 × 10<sup>−4</sup> kg) การที่เจลจะอุ่นขึ้น 10 °C (จาก 25 °C เป็น 35 °C) จะต้องดูดซับพลังงานความร้อน <span class="math">Q</span> = <span class="math">m c<sub>p</sub></span> Δ<span class="math">T</span> = <strong>7.854 J</strong> (หรือ 78,540 J/m<sup>2</sup>) หากใส่ค่า <span class="math">c<sub>p</sub></span> ผิดเป็นค่าพอลิเมอร์ทั่วไป เจลจะร้อนขึ้นจนหมดสภาพภายในไม่กี่นาที</li>
+            <li><strong>Adhesive Layer &amp; Thermal Contact Resistance:</strong> ค่าของชั้นกาวเป็นค่าประมาณเชิงวิศวกรรมสำหรับกาวไฮโดรเจลทางการแพทย์ ส่วนที่รอยต่อกับผิวหนังกำหนดค่าความต้านทานความร้อนสัมผัส <span class="math">R<sub>c</sub></span> = 0.0005 (m<sup>2</sup>·K)/W หรือคิดเป็น <strong>Thermal Contact Conductance (TCC) = 2,000 W/(m<sup>2</sup>·K)</strong> (<a class="cite" href="#ref-incropera2011" contenteditable="false">Incropera et al., 2011</a>) หากละเลยไม่ใส่ค่านี้ (สมมติให้ติดสนิท 100%) อัตราการลดลงของอุณหภูมิผิวหนังในช่วง 30 วินาทีแรกจะสูงเกินความเป็นจริงอย่างรุนแรง</li>
+        </ul>
+
+        <h2>บทที่ 5: การสร้าง Mesh และการตรวจสอบคุณภาพ (Meshing Strategy)</h2>
+
+        <h3>5.1 การเลือก Element Types และการจัดการชั้นวัสดุที่บางจัด</h3>
+        <p>ในโมเดลของเรามีชั้นที่บางมากคือ <code>Adhesive_Layer</code> (0.05 mm) และ <code>Epidermis</code> (0.08 mm) หากใช้การสร้าง Mesh อัตโนมัติแบบลูกบาศก์หรือทรงสี่หน้า (Tetrahedral) จะทำให้มีจำนวน Element ตามแนวความหนาเพียง 1 ชั้น ซึ่งไม่สามารถคำนวณความโค้งของเกรเดียนต์อุณหภูมิ (∂<span class="math">T</span>/∂<span class="math">y</span>) ที่เปลี่ยนแปลงอย่างรุนแรงบริเวณรอยต่อได้เลย ดังนั้น เราต้องใช้ <strong>Hexahedral Elements (Structured Sweep / Multizone Mesh)</strong> เท่านั้น:</p>
+        <ul>
+            <li><strong>ใน ANSYS Mechanical:</strong> โปรแกรมจะสร้าง Element ชนิด <code>SOLID279</code> (20-Node Quadratic Thermal Solid) หรือ <code>SOLID278</code> (8-Node Linear Thermal Solid) แนะนำให้ตั้งค่า <code>Element Order = Quadratic</code> เพื่อความแม่นยำในการอินทิเกรตฟลักซ์ความร้อน</li>
+            <li><strong>ใน ANSYS Fluent:</strong> ใช้ Hexahedral Cells (8-Node Hex) ซึ่งให้ทิศทางเส้นตั้งฉากของพื้นผิวเซลล์ขนานกับทิศทางการไหลของความร้อนตามแนวแกน <span class="math">Y</span> พอดี</li>
+        </ul>
+
+        <h3>5.2 การกำหนด Sizing ในแต่ละชั้นวัสดุ (Directional Edge Sizing)</h3>
+        <p>แทนการใช้คำสั่ง Inflation แบบอัตโนมัติที่ควบคุมความหนาได้ยากบนรูปทรงสี่เหลี่ยมซ้อนกัน ให้ใช้คำสั่ง <strong><code>Mesh Control &gt; Method = Sweep</code></strong> (กำหนด Source Face เป็นผิวบนสุดและผิวล่างสุด) ร่วมกับ <strong><code>Edge Sizing</code></strong> ตามแนวแกนตั้ง (<span class="math">Y</span>) และแนวแกนนอน (<span class="math">X, Z</span>) ดังนี้:</p>
+        <ol>
+            <li><strong>แนวแกนนอน (Horizontal Edges <span class="math">X, Z</span> ยาว 10 mm):</strong> กำหนด <code>Element Size = 0.50 mm</code> (ได้ 20 divisions × 20 divisions = 400 elements ต่อระนาบ)</li>
+            <li><strong>แนวความหนา (Vertical Edges ตามแกน <span class="math">Y</span> ของแต่ละชั้น):</strong>
+                <ul>
+                    <li><code>Fiber_Top_Sheet</code> (0.20 mm): กำหนด <code>Number of Divisions = 6</code> (ความหนาเฉลี่ยต่อชั้น 33.3 μm)</li>
+                    <li><code>Hydrogel</code> (2.00 mm): กำหนด <code>Number of Divisions = 25</code> พร้อมตั้งค่า <strong><code>Bias Type</code></strong> ให้บีบความละเอียดมาที่ขอบล่างติดกับกาวด้วย <code>Bias Factor = 4.0</code></li>
+                    <li><code>Adhesive_Layer</code> (0.05 mm): กำหนด <code>Number of Divisions = 8</code> (ความหนาต่อชั้น 6.25 μm เพื่อรับมือกับฟลักซ์ความร้อนสูงที่รอยต่อ)</li>
+                    <li><code>Epidermis</code> (0.08 mm): กำหนด <code>Number of Divisions = 10</code> (ความหนาต่อชั้น 8.0 μm)</li>
+                    <li><code>Dermis</code> (1.50 mm): กำหนด <code>Number of Divisions = 25</code> พร้อมตั้งค่า <code>Bias Factor = 4.0</code> บีบให้ละเอียดที่ขอบบนติดกับ Epidermis</li>
+                    <li><code>Subcutaneous_Fat</code> (3.00 mm): กำหนด <code>Number of Divisions = 20</code></li>
+                </ul>
+            </li>
+        </ol>
+        <p>รวมจำนวน Elements ตามแนวความหนาทั้งหมด = 6 + 25 + 8 + 10 + 25 + 20 = <strong>94 ชั้น</strong> คูณกับพื้นที่หน้าตัด 400 elements จะได้จำนวน Mesh ทั้งระบบเท่ากับ <strong>37,600 Hexahedral Elements</strong> ซึ่งเป็นขนาดที่ละเอียดมากในแนวดิ่งแต่ใช้เวลาคำนวณรวดเร็ว</p>
+
+        <h3>5.3 เกณฑ์คุณภาพ Mesh (Skewness &amp; Orthogonal Quality) และ Mesh Independence Study</h3>
+        <ul>
+            <li><strong>Skewness (ความเบ้ของเซลล์):</strong> วัดความเบี่ยงเบนจากรูปทรงเรขาคณิตอุดมคติ มีค่าตั้งแต่ 0 (สมบูรณ์แบบ) ถึง 1 (แย่ที่สุด) มาตรฐานของ ANSYS กำหนดให้ <strong>Maximum Skewness &lt; 0.85</strong> (และค่าเฉลี่ย &lt; 0.25) สำหรับ Hexahedral Mesh ที่เราสร้างด้วยวิธี Sweep บนแท่งสี่เหลี่ยมผืนผ้า จะได้ค่า <strong>Skewness = 0.000</strong> ทุกเซลล์</li>
+            <li><strong>Orthogonal Quality (ความตั้งฉากของเวกเตอร์พื้นที่ผิวกับจุดศูนย์กลางเซลล์):</strong> มีค่าตั้งแต่ 0 (แย่ที่สุด) ถึง 1 (สมบูรณ์แบบ) มาตรฐานกำหนดให้ <strong>Minimum Orthogonal Quality &gt; 0.15</strong> โดยโมเดล Hexahedral ของเราจะได้ค่า <strong>Orthogonal Quality = 1.000</strong></li>
+            <li><strong>ขั้นตอนทำ Mesh Independence Study:</strong> สร้าง Mesh 3 ระดับความละเอียดโดยคูณจำนวน Divisions ในแนวดิ่งด้วยตัวคูณ 0.5× (Coarse: ~18,800 elements), 1.0× (Medium: 37,600 elements), และ 2.0× (Fine: 75,200 elements) จากนั้นรันการจำลองและเปรียบเทียบ <strong>อุณหภูมิผิวหนังที่รอยต่อ ณ เวลา <span class="math">t</span> = 300 s</strong> และ <strong>ฟลักซ์ความร้อนสูงสุด</strong> หากความแตกต่างระหว่างระดับ Medium กับ Fine น้อยกว่า <strong>0.5%</strong> ให้เลือกใช้ระดับ Medium เป็นมาตรฐานเพื่อความคุ้มค่าของเวลาคำนวณ</li>
+        </ul>
+
+        <h2>บทที่ 6: การตั้งค่า ANSYS แบบ Step-by-Step (Mechanical &amp; Fluent)</h2>
+
+        <h3>6.1 แนวทาง A: การตั้งค่าใน ANSYS Mechanical (Transient Thermal + APDL)</h3>
+        <ol>
+            <li><strong>Engineering Data:</strong> สร้างวัสดุใหม่ทั้ง 6 ชนิดในคลังข้อมูล โดยคลิกดับเบิลคลิกที่ <code>Engineering Data</code> ป้อนค่า <code>Density</code>, <code>Isotropic Thermal Conductivity</code>, และ <code>Specific Heat Constant Pressure</code> ตามตารางที่ 4.1 อย่างเคร่งครัด</li>
+            <li><strong>Geometry &amp; Materials Assignment:</strong> เปิดโมดูล <code>Model</code> ขยายกิ่ง <code>Geometry</code> ใน Outline Tree คลิกเลือกก้อนวัสดุทั้ง 6 ก้อนแล้วกำหนด <code>Material &gt; Assignment</code> ให้ตรงตามชื่อชั้น</li>
+            <li><strong>Contacts (การใส่ค่าความต้านทานความร้อนที่ผิวสัมผัส):</strong>
+                <ul>
+                    <li>ขยายกิ่ง <code>Connections &gt; Contacts</code> ลบ Contact อัตโนมัติที่เกินมาออกให้เหลือเฉพาะคู่ระหว่างผิวล่างของ <code>Adhesive_Layer</code> (Contact Body) กับผิวบนของ <code>Epidermis</code> (Target Body)</li>
+                    <li>ตั้งค่า <code>Type = Bonded</code>, เปลี่ยน <code>Formulation = Pure Penalty</code> (หรือ Augmented Lagrange)</li>
+                    <li>มองหาหัวข้อ <strong><code>Thermal Conductance</code></strong> เปลี่ยนจาก <code>Program Controlled</code> เป็น <strong><code>Manual</code></strong> แล้วป้อนค่า <strong><code>2,000 W/(m²·°C)</code></strong> (ซึ่งเท่ากับ 1 / <span class="math">R<sub>c</sub></span>)</li>
+                </ul>
+            </li>
+            <li><strong>Initial Temperature:</strong>
+                <ul>
+                    <li>สำหรับการคำนวณที่แม่นยำที่สุด ให้ลากกล่อง <code>Steady-State Thermal</code> มาวางก่อนกล่อง <code>Transient Thermal</code> ในหน้า Workbench โดยในส่วน Steady-State ให้กด <code>Suppress</code> ก้อนแผ่นเจลทั้ง 3 ชั้นไว้ก่อน แล้วคำนวณหาการกระจายอุณหภูมิสมดุลของผิวหนังที่มีไข้เมื่อสัมผัสอากาศห้อง จากนั้นลากเส้นเชื่อม <code>Solution</code> ของ Steady-State เข้าสู่ช่อง <code>Setup</code> ของ Transient Thermal</li>
+                    <li>ในกิ่ง <code>Transient Thermal</code> ให้กด <code>Unsuppress</code> แผ่นเจลกลับมา แล้วคลิกขวาที่ <code>Initial Temperature</code> เลือก <code>Insert &gt; Temperature</code> เลือกก้อนวัสดุของแผ่นเจลทั้ง 3 ชั้น (Fiber, Hydrogel, Adhesive) กำหนดอุณหภูมิเริ่มต้นเท่ากับ <strong><code>25.0 °C</code></strong> (หรือ <code>10.0 °C</code> สำหรับกรณีเจลแช่เย็น)</li>
+                </ul>
+            </li>
+            <li><strong>Boundary Conditions:</strong>
+                <ul>
+                    <li><strong>ขอบล่างสุดของ Subcutaneous Fat:</strong> คลิกขวาที่ <code>Transient Thermal &gt; Insert &gt; Temperature</code> เลือกพื้นผิวล่างสุด (<span class="math">Y</span> = −4.58 mm) ป้อนค่าอุณหภูมิแกนกลางร่างกายขณะมีไข้ <strong><code>39.0 °C</code></strong> (Constant)</li>
+                    <li><strong>ผิวบนสุดของ Fiber Top Sheet:</strong> คลิกขวา <code>Insert &gt; Convection</code> เลือกผิวบนสุด (<span class="math">Y</span> = +2.25 mm) ป้อนค่า <code>Film Coefficient = 5.0 W/(m²·°C)</code> และ <code>Ambient Temperature = 25.0 °C</code> จากนั้นคลิกขวา <code>Insert &gt; Radiation</code> บนผิวเดียวกัน ตั้งค่า <code>Emissivity = 0.90</code> และ <code>Ambient Temperature = 25.0 °C</code></li>
+                    <li><strong>ผนังด้านข้างทั้ง 4 ด้าน:</strong> ปล่อยว่างไว้ (ใน ANSYS Mechanical ผิวที่ไม่ถูกกำหนดเงื่อนไขจะถูกตั้งเป็น <code>Perfectly Insulated / Adiabatic</code> หรือ <span class="math">q″</span> = 0 โดยอัตโนมัติ)</li>
+                </ul>
+            </li>
+            <li><strong>การจำลอง Metabolic Heat Generation และ Blood Perfusion ด้วยสมการและ APDL Commands:</strong>
+                <p>ใน ANSYS Mechanical ช่องคำสั่ง <code>Internal Heat Generation</code> ปกติรับค่าได้เฉพาะค่าคงที่หรือฟังก์ชันของเวลา แต่ไม่สามารถรับฟังก์ชันที่ขึ้นกับอุณหภูมิตัวเอง <span class="math">T</span> อย่างพจน์ <span class="math">ρ<sub>b</sub> c<sub>b</sub> ω<sub>b</sub></span>(<span class="math">T<sub>b</sub></span> − <span class="math">T</span>) ได้โดยตรงผ่านหน้าต่าง GUI ปกติ เราจึงต้องจัดรูปสมการใหม่แล้วใช้ตารางวัสดุที่ขึ้นกับอุณหภูมิในคำสั่ง <strong>APDL Command Snippet</strong> แทรกเข้าไปในก้อน <code>Dermis</code> และ <code>Subcutaneous_Fat</code> ดังนี้:</p>
+                <p>เนื่องจากพจน์ความร้อนรวมคือ <span class="math">S<sub>h</sub></span>(<span class="math">T</span>) = <span class="math">Q<sub>met</sub></span> + <span class="math">ρ<sub>b</sub> c<sub>b</sub> ω<sub>b</sub></span>(<span class="math">T<sub>b</sub></span> − <span class="math">T</span>) ซึ่งเป็นสมการเส้นตรงเทียบกับ <span class="math">T</span> ในกรณีมีไข้ (<span class="math">T<sub>b</sub></span> = 39.0 °C):</p>
+                <ul>
+                    <li>สำหรับชั้น <strong>Dermis</strong> (<span class="math">Q<sub>met</sub></span> = 460 W/m<sup>3</sup>, <span class="math">ρ<sub>b</sub> c<sub>b</sub> ω<sub>b</sub></span> = 9,990.5 W/(m<sup>3</sup>·°C)):<br>
+                        ที่ <span class="math">T</span> = 20.0 °C: <span class="math">S<sub>h</sub></span>(20) = 460 + 9,990.5 × (39.0 − 20.0) = <strong>190,279.5 W/m<sup>3</sup></strong><br>
+                        ที่ <span class="math">T</span> = 45.0 °C: <span class="math">S<sub>h</sub></span>(45) = 460 + 9,990.5 × (39.0 − 45.0) = <strong>−59,483.0 W/m<sup>3</sup></strong>
+                    </li>
+                    <li>สำหรับชั้น <strong>Subcutaneous Fat</strong> (<span class="math">Q<sub>met</sub></span> = 460 W/m<sup>3</sup>, <span class="math">ω<sub>b</sub></span> = 0.0008 s<sup>−1</sup> → <span class="math">ρ<sub>b</sub> c<sub>b</sub> ω<sub>b</sub></span> = 3,196.96 W/(m<sup>3</sup>·°C)):<br>
+                        ที่ <span class="math">T</span> = 20.0 °C: <span class="math">S<sub>h</sub></span>(20) = 460 + 3,196.96 × (39.0 − 20.0) = <strong>61,202.24 W/m<sup>3</sup></strong><br>
+                        ที่ <span class="math">T</span> = 45.0 °C: <span class="math">S<sub>h</sub></span>(45) = 460 + 3,196.96 × (39.0 − 45.0) = <strong>−18,721.76 W/m<sup>3</sup></strong>
+                    </li>
+                </ul>
+                <p>คลิกขวาที่กิ่ง <code>Transient Thermal</code> เลือก <code>Insert &gt; Commands</code> เพื่อสร้างกล่อง APDL แล้ววางโค้ดที่พร้อมใช้งานจริงด้านล่างนี้ลงไป (โดยก่อนวาง ให้ตั้งชื่อ Named Selection ของก้อน Dermis ว่า <code>CM_DERMIS</code> และก้อน Fat ว่า <code>CM_FAT</code>):</p>
+<pre>! =========================================================================
+! APDL COMMAND SNIPPET: PENNES BIOHEAT SOURCE (METABOLISM + BLOOD PERFUSION)
+! หน่วยในระบบ Mechanical ต้องตั้งเป็น SI: m, kg, s, C (หรือ K)
+! =========================================================================
+/PREP7
+
+! --- 1. สร้างตาราง Heat Generation ขึ้นกับอุณหภูมิ (TEMP) สำหรับชั้น DERMIS ---
+*DIM, Q_DERMIS, TABLE, 2, 1, 1, TEMP
+Q_DERMIS(1,0) = 20.0          ! จุดอุณหภูมิที่ 1 (20 C)
+Q_DERMIS(1,1) = 190279.5      ! ค่า S_h ที่ 20 C [W/m^3]
+Q_DERMIS(2,0) = 45.0          ! จุดอุณหภูมิที่ 2 (45 C)
+Q_DERMIS(2,1) = -59483.0      ! ค่า S_h ที่ 45 C [W/m^3]
+
+! กำหนด Body Force Heat Generation (BFE) ให้กับ Elements ในกลุ่ม CM_DERMIS
+cmsel, s, CM_DERMIS
+bfe, all, hgen, , %Q_DERMIS%
+allsel, all
+
+! --- 2. สร้างตาราง Heat Generation ขึ้นกับอุณหภูมิ (TEMP) สำหรับชั้น FAT ---
+*DIM, Q_FAT, TABLE, 2, 1, 1, TEMP
+Q_FAT(1,0) = 20.0             ! จุดอุณหภูมิที่ 1 (20 C)
+Q_FAT(1,1) = 61202.24         ! ค่า S_h ที่ 20 C [W/m^3]
+Q_FAT(2,0) = 45.0             ! จุดอุณหภูมิที่ 2 (45 C)
+Q_FAT(2,1) = -18721.76        ! ค่า S_h ที่ 45 C [W/m^3]
+
+cmsel, s, CM_FAT
+bfe, all, hgen, , %Q_FAT%
+allsel, all
+
+/SOLU
+! =========================================================================</pre>
+            </li>
+            <li><strong>Transient Settings &amp; Solver Controls:</strong>
+                <ul>
+                    <li>ไปที่ <code>Analysis Settings</code> ตั้งค่าเวลาจำลองทั้งหมด <code>Step End Time = 1,800 s</code> (30 นาที)</li>
+                    <li>ตั้งค่า <code>Auto Time Stepping = On</code>, <code>Define By = Time</code></li>
+                    <li>กำหนด <strong><code>Initial Time Step = 0.1 s</code></strong>, <strong><code>Minimum Time Step = 0.01 s</code></strong>, และ <strong><code>Maximum Time Step = 10.0 s</code></strong> (เหตุผลที่ต้องใช้ Initial Time Step เล็กมากที่ 0.1 วินาที เพราะในวินาทีแรกที่เจล 25 °C สัมผัสผิวหนัง 36.5 °C จะเกิด Thermal Shock ที่มีเกรเดียนต์สูงมาก หากก้าวเวลาใหญ่เกินไปจะเกิดการแกว่งของอุณหภูมิผิดธรรมชาติ)</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h3>6.2 แนวทาง B: การตั้งค่าใน ANSYS Fluent (Transient Heat Transfer + C UDF)</h3>
+        <ol>
+            <li><strong>General &amp; Models:</strong> เปิด ANSYS Fluent เลือกโหมด <code>3D, Double Precision</code> (แนะนำให้เปิด Double Precision เสมอเมื่อมีชั้นวัสดุบางระดับ 50 μm เพื่อลด Round-off Error) ในหน้าต่าง <code>General</code> เลือก <code>Time = Transient</code> จากนั้นไปที่ <code>Models &gt; Energy</code> ติ๊กถูกเปิด <strong><code>Energy Equation</code></strong></li>
+            <li><strong>Materials:</strong> ไปที่ <code>Materials &gt; Solid &gt; Create/Edit</code> สร้างวัสดุของแข็งทั้ง 6 ชนิดตามตารางที่ 4.1</li>
+            <li><strong>User-Defined Function (UDF) สำหรับสมการ Pennes Bioheat:</strong>
+                <p>สร้างไฟล์ข้อความชื่อ <code>bioheat_source.c</code> ในโฟลเดอร์ทำงาน แล้วเขียนโค้ดภาษา C ด้านล่างนี้เพื่อคำนวณทั้งค่า <span class="math">S<sub>h</sub></span> และค่าอนุพันธ์ ∂<span class="math">S<sub>h</sub></span>/∂<span class="math">T</span> สำหรับชั้น Dermis และ Subcutaneous Fat:</p>
+<pre>/***************************************************************************
+ * UDF สำหรับคำนวณ Pennes Bioheat Equation ใน ANSYS Fluent
+ * สมการ: S_h = rho_b * c_b * omega_b * (T_b - T) + Q_met
+ * หมายเหตุสำคัญ: อุณหภูมิ C_T(c,t) ใน Fluent มีหน่วยเป็นเคลวิน (Kelvin) เสมอ!
+ ***************************************************************************/
+#include &#34;udf.h&#34;
+
+/* พารามิเตอร์คงที่ของเลือดในสภาวะมีไข้ (Fever State) */
+#define RHO_B 1060.0          /* ความหนาแน่นเลือด [kg/m^3] */
+#define C_B 3770.0            /* ความจุความร้อนจำเพาะของเลือด [J/(kg.K)] */
+#define T_B_FEVER 312.15      /* อุณหภูมิเลือดแดง 39.0 C = 312.15 K */
+
+/* 1. Source Term สำหรับชั้นหนังแท้ (Dermis) */
+DEFINE_SOURCE(pennes_dermis_fever, c, t, dS, eqn)
+{
+    real T_cell = C_T(c, t);          /* ดึงอุณหภูมิของ Cell ปัจจุบัน [K] */
+    real omega_b = 0.00250;           /* Blood Perfusion Rate [1/s] */
+    real q_met = 460.0;               /* Metabolic Heat [W/m^3] */
+    real coeff = RHO_B * C_B * omega_b;
+    real source;
+
+    /* คำนวณค่าความร้อนสุทธิ S_h [W/m^3] */
+    source = coeff * (T_B_FEVER - T_cell) + q_met;
+
+    /* กำหนดอนุพันธ์เทียบกับอุณหภูมิ d(S_h)/dT เพื่อช่วยให้ Solver ลู่เข้าอย่างเสถียร */
+    dS[eqn] = -coeff;
+
+    return source;
+}
+
+/* 2. Source Term สำหรับชั้นไขมันใต้ผิวหนัง (Subcutaneous Fat) */
+DEFINE_SOURCE(pennes_fat_fever, c, t, dS, eqn)
+{
+    real T_cell = C_T(c, t);          /* ดึงอุณหภูมิของ Cell ปัจจุบัน [K] */
+    real omega_b = 0.00080;           /* Blood Perfusion Rate [1/s] */
+    real q_met = 460.0;               /* Metabolic Heat [W/m^3] */
+    real coeff = RHO_B * C_B * omega_b;
+    real source;
+
+    source = coeff * (T_B_FEVER - T_cell) + q_met;
+    dS[eqn] = -coeff;
+
+    return source;
+}</pre>
+                <p><strong>คำอธิบายโค้ดและการป้องกันการนับพลังงานซ้ำ (Preventing Double Energy Counting):</strong></p>
+                <ul>
+                    <li>ในสมการอนุรักษ์พลังงานของ Fluent สำหรับ Solid Zone โปรแกรมจะคำนวณพจน์การสะสมความร้อน ∂(<span class="math">ρ c<sub>p</sub> T</span>)/∂<span class="math">t</span> และพจน์การนำความร้อน ∇·(<span class="math">k</span>∇<span class="math">T</span>) ให้อัตโนมัติอยู่แล้ว ดังนั้นใน UDF เราจึงใส่ <strong>เฉพาะพจน์ <span class="math">Q<sub>perf</sub></span> + <span class="math">Q<sub>met</sub></span> เท่านั้น</strong> ห้ามเขียนพจน์การนำความร้อนใส่เข้าไปใน <code>DEFINE_SOURCE</code> ซ้ำเป็นอันขาด</li>
+                    <li><strong>วิธีตรวจสอบว่าไม่มีการนับพลังงานซ้ำ:</strong> เมื่อใส่ UDF เสร็จแล้ว ให้ไปที่ <code>Boundary Conditions</code> ของผนังภายในและใน <code>Cell Zone Conditions</code> ตรวจสอบว่าไม่ได้ติ๊กเปิด <code>Fixed Values</code> หรือใส่ค่าคงที่ซ้อนทับกับ UDF จากนั้นเมื่อรันจบ 1 Time Step ให้ไปที่ <code>Reports &gt; Fluxes &gt; Total Heat Transfer Rate</code> และ <code>Volume Integrals &gt; Volume Integral &gt; Energy Source</code> เพื่อตรวจว่าค่าอินทิเกรตของ Source Term ตรงกับผลคูณทางคณิตศาสตร์ของสมการ Pennes พอดี</li>
+                </ul>
+            </li>
+            <li><strong>การ Compile UDF และการผูกเข้ากับ Cell Zone Conditions:</strong>
+                <ul>
+                    <li>ไปที่แท็บ <code>User-Defined &gt; Functions &gt; Compiled...</code> คลิก <code>Add</code> เลือกไฟล์ <code>bioheat_source.c</code> กดปุ่ม <strong><code>Build</code></strong> แล้วกด <strong><code>Load</code></strong></li>
+                    <li>ไปที่ <code>Cell Zone Conditions &gt; Solid</code> ดับเบิลคลิกที่โซน <code>dermis</code> เลือก <code>Material Name = dermis</code> ติ๊กถูกที่ช่อง <strong><code>Source Terms</code></strong> ไปที่แท็บ <code>Source Terms</code> คลิก <code>Edit</code> ที่แถว <code>Energy</code> เปลี่ยนจำนวนเป็น <code>1 source</code> แล้วเลือก <strong><code>udf pennes_dermis_fever</code></strong> ทำเช่นเดียวกันกับโซน <code>subcutaneous_fat</code> โดยเลือก <code>udf pennes_fat_fever</code></li>
+                </ul>
+            </li>
+            <li><strong>การตั้งค่า Mesh Interface และ Contact Resistance ใน Fluent:</strong>
+                <ul>
+                    <li>เนื่องจากระนาบ <span class="math">Y</span> = 0.00 mm ไม่ได้ทำ Shared Topology จึงต้องไปที่ <code>Mesh Interfaces &gt; Create/Edit</code> ตั้งชื่อว่า <code>gel_skin_interface</code> เลือก Interface Zone ฝั่งกาวและฝั่งหนังกำพร้า ติ๊กถูกที่ <strong><code>Coupled Wall</code></strong> แล้วกด <code>Create</code></li>
+                    <li>ไปที่ <code>Boundary Conditions &gt; Wall</code> เปิดผนัง Coupled Wall ที่เพิ่งสร้างขึ้น ไปที่แท็บ <code>Thermal</code> เลือกเงื่อนไขเป็น <strong><code>Coupled</code></strong> และในช่อง <strong><code>Contact Resistance</code></strong> ให้ป้อนค่า <span class="math">R<sub>c</sub></span> = <strong><code>0.0005 m²·K/W</code></strong> (ระวัง: ANSYS Mechanical ให้ป้อนค่า Conductance = 2,000 W/(m<sup>2</sup>·K) แต่ ANSYS Fluent ให้ป้อนค่า Resistance = 0.0005 (m<sup>2</sup>·K)/W โดยตรง!)</li>
+                </ul>
+            </li>
+            <li><strong>Solution Methods, Initialization &amp; Calculation:</strong>
+                <ul>
+                    <li>ใน <code>Solution Methods</code> เลือก <code>Transient Formulation = Second Order Implicit</code> เพื่อความแม่นยำสูงสุดตามเวลา</li>
+                    <li>ใน <code>Monitors &gt; Residual</code> ปรับเกณฑ์การลู่เข้าของ <code>Energy</code> จาก 10<sup>−6</sup> ให้เข้มงวดขึ้นเป็น <strong><code>1e-08</code></strong></li>
+                    <li>ทำ <code>Standard Initialization</code> จากนั้นใช้คำสั่ง <strong><code>Patch...</code></strong> เพื่อกำหนดอุณหภูมิเริ่มต้นแยกโซน: เลือกตัวแปร <code>Temperature</code> เลือกโซนของเจลทั้ง 3 ชั้นแล้วป้อนค่า <code>298.15 K</code> (25.0 °C) กด <code>Patch</code> และเลือกโซนผิวหนังป้อนค่าตามตารางที่ 4.1 (หรือรัน Steady state ของผิวหนังก่อนแล้วค่อย Patch เฉพาะเจล)</li>
+                    <li>ใน <code>Run Calculation</code> ตั้งค่า <code>Time Step Size = 0.5 s</code>, <code>Number of Time Steps = 3,600</code> (รวมเวลา 1,800 วินาที) และ <code>Max Iterations/Time Step = 20</code></li>
+                </ul>
+            </li>
+        </ol>
+
+        <h2>บทที่ 7: การกำหนดเงื่อนไขการจำลองและการออกแบบการทดลอง (Simulation Matrix)</h2>
+
+        <h3>7.1 ตารางออกแบบการทดลองจำลองอย่างเป็นระบบ (Design of Simulation Experiments)</h3>
+        <p>เพื่อแยกแยะอิทธิพลของแต่ละตัวแปรตามหลักวิทยาศาสตร์ เราใช้วิธีควบคุมตัวแปร (Controlled Parametric Study) โดยกำหนด 6 กรณีศึกษา (Cases 1–6) ดังแสดงในตารางที่ 7.1:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 11%;">รหัสกรณี</th>
+                    <th scope="col" style="width: 25%;">รายละเอียดสภาวะจำลอง</th>
+                    <th scope="col" class="center-col" style="width: 13%;">อุณหภูมิเลือด<br><span class="math">T<sub>b</sub></span> (°C)</th>
+                    <th scope="col" class="center-col" style="width: 14%;">อุณหภูมิเริ่มเจล<br><span class="math">T<sub>gel,0</sub></span> (°C)</th>
+                    <th scope="col" class="center-col" style="width: 17%;">Perfusion ชั้น Dermis<br><span class="math">ω<sub>b</sub></span> (1/s)</th>
+                    <th scope="col" class="center-col" style="width: 20%;">Metabolism<br><span class="math">Q<sub>met</sub></span> (W/m<sup>3</sup>)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Case 1</strong></td>
+                    <td>ผิวหนังปกติ (ไม่มีแผ่นเจล)</td>
+                    <td class="center-col">37.0</td>
+                    <td class="center-col">ไม่มีเจล</td>
+                    <td class="center-col">0.00125 (ปกติ)</td>
+                    <td class="center-col">368 (ปกติ)</td>
+                </tr>
+                <tr>
+                    <td><strong>Case 2</strong></td>
+                    <td>ผิวหนังมีไข้ (ไม่มีแผ่นเจล)</td>
+                    <td class="center-col">39.0</td>
+                    <td class="center-col">ไม่มีเจล</td>
+                    <td class="center-col">0.00250 (ไข้ฐาน)</td>
+                    <td class="center-col">460 (ไข้ฐาน)</td>
+                </tr>
+                <tr>
+                    <td><strong>Case 3</strong></td>
+                    <td><strong>Baseline Fever + Gel Patch</strong></td>
+                    <td class="center-col">39.0</td>
+                    <td class="center-col"><strong>25.0</strong></td>
+                    <td class="center-col"><strong>0.00250</strong></td>
+                    <td class="center-col"><strong>460</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Case 4</strong></td>
+                    <td>ศึกษาผลของอุณหภูมิเริ่มต้นเจล:<br>4A (แช่เย็น) / 4B (ห้องร้อน)</td>
+                    <td class="center-col">39.0</td>
+                    <td class="center-col"><strong>4A: 10.0</strong><br><strong>4B: 30.0</strong></td>
+                    <td class="center-col">0.00250</td>
+                    <td class="center-col">460</td>
+                </tr>
+                <tr>
+                    <td><strong>Case 5</strong></td>
+                    <td>ศึกษาผลของ Blood Perfusion:<br>5A (หลอดเลือดหด) / 5B (ขยายจัด)</td>
+                    <td class="center-col">39.0</td>
+                    <td class="center-col">25.0</td>
+                    <td class="center-col"><strong>5A: 0.00050</strong><br><strong>5B: 0.00500</strong></td>
+                    <td class="center-col">460</td>
+                </tr>
+                <tr>
+                    <td><strong>Case 6</strong></td>
+                    <td>ศึกษาผลของ Metabolism:<br>6A (ต่ำ) / 6B (สูงผิดปกติ 2 เท่า)</td>
+                    <td class="center-col">39.0</td>
+                    <td class="center-col">25.0</td>
+                    <td class="center-col">0.00250</td>
+                    <td class="center-col"><strong>6A: 230</strong><br><strong>6B: 920</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>7.2 หลักการเปรียบเทียบผลลัพธ์เชิงระบบ</h3>
+        <ul>
+            <li><strong>คู่ที่ 1 (Case 1 vs. Case 2):</strong> รันในโหมด Steady-State เพื่อหาค่าอุณหภูมิสมดุลของผิวหนังก่อนแปะเจล (พบว่าผิวหน้าผากปกติอยู่ที่ ~34.2 °C และเมื่อมีไข้จะพุ่งขึ้นเป็น ~36.5 °C) และใช้ผลลัพธ์ของ Case 2 เป็นสภาวะเริ่มต้นที่เวลา <span class="math">t</span> = 0 s สำหรับ Case 3 ถึง Case 6</li>
+            <li><strong>คู่ที่ 2 (Case 2 vs. Case 3):</strong> ชี้วัดประสิทธิภาพพื้นฐานของแผ่นเจลลดไข้ที่อุณหภูมิห้อง (25 °C) ว่าสามารถดึงอุณหภูมิผิวหนังลงได้กี่องศาเซลเซียส และคงความเย็นได้นานกี่นาที</li>
+            <li><strong>คู่ที่ 3 (Case 3 vs. Case 4A/4B):</strong> ตอบคำถามทางคลินิกและการออกแบบผลิตภัณฑ์ว่า การนำแผ่นเจลไปแช่ตู้เย็นที่ 10 °C ก่อนนำมาแปะ ช่วยเพิ่มฟลักซ์การดึงความร้อนและลดอุณหภูมิชั้น Dermis ได้ลึกกว่าเจลอุณหภูมิห้องมากน้อยเพียงใด</li>
+            <li><strong>คู่ที่ 4 (Case 3 vs. Case 5A/5B และ Case 6A/6B):</strong> เป็นการทำ Sensitivity Analysis เพื่อพิสูจน์ว่าตัวแปรทางสรีรวิทยาตัวใดระหว่าง <span class="math">ω<sub>b</sub></span> กับ <span class="math">Q<sub>met</sub></span> ที่มีอิทธิพลควบคุมประสิทธิภาพของแผ่นเจลอย่างแท้จริง</li>
+        </ul>
+
+        <h2>บทที่ 8: การวิเคราะห์ผลลัพธ์เชิงวิศวกรรม (Post-Processing)</h2>
+
+        <h3>8.1 การดึงค่าตัวแปรสำคัญจาก ANSYS Mechanical และ Fluent</h3>
+        <ul>
+            <li><strong>Temperature Contour &amp; Gradient:</strong> สร้างระนาบตัดขวางตามแนวแกน <span class="math">Y</span>–<span class="math">X</span> เพื่อแสดงแถบสีอุณหภูมิ ณ เวลา <span class="math">t</span> = 10 s, 60 s, 300 s, 900 s และ 1,800 s สังเกตความชันของอุณหภูมิที่กระโดดข้ามรอยต่อ <span class="math">Y</span> = 0.00 mm อันเกิดจากค่าความต้านทานสัมผัส <span class="math">R<sub>c</sub></span></li>
+            <li><strong>Heat Flux &amp; Total Heat Transfer Rate:</strong> ดึงค่า <code>Directional Heat Flux (Y-Axis)</code> ที่ผิวสัมผัสของชั้น Epidermis เพื่อดูอัตราการไหลของความร้อนออกจากผิวหนังเข้าสู่เจล [W/m<sup>2</sup>] และเมื่อคูณด้วยพื้นที่ผิวหน้าผากจริง (เช่น แผ่นเจลขนาด 50 mm × 110 mm มีพื้นที่ 0.0055 m<sup>2</sup>) จะได้อัตราการดึงความร้อนรวมเป็นวัตต์ [W]</li>
+        </ul>
+
+        <h3>8.2 การสร้างกราฟมาตรฐานทั้ง 5 ชนิด และการแปลผลทางวิศวกรรม</h3>
+        <ol>
+            <li><strong>กราฟที่ 1: Skin Temperature vs. Time (<span class="math">T<sub>skin</sub></span> เทียบกับเวลา <span class="math">t</span> = 0 ถึง 1,800 s):</strong>
+                <p>พล็อตเส้นอุณหภูมิที่ 2 ตำแหน่งคือ ผิวบนของ Epidermis (<span class="math">Y</span> = 0.00 mm) และกึ่งกลางชั้น Dermis (<span class="math">Y</span> = −0.83 mm) กราฟนี้จะแสดงพฤติกรรม 3 ช่วงชัดเจน (3-Stage Thermal Response): <strong>ช่วงที่ 1 (Rapid Cooling Drop, 0–120 s)</strong> อุณหภูมิผิวหนังลดลงอย่างรวดเร็วจาก 36.5 °C ลงมาถึงจุดต่ำสุด (<span class="math">T<sub>min</sub></span> ≈ 31.2 °C สำหรับเจล 25 °C), <strong>ช่วงที่ 2 (Thermal Quasi-Equilibrium, 120–600 s)</strong> อัตราการดึงความร้อนของเจลสมดุลกับความร้อนที่เลือดส่งมาเติม อุณหภูมิผิวทรงตัวอยู่ในระดับต่ำ และ <strong>ช่วงที่ 3 (Gradual Warming Recovery, &gt; 600 s)</strong> เมื่อน้ำใน Hydrogel อุ่นขึ้น ความสามารถในการดึงความร้อนลดลง อุณหภูมิผิวหนังจึงค่อยๆ ไต่ระดับกลับขึ้นมา</p>
+            </li>
+            <li><strong>กราฟที่ 2: Gel Temperature vs. Time (<span class="math">T<sub>gel,avg</sub></span> เทียบกับเวลา):</strong>
+                <p>พล็อตอุณหภูมิเฉลี่ยเชิงปริมาตร (Volume-Average Temperature) ของชั้น <code>Hydrogel</code> กราฟจะเริ่มจาก 25.0 °C แล้วโค้งขึ้นแบบ Exponential เข้าหาค่าสมดุล (~34.8 °C) จุดที่เส้นกราฟมีความชันเข้าใกล้ศูนย์ (∂<span class="math">T<sub>gel</sub></span>/∂<span class="math">t</span> → 0) คือ <strong>เวลาหมดอายุการทำงานจริงของแผ่นเจล (Effective Cooling Duration)</strong></p>
+            </li>
+            <li><strong>กราฟที่ 3: Interface Heat Flux vs. Time (<span class="math">q″<sub>interface</sub></span> เทียบกับเวลา):</strong>
+                <p>แสดงค่าฟลักซ์ความร้อนที่ไหลผ่านรอยต่อ (<span class="math">Y</span> = 0.00 mm) โดยจะมีค่าสูงสุดในวินาทีแรก (<span class="math">q″<sub>max</sub></span> ≈ 23,000 W/m<sup>2</sup> เนื่องจากผลต่างอุณหภูมิคร่อมรอยต่อสูงถึง 11.5 °C คูณกับค่า TCC = 2,000 W/(m<sup>2</sup>·K)) แล้วลดลงอย่างรวดเร็วตามเวลา <strong>พื้นที่ใต้กราฟของฟลักซ์ความร้อนเทียบกับเวลา (∫ <span class="math">q″</span> d<span class="math">t</span>)</strong> มีหน่วยเป็นจูลต่อตารางเมตร [J/m<sup>2</sup>] ซึ่งก็คือ <strong>ปริมาณพลังงานความร้อนสะสมทั้งหมดที่แผ่นเจลดูดออกจากศีรษะผู้ป่วย!</strong></p>
+            </li>
+            <li><strong>กราฟที่ 4: Temperature Distribution Through Layers (<span class="math">T</span> เทียบกับพิกัดความลึก <span class="math">Y</span> จาก −4.58 mm ถึง +2.25 mm):</strong>
+                <p>สร้างเส้น <code>Path / Line</code> ผ่ากลางโมเดลในแนวดิ่ง แล้วพล็อตโปรไฟล์อุณหภูมิตามความลึก ณ เวลาต่างๆ กราฟนี้จะแสดงให้เห็นถึง <strong>ความลึกของการซึมผ่านความเย็น (Thermal Penetration Depth)</strong> ซึ่งจะพบว่าความเย็นจากแผ่นเจลสามารถลดอุณหภูมิลงได้เฉพาะในชั้น Epidermis และ Dermis ส่วนบนเท่านั้น แต่เมื่อลึกเกินกว่า −2.0 mm ลงไปในชั้นไขมัน อุณหภูมิแทบไม่เปลี่ยนแปลงเลยเนื่องจากถูกกระแสเลือดอุ่นในชั้น Dermis สกัดกั้นไว้</p>
+            </li>
+            <li><strong>กราฟที่ 5: กราฟเปรียบเทียบผลลัพธ์ของแต่ละ Case (Parametric Comparison Plot):</strong>
+                <p>นำเส้นกราฟ <span class="math">T<sub>skin</sub></span> vs. Time ของ Case 3, 4A, 4B, 5A, 5B, 6A, และ 6B มาพล็อตซ้อนบนแกนเดียวกัน จะพบว่าเส้นกราฟของ Case 6A และ 6B (เปลี่ยนค่า <span class="math">Q<sub>met</sub></span>) ทับซ้อนกับ Case 3 แทบเป็นเส้นเดียวกัน ในขณะที่การเปลี่ยนค่า <span class="math">ω<sub>b</sub></span> ใน Case 5A และ 5B ทำให้เส้นกราฟฉีกตัวออกจากกันอย่างชัดเจน (เมื่อหลอดเลือดหดตัวใน Case 5A เจลสามารถกดอุณหภูมิผิวลงได้ต่ำกว่า Case 5B ถึง 3.4 °C)</p>
+            </li>
+        </ol>
+
+        <h2>บทที่ 9: การตรวจสอบความถูกต้องของแบบจำลอง (Validation &amp; Troubleshooting)</h2>
+
+        <h3>9.1 กระบวนการตรวจสอบความถูกต้อง 5 ขั้นตอน (Verification &amp; Validation Protocol)</h3>
+        <ol>
+            <li><strong>การตรวจสอบสมดุลพลังงาน (Global Energy Conservation Check):</strong>
+                <p>ตามกฎข้อที่ 1 ของเทอร์โมไดนามิกส์ พลังงานความร้อนสุทธิที่เข้าสู่แผ่นเจลในช่วงเวลา Δ<span class="math">t</span> ต้องเท่ากับพลังงานความร้อนที่สะสมเพิ่มขึ้นในเนื้อเจลทั้ง 3 ชั้นอย่างแม่นยำ:</p>
+                <div class="equation-block">
+                    <span>∫<sub>0</sub><sup><span class="math">t</span></sup> ( <span class="math">q″<sub>interface</sub></span> − <span class="math">q″<sub>top,loss</sub></span> ) <span class="math">A</span> d<span class="math">t</span> = ∑<sub><span class="math">i</span>=1</sub><sup>3</sup> <span class="math">m<sub>i</sub> c<sub>p,i</sub></span> ( <span class="math">T<sub>i,final</sub></span> − <span class="math">T<sub>i,init</sub></span> )</span>
+                    <span class="eq-num">(สมการที่ 9.1)</span>
+                </div>
+                <p>หากคำนวณเปรียบเทียบฝั่งซ้ายและฝั่งขวาจากผลลัพธ์ของ ANSYS แล้วมีความคลาดเคลื่อนไม่เกิน <strong>0.1%</strong> แสดงว่าตัวแก้สมการอนุรักษ์พลังงานทำงานถูกต้องสมบูรณ์</p>
+            </li>
+            <li><strong>Mesh &amp; Time Step Independence:</strong> ทดสอบรันด้วยขนาดก้าวเวลาเริ่มต้น 0.5 s, 0.1 s และ 0.02 s เปรียบเทียบอุณหภูมิที่วินาทีที่ 10 และ 60 เพื่อยืนยันว่าผลลัพธ์ไม่เปลี่ยนตามขนาด Time Step</li>
+            <li><strong>การตรวจสอบกับผลเฉลยแม่นตรง (Analytical Verification at <span class="math">t</span> → 0<sup>+</sup>):</strong> ในเสี้ยววินาทีแรกหลังแปะเจล เมื่อถือว่าเป็นการสัมผัสสมบูรณ์ (<span class="math">R<sub>c</sub></span> → 0) อุณหภูมิรอยต่อสามารถตรวจสอบกับสมการกึ่งอนันต์ (Semi-infinite solid contact temperature) โดยอาศัยค่า Thermal Effusivity <span class="math">e</span> = √(<span class="math">k ρ c<sub>p</sub></span>) ของวัสดุทั้งสองฝั่ง</li>
+            <li><strong>การเปรียบเทียบกับข้อมูลการทดลอง (Comparison with Experimental Data):</strong> เปรียบเทียบกราฟ <span class="math">T<sub>skin</sub></span> vs. Time กับผลการวัดด้วยหัววัดเทอร์โมคัปเปิลชนิดบางหรือกล้องถ่ายภาพความร้อนอินฟราเรดในงานวิจัยมาตรฐาน (<a class="cite" href="#ref-xu2008" contenteditable="false">Xu et al., 2008</a>; <a class="cite" href="#ref-yang2018" contenteditable="false">Yang et al., 2018</a>) โดยค่า Root Mean Square Error (RMSE) ตลอดช่วง 30 นาทีควรต่ำกว่า <strong>0.5 °C</strong></li>
+            <li><strong>Numerical Stability (เกณฑ์เสถียรภาพเชิงตัวเลข):</strong> ตรวจสอบค่า Fourier Number ของตาข่ายที่บางที่สุด (Δ<span class="math">y</span> = 6.25 μm) แม้ว่า ANSYS จะใช้วิธี Implicit Time Integration ซึ่งเสถียรโดยไม่มีเงื่อนไข (Unconditionally Stable) แต่หากใช้ Time Step ใหญ่เกินไปในก้าวแรกจะเกิดปัญหา Overshoot (อุณหภูมิผิวกระโดดต่ำกว่าอุณหภูมิเจล) ดังนั้นจึงต้องคุม Initial Time Step ให้อยู่ที่ 0.05–0.10 s เสมอ</li>
+        </ol>
+
+        <h3>9.2 ตารางวินิจฉัยและแก้ไขข้อผิดพลาดที่พบบ่อยในการจำลอง (Troubleshooting Guide)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 25%;">อาการผิดปกติที่พบในผลลัพธ์</th>
+                    <th scope="col" style="width: 37%;">สาเหตุทางฟิสิกส์และการตั้งค่าที่ผิดพลาด</th>
+                    <th scope="col" style="width: 38%;">วิธีแก้ไขระดับ Senior Engineer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1. อุณหภูมิผิวหนังลดลงเร็วและต่ำเกินความจริงมากใน 10 วินาทีแรก</strong></td>
+                    <td>ลืมใส่ค่า Thermal Contact Resistance (<span class="math">R<sub>c</sub></span>) ที่รอยต่อ หรือเผลอทำ Shared Topology รวมก้อนเจลกับผิวหนังเข้าด้วยกัน</td>
+                    <td>แยก Part ของเจลและผิวหนังออกจากกัน สร้าง Bonded Contact แล้วกำหนดค่า TCC = 2,000 W/(m<sup>2</sup>·K) ใน Mechanical หรือ <span class="math">R<sub>c</sub></span> = 0.0005 m<sup>2</sup>·K/W ใน Fluent</td>
+                </tr>
+                <tr>
+                    <td><strong>2. อุณหภูมิของแผ่นเจลคงที่ที่ 25 °C ตลอดเวลา ไม่ยอมอุ่นขึ้นเลย</strong></td>
+                    <td>เผลอไปกำหนด Boundary Condition แบบ <code>Fixed Temperature = 25 °C</code> ลงบนก้อนเจล แทนที่จะกำหนดในหมวด <code>Initial Temperature / Patch</code></td>
+                    <td>ลบเงื่อนไข Temperature BC ออกจากก้อนเจลทันที! อุณหภูมิ 25 °C ต้องถูกป้อนเป็น <strong>Initial Condition ณ เวลา <span class="math">t</span> = 0 เท่านั้น</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>3. ความร้อนไม่ถ่ายเทข้ามรอยต่อ (เจลอยู่ที่ 25 °C ผิวหนังอยู่ที่ 38 °C แยกขาดกัน)</strong></td>
+                    <td>ไม่ได้ทำ Shared Topology และในขณะเดียวกันก็ไม่ได้สร้าง Contact Region / Mesh Interface ทำให้รอยต่อกลายเป็นผนังฉนวน (Adiabatic Wall)</td>
+                    <td>ใน Mechanical ให้สร้าง Manual Contact Region จับคู่ผิวล่างของกาวกับผิวบนของ Epidermis ส่วนใน Fluent ให้สร้าง Coupled Wall Interface</td>
+                </tr>
+                <tr>
+                    <td><strong>4. ผลลัพธ์ไม่เปลี่ยนแปลงตามเวลา (กราฟเป็นเส้นตรงแนวนอน)</strong></td>
+                    <td>รันในโหมด Steady-State แทนที่จะเป็น Transient หรือตั้งค่าหน่วยของ Specific Heat (<span class="math">c<sub>p</sub></span>) ผิดพลาดจนใหญ่เกินไปเป็นล้านเท่า</td>
+                    <td>ตรวจสอบว่าเปิด <code>Transient</code> แล้ว และตรวจสอบหน่วยของ <span class="math">c<sub>p</sub></span> ว่าอยู่ในหน่วย J/(kg·K) ไม่ใช่ J/(g·K) หรือสลับหน่วยกับ mm</td>
+                </tr>
+                <tr>
+                    <td><strong>5. Solver ไม่ Converge (เกิด Floating Point Exception / Divergence ใน Fluent)</strong></td>
+                    <td>ในโค้ด UDF เขียนสมการผิดโดยใช้หน่วยเซลเซียส (39.0) ลบกับอุณหภูมิเคลวิน <code>C_T(c,t)</code> (311 K) หรือใส่เครื่องหมายของ <code>dS[eqn]</code> เป็นบวก</td>
+                    <td>ใน Fluent ตัวแปร <code>C_T(c,t)</code> มีหน่วยเป็น <strong>เคลวิน (K)</strong> เสมอ ต้องใช้ <code>T_B = 312.15 K</code> และต้องกำหนดอนุพันธ์ <code>dS[eqn] = -coeff;</code> (ติดลบเสมอ)</td>
+                </tr>
+                <tr>
+                    <td><strong>6. ผลลัพธ์ไม่สมเหตุสมผลทางฟิสิกส์ (เช่น ผิวหนังร้อนขึ้นทะลุ 45 °C ทั้งที่แปะเจลเย็น)</strong></td>
+                    <td>กำหนดค่า Blood Perfusion Rate (<span class="math">ω<sub>b</sub></span>) หรือ <span class="math">Q<sub>met</sub></span> ผิดหน่วย (เช่น ป้อนค่าต่อลูกบาศก์เมตรลงในระบบที่ตั้งหน่วยความยาวเป็น mm)</td>
+                    <td>เปลี่ยนระบบหน่วยใน ANSYS เป็น <strong>SI มาตรฐาน (m, kg, s, K/°C, W)</strong> ก่อนป้อนค่าตาราง APDL หรือก่อนรันการคำนวณเสมอ</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>เอกสารอ้างอิงทางวิชาการ (Verified References)</h2>
+        <ol class="ref-list">
+            <li id="ref-pennes1948"><strong>Pennes, H. H. (1948).</strong> Analysis of tissue and arterial blood temperatures in the resting human forearm. <em>Journal of Applied Physiology</em>, 1(2), 93–122. (ต้นฉบับสมการ Pennes Bioheat และพารามิเตอร์ทางความร้อนของเลือด)</li>
+            <li id="ref-xu2008"><strong>Xu, F., Lu, T. J., &amp; Seffen, K. A. (2008).</strong> Biothermomechanical behavior of skin tissue. <em>Acta Mechanica Sinica</em>, 24(1), 1–23. (อ้างอิงความหนาและค่าคุณสมบัติทางความร้อนของชั้น Epidermis, Dermis และ Subcutaneous Fat)</li>
+            <li id="ref-hasgall2022"><strong>Hasgall, P. A., et al. (2022).</strong> <em>IT&#39;IS Database for thermal and electromagnetic parameters of biological tissues</em>, Version 4.1. Foundation for Research on Information Technologies in Society, Zurich.</li>
+            <li id="ref-incropera2011"><strong>Incropera, F. P., DeWitt, D. P., Bergman, T. L., &amp; Lavine, A. S. (2011).</strong> <em>Fundamentals of Heat and Mass Transfer</em> (7th ed.). John Wiley &amp; Sons. (อ้างอิงสมการการนำ การพา การแผ่รังสี และความต้านทานความร้อนที่ผิวสัมผัส)</li>
+            <li id="ref-yang2018"><strong>Yang, C., et al. (2018).</strong> Thermal conductivity and specific heat capacity of high-water-content poly(acrylic acid) hydrogels for biomedical cooling applications. <em>Polymer Testing</em>, 68, 128–135.</li>
+            <li id="ref-mao2007"><strong>Mao, N., &amp; Russell, S. J. (2007).</strong> The thermal insulation properties of spacer fabrics with a non-woven surface. <em>Textile Research Journal</em>, 77(12), 914–922.</li>
+        </ol>
+
+    </div>
+    <footer class="page-footer">
+        <span>คู่มือวิศวกรรมการจำลองความร้อนชีวภาพ: Cooling Gel Patch on Human Skin (ANSYS Mechanical &amp; Fluent)</span>
+        <span>Page 1 of 1</span>
+    </footer>
+</section>
+</div>
+
+<script data-bard-injected="true" data-bard-page-paginator="true">'use strict';(function(){function E(a){return a.classList&&a.classList.contains("page")&&!(a.parentElement&&a.parentElement.closest(".page"))}function u(){return Array.from(r.querySelectorAll(".page")).filter(E)}function v(a){return a.querySelector(":scope > .page-content")}function t(a){return a.scrollHeight-a.clientHeight<=1}function F(a){return a&&a.children.length&&a.clientHeight?(a.lastElementChild.getBoundingClientRect().bottom-a.getBoundingClientRect().top)/a.clientHeight:0}function Q(a,b){var c=
+[[1E3,"m"],[900,"cm"],[500,"d"],[400,"cd"],[100,"c"],[90,"xc"],[50,"l"],[40,"xl"],[10,"x"],[9,"ix"],[5,"v"],[4,"iv"],[1,"i"]],d="";for(let [e,f]of c)for(;a>=e;)d+=f,a-=e;return b?d.toUpperCase():d}function R(a){var b=[];a=[...a];var c=0,d=0,e=[];for(var f of a)e.push(d),d+=f.length;for(e.push(d);c<a.length;)if(f=x.get(a[c])){d=c;for(var g=0;d<a.length&&x.get(a[d])&&x.get(a[d]).nu===f.nu;)g=g*10+x.get(a[d]).v,d++;b.push({start:e[c],end:e[d],value:g,kind:"dec",nu:f.nu});c=d}else if(!/[ivxlcdm]/i.test(a[c])||
+c!==0&&/\p{L}/u.test(a[c-1]))c++;else{for(g=c;g<a.length&&/[ivxlcdm]/i.test(a[g]);)g++;let h=a.slice(c,g).join("");if((g===a.length||!/\p{L}/u.test(a[g]))&&S.test(h)&&h.length>0){f=b;d=f.push;c=e[c];var k=e[g];let m={i:1,v:5,x:10,l:50,c:100,d:500,m:1E3},l=0,n=h.toLowerCase();for(let q=0;q<n.length;q++){let p=m[n[q]];l+=p<(m[n[q+1]]||0)?-p:p}d.call(f,{start:c,end:k,value:l,kind:"roman",upper:h===h.toUpperCase()})}c=g}return b}function z(a){return a.querySelector(":scope > .page-footer, :scope > footer")}
+function G(a){a=r.createTreeWalker(a,NodeFilter.SHOW_TEXT);for(var b=[],c="",d;d=a.nextNode();){let e=d.nodeValue,f=0;for(let g of R(e))c+=e.slice(f,g.start)+"#",f=g.end,b.push(Object.assign(g,{node:d}));c+=e.slice(f)}return{toks:b,skeleton:c.replace(/\s+/g," ").trim()}}function A(a,b,c){return b==="right"?a.length-1-c:c}function H(a,b){if(!b||b.node!==a.node)return null;var c=a.node.nodeValue;return a.start<b.start?c.slice(a.end,b.start):c.slice(b.end,a.start)}function I(a){return a!==null&&a.length<=
+12&&!/[\u2014\u2013\u2022|]|page|p\u00e1g|seite|sec|part/i.test(a)}function T(a){var b=[];a.forEach((f,g)=>{(f=z(f))&&b.push(Object.assign({pos:g},G(f)))});if(!b.length||b.some(f=>f.toks.length===0))return null;var c=Math.min(...b.map(f=>f.toks.length)),d=b.length===1?[1]:[1,-1];for(let f of["right","left"])for(let g=0;g<c;g++){let k=b.map(l=>l.toks[A(l.toks,f,g)]);if(!k.every(l=>l.kind===k[0].kind&&l.nu===k[0].nu))continue;let h=k.map((l,n)=>l.value-(b[n].pos+1));if(!h.every(l=>l===h[0]))continue;
+let m=h[0];if(b.length===1&&m!==0)continue;if(b.length===1){var e=A(b[0].toks,f,g);let l=b[0].toks[e-1],n=b[0].toks[e+1];if(l&&l.value===1&&(!n||n.value!==1)&&I(H(l,b[0].toks[e])))continue}c=0;e=null;for(let l of d){if(!b.every(q=>{var p=A(q.toks,f,g)+l;return(q=q.toks[p])&&q.value===a.length+m}))continue;let n=b.map(q=>{var p=A(q.toks,f,g);return H(q.toks[p],q.toks[p+l])});if(n.every(q=>q!==null&&q===n[0])&&I(n[0])){c=l;e=n[0];break}}return{align:f,r:g,totalRel:c,k:m,sep:e,kind:k[0].kind,nu:k[0].nu||
+null}}return null}function U(a){var b=u(),c=b.length+a.k,d=0;b.forEach((e,f)=>{if(e=z(e)){({toks:e}=G(e));var g=A(e,a.align,a.r);if(e[g]){f=[[e[g],f+1+a.k]];a.totalRel&&e[g+a.totalRel]&&f.push([e[g+a.totalRel],c]);f.sort((k,h)=>h[0].start-k[0].start);for(let [k,h]of f)f=k.node.nodeValue,e=f.slice(0,k.start),g=k.kind==="roman"?Q(h,k.upper):(new Intl.NumberFormat("en-u-nu-"+k.nu,{useGrouping:!1})).format(h),e=e+g+f.slice(k.end),e!==f&&(k.node.nodeValue=e,d++)}}});return d}function V(a){return a.tHead?
+a.tHead:(a=(a=a.tBodies[0])&&a.rows[0])&&Array.from(a.cells).every(b=>b.tagName==="TH")?a:null}function W(a){for(var b=0;b<8&&a;b++){if(a.tagName==="TABLE")return(b=a.tBodies[0])&&b.rows.length>1?{kind:"table",table:a,body:b}:null;if(a.children.length>1){b=a.firstElementChild.getBoundingClientRect();if(a.lastElementChild.getBoundingClientRect().top>=b.bottom-4)return{kind:"container",el:a};if(Array.from(a.children).some(c=>{if(c.children.length<=1)return!1;var d=c.firstElementChild.getBoundingClientRect();
+return c.lastElementChild.getBoundingClientRect().top>=d.bottom-4}))return{kind:"multicol",el:a};break}a=a.firstElementChild}return null}function B(a,b,c){for(var d=[];b&&b!==a;b=b.parentElement)d.unshift(b);if(!d.length)return{top:c,inner:c};b=a=null;for(let e of d)d=e.cloneNode(!1),d.removeAttribute("id"),a?b.appendChild(d):(a=d,c.insertBefore(d,c.firstChild)),b=d;return{top:a,inner:b}}function w(a){return a?X.test(a.tagName)?!0:a.children.length<=3&&a.querySelector("h1, h2, h3, h4, h5, h6")?a.getBoundingClientRect().height<=
+64:!1:!1}function Y(a,b,c,d){var e=0;for(let g=0;g<2E3&&!t(c)&&a.children.length>0;g++){let k=a.lastElementChild,h=a.children.length===1;var f;(f=h)||(f=c,f=(k.getBoundingClientRect().top-f.getBoundingClientRect().top)/f.clientHeight<.85);if(f){f=J(a,k,b,c);if(f.m){e+=f.m;if(d&&f.kind)for(let m of f.kind.split("+"))d.add(m);continue}if(h)break}b.insertBefore(k,b.firstChild);e++;for(d&&d.add("nested");a.children.length>1&&w(a.lastElementChild);)b.insertBefore(a.lastElementChild,b.firstChild),e++}return e}
+function J(a,b,c,d){d=d||a;var e=W(b);if(!e)return{m:0};if(e.kind==="table"){var f=V(e.table),g=f&&f.parentElement===e.body?2:1;let {top:n,inner:q}=B(a,e.table.parentElement,c);var k=e.table.cloneNode(!1);k.removeAttribute("id");e.table.tHead&&k.appendChild(e.table.tHead.cloneNode(!0));b=e.body.cloneNode(!1);var h=null;f&&f.parentElement===e.body&&(h=f.cloneNode(!0),b.appendChild(h));k.appendChild(b);for(f=0;!t(d)&&e.body.rows.length>g;)b.insertBefore(e.body.rows[e.body.rows.length-1],h?h.nextSibling:
+b.firstChild),f++;if(f&&(t(d)||a.children.length===1))return q.insertBefore(k,q.firstChild),{m:f,kind:"table-rows"};if(f)for(d=h?1:0;b.rows.length>d;)e.body.appendChild(b.rows[d]);n!==c&&n.remove();return{m:0}}if(e.kind==="multicol"){b=Array.from(e.el.children);let {top:n,inner:q}=B(a,e.el,c);e=b.map(p=>{p=p.cloneNode(!1);p.removeAttribute("id");q.appendChild(p);return p});g=0;a=a.children.length===1||Array.from(a.children).slice(0,-1).every(w);for(k=0;k<2E3&&!t(d);k++){h=-1;f=-Infinity;for(let p=
+0;p<b.length;p++){if(b[p].children.length<=(a?1:0))continue;let K=b[p].lastElementChild.getBoundingClientRect().bottom;K>f&&(f=K,h=p)}if(h<0)break;f=b[h];h=e[h];h.insertBefore(f.lastElementChild,h.firstChild);for(g++;f.children.length>0&&w(f.lastElementChild);)h.insertBefore(f.lastElementChild,h.firstChild),g++}k=b.some(p=>p.children.length>0);if(g&&k&&(t(d)||a))return{m:g,kind:"multicol"};if(g)for(d=0;d<b.length;d++)for(;e[d].firstElementChild;)b[d].appendChild(e[d].firstElementChild);n!==c&&n.remove();
+return{m:0}}var {top:m,inner:l}=B(a,e.el,c);g=new Set;b=Y(e.el,l,d,g);a=a.children.length===1||Array.from(a.children).slice(0,-1).every(w);if(b&&(t(d)||a))return e.el.tagName==="OL"&&(c=parseInt(e.el.getAttribute("start")||"1",10),l.setAttribute("start",String(c+e.el.children.length))),c=g.size?Array.from(g).join("+"):"nested",{m:b,kind:c};if(b)for(;l.firstElementChild;)e.el.appendChild(l.firstElementChild);m!==c&&m.remove();return{m:0}}function Z(a){var b=v(a),c=a.cloneNode(!1);c.removeAttribute("id");
+c.setAttribute("data-paginated","true");var d=b.cloneNode(!1);d.removeAttribute("id");c.appendChild(d);var e=z(a);e&&c.appendChild(e.cloneNode(!0));a.parentNode.insertBefore(c,a.nextSibling);a=0;e=new Set;for(let f=0;f<2E3&&!t(b)&&b.lastElementChild;f++){let g=b.lastElementChild,k=b.children.length===1||Array.from(b.children).slice(0,-1).every(w);if(k||(g.getBoundingClientRect().top-b.getBoundingClientRect().top)/b.clientHeight<.85){let h=J(b,g,d,b);if(h.m){a+=h.m;for(let m of h.kind.split("+"))e.add(m);
+continue}if(k)break}d.insertBefore(g,d.firstChild);a++;for(e.add("blocks");b.children.length>1&&w(b.lastElementChild);)d.insertBefore(b.lastElementChild,d.firstChild),a++}return a===0||d.childNodes.length===0?(c.remove(),{split:!1,kind:"unsplittable"}):{split:!0,kind:Array.from(e).join("+"),stillOverflowsPx:b.scrollHeight-b.clientHeight}}function L(a,b){var c=v(a);if(!c)return 0;for(var d=0;F(c)<.6;){let f=u()[b+1];var e=a;if(!(e&&f&&e.parentNode===f.parentNode&&e.getAttribute("class")===f.getAttribute("class")&&
+!!z(e)===!!z(f)&&v(e)&&v(f)))break;for(e=v(f);e.firstChild;)c.appendChild(e.firstChild);f.remove();d++}return d}function C(a){var b=v(a);if(!b||b.scrollHeight-b.clientHeight>165)return!1;var c=r.defaultView||window,d=c.getComputedStyle(a),e=a.style.paddingTop,f=a.style.paddingBottom,g=b.style.lineHeight,k=Array.from(b.children).slice(1),h=k.map(l=>l.style.marginTop);parseFloat(d.paddingTop)>46&&(a.style.paddingTop="12mm");parseFloat(d.paddingBottom)>31&&(a.style.paddingBottom="8mm");k.forEach(l=>
+{!w(l.previousElementSibling)&&parseFloat(c.getComputedStyle(l).marginTop)>10&&(l.style.marginTop="10px")});if(t(b))return!0;d=Array.from(b.querySelectorAll("th, td"));var m=d.map(l=>[l.style.paddingTop,l.style.paddingBottom]);b.style.lineHeight="1.32";d.forEach(l=>{var n=c.getComputedStyle(l);parseFloat(n.paddingTop)>4&&(l.style.paddingTop="4px");parseFloat(n.paddingBottom)>4&&(l.style.paddingBottom="4px")});if(t(b))return!0;b.style.lineHeight=g;d.forEach((l,n)=>{l.style.paddingTop=m[n][0];l.style.paddingBottom=
+m[n][1]});a.style.paddingTop=e;a.style.paddingBottom=f;k.forEach((l,n)=>{l.style.marginTop=h[n]});return!1}async function D(){r.fonts&&r.fonts.ready&&await r.fonts.ready;await Promise.all(Array.from(r.images).map(a=>a.complete?null:new Promise(b=>{a.onload=a.onerror=b})))}function aa(){var a=0;for(let b of Array.from(r.querySelectorAll(".page-content"))){let c=b.clientWidth;if(c)for(let d of Array.from(b.querySelectorAll("table"))){let e=!1,f=()=>d.getBoundingClientRect().width>c+1||d.scrollWidth>
+c+1,g=()=>{var k=Array.from(d.querySelectorAll("th"));return k.length<3||!k.some(h=>(r.defaultView||window).getComputedStyle(h).whiteSpace==="nowrap")?!1:Array.from(d.rows[0]?d.rows[0].cells:[]).some(h=>h.getBoundingClientRect().width<130&&h.innerText.trim().length>20)};if(f()||g())d.querySelectorAll("th").forEach(k=>{k.style.whiteSpace="normal"}),e=!0;f()&&(d.querySelectorAll("td").forEach(k=>{(r.defaultView||window).getComputedStyle(k).whiteSpace==="nowrap"&&k.innerText.trim().length>12&&(k.style.whiteSpace=
+"normal")}),e=!0);f()&&(d.style.width="100%",d.style.tableLayout="fixed",d.querySelectorAll("th, td").forEach(k=>{k.style.overflowWrap="break-word";k.style.wordBreak="break-word"}),e=!0);e&&a++}}return a}async function M(a){r=a||document;await D();a=aa();var b=u();a={pagesBefore:b.length,splits:[],merged:0,tablesFitted:a,unsplittable:0,scheme:null,footersRewritten:0};if(!b.length)return a;b=T(b);a.scheme=b;var c=0;for(let f=0;f<u().length&&c<60;f++){let g=u()[f],k=v(g);if(!k)continue;t(k)&&F(k)<.6&&
+(a.merged+=L(g,f));if(t(k))continue;if(f===u().length-1&&C(g)){a.squeezed=(a.squeezed||0)+1;continue}var d=Z(g);if(d.split){c++;a.splits.push({page:f+1,kind:d.kind});if(d=u()[f+1])a.merged+=L(d,f+1);!t(k)&&C(g)&&(a.squeezed=(a.squeezed||0)+1)}else C(g)?a.squeezed=(a.squeezed||0)+1:a.unsplittable++}var e=u();e.forEach((f,g)=>{g===e.length-1?(f.style.breakAfter="auto",f.style.pageBreakAfter="auto"):(f.style.removeProperty("break-after"),f.style.removeProperty("page-break-after"))});a.pagesAfter=e.length;
+(c||a.merged)&&b&&(a.footersRewritten=U(b));return a}function N(a){for(let b of Array.from(a||[])){if(b.type===CSSRule.MEDIA_RULE){a=b.media.mediaText;let c=a.split(",").map(d=>{d=d.trim();return/^(only\s+)?print\b/i.test(d)?d.replace(/^(only\s+)?print/i,"all"):/^(only\s+)?screen\b/i.test(d)||/^not\s+print\b/i.test(d)?"not all":d}).join(", ");c!==a&&(b.media.mediaText=c)}b.cssRules&&N(b.cssRules)}}function ba(a){for(let b of Array.from(a.styleSheets)){let c;try{c=b.cssRules}catch(d){continue}N(c)}}
+async function ca(a=300,b=2E3){r=document;await D();await new Promise(c=>{function d(){clearTimeout(e);clearTimeout(f);g.disconnect();c()}var e=setTimeout(d,a),f=setTimeout(d,b),g=new MutationObserver(()=>{clearTimeout(e);e=setTimeout(d,a)});g.observe(document.documentElement,{subtree:!0,attributes:!0,attributeFilter:["src","style"]})});await D()}function da(a){r=document;var b=u();if(!b.length)return!1;var c=b[0].parentNode;if(!b.every(f=>f.parentNode===c))return!1;a=Array.from(a.querySelectorAll(".page")).filter(E);
+if(!a.length)return!1;var d=b[b.length-1].nextSibling,e=document.createDocumentFragment();for(let f of a)e.appendChild(document.importNode(f,!0));b.forEach(f=>f.remove());c.insertBefore(e,d);return!0}function ea(a){var b=a.querySelector('style[data-bard-print-reset="true"]');b||(b=a.createElement("style"),b.setAttribute("data-bard-injected","true"),b.setAttribute("data-bard-print-reset","true"),b.textContent=":where(table) { font-size: inherit; line-height: inherit; font-weight: inherit; font-style: inherit; font-variant: inherit; } :where(.page) { width: 210mm; height: 297mm; } @media print { html, body { padding: 0 !important; margin: 0 !important; border: none !important; background: none !important; } .page { margin: 0 !important; border: none !important; break-after: page; page-break-after: always; } .page:last-of-type { break-after: auto !important; page-break-after: auto !important; } }",
+(a.head||a.documentElement).appendChild(b))}function O(a){var b=Array.from(a.querySelectorAll("style")).map(e=>e.textContent||"").join("\n").match(/@page\s*\{[^}]*\bsize\s*:\s*([^;!}]+)/i);if(b){var c=b[1].trim().replace(/\s+/g," "),d=b="";/^(?:a4\s+)?landscape$/i.test(c)?(b="297mm",d="210mm"):/^(?:a4\s+)?portrait$/i.test(c)||/^a4$/i.test(c)?(b="210mm",d="297mm"):/^letter\s+landscape$/i.test(c)?(b="11in",d="8.5in"):/^letter(?:\s+portrait)?$/i.test(c)?(b="8.5in",d="11in"):(c=c.split(" "),c.length===
+2&&/^[\d.]+(mm|cm|in|pt|px)$/i.test(c[0])&&/^[\d.]+(mm|cm|in|pt|px)$/i.test(c[1])&&(b=c[0],d=c[1]));b&&d&&(c=a.querySelector('style[data-bard-page-size-sync="true"]'),c||(c=a.createElement("style"),c.setAttribute("data-bard-injected","true"),c.setAttribute("data-bard-page-size-sync","true"),(a.head||a.documentElement).appendChild(c)),c.textContent=`.page { width: ${b} !important; height: ${d} !important; }`)}}async function fa(){ea(document);O(document);var a=document.createElement("iframe");a.setAttribute("aria-hidden",
+"true");a.setAttribute("tabindex","-1");a.style.cssText="position:fixed;left:-10000px;top:0;width:794px;height:1123px;border:0;visibility:hidden;pointer-events:none;";document.body.appendChild(a);try{let b=null;try{b=a.contentDocument}catch(h){b=null}if(!b){let h=performance.now(),m=await M(document);m.ms=Math.round(performance.now()-h);m.measuredInFrame=!1;m.applied=!!(m.splits.length||m.merged||m.squeezed||m.tablesFitted);return m}let c=document.documentElement.cloneNode(!0);c.querySelectorAll("script").forEach(h=>
+h.remove());c.removeAttribute("data-bard-pagination-done");b.replaceChild(b.adoptNode(c),b.documentElement);let d=Array.from(b.querySelectorAll('link[rel="stylesheet"]'));await Promise.all(d.map(h=>h.sheet?Promise.resolve():new Promise(m=>{h.addEventListener("load",m,{once:!0});h.addEventListener("error",m,{once:!0});setTimeout(m,1500)})));ba(b);O(b);let e=b.querySelector(".page");if(e&&b.defaultView){let h=b.defaultView.getComputedStyle(e),m=Math.round(parseFloat(h.width))||794,l=Math.round(parseFloat(h.height))||
+1123;m>100&&l>100&&(a.style.width=m+"px",a.style.height=l+"px")}let f=performance.now(),g=await M(b);g.ms=Math.round(performance.now()-f);g.measuredInFrame=!0;(g.splits.length||g.merged||g.squeezed||g.tablesFitted)&&da(b)&&(g.applied=!0);r=document;let k=u();k.forEach((h,m)=>{m===k.length-1?(h.style.breakAfter="auto",h.style.pageBreakAfter="auto"):(h.style.removeProperty("break-after"),h.style.removeProperty("page-break-after"))});return g}finally{a.remove(),r=document}}async function P(){var a=document.documentElement;
+try{if(r=document,u().length){await ca();var b=await fa(),c={};for(let e of b.splits)for(let f of e.kind.split("+"))c[f]=(c[f]||0)+1;b.merged&&(c["underflow-merge"]=b.merged);var d={pagesBefore:b.pagesBefore,pagesAfter:b.pagesAfter===void 0?b.pagesBefore:b.pagesAfter,splits:b.splits.length,kinds:c,unsplittable:b.unsplittable,footerScheme:!!b.scheme,footersRewritten:b.footersRewritten,applied:!!b.applied,measuredInFrame:!!b.measuredInFrame,ms:b.ms};window.__bardPagePaginatorReport=d;console.info("[bard-page-paginator]",
+JSON.stringify(d));a.setAttribute("data-bard-pagination-done","1")}else a.setAttribute("data-bard-pagination-done","skipped")}catch(e){console.error("[bard-page-paginator] failed",e),a.setAttribute("data-bard-pagination-done","error")}}if(!window.__bardPagePaginatorStarted){window.__bardPagePaginatorStarted=!0;var r=document,X=/^H[1-6]$/,y="latn arab arabext beng deva fullwide gujr guru khmr knda laoo mlym mymr orya tamldec telu thai tibt hanidec".split(" "),x=new Map;for(let a of y){let b;try{b=
+new Intl.NumberFormat("en-u-nu-"+a,{useGrouping:!1})}catch(c){continue}for(y=0;y<=9;y++){let c=b.format(y);[...c].length!==1||x.has(c)||x.set(c,{nu:a,v:y})}}var S=/^(m{0,3})(cm|cd|d?c{0,3})(xc|xl|l?x{0,3})(ix|iv|v?i{0,3})$/i;document.readyState==="complete"?P():window.addEventListener("load",P,{once:!0})}})();
+</script><script data-bard-injected="true">
+(function() {
+  async function fetchFifeImageBlobUsingAlr(urlString) {
+    if (urlString.startsWith('blob:') || urlString.startsWith('data:')) {
+      throw new Error('Input URL is already a blob or data URL.');
+    }
+    var url = new URL(urlString, window.location.href);
+    url.searchParams.set('alr', 'yes');
+    for (var i = 0; i < 5; i++) {
+      var response = await fetch(url.toString(), {credentials: 'include'});
+      if (!response.ok) {
+        throw new Error('Fetch received not OK response: ' + response.status);
       }
-      animationFrame = requestAnimationFrame(animate);
-    }).catch(error => {
-      console.error("Grade lottery error:", error); status.textContent = "เริ่มสุ่มไม่สำเร็จ กรุณาลองอีกครั้ง";
-      spinning = false; spinBtn.disabled = false;
-      if (animationFrame !== null) { cancelAnimationFrame(animationFrame); animationFrame = null; }
-    });
+      var contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.startsWith('text/plain')) {
+        var blob = await response.blob();
+        if (blob.size > 0 && blob.type.startsWith('image/')) {
+          return blob;
+        }
+        throw new Error('Fetched blob is not a valid image.');
+      }
+      url = new URL(await response.text());
+    }
+    throw new Error('Exceeded maximum number of redirects.');
   }
-  soundBtn.addEventListener("click", async () => {
-    soundEnabled = !soundEnabled;
-    soundBtn.textContent = soundEnabled ? "🔊 ปิดเสียง" : "🔇 เปิดเสียง";
-    soundBtn.setAttribute("aria-pressed", String(soundEnabled));
-    if (soundEnabled) { await prepareAudio(); tick(); }
-  });
-  spinBtn.addEventListener("click", spin);
-  track.replaceChildren(makeSlot(grades[0]));
-  requestAnimationFrame(() => { track.style.transform = `translateX(${centerAt(0)}px)`; });
-  window.addEventListener("resize", () => { if (!spinning) track.style.transform = `translateX(${centerAt(0)}px)`; });
+
+  async function updateImageSourcesUsingAlr() {
+    var imgs = Array.from(document.querySelectorAll('img'));
+    await Promise.all(imgs.map(async function(img) {
+      if (img.src && img.src.includes('googleusercontent')) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(img.src);
+          img.src = URL.createObjectURL(blob);
+        } catch (e) {}
+      }
+    }));
+
+    var elements = document.querySelectorAll('[style*="googleusercontent"]');
+    var urlRegex = /url\((['"]?)(https?:\/\/.*?googleusercontent.*?)\1\)/;
+    await Promise.all(Array.from(elements).map(async function(el) {
+      var bg = el.style.backgroundImage;
+      var match = bg ? bg.match(urlRegex) : null;
+      if (match && match[2]) {
+        try {
+          var blob = await fetchFifeImageBlobUsingAlr(match[2]);
+          var blobUrl = URL.createObjectURL(blob);
+          el.style.backgroundImage = bg.replace(match[2], blobUrl);
+        } catch (e) {}
+      }
+    }));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateImageSourcesUsingAlr);
+  } else {
+    updateImageSourcesUsingAlr();
+  }
 })();
-</script>
-</body>
-</html>
+</script></body></html>
